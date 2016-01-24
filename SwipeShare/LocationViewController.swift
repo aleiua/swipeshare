@@ -13,32 +13,62 @@ import CoreLocation
 
 class LocationViewController: ViewController, CLLocationManagerDelegate {
 
+    // MARK: Properties
+    
+    @IBOutlet weak var latitudeLabel: UILabel!
+    @IBOutlet weak var longitudeLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
     
     var locationManager: CLLocationManager!
+    var currentLocation: CLLocation!
+    
+    
+    @IBAction func getCurrentLocation(sender: AnyObject) {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager = CLLocationManager()
-        locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startMonitoringSignificantLocationChanges()
-        locationManager.startUpdatingLocation()
+
 
         // Do any additional setup after loading the view.
         
     }
     
-    func locationViewController(manager: CLLocationManager!,   didUpdateLocations locations: [AnyObject]!) {
-        mapView.showsUserLocation = (status == .AuthorizedAlways)
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        locationManager.stopUpdatingLocation()
+        print("Error while updating location " + error.localizedDescription)
+
+        
     }
     
+    
+
+    func locationManager(manager:CLLocationManager, didUpdateLocations locations: Array <CLLocation>) {
+        
+        currentLocation = locationManager.location!
+        latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
+        longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
+        print("\(currentLocation.coordinate.latitude)")
+
+        print("\(currentLocation.coordinate.longitude)")
+
+
+    }
+
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
 
     /*
     // MARK: - Navigation
