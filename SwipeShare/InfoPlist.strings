@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  SwipeShare
+
+  Created by A. Lynn on 1/24/16.
+  Copyright © 2016 yaw. All rights reserved.
+*/
+
+
+"NSLocationAlwaysInUseUsageDescription" = "Description of this";
