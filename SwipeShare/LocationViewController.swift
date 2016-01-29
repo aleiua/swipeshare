@@ -11,7 +11,7 @@ import CoreLocation
 
 
 
-class LocationViewController: ViewController, CLLocationManagerDelegate {
+class LocationViewController: ViewController, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     // MARK: Properties
     
@@ -19,7 +19,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate {
     @IBOutlet weak var longitudeLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var headingLabel: UILabel!
-    @IBOutlet weak var imageG: UIImageView!
+//    @IBOutlet weak var imageG: UIImageView!
+    
+    @IBOutlet weak var photoz: UIButton!
+    
     
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
@@ -27,13 +30,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate {
     
     
     
-
-    var firstX:Double = 0;
-    var firstY:Double = 0;
-    
     
     
     @IBAction func getCurrentLocation(sender: AnyObject) {
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
@@ -42,27 +42,42 @@ class LocationViewController: ViewController, CLLocationManagerDelegate {
         
     }
     
-    
-    func initializeGestureRecognizer()
-    {
-        //For PanGesture Recoginzation
-        let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("recognizePanGesture:"))
-        panGesture.minimumNumberOfTouches = 1
-        panGesture.maximumNumberOfTouches = 1
-        imageG.addGestureRecognizer(panGesture)
+    @IBAction func openPhotos(picker: UIImagePickerController){
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
+            print("Button capture")
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
+            imagePicker.allowsEditing = false
+            
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+        
     }
+    
+    
+//    func initializeGestureRecognizer()
+//    {
+//        //For PanGesture Recoginzation
+//        let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("recognizePanGesture:"))
+//        panGesture.minimumNumberOfTouches = 1
+//        panGesture.maximumNumberOfTouches = 1
+//        imageG.addGestureRecognizer(panGesture)
+//    }
     
     /*
     * Performs updating on objects to which the gesture recognizer is added
     *
     */
-    func recognizePanGesture(sender: UIPanGestureRecognizer)
-    {
-        let translate = sender.translationInView(self.view)
-        sender.view!.center = CGPoint(x:sender.view!.center.x + translate.x,
-            y:sender.view!.center.y + translate.y)
-        sender.setTranslation(CGPointZero, inView: self.view)
-        
+//    func recognizePanGesture(sender: UIPanGestureRecognizer)
+//    {
+//        let translate = sender.translationInView(self.view)
+//        sender.view!.center = CGPoint(x:sender.view!.center.x + translate.x,
+//            y:sender.view!.center.y + translate.y)
+//        sender.setTranslation(CGPointZero, inView: self.view)
+    
         // need to store first and last locations of swipe and calculate angle relative to top of screen
         
         
@@ -91,7 +106,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate {
 //                animations: {sender.view!.center = finalPoint },
 //                completion: nil)
 //        }
-    }
+//    }
     
     
     
@@ -100,7 +115,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         locationManager = CLLocationManager()
         locationManager.requestAlwaysAuthorization()
-        self.initializeGestureRecognizer()
+//        self.initializeGestureRecognizer()
         
 
 

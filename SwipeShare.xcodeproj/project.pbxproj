@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		050B634E1C55CA3B0033279B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634D1C55CA3B0033279B /* UIKit.framework */; };
 		050B63501C55D7D70033279B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634F1C55D7D70033279B /* CoreMotion.framework */; };
-		05FA09101C55EC990025A1F6 /* gevorg.grigoryan_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FA090F1C55EC990025A1F6 /* gevorg.grigoryan_0.png */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
 		937E7F341C55672700057D32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937E7F321C55672700057D32 /* Main.storyboard */; };
@@ -43,7 +42,6 @@
 /* Begin PBXFileReference section */
 		050B634D1C55CA3B0033279B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		050B634F1C55D7D70033279B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		05FA090F1C55EC990025A1F6 /* gevorg.grigoryan_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gevorg.grigoryan_0.png; path = ../gevorg.grigoryan_0.png; sourceTree = "<group>"; };
 		937E7F2B1C55672700057D32 /* SwipeShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwipeShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F2E1C55672700057D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		937E7F301C55672700057D32 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 				050B634D1C55CA3B0033279B /* UIKit.framework */,
 				93F422311C5584A8006DEB7E /* CoreLocation.framework */,
 				93F422271C556B82006DEB7E /* MapKit.framework */,
-				05FA090F1C55EC990025A1F6 /* gevorg.grigoryan_0.png */,
 				937E7F2D1C55672700057D32 /* SwipeShare */,
 				937E7F451C55672700057D32 /* SwipeShareTests */,
 				937E7F501C55672700057D32 /* SwipeShareUITests */,
@@ -261,7 +258,6 @@
 			files = (
 				937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */,
 				937E7F391C55672700057D32 /* Assets.xcassets in Resources */,
-				05FA09101C55EC990025A1F6 /* gevorg.grigoryan_0.png in Resources */,
 				937E7F341C55672700057D32 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
