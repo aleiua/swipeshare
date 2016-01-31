@@ -35,12 +35,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 print(error.userInfo.description)
 
             } else {
-                // Hooray! Let them use the app now.
+                performSegueWithIdentifier("infoSubmitted", sender: nil)
             }
         }
         print("User submitted password")
     
-        performSegueWithIdentifier("infoSubmitted", sender: nil)
     }
     
     override func viewDidLoad() {
@@ -54,6 +53,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.view.endEditing(true)
+        if (password.text != "") {
+            submit("test")
+        }
         return false
     }
 
