@@ -26,7 +26,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let user = PFUser()
         user.username = username.text
         user.password = password.text
-        
+    
         
         user.signUpInBackgroundWithBlock {
             (succeeded: Bool, error: NSError?) -> Void in
@@ -39,6 +39,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
         print("User submitted password")
+    
+        performSegueWithIdentifier("infoSubmitted", sender: nil)
     }
     
     override func viewDidLoad() {
