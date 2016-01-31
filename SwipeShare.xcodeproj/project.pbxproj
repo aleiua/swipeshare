@@ -479,7 +479,7 @@
 				);
 				INFOPLIST_FILE = SwipeShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yaw666.SwipeShare;
+				PRODUCT_BUNDLE_IDENTIFIER = yaw1738.SwipeShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -496,7 +496,7 @@
 				);
 				INFOPLIST_FILE = SwipeShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yaw666.SwipeShare;
+				PRODUCT_BUNDLE_IDENTIFIER = yaw1738.SwipeShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
