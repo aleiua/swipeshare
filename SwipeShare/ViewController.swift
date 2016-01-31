@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 print(error.userInfo.description)
 
             } else {
-                performSegueWithIdentifier("infoSubmitted", sender: nil)
+                self.performSegueWithIdentifier("infoSubmitted", sender: nil)
             }
         }
         print("User submitted password")
@@ -46,18 +46,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.username.delegate = self
-        self.password.delegate = self
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
         
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        if (password.text != "") {
-            submit("test")
-        }
-        return false
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
+    
+
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
