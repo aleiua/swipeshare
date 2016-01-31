@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var username: UITextField!
     
@@ -44,6 +44,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        self.username.delegate = self
+        self.password.delegate = self
+        
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 
     override func didReceiveMemoryWarning() {
