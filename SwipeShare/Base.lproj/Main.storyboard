@@ -39,11 +39,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HFA-7R-Iov">
-                                <rect key="frame" x="129" y="336" width="63" height="30"/>
+                                <rect key="frame" x="129" y="162" width="63" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
-                                    <action selector="submit:" destination="Tu0-3k-hV1" eventType="touchUpInside" id="DKx-ee-Yzm"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="pb4-12-6Xq"/>
+                                    <action selector="submit:" destination="Tu0-3k-hV1" eventType="touchUpInside" id="mTv-SC-UIi"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -53,11 +52,12 @@
                     <connections>
                         <outlet property="password" destination="7C4-Ol-UaP" id="kr5-jP-lgm"/>
                         <outlet property="username" destination="v6N-q8-Zep" id="Ur6-Gb-vq3"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="infoSubmitted" id="VL3-Y5-CR8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBg-HR-p05" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-505" y="403"/>
+            <point key="canvasLocation" x="-509" y="338"/>
         </scene>
         <!--Location View Controller-->
         <scene sceneID="tne-QT-ifu">
