@@ -11,6 +11,8 @@ import Parse
 
 class ViewController: UIViewController {
 
+    @IBAction func MapButton(sender: AnyObject) {
+    }
     @IBOutlet weak var username: UITextField!
     
     @IBOutlet weak var password: UITextField!
