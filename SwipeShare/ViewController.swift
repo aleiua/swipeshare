@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var password: UITextField!
     
-    let alert = UIAlertController()
+    let alert = UIAlertController(title: "Error", message: "Message", preferredStyle: .Alert)
     
     
     @IBAction func submit(sender: AnyObject) {
@@ -36,21 +36,32 @@ class ViewController: UIViewController, UITextFieldDelegate {
             (succeeded: Bool, error: NSError?) -> Void in
             
             if let error = error {
+                
                 // Display an alert view to show the error message
-                self.alert.title = error.userInfo.debugDescription
-                let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                if (error.code == 202) {
+                    self.alert.title = "Username alredy in use"
+                    self.alert.message = "Please choose a new username"
+                }
+                
+                // Incase we simply want to pipe the exact error message to the title, use the following line
+                //self.alert.title = error.userInfo.debugDescription
+                
+                
+                let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
                 self.alert.addAction(defaultAction)
                 
                 
                 self.presentViewController(self.alert, animated: true, completion: nil)
                 
-                // Bring the keyboard back up, because they probably need to change something.
-                self.username.becomeFirstResponder()
-                self.username.text = "";
-                self.password.text = "";
-                return;
+                
+                
+//                // Bring the keyboard back up, because they probably need to change something.
+//                self.username.becomeFirstResponder()
+//                self.username.text = "";
+//                self.password.text = "";
 
             } else {
+                // Move on to next interface
                 self.performSegueWithIdentifier("infoSubmitted", sender: nil)
             }
         }
