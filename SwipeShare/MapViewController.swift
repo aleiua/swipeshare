@@ -16,20 +16,34 @@ class MapViewController: ViewController, CLLocationManagerDelegate, MKMapViewDel
     @IBOutlet weak var MapView: MKMapView!
     
     let locationManager = CLLocationManager()
-//    
-//    func getLocs() -> NSArray {
-//        let user = PFUser.currentUser()
-//        // User's location
-//        let userGeoPoint = user!["location"] as! PFGeoPoint
-//        // Create a query for places
-//        let query = PFQuery(className:"PlaceObject")
-//        // Interested in locations near user.
-//        query.whereKey("location", nearGeoPoint:userGeoPoint)
-//        // Limit what could be a lot of points.
-//        query.limit = 10
-//        // Final list of objects
-//        return query.findObjects()
-//    }
+    
+    func getLocations() {
+        var annotations:Array = [UserPoint]()
+        
+        let user = PFUser.currentUser()
+        let userGeoPoint = user!["location"] as! PFGeoPoint
+        let query = PFUser.query()
+        
+        query!.whereKey("location", nearGeoPoint:userGeoPoint)
+        query!.findObjectsInBackgroundWithBlock {
+            (nearbies: [PFObject]?, error: NSError?) -> Void in
+            if error == nil {
+                print("Successfully retrieved \(nearbies!.count) nearby users.")
+                
+                for object in nearbies! {
+                    if object.objectId != user?.objectId {
+                        let lat = object.objectForKey("location")!.latitude as Double
+                        let long = object.objectForKey("location")!.longitude as Double
+                        let annotation = UserPoint(latitude: lat, longitude: long)
+                        annotation.title = object.objectForKey("username") as? String;
+                        annotations.append(annotation)
+                    }
+                }
+//                print(annotations)
+                self.MapView.addAnnotations(annotations)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +54,7 @@ class MapViewController: ViewController, CLLocationManagerDelegate, MKMapViewDel
         self.locationManager.startUpdatingHeading()
         self.MapView.showsUserLocation = true
         self.MapView.setUserTrackingMode(MKUserTrackingMode.FollowWithHeading, animated: true)
+        getLocations()
         
         
     }
