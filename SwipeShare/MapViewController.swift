@@ -16,6 +16,20 @@ class MapViewController: ViewController, CLLocationManagerDelegate, MKMapViewDel
     @IBOutlet weak var MapView: MKMapView!
     
     let locationManager = CLLocationManager()
+//    
+//    func getLocs() -> NSArray {
+//        let user = PFUser.currentUser()
+//        // User's location
+//        let userGeoPoint = user!["location"] as! PFGeoPoint
+//        // Create a query for places
+//        let query = PFQuery(className:"PlaceObject")
+//        // Interested in locations near user.
+//        query.whereKey("location", nearGeoPoint:userGeoPoint)
+//        // Limit what could be a lot of points.
+//        query.limit = 10
+//        // Final list of objects
+//        return query.findObjects()
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +40,7 @@ class MapViewController: ViewController, CLLocationManagerDelegate, MKMapViewDel
         self.locationManager.startUpdatingHeading()
         self.MapView.showsUserLocation = true
         self.MapView.setUserTrackingMode(MKUserTrackingMode.FollowWithHeading, animated: true)
+        
         
     }
     override func didReceiveMemoryWarning() {

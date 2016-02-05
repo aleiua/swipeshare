@@ -20,6 +20,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBOutlet weak var longitudeLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var headingLabel: UILabel!
+    @IBOutlet weak var nearbyLabel: UILabel!
     
     // Swipeable image
 //    @IBOutlet weak var image: UIImageView!
@@ -96,6 +97,64 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             print("Object has been saved.")
         }
+        
+        PFGeoPoint.geoPointForCurrentLocationInBackground {
+            (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+            if error == nil {
+                let user = PFUser.currentUser()
+                user!["location"] = geoPoint
+                user!.saveInBackgroundWithBlock {
+                    (success: Bool, error: NSError?) -> Void in
+                    if (success) {
+                        // The object has been saved.
+                        print("Location has been saved.")
+                        print(user)
+                        
+                        let userGeoPoint = user!["location"] as! PFGeoPoint
+                        let query = PFUser.query()
+                        query!.whereKey("location", nearGeoPoint:userGeoPoint)
+                        query!.findObjectsInBackgroundWithBlock {
+                            (nearbies: [PFObject]?, error: NSError?) -> Void in
+                            if error == nil {
+                                 print("Successfully retrieved \(nearbies!.count) nearby users.")
+                                var nearbyText = ""
+                                for object in nearbies! {
+                                    if object.objectId != user?.objectId {
+                                        let name = object.objectForKey("username") as! String;
+                                        if nearbyText.isEmpty {
+                                            nearbyText = name
+                                        } else {
+                                            nearbyText += ", \(name)"
+                                        }
+                                    }
+//                                    print(object)
+                                }
+                                self.nearbyLabel.text = nearbyText
+                            }
+                        }
+                        
+//                        let userGeoPoint = user!["location"] as! PFGeoPoint
+//                        let query = PFUser.query()
+//                        query!.whereKey("location", nearGeoPoint:userGeoPoint)
+//                        query!.limit = 10
+//                        let nearbies = query!.findObjects()
+//                            for object in nearbies {
+//                                print(object)
+//                            }
+//                        self.nearbyLabel.text = "\(nearbies[0].username)"
+                        
+                    } else {
+                        print("Location has NOT been saved.")
+                        // There was a problem, check error.description
+                    }
+                }
+                
+            }
+            else {
+                print("Could not get location in parse")
+            }
+        }
+        
     }
     
 
