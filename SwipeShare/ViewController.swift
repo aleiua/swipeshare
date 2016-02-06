@@ -31,6 +31,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         user.username = username.text
         user.password = password.text
         
+        
         user.signUpInBackgroundWithBlock {
             (succeeded: Bool, error: NSError?) -> Void in
             
@@ -44,7 +45,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 
                 // Incase we simply want to pipe the exact error message to the title, use the following line
                 //self.alert.title = error.userInfo.debugDescription
-                
                 
                 let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
                 self.alert.addAction(defaultAction)
