@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SignupViewController.swift
 //  SwipeShare
 //
 //  Created by A. Lynn on 1/24/16.
