@@ -20,6 +20,7 @@
 		05FA09221C5E8D3B0025A1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */; };
 		05FA09241C5E8D440025A1F6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09231C5E8D440025A1F6 /* libz.tbd */; };
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
+		5E22D4281C6463A100DCF373 /* UserPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22D4271C6463A100DCF373 /* UserPoint.swift */; };
 		5EADF1021C5EB87600997A1B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EADF1011C5EB87600997A1B /* MapViewController.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
@@ -65,6 +66,7 @@
 		05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05FA09231C5E8D440025A1F6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		5E22D4271C6463A100DCF373 /* UserPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPoint.swift; sourceTree = "<group>"; };
 		5EADF1011C5EB87600997A1B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		937E7F2B1C55672700057D32 /* SwipeShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwipeShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F2E1C55672700057D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				937E7F301C55672700057D32 /* ViewController.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
 				5EADF1011C5EB87600997A1B /* MapViewController.swift */,
+				5E22D4271C6463A100DCF373 /* UserPoint.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
 				937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */,
@@ -261,7 +264,7 @@
 				TargetAttributes = {
 					937E7F2A1C55672700057D32 = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = H2XLU6XFFF;
+						DevelopmentTeam = 9P8P6X93MV;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -335,6 +338,7 @@
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				5EADF1021C5EB87600997A1B /* MapViewController.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
+				5E22D4281C6463A100DCF373 /* UserPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,7 +487,7 @@
 				);
 				INFOPLIST_FILE = SwipeShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yaw666.SwipeShare;
+				PRODUCT_BUNDLE_IDENTIFIER = yaw1738.SwipeShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -500,7 +504,7 @@
 				);
 				INFOPLIST_FILE = SwipeShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yaw666.SwipeShare;
+				PRODUCT_BUNDLE_IDENTIFIER = yaw1738.SwipeShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
