@@ -33,6 +33,9 @@
 		93F422281C556B82006DEB7E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F422271C556B82006DEB7E /* MapKit.framework */; };
 		93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4222D1C5575B1006DEB7E /* LocationViewController.swift */; };
 		93F422321C5584A8006DEB7E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F422311C5584A8006DEB7E /* CoreLocation.framework */; };
+		93FA3F221C66A8C000BB3791 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FA3F211C66A8C000BB3791 /* LoginViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		93FA3F261C66A8D600BB3791 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FA3F251C66A8D600BB3791 /* SignUpViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,9 @@
 		93F422271C556B82006DEB7E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		93F4222D1C5575B1006DEB7E /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		93F422311C5584A8006DEB7E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		93FA3F211C66A8C000BB3791 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		93FA3F251C66A8D600BB3791 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +173,9 @@
 			children = (
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,
 				937E7F301C55672700057D32 /* ViewController.swift */,
+				93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */,
+				93FA3F251C66A8D600BB3791 /* SignUpViewController.swift */,
+				93FA3F211C66A8C000BB3791 /* LoginViewController.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
 				5EADF1011C5EB87600997A1B /* MapViewController.swift */,
 				5E22D4271C6463A100DCF373 /* UserPoint.swift */,
@@ -333,10 +342,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93FA3F221C66A8C000BB3791 /* LoginViewController.swift in Sources */,
 				937E7F371C55672700057D32 /* SwipeShare.xcdatamodeld in Sources */,
 				937E7F311C55672700057D32 /* ViewController.swift in Sources */,
+				93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				5EADF1021C5EB87600997A1B /* MapViewController.swift in Sources */,
+				93FA3F261C66A8D600BB3791 /* SignUpViewController.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				5E22D4281C6463A100DCF373 /* UserPoint.swift in Sources */,
 			);
