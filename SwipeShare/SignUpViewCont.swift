@@ -1,5 +1,5 @@
 //
-//  SignupViewController.swift
+//  SignupViewCont.swift
 //  SwipeShare
 //
 //  Created by A. Lynn on 2/3/16.
@@ -9,8 +9,8 @@
 import UIKit
 import Parse
 
-class SignupViewController: UIViewController {
-
+class SignUpViewCont: UIViewController {
+    
     @IBOutlet weak var username: UITextField!
     
     @IBOutlet weak var password: UITextField!
@@ -34,19 +34,19 @@ class SignupViewController: UIViewController {
                 
                 // Display an alert view to show the error message
                 if (error.code == 202) {
-//                    self.alert.title = "Username alredy in use"
-//                    self.alert.message = "Please choose a new username"
+                    //                    self.alert.title = "Username alredy in use"
+                    //                    self.alert.message = "Please choose a new username"
                 }
                 
                 // Incase we simply want to pipe the exact error message to the title, use the following line
                 //self.alert.title = error.userInfo.debugDescription
                 
                 
-//                let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-//                self.alert.addAction(defaultAction)
+                //                let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                //                self.alert.addAction(defaultAction)
                 
                 
-//                self.presentViewController(self.alert, animated: true, completion: nil)
+                //                self.presentViewController(self.alert, animated: true, completion: nil)
                 
                 
                 
@@ -63,7 +63,7 @@ class SignupViewController: UIViewController {
         print("User submitted password")
         
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,5 +92,5 @@ class SignupViewController: UIViewController {
     // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
