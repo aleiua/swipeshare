@@ -50,6 +50,12 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
     }
     
+    @IBAction func logout() {
+        print(PFUser.currentUser())
+        PFUser.logOut()
+    }
+    
+    
     @IBAction func openPhotos(){
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
