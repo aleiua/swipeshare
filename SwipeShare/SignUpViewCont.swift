@@ -62,6 +62,18 @@ class SignUpViewCont: UIViewController {
         }
         print("User submitted password")
         
+        
+        PFUser.logInWithUsernameInBackground(user.username!, password: user.password!, block: { (user, error) -> Void in
+            
+            if (user != nil) {
+                print("successful login")
+                print(user!.username)
+            } else {
+                print("login error")
+            }
+            
+        })
+        
     }
     
     

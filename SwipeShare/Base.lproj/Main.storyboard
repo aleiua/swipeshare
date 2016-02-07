@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GBb-Vh-dq0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tu0-3k-hV1">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Test Login View Controller-->
@@ -105,6 +105,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginAction:" destination="Tu0-3k-hV1" eventType="touchUpInside" id="zqs-J4-0Ji"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" id="EjX-aE-6dp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKS-hR-pV5">
@@ -128,7 +129,6 @@
                     <connections>
                         <outlet property="passwordField" destination="7C4-Ol-UaP" id="8gC-wm-xMu"/>
                         <outlet property="usernameField" destination="7C4-Ol-UaP" id="hfJ-U9-bmt"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="infoSubmitted" id="VL3-Y5-CR8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBg-HR-p05" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -170,6 +170,7 @@
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <action selector="submit:" destination="fFi-44-xV3" eventType="touchUpInside" id="7AX-lh-SCR"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" id="nSj-g6-lp3"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lrm-g8-3VS">
@@ -405,6 +406,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="MTH-cK-5bW"/>
+        <segue reference="nSj-g6-lp3"/>
     </inferredMetricsTieBreakers>
 </document>

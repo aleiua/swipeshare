@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
             
             if (user != nil) {
                 print("successful login")
+                print(username)
             } else {
                 print("login error")
             }
