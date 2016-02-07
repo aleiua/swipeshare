@@ -95,17 +95,23 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         
         let user = PFUser.currentUser()
-        let location = PFObject(className:"Location")
+        let l = PFObject(className:"Location")
         
        
-        location["latitude"] = Double()
-        location["longitude"] = Double()
-        location["user"] = user
+        l["latitude"] = Double()
+        l["longitude"] = Double()
+        l["user"] = user
             
-        userObjectId = location.objectId!
-            
-        location.saveInBackground()
-            
+        //print(userObjectId)
+        
+        l.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                self.userObjectId = l.objectId!
+                print(self.userObjectId)
+            }
+        }
+
+        
         
         
         
