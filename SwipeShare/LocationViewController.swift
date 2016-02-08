@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import Parse
+import Foundation
 
 
 
@@ -29,6 +30,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     // Button for accessing photos
     @IBOutlet weak var photoz: UIButton!
     
+    
+    let earthRadius = 6378.137
+    // distance of search in km
+    let searchDistance = 0.1
     
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
@@ -53,6 +58,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBAction func logout() {
         print(PFUser.currentUser())
         PFUser.logOut()
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+            self.presentViewController(viewController, animated: true, completion: nil)
+        })
     }
     
     
@@ -106,8 +116,13 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
        
         l["latitude"] = Double()
         l["longitude"] = Double()
-        l["user"] = user
-            
+        if user == nil {
+        l["user"] = NSNull()
+        }
+        else {
+            l["user"] = user
+        }
+        
         //print(userObjectId)
         
         l.saveInBackgroundWithBlock { (success, error) -> Void in
@@ -199,6 +214,36 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         locationManager.stopUpdatingLocation()
         print("Error while updating location " + error.localizedDescription)
     }
+    
+    
+    /*
+    * Compute longitude at given distance away with same latitude
+    */
+    func maxLongitude(distance:Double, userLatitude:Double, userLongitude:Double) -> Double {
+        // Convert degrees to radians
+        let radLatitude = userLatitude * (M_PI/180)
+        let radLongitude = userLongitude * (M_PI/180)
+        
+        let a = distance/(2*earthRadius)
+        
+        return (2 * asin(sqrt((sin(a)*sin(a))/(cos(radLatitude)*cos(radLatitude)))) + radLongitude)/(M_PI/180)
+    }
+    
+    
+    /*
+    * Compute latitude at given distance away with same longitude
+    */
+    func maxLatitude(distance:Double, userLatitude:Double, userLongitude:Double) -> Double {
+        
+        // Convert degrees to radians
+        let radLatitude = userLatitude * (M_PI/180)
+        
+        let a = distance/(2*earthRadius)
+        
+        return (2 * asin(sqrt((sin(a)*sin(a)))) + radLatitude)/(M_PI/180)
+    }
+    
+    
     
     
 

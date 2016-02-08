@@ -66,7 +66,7 @@
         <!--Login View Controller-->
         <scene sceneID="3fY-O8-kA1">
             <objects>
-                <viewController id="Tu0-3k-hV1" customClass="LoginViewController" customModule="SwipeShare" customModuleProvider="target" colorLabel="IBBuiltInLabel-Red" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="Tu0-3k-hV1" customClass="LoginViewController" customModule="SwipeShare" customModuleProvider="target" colorLabel="IBBuiltInLabel-Red" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZTN-hZ-edb"/>
                         <viewControllerLayoutGuide type="bottom" id="Tpu-gF-HIM"/>
@@ -105,7 +105,6 @@
                                 </state>
                                 <connections>
                                     <action selector="loginAction:" destination="Tu0-3k-hV1" eventType="touchUpInside" id="zqs-J4-0Ji"/>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" id="EjX-aE-6dp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKS-hR-pV5">
@@ -253,10 +252,10 @@
             </objects>
             <point key="canvasLocation" x="-110" y="1071"/>
         </scene>
-        <!--Location View Controller-->
+        <!--LocationViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LocationViewController" customModule="SwipeShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationViewController" title="LocationViewController" id="BYZ-38-t0r" customClass="LocationViewController" customModule="SwipeShare" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
