@@ -59,18 +59,22 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         
         // Clean up user location information when they log out
-        let query = PFQuery(className:"Location")
-        query.getObjectInBackgroundWithId(userObjectId) {
-            
-            (location : PFObject?, error: NSError?) -> Void in
-            if error != nil {
-                print(error)
-            } else if let location = location {
-                print("deleting shit")
-                location.deleteInBackground()
-            }
-        }
+        let user = PFUser.currentUser()
+        user!["location"].deleteInBackground()
         
+        
+//        let query = PFQuery(className:"Location")
+//        query.getObjectInBackgroundWithId(userObjectId) {
+//            
+//            (location : PFObject?, error: NSError?) -> Void in
+//            if error != nil {
+//                print(error)
+//            } else if let location = location {
+//                print("deleting shit")
+//                location.deleteInBackground()
+//            }
+//        }
+//        
         // Log em out
         PFUser.logOut()
         
@@ -129,29 +133,42 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         
         let user = PFUser.currentUser()
-        usernameLabel.text = user?.username
+        user!["location"] = PFGeoPoint()
         
-        let l = PFObject(className:"Location")
-        
-       
-        
-        l["latitude"] = Double()
-        l["longitude"] = Double()
-        if user == nil {
-        l["user"] = NSNull()
-        }
-        else {
-            l["user"] = user
-        }
-        
-        //print(userObjectId)
-        
-        l.saveInBackgroundWithBlock { (success, error) -> Void in
-            if success {
-                self.userObjectId = l.objectId!
-                print(self.userObjectId)
+        user!.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                print("Location has been saved.")
+                print(user)
+            }
+            else {
+                print("Location was not saved!")
             }
         }
+    }
+//
+//        usernameLabel.text = user?.username
+//        
+//        let l = PFObject(className:"Location")
+//        
+//        l["latitude"] = Double()
+//        l["longitude"] = Double()
+//        if user == nil {
+//        l["user"] = NSNull()
+//        }
+//        else {
+//            l["user"] = user
+//        }
+//        
+//        //print(userObjectId)
+//        
+//        l.saveInBackgroundWithBlock { (success, error) -> Void in
+//            if success {
+//                self.userObjectId = l.objectId!
+//                print(self.userObjectId)
+//            }
+//        }
 
         
         
@@ -159,10 +176,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         
         
-//        // To enable swiping:
-////        self.initializeGestureRecognizer()
-//        
-//        // Testing Parse
+        // To enable swiping:
+//        self.initializeGestureRecognizer()
+        
+        // Testing Parse
 //        let testObject = PFObject(className: "TestObject")
 //        testObject["foo"] = "bar"
 //        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
@@ -180,7 +197,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
 //                        // The object has been saved.
 //                        print("Location has been saved.")
 //                        print(user)
-//                        
+            
 //                        let userGeoPoint = user!["location"] as! PFGeoPoint
 //                        let query = PFUser.query()
 //                        query!.whereKey("location", nearGeoPoint:userGeoPoint)
@@ -204,16 +221,16 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
 //                            }
 //                        }
 //                        
-////                        let userGeoPoint = user!["location"] as! PFGeoPoint
-////                        let query = PFUser.query()
-////                        query!.whereKey("location", nearGeoPoint:userGeoPoint)
-////                        query!.limit = 10
-////                        let nearbies = query!.findObjects()
-////                            for object in nearbies {
-////                                print(object)
-////                            }
-////                        self.nearbyLabel.text = "\(nearbies[0].username)"
-//                        
+//                        let userGeoPoint = user!["location"] as! PFGeoPoint
+//                        let query = PFUser.query()
+//                        query!.whereKey("location", nearGeoPoint:userGeoPoint)
+//                        query!.limit = 10
+//                        let nearbies = query!.findObjects()
+//                            for object in nearbies {
+//                                print(object)
+//                            }
+//                        self.nearbyLabel.text = "\(nearbies[0].username)"
+//                    
 //                    } else {
 //                        print("Location has NOT been saved.")
 //                        // There was a problem, check error.description
@@ -225,8 +242,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
 //                print("Could not get location in parse")
 //            }
 //        }
-        
-    }
+//        
+//    }
     
 
     
@@ -249,26 +266,31 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
         longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
         
-        let query = PFQuery(className:"Location")
+        let user = PFUser.currentUser()! as PFUser
+        
+        let location = user["location"]! as! PFGeoPoint
+        location.latitude = self.currentLocation.coordinate.latitude
+        location.longitude = self.currentLocation.coordinate.longitude
+        
+        user.saveInBackground()
         
         
-        query.getObjectInBackgroundWithId(userObjectId) {
-            
-            (location : PFObject?, error: NSError?) -> Void in
-            if error != nil {
-                print(error)
-            } else if let location = location {
-                location["latitude"] = self.currentLocation.coordinate.latitude
-                location["longitude"] = self.currentLocation.coordinate.longitude
-                location.saveInBackground()
-            }
-        }
+        //let query = PFQuery(className:"Location")
+        
+        
+//        query.getObjectInBackgroundWithId(userObjectId) {
+//            
+//            (location : PFObject?, error: NSError?) -> Void in
+//            if error != nil {
+//                print(error)
+//            } else if let location = location {
+//                location["latitude"] = self.currentLocation.coordinate.latitude
+//                location["longitude"] = self.currentLocation.coordinate.longitude
+//                location.saveInBackground()
+//            }
+//        }
 
         
-        
-        
-//        print("\(currentLocation.coordinate.latitude)")
-//        print("\(currentLocation.coordinate.longitude)")
     }
     
     
