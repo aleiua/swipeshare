@@ -31,9 +31,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBOutlet weak var photoz: UIButton!
     
     
-    let earthRadius = 6378.137
-    // distance of search in km
-    let searchDistance = 0.1
+
     
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
