@@ -215,36 +215,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         print("Error while updating location " + error.localizedDescription)
     }
     
-    
-    /*
-    * Compute longitude at given distance away with same latitude
-    */
-    func maxLongitude(distance:Double, userLatitude:Double, userLongitude:Double) -> Double {
-        // Convert degrees to radians
-        let radLatitude = userLatitude * (M_PI/180)
-        let radLongitude = userLongitude * (M_PI/180)
-        
-        let a = distance/(2*earthRadius)
-        
-        return (2 * asin(sqrt((sin(a)*sin(a))/(cos(radLatitude)*cos(radLatitude)))) + radLongitude)/(M_PI/180)
-    }
-    
-    
-    /*
-    * Compute latitude at given distance away with same longitude
-    */
-    func maxLatitude(distance:Double, userLatitude:Double, userLongitude:Double) -> Double {
-        
-        // Convert degrees to radians
-        let radLatitude = userLatitude * (M_PI/180)
-        
-        let a = distance/(2*earthRadius)
-        
-        return (2 * asin(sqrt((sin(a)*sin(a)))) + radLatitude)/(M_PI/180)
-    }
-    
-    
-    
+
     
 
     /*
