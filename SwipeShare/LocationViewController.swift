@@ -129,7 +129,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         locationManager.requestAlwaysAuthorization()
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.distanceFilter = 5
+        // locationManager.distanceFilter = 5
         
         
         let user = PFUser.currentUser()
@@ -259,8 +259,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     /*
     * Update longitude/latitude locations
     */
-    func locationManager(manager:CLLocationManager, didUpdateLocations locations: Array <CLLocation>) {
+    func locationManager(manager:CLLocationManager, didUpdateLocations locations: Array <CLLocation>) throws {
         
+        print("In Update")
         currentLocation = locationManager.location!
         
         latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
@@ -269,10 +270,12 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         let user = PFUser.currentUser()! as PFUser
         
         let location = user["location"]! as! PFGeoPoint
+        print(location.latitude)
         location.latitude = self.currentLocation.coordinate.latitude
         location.longitude = self.currentLocation.coordinate.longitude
+        print(location.latitude)
         
-        user.saveInBackground()
+        try user.save()
         
         
         //let query = PFQuery(className:"Location")
