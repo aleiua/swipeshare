@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tu0-3k-hV1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tu0-3k-hV1">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Test Login View Controller-->
@@ -169,7 +169,6 @@
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <action selector="submit:" destination="fFi-44-xV3" eventType="touchUpInside" id="7AX-lh-SCR"/>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" id="nSj-g6-lp3"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lrm-g8-3VS">
@@ -189,8 +188,8 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="password" destination="Zcd-LH-EQH" id="cgR-SJ-X9p"/>
-                        <outlet property="username" destination="dy9-8n-qRw" id="07B-el-GrT"/>
+                        <outlet property="passwordField" destination="Zcd-LH-EQH" id="yuV-Df-LjS"/>
+                        <outlet property="usernameField" destination="dy9-8n-qRw" id="Sih-2B-r2N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I4Z-5b-u7w" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -338,6 +337,12 @@
                                     <segue destination="Tu0-3k-hV1" kind="show" id="ImI-mB-FqZ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Io5-hX-iou">
+                                <rect key="frame" x="27" y="20" width="76" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.99159159339630587" green="1" blue="0.96909158622102409" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.31341638378628611" green="0.49561332507590039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -351,6 +356,7 @@
                         <outlet property="longitudeLabel" destination="cYV-xY-bTi" id="3eK-kx-whD"/>
                         <outlet property="nearbyLabel" destination="nt1-9D-5XZ" id="57N-j6-UII"/>
                         <outlet property="photoz" destination="pdP-Zv-t4l" id="Q5h-zv-EdW"/>
+                        <outlet property="usernameLabel" destination="Io5-hX-iou" id="6nH-CH-VcR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -360,7 +366,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-79" y="328"/>
+            <point key="canvasLocation" x="-88" y="343"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="F7t-ox-BFk">
@@ -413,6 +419,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nSj-g6-lp3"/>
+        <segue reference="MTH-cK-5bW"/>
     </inferredMetricsTieBreakers>
 </document>

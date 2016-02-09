@@ -23,6 +23,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBOutlet weak var headingLabel: UILabel!
     @IBOutlet weak var nearbyLabel: UILabel!
     
+    @IBOutlet weak var usernameLabel: UILabel!
     // Swipeable image
 //    @IBOutlet weak var image: UIImageView!
     
@@ -109,9 +110,12 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         
         let user = PFUser.currentUser()
+        usernameLabel.text = user?.username
+        
         let l = PFObject(className:"Location")
         
        
+        
         l["latitude"] = Double()
         l["longitude"] = Double()
         if user == nil {
