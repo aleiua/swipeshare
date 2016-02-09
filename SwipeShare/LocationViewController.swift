@@ -31,14 +31,15 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     // Button for accessing photos
     @IBOutlet weak var photoz: UIButton!
     
-    
 
-    
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
     var currentHeading: CLHeading!
     
     var userObjectId = String()
+    
+    
+
     
     
     
@@ -55,9 +56,26 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
     
     @IBAction func logout() {
-        print(PFUser.currentUser())
+        
+        
+        // Clean up user location information when they log out
+        let query = PFQuery(className:"Location")
+        query.getObjectInBackgroundWithId(userObjectId) {
+            
+            (location : PFObject?, error: NSError?) -> Void in
+            if error != nil {
+                print(error)
+            } else if let location = location {
+                print("deleting shit")
+                location.deleteInBackground()
+            }
+        }
+        
+        // Log em out
         PFUser.logOut()
         
+
+        // Send back to login screen
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
             self.presentViewController(viewController, animated: true, completion: nil)
@@ -101,6 +119,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     
     override func viewDidLoad()  {
+        
         super.viewDidLoad()
         locationManager = CLLocationManager()
         locationManager.requestAlwaysAuthorization()
@@ -226,13 +245,12 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     func locationManager(manager:CLLocationManager, didUpdateLocations locations: Array <CLLocation>) {
         
         currentLocation = locationManager.location!
-
-        
         
         latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
         longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
         
         let query = PFQuery(className:"Location")
+        
         
         query.getObjectInBackgroundWithId(userObjectId) {
             
