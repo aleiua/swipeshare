@@ -272,7 +272,16 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         location.latitude = self.currentLocation.coordinate.latitude
         location.longitude = self.currentLocation.coordinate.longitude
         
-        user.saveInBackground()
+        user.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                print("The object has been saved.")
+                print(user)
+                print(location)
+            } else {
+                print("There was a problem, check error.description")
+            }
+        }
         
         
         //let query = PFQuery(className:"Location")
