@@ -121,10 +121,12 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                                 for object in nearbies! {
                                     if object.objectId != user?.objectId {
                                         let name = object.objectForKey("username") as! String;
+                                        let objLoc = object.objectForKey("location") as! PFGeoPoint
+                                        let placeDistance = round(objLoc.distanceInMilesTo(userGeoPoint)*5280)
                                         if nearbyText.isEmpty {
-                                            nearbyText = name
+                                            nearbyText = "\(name), \(placeDistance) ft"
                                         } else {
-                                            nearbyText += ", \(name)"
+                                            nearbyText += "\n \(name), \(placeDistance) ft"
                                         }
                                     }
 //                                    print(object)
