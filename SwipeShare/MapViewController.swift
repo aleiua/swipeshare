@@ -24,7 +24,7 @@ class MapViewController: ViewController, CLLocationManagerDelegate, MKMapViewDel
         let userGeoPoint = user!["location"] as! PFGeoPoint
         let query = PFUser.query()
         
-        query!.whereKey("location", nearGeoPoint:userGeoPoint)
+        query!.whereKey("location", nearGeoPoint:userGeoPoint, withinMiles: 0.1)
         query!.findObjectsInBackgroundWithBlock {
             (nearbies: [PFObject]?, error: NSError?) -> Void in
             if error == nil {
