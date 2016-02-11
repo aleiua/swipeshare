@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		050B634E1C55CA3B0033279B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634D1C55CA3B0033279B /* UIKit.framework */; };
 		050B63501C55D7D70033279B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634F1C55D7D70033279B /* CoreMotion.framework */; };
+		0527E32B1C6C07C4006B5D34 /* 32-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 0527E32A1C6C07C4006B5D34 /* 32-128.png */; };
 		055246B51C67EAA20013A568 /* TestLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055246B41C67EAA20013A568 /* TestLoginViewController.swift */; };
 		05FA09121C5E8A6C0025A1F6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09111C5E8A6C0025A1F6 /* Parse.framework */; };
 		05FA09141C5E8AAF0025A1F6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09131C5E8AAF0025A1F6 /* Bolts.framework */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		050B634D1C55CA3B0033279B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		050B634F1C55D7D70033279B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		0527E32A1C6C07C4006B5D34 /* 32-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "32-128.png"; sourceTree = "<group>"; };
 		055246B41C67EAA20013A568 /* TestLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestLoginViewController.swift; sourceTree = "<group>"; };
 		05FA09111C5E8A6C0025A1F6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		05FA09131C5E8AAF0025A1F6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				5E22D4271C6463A100DCF373 /* UserPoint.swift */,
 				055246B41C67EAA20013A568 /* TestLoginViewController.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
+				0527E32A1C6C07C4006B5D34 /* 32-128.png */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
 				937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */,
 				937E7F3D1C55672700057D32 /* Info.plist */,
@@ -320,6 +323,7 @@
 			files = (
 				937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */,
 				937E7F391C55672700057D32 /* Assets.xcassets in Resources */,
+				0527E32B1C6C07C4006B5D34 /* 32-128.png in Resources */,
 				937E7F341C55672700057D32 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
