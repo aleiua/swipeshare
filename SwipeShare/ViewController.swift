@@ -1,5 +1,5 @@
 //
-//  SignupViewController.swift
+//  ViewController.swift
 //  SwipeShare
 //
 //  Created by A. Lynn on 1/24/16.
@@ -13,7 +13,50 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func MapButton(sender: AnyObject) {
     }
+    @IBOutlet weak var username: UITextField!
+    
+    @IBOutlet weak var password: UITextField!
+    
+    let alert = UIAlertController()
+    
+    
+    @IBAction func submit(sender: AnyObject) {
+        if (username.text == "" || password.text == "")
+        {
+            print("NOTHING ENTERED")
+            return
+        }
 
+        let user = PFUser()
+        user.username = username.text
+        user.password = password.text
+        
+
+        user.signUpInBackgroundWithBlock {
+            (succeeded: Bool, error: NSError?) -> Void in
+            
+            if let error = error {
+                // Display an alert view to show the error message
+                self.alert.title = error.userInfo.debugDescription
+                let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                self.alert.addAction(defaultAction)
+                
+                
+                self.presentViewController(self.alert, animated: true, completion: nil)
+                
+                // Bring the keyboard back up, because they probably need to change something.
+                self.username.becomeFirstResponder()
+                self.username.text = "";
+                self.password.text = "";
+                return;
+
+            } else {
+                self.performSegueWithIdentifier("infoSubmitted", sender: nil)
+            }
+        }
+        print("User submitted password")
+    
+    }
     
     
     override func viewDidLoad() {
