@@ -131,44 +131,52 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         // locationManager.distanceFilter = 5
         
+        print("HERE 1")
+        
         
         let user = PFUser.currentUser()
-        user!["location"] = PFGeoPoint()
+//        user!["location"] = PFGeoPoint()
         
-        user!.saveInBackgroundWithBlock {
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                print("Location has been saved.")
-                print(user)
-            }
-            else {
-                print("Location was not saved!")
+        print("HERE 2")
+        
+//        usernameLabel.text = user?.username
+        
+        print("HERE 2.5")
+        
+        let l = PFObject(className:"Location")
+        
+        l["latitude"] = Double()
+        l["longitude"] = Double()
+        if user == nil {
+            l["user"] = NSNull()
+        }
+        else {
+            l["user"] = user
+        }
+        print("HERE 3")
+        
+        
+        l.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                self.userObjectId = l.objectId!
+                print(self.userObjectId)
             }
         }
+        
+        
+        //        user!.saveInBackgroundWithBlock {
+        //            (success: Bool, error: NSError?) -> Void in
+        //            if (success) {
+        //                // The object has been saved.
+        //                print("Location has been saved.")
+        //                print(user)
+        //            }
+        //            else {
+        //                print("Location was not saved!")
+        //            }
+        //        }
+
     }
-//
-//        usernameLabel.text = user?.username
-//        
-//        let l = PFObject(className:"Location")
-//        
-//        l["latitude"] = Double()
-//        l["longitude"] = Double()
-//        if user == nil {
-//        l["user"] = NSNull()
-//        }
-//        else {
-//            l["user"] = user
-//        }
-//        
-//        //print(userObjectId)
-//        
-//        l.saveInBackgroundWithBlock { (success, error) -> Void in
-//            if success {
-//                self.userObjectId = l.objectId!
-//                print(self.userObjectId)
-//            }
-//        }
 
         
         
@@ -261,37 +269,36 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     */
     func locationManager(manager:CLLocationManager, didUpdateLocations locations: Array <CLLocation>) throws {
         
-        print("In Update")
-        currentLocation = locationManager.location!
-        
-        latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
-        longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
-        
-        let user = PFUser.currentUser()! as PFUser
-        
-        let location = user["location"]! as! PFGeoPoint
-        print(location.latitude)
-        location.latitude = self.currentLocation.coordinate.latitude
-        location.longitude = self.currentLocation.coordinate.longitude
-        print(location.latitude)
-        
-        try user.save()
-        
-        
-        //let query = PFQuery(className:"Location")
+//        print("In Update")
+//        currentLocation = locationManager.location!
+//        
+//        latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
+//        longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
+//        
+//        let user = PFUser.currentUser()! as PFUser
+//        
+//        let location = user["location"]! as! PFGeoPoint
+//        print(location.latitude)
+//        location.latitude = self.currentLocation.coordinate.latitude
+//        location.longitude = self.currentLocation.coordinate.longitude
+//        print(location.latitude)
+//        
+//        try user.save()
         
         
-//        query.getObjectInBackgroundWithId(userObjectId) {
-//            
-//            (location : PFObject?, error: NSError?) -> Void in
-//            if error != nil {
-//                print(error)
-//            } else if let location = location {
-//                location["latitude"] = self.currentLocation.coordinate.latitude
-//                location["longitude"] = self.currentLocation.coordinate.longitude
-//                location.saveInBackground()
-//            }
-//        }
+        let query = PFQuery(className:"Location")
+        
+        query.getObjectInBackgroundWithId(userObjectId) {
+            
+            (location : PFObject?, error: NSError?) -> Void in
+            if error != nil {
+                print(error)
+            } else if let location = location {
+                location["latitude"] = self.currentLocation.coordinate.latitude
+                location["longitude"] = self.currentLocation.coordinate.longitude
+                location.saveInBackground()
+            }
+        }
 
         
     }
