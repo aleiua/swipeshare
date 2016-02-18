@@ -17,6 +17,8 @@ class SignUpViewCont: UIViewController {
     
     
     @IBAction func submit(sender: AnyObject) {
+        usernameField.autocorrectionType = .No
+        passwordField.autocorrectionType = .No
         let username = self.usernameField.text
         let password = self.passwordField.text
         
