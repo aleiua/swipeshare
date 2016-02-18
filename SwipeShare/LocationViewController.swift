@@ -45,7 +45,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
-        
     }
     
     @IBAction func openPhotos(){
@@ -87,6 +86,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         super.viewDidLoad()
         locationManager = CLLocationManager()
         locationManager.requestAlwaysAuthorization()
+        
+        
         
         // To enable swiping:
 //        self.initializeGestureRecognizer()
@@ -171,10 +172,30 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     * Update longitude/latitude locations
     */
     func locationManager(manager:CLLocationManager, didUpdateLocations locations: Array <CLLocation>) {
+        print("did Update Locations")
         
         currentLocation = locationManager.location!
-        latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
-        longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
+        
+        print("BAD BITCH")
+//        latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
+//        longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
+        print(currentLocation.coordinate.latitude)
+        
+        let user = PFUser.currentUser()! as PFUser
+        let location = user["location"]! as! PFGeoPoint
+        
+        location.latitude = self.currentLocation.coordinate.latitude
+        location.longitude = self.currentLocation.coordinate.longitude
+        print(location.latitude)
+   
+//        do {
+//            try user.save()
+//        } catch {
+//            print("Error saving users")
+//        }
+        
+        
+        print("Leaving update")
         
 //        print("\(currentLocation.coordinate.latitude)")
 //        print("\(currentLocation.coordinate.longitude)")
@@ -189,6 +210,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         currentHeading = locationManager.heading!
         headingLabel.text = "\(currentHeading.trueHeading)"
+        
+        
 
 //        print("\(currentHeading.trueHeading)")
     }
