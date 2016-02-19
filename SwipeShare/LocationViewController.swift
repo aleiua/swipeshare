@@ -40,6 +40,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var currentHeading: CLHeading!
     
     var userObjectId = String()
+    var userLatitude = Double()
+    var userLongitude = Double()
     
     
     
@@ -65,6 +67,35 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         })
     }
     
+    @IBAction func findNeighbors(sender: AnyObject) {
+        
+        print("Querying for neighbors")
+        let query = PFQuery(className:"Location")
+        query.whereKey("latitude",
+            greaterThan: (userLatitude - searchDistance))
+        query.whereKey("latitude",
+            lessThan: (userLatitude + searchDistance))
+        query.whereKey("longitude",
+            greaterThan: (userLongitude - searchDistance))
+        query.whereKey("longitude",
+            lessThan: (userLongitude + searchDistance))
+        
+        query.findObjectsInBackgroundWithBlock {
+             (objects: [PFObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                print("No error. Printing neighbors")
+                if let objects = objects {
+                    for object in objects {
+                        print(object["user"]["username"])
+                    }
+                }
+            }
+            else {
+                print("Error querying neighbors")
+            }
+        }
+    }
     
     @IBAction func openPhotos(){
         
@@ -133,78 +164,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         }
 
         
-        
-        
-        
-        
-        
-//        // To enable swiping:
-////        self.initializeGestureRecognizer()
-//        
-//        // Testing Parse
-//        let testObject = PFObject(className: "TestObject")
-//        testObject["foo"] = "bar"
-//        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-//            print("Object has been saved.")
-//        }
-//        
-//        PFGeoPoint.geoPointForCurrentLocationInBackground {
-//            (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-//            if error == nil {
-//                let user = PFUser.currentUser()
-//                user!["location"] = geoPoint
-//                user!.saveInBackgroundWithBlock {
-//                    (success: Bool, error: NSError?) -> Void in
-//                    if (success) {
-//                        // The object has been saved.
-//                        print("Location has been saved.")
-//                        print(user)
-//                        
-//                        let userGeoPoint = user!["location"] as! PFGeoPoint
-//                        let query = PFUser.query()
-//                        query!.whereKey("location", nearGeoPoint:userGeoPoint)
-//                        query!.findObjectsInBackgroundWithBlock {
-//                            (nearbies: [PFObject]?, error: NSError?) -> Void in
-//                            if error == nil {
-//                                 print("Successfully retrieved \(nearbies!.count) nearby users.")
-//                                var nearbyText = ""
-//                                for object in nearbies! {
-//                                    if object.objectId != user?.objectId {
-//                                        let name = object.objectForKey("username") as! String;
-//                                        if nearbyText.isEmpty {
-//                                            nearbyText = name
-//                                        } else {
-//                                            nearbyText += ", \(name)"
-//                                        }
-//                                    }
-////                                    print(object)
-//                                }
-//                                self.nearbyLabel.text = nearbyText
-//                            }
-//                        }
-//                        
-////                        let userGeoPoint = user!["location"] as! PFGeoPoint
-////                        let query = PFUser.query()
-////                        query!.whereKey("location", nearGeoPoint:userGeoPoint)
-////                        query!.limit = 10
-////                        let nearbies = query!.findObjects()
-////                            for object in nearbies {
-////                                print(object)
-////                            }
-////                        self.nearbyLabel.text = "\(nearbies[0].username)"
-//                        
-//                    } else {
-//                        print("Location has NOT been saved.")
-//                        // There was a problem, check error.description
-//                    }
-//                }
-//                
-//            }
-//            else {
-//                print("Could not get location in parse")
-//            }
-//        }
-        
     }
     
 
@@ -269,6 +228,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             } else if let location = location {
                 location["latitude"] = self.currentLocation.coordinate.latitude
                 location["longitude"] = self.currentLocation.coordinate.longitude
+                
+                self.userLatitude = self.currentLocation.coordinate.latitude
+                self.userLongitude = self.currentLocation.coordinate.longitude
+                
                 location.saveInBackground()
             }
         }
