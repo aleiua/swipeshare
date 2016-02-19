@@ -188,6 +188,17 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         location.longitude = self.currentLocation.coordinate.longitude
         print(location.latitude)
    
+        
+        user.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                print("User saved")
+            } else {
+                print("Error saving user")
+            }
+        }
+        
+                
 //        do {
 //            try user.save()
 //        } catch {
@@ -197,8 +208,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         print("Leaving update")
         
-//        print("\(currentLocation.coordinate.latitude)")
-//        print("\(currentLocation.coordinate.longitude)")
     }
     
     
