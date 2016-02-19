@@ -31,10 +31,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBOutlet weak var photoz: UIButton!
     
     
-    let earthRadius = 6378.137
-    // distance of search in km
-    let searchDistance = 0.1
-    
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
     var currentHeading: CLHeading!
@@ -175,34 +171,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
     
     
-    /*
-    * Compute longitude at given distance away with same latitude
-    */
-    func maxLongitude(distance:Double, userLatitude:Double, userLongitude:Double) -> Double {
-        // Convert degrees to radians
-        let radLatitude = userLatitude * (M_PI/180)
-        let radLongitude = userLongitude * (M_PI/180)
-        
-        let a = distance/(2*earthRadius)
-        
-        return (2 * asin(sqrt((sin(a)*sin(a))/(cos(radLatitude)*cos(radLatitude)))) + radLongitude)/(M_PI/180)
-    }
-    
-    
-    /*
-    * Compute latitude at given distance away with same longitude
-    */
-    func maxLatitude(distance:Double, userLatitude:Double, userLongitude:Double) -> Double {
-        
-        // Convert degrees to radians
-        let radLatitude = userLatitude * (M_PI/180)
-        
-        let a = distance/(2*earthRadius)
-        
-        return (2 * asin(sqrt((sin(a)*sin(a)))) + radLatitude)/(M_PI/180)
-    }
-    
-    
+
     
     
 
@@ -235,12 +204,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 location.saveInBackground()
             }
         }
-
-        
-        
-        
-//        print("\(currentLocation.coordinate.latitude)")
-//        print("\(currentLocation.coordinate.longitude)")
     }
     
     
@@ -252,8 +215,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         currentHeading = locationManager.heading!
         headingLabel.text = "\(currentHeading.trueHeading)"
-
-//        print("\(currentHeading.trueHeading)")
     }
     
 
