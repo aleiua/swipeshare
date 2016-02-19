@@ -55,6 +55,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
     }
     
+    // Calculates distance from point A to B using Haversine formula
+    // Currently returns distance in KM
     func Haversine(latA : Double, lonA : Double, latB : Double, lonB : Double) -> Double {
         // Convert to radians
         let conversionFactor = M_PI / 180
@@ -72,6 +74,23 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         return d
         
+    }
+    
+    // Calculates bearing from point A to point B.
+    // Currently returns in degrees.
+    func Bearing(latA : Double, lonA : Double, latB : Double, lonB : Double) -> Double {
+        let conversionFactor = M_PI / 180
+        let phiA = latA * conversionFactor
+        let phiB = latB * conversionFactor
+        
+        let deltaLamba = (lonB - lonA) * conversionFactor
+        
+        let y = sin(deltaLamba) * cos(phiB)
+        let x = cos(phiA) * sin(phiB) - sin(phiA) * cos(phiB) * cos(deltaLamba)
+        
+        let b = atan2(y, x)
+        
+        return b * (180 / M_PI)
     }
     
     @IBAction func logout() {
@@ -159,23 +178,22 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         print("Running Haversine")
         let distance = Haversine(40.7486, lonA: -73.9864, latB : 42.7486, lonB : -75.9864)
-        print(distance)
-        
+        print("Distance: \(distance)")
+        let bearing = Bearing(40.7486, lonA: -73.9864, latB : 42.7486, lonB : -75.9864)
+        print("Bearing:  \(bearing)")
         
         let user = PFUser.currentUser()
         let l = PFObject(className:"Location")
-        
        
         l["latitude"] = Double()
         l["longitude"] = Double()
+        
         if user == nil {
-        l["user"] = NSNull()
+            l["user"] = NSNull()
         }
         else {
             l["user"] = user
         }
-        
-        //print(userObjectId)
         
         l.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
@@ -183,8 +201,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 print(self.userObjectId)
             }
         }
-
-        
     }
     
 
