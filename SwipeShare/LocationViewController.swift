@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import Parse
 import Foundation
+import Darwin
 
 
 
@@ -39,7 +40,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
-    
+    var searchDistance = 0.00001
+    var earthRadius = 6371.0
     
     
     
@@ -50,6 +52,25 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
+        
+    }
+    
+    func Haversine(latA : Double, lonA : Double, latB : Double, lonB : Double) -> Double {
+        // Convert to radians
+        let conversionFactor = M_PI / 180
+        let phiA = latA * conversionFactor
+        let phiB = latB * conversionFactor
+        
+        let deltaPhi = (latB - latA) * conversionFactor
+        let deltaLamba = (lonB - lonA) * conversionFactor
+        
+        let a = sin(deltaPhi / 2) * sin(deltaPhi / 2) + cos(phiA) * cos(phiB)
+            * sin(deltaLamba / 2) * sin(deltaLamba / 2)
+        
+        let c = 2 * atan2(sqrt(a), sqrt(1-a))
+        let d = earthRadius * c
+        
+        return d
         
     }
     
@@ -135,6 +156,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.distanceFilter = 5
+        
+        print("Running Haversine")
+        let distance = Haversine(40.7486, lonA: -73.9864, latB : 42.7486, lonB : -75.9864)
+        print(distance)
         
         
         let user = PFUser.currentUser()
