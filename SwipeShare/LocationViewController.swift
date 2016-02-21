@@ -183,24 +183,47 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         print("Bearing:  \(bearing)")
         
         let user = PFUser.currentUser()
-        let l = PFObject(className:"Location")
-       
-        l["latitude"] = Double()
-        l["longitude"] = Double()
-        
         if user == nil {
-            l["user"] = NSNull()
+            print("Could not get current User")
         }
         else {
-            l["user"] = user
+            user!["latitude"] = Double()
+            user!["longitude"] = Double()
         }
         
-        l.saveInBackgroundWithBlock { (success, error) -> Void in
+        user!.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
-                self.userObjectId = l.objectId!
+                self.userObjectId = user!.objectId!
                 print(self.userObjectId)
             }
         }
+
+        
+        
+        
+
+        
+        
+        
+        
+//        let l = PFObject(className:"Location")
+//       
+//        l["latitude"] = Double()
+//        l["longitude"] = Double()
+        
+//        if user == nil {
+//            l["user"] = NSNull()
+//        }
+//        else {
+//            l["user"] = user
+//        }
+        
+//        l.saveInBackgroundWithBlock { (success, error) -> Void in
+//            if success {
+//                self.userObjectId = l.objectId!
+//                print(self.userObjectId)
+//            }
+//        }
     }
     
 
@@ -228,21 +251,21 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
         longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
         
-        let query = PFQuery(className:"Location")
+        let user = PFUser.currentUser()
         
-        query.getObjectInBackgroundWithId(userObjectId) {
-            
-            (location : PFObject?, error: NSError?) -> Void in
-            if error != nil {
-                print(error)
-            } else if let location = location {
-                location["latitude"] = self.currentLocation.coordinate.latitude
-                location["longitude"] = self.currentLocation.coordinate.longitude
-                
+        if user == nil {
+            print("Could not get current User")
+        }
+        else {
+            user!["latitude"] = self.currentLocation.coordinate.latitude
+            user!["longitude"] = self.currentLocation.coordinate.longitude
+        }
+        
+        user!.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                print("Saved Successfully")
                 self.userLatitude = self.currentLocation.coordinate.latitude
                 self.userLongitude = self.currentLocation.coordinate.longitude
-                
-                location.saveInBackground()
             }
         }
     }
