@@ -40,6 +40,15 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
+    
+    /*
+    Rough Distances:
+    .1 = 11km
+    .01 = 1km = 1000m
+    .001 = .1km = 100m
+    .0001 = .01km = 10m
+    
+    */
     var searchDistance = 0.0001
     var earthRadius = 6371.0
     
@@ -106,6 +115,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     @IBAction func findNeighbors(sender: AnyObject) {
         
+        
+        
+        
         print("Querying for neighbors")
         let query = PFQuery(className:"_User")
         query.whereKey("latitude",
@@ -119,12 +131,36 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         query.findObjectsInBackgroundWithBlock {
              (users: [PFObject]?, error: NSError?) -> Void in
-            
             if error == nil {
                 print("No error. Printing neighbors")
                 if let users = users {
+                    var iter = 1
                     for user in users {
-                        print(user["username"])
+                        if (user.objectId != self.userObjectId) {
+                            print("Adjacent User No:" + String(iter))
+                            print(user["username"])
+                            iter++
+
+                            let toSend = PFObject(className: "sentObject")
+                            toSend["message"] = "What up, badBitch"
+                            toSend["date"] = NSDate()
+                        
+                            let currUser = PFUser.currentUser()
+                            toSend["sender"] = currUser
+                            toSend["recipient"] = user
+                            
+                            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
+                                if success {
+                                    print("Saved toSend object.")
+                                }
+                                else {
+                                    print("Failed saving toSend object")
+                                }
+                            }
+
+                            
+                        }
+                        
                     }
                 }
             }
