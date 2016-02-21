@@ -40,7 +40,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
-    var searchDistance = 0.00001
+    var searchDistance = 0.0001
     var earthRadius = 6371.0
     
     
@@ -103,10 +103,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         })
     }
     
+    
     @IBAction func findNeighbors(sender: AnyObject) {
         
         print("Querying for neighbors")
-        let query = PFQuery(className:"Location")
+        let query = PFQuery(className:"_User")
         query.whereKey("latitude",
             greaterThan: (userLatitude - searchDistance))
         query.whereKey("latitude",
@@ -117,13 +118,13 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             lessThan: (userLongitude + searchDistance))
         
         query.findObjectsInBackgroundWithBlock {
-             (objects: [PFObject]?, error: NSError?) -> Void in
+             (users: [PFObject]?, error: NSError?) -> Void in
             
             if error == nil {
                 print("No error. Printing neighbors")
-                if let objects = objects {
-                    for object in objects {
-                        print(object["user"]["username"])
+                if let users = users {
+                    for user in users {
+                        print(user["username"])
                     }
                 }
             }
