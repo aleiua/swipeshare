@@ -23,6 +23,9 @@
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
 		5E22D4281C6463A100DCF373 /* UserPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22D4271C6463A100DCF373 /* UserPoint.swift */; };
 		5EADF1021C5EB87600997A1B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EADF1011C5EB87600997A1B /* MapViewController.swift */; };
+		935596DF1C791C9200C24E0A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 935596DE1C791C9200C24E0A /* FBSDKCoreKit.framework */; };
+		935596E11C791C9A00C24E0A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 935596E01C791C9A00C24E0A /* FBSDKLoginKit.framework */; };
+		935596E31C791CA100C24E0A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 935596E21C791CA100C24E0A /* FBSDKShareKit.framework */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
 		937E7F341C55672700057D32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937E7F321C55672700057D32 /* Main.storyboard */; };
@@ -73,6 +76,10 @@
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		5E22D4271C6463A100DCF373 /* UserPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPoint.swift; sourceTree = "<group>"; };
 		5EADF1011C5EB87600997A1B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		935596DE1C791C9200C24E0A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		935596E01C791C9A00C24E0A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		935596E21C791CA100C24E0A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		935596E51C7A68D300C24E0A /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		937E7F2B1C55672700057D32 /* SwipeShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwipeShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F2E1C55672700057D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		937E7F301C55672700057D32 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				935596E11C791C9A00C24E0A /* FBSDKLoginKit.framework in Frameworks */,
 				05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */,
 				05FA09241C5E8D440025A1F6 /* libz.tbd in Frameworks */,
 				05FA09221C5E8D3B0025A1F6 /* SystemConfiguration.framework in Frameworks */,
@@ -113,6 +121,8 @@
 				050B634E1C55CA3B0033279B /* UIKit.framework in Frameworks */,
 				93F422321C5584A8006DEB7E /* CoreLocation.framework in Frameworks */,
 				05FA09141C5E8AAF0025A1F6 /* Bolts.framework in Frameworks */,
+				935596E31C791CA100C24E0A /* FBSDKShareKit.framework in Frameworks */,
+				935596DF1C791C9200C24E0A /* FBSDKCoreKit.framework in Frameworks */,
 				93F422281C556B82006DEB7E /* MapKit.framework in Frameworks */,
 				05FA09121C5E8A6C0025A1F6 /* Parse.framework in Frameworks */,
 			);
@@ -135,11 +145,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		937E7F221C55672700057D32 = {
+		935596DD1C791C6100C24E0A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */,
 				05FA09231C5E8D440025A1F6 /* libz.tbd */,
+				935596E21C791CA100C24E0A /* FBSDKShareKit.framework */,
+				935596E01C791C9A00C24E0A /* FBSDKLoginKit.framework */,
+				935596DE1C791C9200C24E0A /* FBSDKCoreKit.framework */,
 				05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */,
 				05FA091F1C5E8D310025A1F6 /* StoreKit.framework */,
 				05FA091D1C5E8D260025A1F6 /* Security.framework */,
@@ -153,6 +166,14 @@
 				050B634D1C55CA3B0033279B /* UIKit.framework */,
 				93F422311C5584A8006DEB7E /* CoreLocation.framework */,
 				93F422271C556B82006DEB7E /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		937E7F221C55672700057D32 = {
+			isa = PBXGroup;
+			children = (
+				935596DD1C791C6100C24E0A /* Frameworks */,
 				937E7F2D1C55672700057D32 /* SwipeShare */,
 				937E7F451C55672700057D32 /* SwipeShareTests */,
 				937E7F501C55672700057D32 /* SwipeShareUITests */,
@@ -173,6 +194,7 @@
 		937E7F2D1C55672700057D32 /* SwipeShare */ = {
 			isa = PBXGroup;
 			children = (
+				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,
 				937E7F301C55672700057D32 /* ViewController.swift */,
 				93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */,
@@ -182,11 +204,11 @@
 				5EADF1011C5EB87600997A1B /* MapViewController.swift */,
 				5E22D4271C6463A100DCF373 /* UserPoint.swift */,
 				055246B41C67EAA20013A568 /* TestLoginViewController.swift */,
-				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
 				937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */,
 				937E7F3D1C55672700057D32 /* Info.plist */,
 				937E7F351C55672700057D32 /* SwipeShare.xcdatamodeld */,
+				935596E51C7A68D300C24E0A /* BridgingHeader.h */,
 			);
 			path = SwipeShare;
 			sourceTree = "<group>";
@@ -506,6 +528,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = yaw7.SwipeShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = SwipeShare/BridgingHeader.h;
 			};
 			name = Debug;
 		};
@@ -523,6 +546,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = yaw7.SwipeShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = SwipeShare/BridgingHeader.h;
 			};
 			name = Release;
 		};
