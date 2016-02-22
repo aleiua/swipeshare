@@ -12,5 +12,5 @@
 //
 //#endif /* Yaw_Bridging_Header_h */
 
-#import "iCarousel.h"
+#import "../iCarousel/iCarousel.h"
 

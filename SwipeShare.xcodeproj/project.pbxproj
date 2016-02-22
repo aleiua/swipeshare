@@ -21,9 +21,9 @@
 		05FA09221C5E8D3B0025A1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */; };
 		05FA09241C5E8D440025A1F6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09231C5E8D440025A1F6 /* libz.tbd */; };
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
+		5E03F0451C7A82850000F447 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E03F0441C7A82850000F447 /* iCarousel.m */; };
 		5E22D4281C6463A100DCF373 /* UserPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22D4271C6463A100DCF373 /* UserPoint.swift */; };
 		5EADF1021C5EB87600997A1B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EADF1011C5EB87600997A1B /* MapViewController.swift */; };
-		5EF38CBE1C790BD000827882 /* iCarousel in Resources */ = {isa = PBXBuildFile; fileRef = 5EF38CBD1C790BD000827882 /* iCarousel */; };
 		5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
@@ -74,9 +74,10 @@
 		05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05FA09231C5E8D440025A1F6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		5E03F0431C7A82850000F447 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCarousel.h; path = iCarousel/iCarousel.h; sourceTree = "<group>"; };
+		5E03F0441C7A82850000F447 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCarousel.m; path = iCarousel/iCarousel.m; sourceTree = "<group>"; };
 		5E22D4271C6463A100DCF373 /* UserPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPoint.swift; sourceTree = "<group>"; };
 		5EADF1011C5EB87600997A1B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		5EF38CBD1C790BD000827882 /* iCarousel */ = {isa = PBXFileReference; lastKnownFileType = folder; path = iCarousel; sourceTree = "<group>"; };
 		5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewContoller.swift; sourceTree = "<group>"; };
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EF38CC31C7925CE00827882 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -143,13 +144,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E03F0421C7A81F90000F447 /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				5E03F0431C7A82850000F447 /* iCarousel.h */,
+				5E03F0441C7A82850000F447 /* iCarousel.m */,
+			);
+			name = iCarousel;
+			sourceTree = "<group>";
+		};
 		937E7F221C55672700057D32 = {
 			isa = PBXGroup;
 			children = (
 				5EF38CC31C7925CE00827882 /* Photos.framework */,
 				05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */,
 				05FA09231C5E8D440025A1F6 /* libz.tbd */,
-				5EF38CBD1C790BD000827882 /* iCarousel */,
+				5E03F0421C7A81F90000F447 /* iCarousel */,
 				05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */,
 				05FA091F1C5E8D310025A1F6 /* StoreKit.framework */,
 				05FA091D1C5E8D260025A1F6 /* Security.framework */,
@@ -330,7 +340,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EF38CBE1C790BD000827882 /* iCarousel in Resources */,
 				937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */,
 				937E7F391C55672700057D32 /* Assets.xcassets in Resources */,
 				937E7F341C55672700057D32 /* Main.storyboard in Resources */,
@@ -367,6 +376,7 @@
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				5EADF1021C5EB87600997A1B /* MapViewController.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
+				5E03F0451C7A82850000F447 /* iCarousel.m in Sources */,
 				5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */,
 				5E22D4281C6463A100DCF373 /* UserPoint.swift in Sources */,
 			);
@@ -520,7 +530,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = yaw1738.SwipeShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwipeShare/Yaw-Bridging-Header";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwipeShare/Yaw-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -538,7 +548,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = yaw1738.SwipeShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwipeShare/Yaw-Bridging-Header";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwipeShare/Yaw-Bridging-Header.h";
 			};
 			name = Release;
 		};
