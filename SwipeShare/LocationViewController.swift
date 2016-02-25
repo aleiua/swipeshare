@@ -40,7 +40,16 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
-    var searchDistance = 0.00001
+    
+    /*
+    Rough Distances:
+    .1 = 11km
+    .01 = 1km = 1000m
+    .001 = .1km = 100m
+    .0001 = .01km = 10m
+    
+    */
+    var searchDistance = 0.0001
     var earthRadius = 6371.0
     
     
@@ -103,10 +112,14 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         })
     }
     
+    
     @IBAction func findNeighbors(sender: AnyObject) {
         
+        
+        
+        
         print("Querying for neighbors")
-        let query = PFQuery(className:"Location")
+        let query = PFQuery(className:"_User")
         query.whereKey("latitude",
             greaterThan: (userLatitude - searchDistance))
         query.whereKey("latitude",
@@ -117,13 +130,37 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             lessThan: (userLongitude + searchDistance))
         
         query.findObjectsInBackgroundWithBlock {
-             (objects: [PFObject]?, error: NSError?) -> Void in
-            
+             (users: [PFObject]?, error: NSError?) -> Void in
             if error == nil {
                 print("No error. Printing neighbors")
-                if let objects = objects {
-                    for object in objects {
-                        print(object["user"]["username"])
+                if let users = users {
+                    var iter = 1
+                    for user in users {
+                        if (user.objectId != self.userObjectId) {
+                            print("Adjacent User No:" + String(iter))
+                            print(user["username"])
+                            iter++
+
+                            let toSend = PFObject(className: "sentObject")
+                            toSend["message"] = "What up, badBitch"
+                            toSend["date"] = NSDate()
+                        
+                            let currUser = PFUser.currentUser()
+                            toSend["sender"] = currUser
+                            toSend["recipient"] = user
+                            
+                            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
+                                if success {
+                                    print("Saved toSend object.")
+                                }
+                                else {
+                                    print("Failed saving toSend object")
+                                }
+                            }
+
+                            
+                        }
+                        
                     }
                 }
             }
@@ -183,24 +220,47 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         print("Bearing:  \(bearing)")
         
         let user = PFUser.currentUser()
-        let l = PFObject(className:"Location")
-       
-        l["latitude"] = Double()
-        l["longitude"] = Double()
-        
         if user == nil {
-            l["user"] = NSNull()
+            print("Could not get current User")
         }
         else {
-            l["user"] = user
+            user!["latitude"] = Double()
+            user!["longitude"] = Double()
         }
         
-        l.saveInBackgroundWithBlock { (success, error) -> Void in
+        user!.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
-                self.userObjectId = l.objectId!
+                self.userObjectId = user!.objectId!
                 print(self.userObjectId)
             }
         }
+
+        
+        
+        
+
+        
+        
+        
+        
+//        let l = PFObject(className:"Location")
+//       
+//        l["latitude"] = Double()
+//        l["longitude"] = Double()
+        
+//        if user == nil {
+//            l["user"] = NSNull()
+//        }
+//        else {
+//            l["user"] = user
+//        }
+        
+//        l.saveInBackgroundWithBlock { (success, error) -> Void in
+//            if success {
+//                self.userObjectId = l.objectId!
+//                print(self.userObjectId)
+//            }
+//        }
     }
     
 
@@ -228,21 +288,21 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
         longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
         
-        let query = PFQuery(className:"Location")
+        let user = PFUser.currentUser()
         
-        query.getObjectInBackgroundWithId(userObjectId) {
-            
-            (location : PFObject?, error: NSError?) -> Void in
-            if error != nil {
-                print(error)
-            } else if let location = location {
-                location["latitude"] = self.currentLocation.coordinate.latitude
-                location["longitude"] = self.currentLocation.coordinate.longitude
-                
+        if user == nil {
+            print("Could not get current User")
+        }
+        else {
+            user!["latitude"] = self.currentLocation.coordinate.latitude
+            user!["longitude"] = self.currentLocation.coordinate.longitude
+        }
+        
+        user!.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                print("Saved Successfully")
                 self.userLatitude = self.currentLocation.coordinate.latitude
                 self.userLongitude = self.currentLocation.coordinate.longitude
-                
-                location.saveInBackground()
             }
         }
     }
