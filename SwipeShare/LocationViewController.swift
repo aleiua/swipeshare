@@ -39,7 +39,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     .0001 = .01km = 10m
     
     */
-    var searchDistance = 0.0001
+    var searchDistance = 0.001
     var earthRadius = 6371.0
     
     
