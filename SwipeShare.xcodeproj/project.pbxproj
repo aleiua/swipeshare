@@ -31,7 +31,7 @@
 		937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */; };
 		937E7F471C55672700057D32 /* SwipeShareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F461C55672700057D32 /* SwipeShareTests.swift */; };
 		937E7F521C55672700057D32 /* SwipeShareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F511C55672700057D32 /* SwipeShareUITests.swift */; };
-		93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */; };
+		939B82941C7E913A00770F79 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82931C7E913A00770F79 /* SignUpVC.swift */; };
 		93F422281C556B82006DEB7E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F422271C556B82006DEB7E /* MapKit.framework */; };
 		93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4222D1C5575B1006DEB7E /* LocationViewController.swift */; };
 		93F422321C5584A8006DEB7E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F422311C5584A8006DEB7E /* CoreLocation.framework */; };
@@ -89,7 +89,7 @@
 		937E7F4D1C55672700057D32 /* SwipeShareUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwipeShareUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F511C55672700057D32 /* SwipeShareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeShareUITests.swift; sourceTree = "<group>"; };
 		937E7F531C55672700057D32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewCont.swift; sourceTree = "<group>"; };
+		939B82931C7E913A00770F79 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpVC.swift; path = ../SignUpVC.swift; sourceTree = "<group>"; };
 		93F422271C556B82006DEB7E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		93F4222D1C5575B1006DEB7E /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		93F422311C5584A8006DEB7E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -150,23 +150,7 @@
 		937E7F221C55672700057D32 = {
 			isa = PBXGroup;
 			children = (
-				5EF38CC31C7925CE00827882 /* Photos.framework */,
-				05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */,
-				05FA09231C5E8D440025A1F6 /* libz.tbd */,
-				05746A671C7E832000161135 /* iCarousel */,
-				05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */,
-				05FA091F1C5E8D310025A1F6 /* StoreKit.framework */,
-				05FA091D1C5E8D260025A1F6 /* Security.framework */,
-				05FA091B1C5E8D1E0025A1F6 /* QuartzCore.framework */,
-				05FA09191C5E8D160025A1F6 /* CoreGraphics.framework */,
-				05FA09171C5E8D0F0025A1F6 /* CFNetwork.framework */,
-				05FA09151C5E8D070025A1F6 /* AudioToolbox.framework */,
-				05FA09131C5E8AAF0025A1F6 /* Bolts.framework */,
-				05FA09111C5E8A6C0025A1F6 /* Parse.framework */,
-				050B634F1C55D7D70033279B /* CoreMotion.framework */,
-				050B634D1C55CA3B0033279B /* UIKit.framework */,
-				93F422311C5584A8006DEB7E /* CoreLocation.framework */,
-				93F422271C556B82006DEB7E /* MapKit.framework */,
+				939B82921C7E8C6400770F79 /* Framework */,
 				937E7F2D1C55672700057D32 /* SwipeShare */,
 				937E7F451C55672700057D32 /* SwipeShareTests */,
 				937E7F501C55672700057D32 /* SwipeShareUITests */,
@@ -191,8 +175,8 @@
 				937E7F301C55672700057D32 /* ViewController.swift */,
 				5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */,
 				93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */,
-				93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */,
 				93FA3F211C66A8C000BB3791 /* LoginViewController.swift */,
+				939B82931C7E913A00770F79 /* SignUpVC.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
 				5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
@@ -220,6 +204,30 @@
 				937E7F531C55672700057D32 /* Info.plist */,
 			);
 			path = SwipeShareUITests;
+			sourceTree = "<group>";
+		};
+		939B82921C7E8C6400770F79 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				5EF38CC31C7925CE00827882 /* Photos.framework */,
+				05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */,
+				05FA09231C5E8D440025A1F6 /* libz.tbd */,
+				05746A671C7E832000161135 /* iCarousel */,
+				05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */,
+				05FA091F1C5E8D310025A1F6 /* StoreKit.framework */,
+				05FA091D1C5E8D260025A1F6 /* Security.framework */,
+				05FA091B1C5E8D1E0025A1F6 /* QuartzCore.framework */,
+				05FA09191C5E8D160025A1F6 /* CoreGraphics.framework */,
+				05FA09171C5E8D0F0025A1F6 /* CFNetwork.framework */,
+				05FA09151C5E8D070025A1F6 /* AudioToolbox.framework */,
+				05FA09131C5E8AAF0025A1F6 /* Bolts.framework */,
+				05FA09111C5E8A6C0025A1F6 /* Parse.framework */,
+				050B634F1C55D7D70033279B /* CoreMotion.framework */,
+				050B634D1C55CA3B0033279B /* UIKit.framework */,
+				93F422311C5584A8006DEB7E /* CoreLocation.framework */,
+				93F422271C556B82006DEB7E /* MapKit.framework */,
+			);
+			name = Framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,11 +367,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				93FA3F221C66A8C000BB3791 /* LoginViewController.swift in Sources */,
+				939B82941C7E913A00770F79 /* SignUpVC.swift in Sources */,
 				937E7F371C55672700057D32 /* SwipeShare.xcdatamodeld in Sources */,
 				937E7F311C55672700057D32 /* ViewController.swift in Sources */,
 				05746A6A1C7E833100161135 /* iCarousel.m in Sources */,
 				93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */,
-				93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */,

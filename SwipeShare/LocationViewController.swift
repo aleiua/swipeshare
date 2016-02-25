@@ -211,7 +211,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             print("Could not get current User")
         }
         else {
-            userLabel.text = user?.username
             user!["latitude"] = Double()
             user!["longitude"] = Double()
         }
