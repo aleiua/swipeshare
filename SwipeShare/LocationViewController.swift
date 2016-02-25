@@ -103,6 +103,31 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         })
     }
     
+    // Currently sorts on distance ;)
+    // IMPT: Assumes won't be getting two things with exact same distance.
+    func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>) -> Array<PFObject> {
+        var distanceToObject = [Double : PFObject]()
+        var distances = [Double]()
+        
+        for n in neighbors {
+            let distance = Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
+            
+            distanceToObject[distance] = n
+            distances.append(distance)
+        }
+        
+        distances.sortInPlace() // Is this less efficient than regular sort?
+        var orderedNeighbors = [PFObject]()
+        
+        for d in distances {
+            let obj = distanceToObject[d]
+            orderedNeighbors.append(obj!)
+        }
+        return orderedNeighbors
+        
+    }
+    
     
     
     @IBAction func findNeighbors(sender: AnyObject) {
@@ -120,7 +145,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         
         // Get all close neighbors
-        var users = []
+        var users = [PFObject]()
         var index = -1
         do {
             try users = query.findObjects()
@@ -157,7 +182,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 let recipient = users[0]
                 
                 
-                print("Only sending to: " + String(recipient["username"]))
+                print("Am sending to this person")
                 toSend["recipient"] = recipient
                 
                 toSend.saveInBackgroundWithBlock { (success, error) -> Void in
@@ -211,7 +236,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             print("Could not get current User")
         }
         else {
-            userLabel.text = user?.username
+            // userLabel.text = user?.username
             user!["latitude"] = Double()
             user!["longitude"] = Double()
         }
