@@ -21,6 +21,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     // Button for accessing photos
     @IBOutlet weak var photoz: UIButton!
     
+    @IBOutlet weak var userLabel: UILabel!
     
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
@@ -210,6 +211,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             print("Could not get current User")
         }
         else {
+            userLabel.text = user?.username
             user!["latitude"] = Double()
             user!["longitude"] = Double()
         }
