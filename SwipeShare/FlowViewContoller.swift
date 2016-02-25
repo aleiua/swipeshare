@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class FlowViewController: ViewController, iCarouselDataSource, iCarouselDelegate {
+class FlowViewController: ViewController {
     @IBOutlet weak var carousel: iCarousel!
     
 }

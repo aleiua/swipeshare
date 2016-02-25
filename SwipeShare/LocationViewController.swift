@@ -18,16 +18,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
 
     // MARK: Properties
     
-    @IBOutlet weak var latitudeLabel: UILabel!
-    @IBOutlet weak var longitudeLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var headingLabel: UILabel!
-    @IBOutlet weak var nearbyLabel: UILabel!
-    
-    // Swipeable image
-//    @IBOutlet weak var image: UIImageView!
-    
-    
     // Button for accessing photos
     @IBOutlet weak var photoz: UIButton!
     
@@ -113,10 +103,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
     
     
+    
     @IBAction func findNeighbors(sender: AnyObject) {
-        
-        
-        
         
         print("Querying for neighbors")
         let query = PFQuery(className:"_User")
@@ -170,6 +158,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         }
     }
     
+    
     @IBAction func openPhotos(){
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
@@ -188,22 +177,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             print(selectedImage)
         }
     }
-  
-    
-    
-    /*
-    * Enables swiping of IBOutlet image
-    */
-//    func initializeGestureRecognizer()
-//    {
-//        //For PanGesture Recoginzation
-//        let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("recognizePanGesture:"))
-//        panGesture.minimumNumberOfTouches = 1
-//        panGesture.maximumNumberOfTouches = 1
-//        image.addGestureRecognizer(panGesture)
-//    }
-    
-    
+
     
     override func viewDidLoad()  {
         super.viewDidLoad()
@@ -234,33 +208,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 print(self.userObjectId)
             }
         }
-
-        
-        
-        
-
-        
-        
-        
-        
-//        let l = PFObject(className:"Location")
-//       
-//        l["latitude"] = Double()
-//        l["longitude"] = Double()
-        
-//        if user == nil {
-//            l["user"] = NSNull()
-//        }
-//        else {
-//            l["user"] = user
-//        }
-        
-//        l.saveInBackgroundWithBlock { (success, error) -> Void in
-//            if success {
-//                self.userObjectId = l.objectId!
-//                print(self.userObjectId)
-//            }
-//        }
     }
     
 
@@ -283,11 +230,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         currentLocation = locationManager.location!
 
-        
-        
-        latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
-        longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
-        
         let user = PFUser.currentUser()
         
         if user == nil {
@@ -315,7 +257,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         
         currentHeading = locationManager.heading!
-        headingLabel.text = "\(currentHeading.trueHeading)"
     }
     
 
