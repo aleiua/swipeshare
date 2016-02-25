@@ -117,47 +117,59 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         query.whereKey("longitude",
             lessThan: (userLongitude + searchDistance))
         
-        query.findObjectsInBackgroundWithBlock {
-             (users: [PFObject]?, error: NSError?) -> Void in
-            if error == nil {
-                print("No error. Printing neighbors")
-                if let users = users {
-                    var iter = 1
-                    for user in users {
-                        if (user.objectId != self.userObjectId) {
-                            print("Adjacent User No:" + String(iter))
-                            print(user["username"])
-                            iter++
-
-                            let toSend = PFObject(className: "sentObject")
-                            toSend["message"] = "What up, badBitch"
-                            toSend["date"] = NSDate()
-                        
-                            let currUser = PFUser.currentUser()
-                            toSend["sender"] = currUser
-                            toSend["recipient"] = user
-                            
-                            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
-                                if success {
-                                    print("Saved toSend object.")
-                                }
-                                else {
-                                    print("Failed saving toSend object")
-                                }
-                            }
-
-                            
-                        }
-                        
+        
+        // Get all close neighbors
+        var users = []
+        var index = -1
+        do {
+            try users = query.findObjects()
+            for (i, user) in users.enumerate() {
+                if (user.objectId != self.userObjectId) {
+                    print("Adjacent User: " + String(user["username"]))
+                }
+                else {
+                    index = i
+                }
+            }
+        }
+        catch {
+            print("Error getting neighbors!")
+        }
+        
+        // Send to first neighbor in return array.
+        //        print(users)
+        
+        for (i, recipient) in users.enumerate() {
+            print("____________________")
+            print("Recipient: " + String(recipient.objectId))
+            print("Current: " + self.userObjectId)
+            
+            if (i != index) {
+                
+                let toSend = PFObject(className: "sentObject")
+                toSend["message"] = "What up, badBitch"
+                toSend["date"] = NSDate()
+                
+                let sender = PFUser.currentUser()
+                toSend["sender"] = sender
+                
+                let recipient = users[0]
+                
+                
+                print("Only sending to: " + String(recipient["username"]))
+                toSend["recipient"] = recipient
+                
+                toSend.saveInBackgroundWithBlock { (success, error) -> Void in
+                    if success {
+                        print("Saved toSend object.")
+                    }
+                    else {
+                        print("Failed saving toSend object")
                     }
                 }
             }
-            else {
-                print("Error querying neighbors")
-            }
         }
     }
-    
     
     @IBAction func openPhotos(){
         
