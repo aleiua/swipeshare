@@ -31,6 +31,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
+    var swipedHeading = Double()
+    
     
     /*
     Rough Distances:
@@ -38,21 +40,15 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     .01 = 1km = 1000m
     .001 = .1km = 100m
     .0001 = .01km = 10m
-    
     */
     var searchDistance = 0.001
     var earthRadius = 6371.0
     
-    
-    
     @IBAction func getCurrentLocation(sender: AnyObject) {
-        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
-        
-        
     }
     
     // Calculates distance from point A to B using Haversine formula
@@ -103,48 +99,55 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         })
     }
     
-    // Currently sorts on distance ;)
-    // IMPT: Assumes won't be getting two things with exact same distance.
-    func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>) -> Array<PFObject> {
-        var distanceToObjects = [Double : Array<PFObject>]()
+    // Sorting function
+    // Pass in 1 to sort by distance, otherwise sorts by bearing
+    func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
+        var doubleToObjects = [Double : Array<PFObject>]()
         var distances = [Double]()
         
         for n in neighbors {
-            let distance = Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
-                latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
+            var distance = 0.0
+            // Sort by distance
+            if sortBy == 1 {
+                distance = Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
+            }
+            // Sort by bearing
+            else {
+                let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
+                distance = swipedHeading - direction;
+            }
             
-            
-            var previousEntry = distanceToObjects[distance]
+            // Old entry in dictionary
+            var previousEntry = doubleToObjects[distance]
             // Check if someone else has same distance
             if previousEntry == nil {
                 var newArray = [PFObject]()
                 newArray.append(n)
-                distanceToObjects[distance] = newArray
+
+                doubleToObjects[distance] = newArray
+                distances.append(distance)
+
             }
             else {
                 previousEntry!.append(n)
-                distanceToObjects[distance] = previousEntry
-                
+                doubleToObjects[distance] = previousEntry
             }
-            
-            distances.append(distance)
         }
         
         distances.sortInPlace() // Is this less efficient than regular sort?
         var orderedNeighbors = [PFObject]()
         
+        // Convert sorted distances into sorted objects.
         for d in distances {
-            let arr = distanceToObjects[d]
-            
+            let arr = doubleToObjects[d]
             for obj in arr! {
                 orderedNeighbors.append(obj)
             }
         }
         return orderedNeighbors
-        
     }
-    
-    
     
     @IBAction func findNeighbors(sender: AnyObject) {
         
