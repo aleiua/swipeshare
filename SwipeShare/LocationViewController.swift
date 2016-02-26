@@ -31,6 +31,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
+    var angle: CGFloat!
+    var panGesture: UIPanGestureRecognizer!
+    var image: UIImageView!
+    
+    @IBOutlet weak var sendAnother: UIButton!
     
     /*
     Rough Distances:
@@ -54,6 +59,123 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         
     }
+    
+    /*
+    * Initialize panGestureRecognizer
+    */
+    func initializeGestureRecognizer() {
+        //For PanGesture Recoginzation
+        panGesture = UIPanGestureRecognizer(target: self, action: Selector("recognizePanGesture:"))
+        panGesture.minimumNumberOfTouches = 1
+        panGesture.maximumNumberOfTouches = 1
+    }
+    
+    /*
+    * Performs updating on objects to which the gesture recognizer is added
+    *
+    */
+    func recognizePanGesture(sender: UIPanGestureRecognizer) {
+        
+        // prevent "send another copy" from being pressed
+        self.sendAnother.hidden = true
+        
+        let translate = sender.translationInView(self.view)
+        
+        sender.view!.center = CGPoint(x:sender.view!.center.x + translate.x,
+            y:sender.view!.center.y + translate.y)
+        
+        sender.setTranslation(CGPointZero, inView: self.view)
+        
+        let centerPoint = CGPoint(x:self.view.frame.size.width/2,
+            y:self.view.frame.size.height/2)
+        
+        if sender.state == UIGestureRecognizerState.Ended {
+            
+            let velocity = sender.velocityInView(self.view)
+            
+            
+            // If velocity less than threshold, final point is center and returns with set velocity
+            if abs(velocity.x) < 250 || abs(velocity.y) < 250 {
+                let finalPoint = centerPoint
+                
+                UIView.animateWithDuration(0.2,
+                    delay: 0,
+                    options: UIViewAnimationOptions.CurveEaseIn,
+                    animations: {sender.view!.center = finalPoint},
+                    completion: nil)
+                
+            }
+                
+                
+                // If velocity threshold exceeded, animate in the swiped direction
+            else {
+                
+                // Calculate final point based on object center and velocity
+                let finalPoint = CGPoint(x:sender.view!.center.x + (velocity.x),
+                    y:sender.view!.center.y + (velocity.y))
+                
+                // Change in y and x
+                let dy = Float(centerPoint.y - finalPoint.y)
+                let dx = Float(centerPoint.x - finalPoint.x)
+                
+                // Calculate angle and correct rotation
+                angle = CGFloat(atan2(dy,dx)*Float((180/M_PI)))
+                if angle < -90 {
+                    angle = angle + 270
+                }
+                else {
+                    angle = angle - 90
+                }
+                
+                UIView.animateWithDuration(1,
+                    delay: 0,
+                    options: UIViewAnimationOptions.CurveLinear,
+                    animations: {sender.view!.center = finalPoint },
+                    completion: { (finished: Bool) -> Void in
+                        sender.view!.removeFromSuperview()
+                        // make "send another copy" pressable again
+                        self.sendAnother.hidden = false
+                        
+                        print("animation complete and removed from superview")
+                })
+            }
+        }
+    }
+
+    
+    /*
+    * Load image with given filename
+    */
+    func loadImage(imageName: String) {
+        
+        let imageFile = UIImage(named: imageName)
+        image = UIImageView(image: imageFile!)
+        image.frame = CGRect(x: (self.view.frame.size.width/2-75), y: (self.view.frame.size.height/2-75), width: 150, height: 150)
+        view.addSubview(image)
+        image.userInteractionEnabled = true
+        image.addGestureRecognizer(panGesture)
+        
+    }
+    
+    
+    /*
+    * Resend the previously swiped image
+    */
+    @IBAction func resend(sender: AnyObject) {
+        
+        // stop animation if still animating and remove image
+        if image.center.x != self.view.frame.size.width/2 && image.center.y != self.view.frame.size.height/2 {
+            if image.isAnimating() {
+                image.stopAnimating()
+            }
+            image.removeFromSuperview()
+        }
+        
+        self.loadImage("yawIcon.png")
+        
+    }
+    
+    
     
     // Calculates distance from point A to B using Haversine formula
     // Currently returns distance in KM
@@ -240,6 +362,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.distanceFilter = 5
+        
+        // For touch detection on an image
+        self.initializeGestureRecognizer()
+        self.loadImage("yawIcon.png")
         
         print("Running Haversine")
         let distance = Haversine(40.7486, lonA: -73.9864, latB : 42.7486, lonB : -75.9864)
