@@ -73,8 +73,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     */
     func recognizePanGesture(sender: UIPanGestureRecognizer) {
         
-        // prevent "send another copy" from being pressed
-        self.sendAnother.hidden = true
         
         let translate = sender.translationInView(self.view)
         
@@ -151,6 +149,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         view.addSubview(image)
         image.userInteractionEnabled = true
         image.addGestureRecognizer(panGesture)
+        
+        self.sendAnother.hidden = true
         
     }
     
