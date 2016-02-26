@@ -106,14 +106,27 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     // Currently sorts on distance ;)
     // IMPT: Assumes won't be getting two things with exact same distance.
     func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>) -> Array<PFObject> {
-        var distanceToObject = [Double : PFObject]()
+        var distanceToObjects = [Double : Array<PFObject>]()
         var distances = [Double]()
         
         for n in neighbors {
             let distance = Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
                 latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
             
-            distanceToObject[distance] = n
+            
+            var previousEntry = distanceToObjects[distance]
+            // Check if someone else has same distance
+            if previousEntry == nil {
+                var newArray = [PFObject]()
+                newArray.append(n)
+                distanceToObjects[distance] = newArray
+            }
+            else {
+                previousEntry!.append(n)
+                distanceToObjects[distance] = previousEntry
+                
+            }
+            
             distances.append(distance)
         }
         
@@ -121,8 +134,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         var orderedNeighbors = [PFObject]()
         
         for d in distances {
-            let obj = distanceToObject[d]
-            orderedNeighbors.append(obj!)
+            let arr = distanceToObjects[d]
+            
+            for obj in arr! {
+                orderedNeighbors.append(obj)
+            }
         }
         return orderedNeighbors
         
