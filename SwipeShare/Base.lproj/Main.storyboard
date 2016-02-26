@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tu0-3k-hV1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tu0-3k-hV1">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -251,7 +251,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skD-Fa-Vvx">
-                                <rect key="frame" x="0.0" y="0.0" width="84" height="30"/>
+                                <rect key="frame" x="0.0" y="15" width="84" height="30"/>
                                 <state key="normal" title="Logout"/>
                                 <connections>
                                     <action selector="logout" destination="BYZ-38-t0r" eventType="touchUpInside" id="p0F-GA-et5"/>
@@ -259,7 +259,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLn-v6-Lnh">
-                                <rect key="frame" x="42" y="150" width="237" height="38"/>
+                                <rect key="frame" x="42" y="53" width="237" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Get Location"/>
                                 <connections>
@@ -267,10 +267,17 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofq-KL-a5p">
-                                <rect key="frame" x="108" y="221" width="105" height="30"/>
+                                <rect key="frame" x="111" y="129" width="105" height="30"/>
                                 <state key="normal" title="Find Neighbors"/>
                                 <connections>
                                     <action selector="findNeighbors:" destination="BYZ-38-t0r" eventType="touchUpInside" id="64l-Nn-1IK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="weO-zx-raa">
+                                <rect key="frame" x="111" y="482" width="99" height="30"/>
+                                <state key="normal" title="Send Another"/>
+                                <connections>
+                                    <action selector="resend:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2CM-ye-a2V"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -281,6 +288,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="photoz" destination="pdP-Zv-t4l" id="Q5h-zv-EdW"/>
+                        <outlet property="sendAnother" destination="weO-zx-raa" id="3o7-OL-u2k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -290,7 +298,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-79" y="328"/>
+            <point key="canvasLocation" x="-79" y="330"/>
         </scene>
     </scenes>
 </document>
