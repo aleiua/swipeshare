@@ -32,7 +32,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var userLongitude = Double()
     
     var swipedHeading = Double()
+    var angle: CGFloat!
+    var panGesture: UIPanGestureRecognizer!
+    var image: UIImageView!
     
+    @IBOutlet weak var sendAnother: UIButton!
     
     /*
     Rough Distances:
