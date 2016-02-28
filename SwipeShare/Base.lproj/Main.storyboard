@@ -287,19 +287,18 @@
                                     <action selector="openCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ssn-fT-DAS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6R-AD-EPU">
-                                <rect key="frame" x="112" y="518" width="97" height="30"/>
-                                <state key="normal" title="Save To Parse"/>
-                                <connections>
-                                    <action selector="callSortNeighbors:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cq6-1Q-OhO"/>
-                                    <action selector="uploadImageToParse:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PIm-V8-vFa"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmm-u6-XFL">
                                 <rect key="frame" x="103" y="200" width="115" height="30"/>
                                 <state key="normal" title="Sort Neighbors"/>
                                 <connections>
                                     <action selector="callSortNeighbors:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8W1-bb-c7O"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xHw-G0-C7d">
+                                <rect key="frame" x="111" y="520" width="99" height="30"/>
+                                <state key="normal" title="Send To Parse"/>
+                                <connections>
+                                    <action selector="callSendToClosest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xhh-La-48y"/>
                                 </connections>
                             </button>
                         </subviews>

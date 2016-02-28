@@ -13,7 +13,6 @@ import Foundation
 import Darwin
 
 
-
 class LocationViewController: ViewController, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     // MARK: Properties
@@ -23,6 +22,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var sendAnother: UIButton!
     
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
@@ -40,19 +40,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var swipedHeading = Float()
     var DEBUG = true
    
-    @IBAction func openCamera(sender: AnyObject) {
-        
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
-            
-            
-            imagePicker!.delegate = self
-            imagePicker!.sourceType = UIImagePickerControllerSourceType.Camera;
-            
-            self.presentViewController(imagePicker!, animated: true, completion: nil)
-        }
-    }
     
-    @IBOutlet weak var sendAnother: UIButton!
+    
+    
     
     /*
     Rough Distances:
@@ -64,36 +54,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var searchDistance = 0.001
     var earthRadius = 6371.0
     
-    @IBAction func getCurrentLocation(sender: AnyObject) {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
-    }
-    
-    
-    
-    
-    @IBAction func uploadImageToParse(sender: AnyObject) {
-        if (DEBUG) {
-            print("Uploading image to parse.")
-        }
-        
-        let imageObject = PFObject(className: "imageTester")
-        
-        imageObject["userID"] = PFUser.currentUser()?.objectId
-        
-        let filename = "badbitch.jpg"
-        let pngImage = UIImageJPEGRepresentation(image.image!, 1.0)
-        let imageFile = PFFile(name: filename, data: pngImage!)
-        imageObject["image"] = imageFile
-        
-        if (DEBUG) {
-            print("Finished uploading image to parse.")
-        }
-        
-        imageObject.saveInBackground()
-    }
+   /*****************************GESTURE HANDLING********************************/
     
     /*
     * Initialize panGestureRecognizer
@@ -178,6 +139,24 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
 
     
+    
+    /***********************IMAGE HANDLING*****************************/
+    
+     
+    @IBAction func openCamera(sender: AnyObject) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
+            
+            
+            imagePicker!.delegate = self
+            imagePicker!.sourceType = UIImagePickerControllerSourceType.Camera;
+            
+            self.presentViewController(imagePicker!, animated: true, completion: nil)
+        }
+    }
+    
+     
+     
     /*
     * Load image with given filename
     */
@@ -191,7 +170,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         self.sendAnother.hidden = true
         
     }
-    
     
     /*
     * Resend the previously swiped image
@@ -210,7 +188,27 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
     }
     
+    @IBAction func openPhotos(){
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
+            print("Button capture")
+            
+            imagePicker!.delegate = self
+            imagePicker!.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
+            imagePicker!.allowsEditing = false
+            
+            self.presentViewController(imagePicker!, animated: true, completion: nil)
+        }
+    }
     
+    func imagePickerController(imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        imagePicker .dismissViewControllerAnimated(true, completion: nil)
+        let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        image = UIImageView(image: selectedImage)
+        loadImage(image)
+    }
+    
+    /*****************************NEIGHBOR SORTING*****************************/
     
     // Calculates distance from point A to B using Haversine formula
     // Currently returns distance in KM
@@ -249,19 +247,50 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         return b * (180 / M_PI)
     }
+
     
-    @IBAction func logout() {
-        print(PFUser.currentUser())
-        PFUser.logOut()
-        
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
-            self.presentViewController(viewController, animated: true, completion: nil)
-        })
+    @IBAction func callSendToClosest(sender: AnyObject) {
+        sendToClosestNeighbor(1)
     }
-    
-    
-    
+
+    func sendToClosestNeighbor(sort: Int) {
+        if (DEBUG) {
+            print("Sending to closest neighbor")
+        }
+        
+        let nearbyUsers = findNeighbors()
+        var sortedNeighbors = [PFObject]()
+        sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
+        
+        if (sortedNeighbors.count != 0) {
+            let closestNeighbor = sortedNeighbors[0]
+            
+            let toSend = PFObject(className: "sentPicture")
+            
+            toSend["date"] = NSDate()
+            toSend["recipient"] = closestNeighbor
+            toSend["sender"] = PFUser.currentUser()
+            
+            let filename = "image.jpg"
+            let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
+            let imageFile = PFFile(name: filename, data: jpgImage!)
+            toSend["image"] = imageFile
+            
+            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
+                if success {
+                    print("Saved toSend object.")
+                }
+                else {
+                    print("Failed saving toSend object")
+                }
+            }
+            
+        }
+        else {
+            print("No closest neighbor found")
+        }
+    }
+        
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
     @IBAction func callSortNeighbors(sender: AnyObject) {
@@ -322,11 +351,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
     
     
-    
-    
     @IBAction func callFindNeighbors(sender: AnyObject) {
         findNeighbors()
     }
+    
     func findNeighbors() -> Array<PFObject> {
         
         print("Querying for neighbors")
@@ -361,63 +389,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             print("Error getting neighbors!")
         }
         
-        // Send to first neighbor in return array.
-        //        print(users)
-        
-        for recipient in users {
-            print("____________________")
-            print("Recipient: " + String(recipient.objectId))
-            print("Current: " + self.userObjectId)
-            
-            //if (i != index) {
-            
-            let toSend = PFObject(className: "sentObject")
-            toSend["message"] = "What up, badBitch"
-            toSend["date"] = NSDate()
-            
-            let sender = PFUser.currentUser()
-            toSend["sender"] = sender
-            
-            let recipient = users[0]
-            
-            
-            print("Am sending to this person")
-            toSend["recipient"] = recipient
-            
-            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
-                if success {
-                    print("Saved toSend object.")
-                }
-                else {
-                    print("Failed saving toSend object")
-                }
-            }
-            //}
-        }
         return users
     }
     
-
-    @IBAction func openPhotos(){
-        
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
-            print("Button capture")
-            
-            imagePicker!.delegate = self
-            imagePicker!.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
-            imagePicker!.allowsEditing = false
-            
-            self.presentViewController(imagePicker!, animated: true, completion: nil)
-        }
-    }
+    /****************************LOCATION UPDATES********************************/
     
-    func imagePickerController(imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        imagePicker .dismissViewControllerAnimated(true, completion: nil)
-        let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-        image = UIImageView(image: selectedImage)
-        loadImage(image)
-    }
-
     
     override func viewDidLoad()  {
         super.viewDidLoad()
@@ -450,17 +426,18 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         }
     }
     
-
+    @IBAction func getCurrentLocation(sender: AnyObject) {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
+    }
     
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         locationManager.stopUpdatingLocation()
         print("Error while updating location " + error.localizedDescription)
     }
-    
-    
-
-    
     
 
     /*
@@ -491,8 +468,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         }
     }
     
-    
-    
     /*
     * Update displayed heading
     */
@@ -501,12 +476,19 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         currentHeading = locationManager.heading!
     }
     
-
-
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func logout() {
+        print(PFUser.currentUser())
+        PFUser.logOut()
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+            self.presentViewController(viewController, animated: true, completion: nil)
+        })
     }
 
 
