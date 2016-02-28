@@ -233,8 +233,19 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         })
     }
     
+    
+    
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
+    @IBAction func callSortNeighbors(sender: AnyObject) {
+        
+        let users = findNeighbors()
+        
+        let sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: users, sortBy: 0)
+        
+        print(sortedNeighbors)
+    }
+
     func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
         var doubleToObjects = [Double : Array<PFObject>]()
         var distances = [Double]()
@@ -283,7 +294,13 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         return orderedNeighbors
     }
     
-    @IBAction func findNeighbors(sender: AnyObject) {
+    
+    
+    
+    @IBAction func callFindNeighbors(sender: AnyObject) {
+        findNeighbors()
+    }
+    func findNeighbors() -> Array<PFObject> {
         
         print("Querying for neighbors")
         let query = PFQuery(className:"_User")
@@ -326,7 +343,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             print("Current: " + self.userObjectId)
             
             //if (i != index) {
-                
+            
             let toSend = PFObject(className: "sentObject")
             toSend["message"] = "What up, badBitch"
             toSend["date"] = NSDate()
@@ -350,8 +367,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             }
             //}
         }
+        return users
     }
     
+
     @IBAction func openPhotos(){
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
