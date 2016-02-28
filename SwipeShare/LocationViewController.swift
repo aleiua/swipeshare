@@ -35,7 +35,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var panGesture: UIPanGestureRecognizer!
     var image: UIImageView!
     
-    var swipedHeading = Double()
+    var swipedHeading = Float()
    
     
     @IBOutlet weak var sendAnother: UIButton!
@@ -104,7 +104,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             }
                 
                 
-                // If velocity threshold exceeded, animate in the swiped direction
+            // If velocity threshold exceeded, animate in the swiped direction
             else {
                 
                 // Calculate final point based on object center and velocity
@@ -123,6 +123,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 else {
                     angle = angle - 90
                 }
+                
+                swipedHeading = Float(currentHeading.trueHeading) + Float(angle)
                 
                 UIView.animateWithDuration(1,
                     delay: 0,
@@ -167,9 +169,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             }
             image.removeFromSuperview()
         }
-        
         self.loadImage("yawIcon.png")
-        
     }
     
     
@@ -239,7 +239,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             else {
                 let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
                     latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
-                distance = swipedHeading - direction;
+                distance = Double(swipedHeading) - direction;
             }
             
             // Old entry in dictionary
@@ -299,6 +299,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                     index = i
                 }
             }
+            // UNTESTED
+            users.removeAtIndex(index)
         }
         catch {
             print("Error getting neighbors!")
@@ -307,35 +309,35 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         // Send to first neighbor in return array.
         //        print(users)
         
-        for (i, recipient) in users.enumerate() {
+        for recipient in users {
             print("____________________")
             print("Recipient: " + String(recipient.objectId))
             print("Current: " + self.userObjectId)
             
-            if (i != index) {
+            //if (i != index) {
                 
-                let toSend = PFObject(className: "sentObject")
-                toSend["message"] = "What up, badBitch"
-                toSend["date"] = NSDate()
-                
-                let sender = PFUser.currentUser()
-                toSend["sender"] = sender
-                
-                let recipient = users[0]
-                
-                
-                print("Am sending to this person")
-                toSend["recipient"] = recipient
-                
-                toSend.saveInBackgroundWithBlock { (success, error) -> Void in
-                    if success {
-                        print("Saved toSend object.")
-                    }
-                    else {
-                        print("Failed saving toSend object")
-                    }
+            let toSend = PFObject(className: "sentObject")
+            toSend["message"] = "What up, badBitch"
+            toSend["date"] = NSDate()
+            
+            let sender = PFUser.currentUser()
+            toSend["sender"] = sender
+            
+            let recipient = users[0]
+            
+            
+            print("Am sending to this person")
+            toSend["recipient"] = recipient
+            
+            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
+                if success {
+                    print("Saved toSend object.")
+                }
+                else {
+                    print("Failed saving toSend object")
                 }
             }
+            //}
         }
     }
     
