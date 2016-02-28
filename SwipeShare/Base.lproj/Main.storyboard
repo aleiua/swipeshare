@@ -258,13 +258,6 @@
                                     <segue destination="Tu0-3k-hV1" kind="show" id="ImI-mB-FqZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofq-KL-a5p">
-                                <rect key="frame" x="111" y="129" width="105" height="30"/>
-                                <state key="normal" title="Find Neighbors"/>
-                                <connections>
-                                    <action selector="findNeighbors:" destination="BYZ-38-t0r" eventType="touchUpInside" id="64l-Nn-1IK"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="weO-zx-raa">
                                 <rect key="frame" x="111" y="482" width="99" height="30"/>
                                 <state key="normal" title="Send Another"/>
@@ -288,7 +281,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmm-u6-XFL">
-                                <rect key="frame" x="103" y="200" width="115" height="30"/>
+                                <rect key="frame" x="103" y="129" width="115" height="30"/>
                                 <state key="normal" title="Sort Neighbors"/>
                                 <connections>
                                     <action selector="callSortNeighbors:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8W1-bb-c7O"/>

@@ -313,11 +313,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
     
     
-    
-    
-    @IBAction func callFindNeighbors(sender: AnyObject) {
-        findNeighbors()
-    }
     func findNeighbors() -> Array<PFObject> {
         
         print("Querying for neighbors")
