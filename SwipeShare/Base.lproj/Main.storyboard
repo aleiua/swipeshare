@@ -280,11 +280,18 @@
                                     <action selector="resend:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2CM-ye-a2V"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHD-mU-32b">
-                                <rect key="frame" x="124" y="520" width="79" height="30"/>
-                                <state key="normal" title="Save Image"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaL-Sg-xUu">
+                                <rect key="frame" x="116" y="167" width="89" height="30"/>
+                                <state key="normal" title="Take a photo"/>
                                 <connections>
-                                    <action selector="uploadImageToParse:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cgj-Ys-NAh"/>
+                                    <action selector="openCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ssn-fT-DAS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6R-AD-EPU">
+                                <rect key="frame" x="112" y="518" width="97" height="30"/>
+                                <state key="normal" title="Save To Parse"/>
+                                <connections>
+                                    <action selector="uploadImageToParse:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PIm-V8-vFa"/>
                                 </connections>
                             </button>
                         </subviews>
