@@ -22,6 +22,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBOutlet weak var photoz: UIButton!
     
     @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var cameraButton: UIButton!
     
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
@@ -38,6 +39,17 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     var swipedHeading = Float()
    
+    @IBAction func openCamera(sender: AnyObject) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
+            
+            
+            imagePicker!.delegate = self
+            imagePicker!.sourceType = UIImagePickerControllerSourceType.Camera;
+            
+            self.presentViewController(imagePicker!, animated: true, completion: nil)
+        }
+    }
     
     @IBOutlet weak var sendAnother: UIButton!
     

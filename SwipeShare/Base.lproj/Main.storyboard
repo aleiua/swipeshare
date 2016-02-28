@@ -280,6 +280,13 @@
                                     <action selector="resend:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2CM-ye-a2V"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaL-Sg-xUu">
+                                <rect key="frame" x="116" y="167" width="89" height="30"/>
+                                <state key="normal" title="Take a photo"/>
+                                <connections>
+                                    <action selector="openCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ssn-fT-DAS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.99159159339630587" green="1" blue="0.96909158622102409" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.31341638378628611" green="0.49561332507590039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -287,6 +294,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="cameraButton" destination="QaL-Sg-xUu" id="Lmr-mH-Uty"/>
                         <outlet property="photoz" destination="pdP-Zv-t4l" id="Q5h-zv-EdW"/>
                         <outlet property="sendAnother" destination="weO-zx-raa" id="3o7-OL-u2k"/>
                     </connections>
