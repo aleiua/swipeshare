@@ -64,15 +64,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var searchDistance = 0.001
     var earthRadius = 6371.0
     
-    @IBAction func getCurrentLocation(sender: AnyObject) {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
-    }
-    
-    
-    
     
     @IBAction func uploadImageToParse(sender: AnyObject) {
         if (DEBUG) {
@@ -426,6 +417,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.distanceFilter = 5
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
         
         // For touch detection on an image
         self.initializeGestureRecognizer()
