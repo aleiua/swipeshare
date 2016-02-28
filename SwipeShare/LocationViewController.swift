@@ -37,6 +37,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var imagePicker:UIImagePickerController?=UIImagePickerController()
     
     var swipedHeading = Float()
+    var DEBUG = true
    
     
     @IBOutlet weak var sendAnother: UIButton!
@@ -56,6 +57,30 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
+    }
+    
+    
+    
+    
+    @IBAction func uploadImageToParse(sender: AnyObject) {
+        if (DEBUG) {
+            print("Uploading image to parse.")
+        }
+        
+        let imageObject = PFObject(className: "imageTester")
+        
+        imageObject["userID"] = PFUser.currentUser()?.objectId
+        
+        let filename = "badbitch.png"
+        let pngImage = UIImageJPEGRepresentation(image.image!, 1.0)
+        let imageFile = PFFile(name: filename, data: pngImage!)
+        imageObject["image"] = imageFile
+        
+        if (DEBUG) {
+            print("Finished uploading image to parse.")
+        }
+        
+        imageObject.saveInBackground()
     }
     
     /*
@@ -168,7 +193,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             }
             image.removeFromSuperview()
         }
-        self.loadImage("yawIcon.png")
+        
+        self.loadImage(image)
+        
     }
     
     
@@ -372,12 +399,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         // For touch detection on an image
         self.initializeGestureRecognizer()
         
-        print("Running Haversine")
-        let distance = Haversine(40.7486, lonA: -73.9864, latB : 42.7486, lonB : -75.9864)
-        print("Distance: \(distance)")
-        let bearing = Bearing(40.7486, lonA: -73.9864, latB : 42.7486, lonB : -75.9864)
-        print("Bearing:  \(bearing)")
-        
         let user = PFUser.currentUser()
         if user == nil {
             print("Could not get current User")
@@ -391,7 +412,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         user!.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 self.userObjectId = user!.objectId!
-                print(self.userObjectId)
+                if (self.DEBUG) {
+                    print(self.userObjectId)
+                }
             }
         }
     }
@@ -428,7 +451,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         user!.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
-                print("Saved Successfully")
+                if (self.DEBUG) {
+                    print("Saved Successfully")
+                }
                 self.userLatitude = self.currentLocation.coordinate.latitude
                 self.userLongitude = self.currentLocation.coordinate.longitude
             }
