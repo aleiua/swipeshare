@@ -294,6 +294,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="cameraButton" destination="QaL-Sg-xUu" id="Lmr-mH-Uty"/>
                         <outlet property="photoz" destination="pdP-Zv-t4l" id="Q5h-zv-EdW"/>
                         <outlet property="sendAnother" destination="weO-zx-raa" id="3o7-OL-u2k"/>
                     </connections>
