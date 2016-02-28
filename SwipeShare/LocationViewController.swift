@@ -74,7 +74,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         imageObject["userID"] = PFUser.currentUser()?.objectId
         
-        let filename = "badbitch.png"
+        let filename = "badbitch.jpg"
         let pngImage = UIImageJPEGRepresentation(image.image!, 1.0)
         let imageFile = PFFile(name: filename, data: pngImage!)
         imageObject["image"] = imageFile
