@@ -40,6 +40,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var swipedHeading = Float()
     var DEBUG = true
    
+    
+    
     @IBAction func openCamera(sender: AnyObject) {
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
@@ -51,6 +53,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             self.presentViewController(imagePicker!, animated: true, completion: nil)
         }
     }
+    
+    
     
     @IBOutlet weak var sendAnother: UIButton!
     
@@ -174,8 +178,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     */
     func loadImage(image: UIImageView) {
         
+        
         image.frame = CGRect(x: (self.view.frame.size.width/2-75), y: (self.view.frame.size.height/2-75), width: 150, height: 150)
         view.addSubview(image)
+        
         image.userInteractionEnabled = true
         image.addGestureRecognizer(panGesture)
         
@@ -400,6 +406,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     func imagePickerController(imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         imagePicker .dismissViewControllerAnimated(true, completion: nil)
         let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        if image != nil {
+            image.removeFromSuperview()
+        }
+        
         image = UIImageView(image: selectedImage)
         loadImage(image)
     }
