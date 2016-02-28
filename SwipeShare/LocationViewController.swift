@@ -34,6 +34,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var angle: CGFloat!
     var panGesture: UIPanGestureRecognizer!
     var image: UIImageView!
+    var imagePicker:UIImagePickerController?=UIImagePickerController()
     
     var swipedHeading = Float()
    
@@ -73,8 +74,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     */
     func recognizePanGesture(sender: UIPanGestureRecognizer) {
         
-        // prevent "send another copy" from being pressed
-        self.sendAnother.hidden = true
         
         let translate = sender.translationInView(self.view)
         
@@ -145,14 +144,14 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     /*
     * Load image with given filename
     */
-    func loadImage(imageName: String) {
+    func loadImage(image: UIImageView) {
         
-        let imageFile = UIImage(named: imageName)
-        image = UIImageView(image: imageFile!)
         image.frame = CGRect(x: (self.view.frame.size.width/2-75), y: (self.view.frame.size.height/2-75), width: 150, height: 150)
         view.addSubview(image)
         image.userInteractionEnabled = true
         image.addGestureRecognizer(panGesture)
+        
+        self.sendAnother.hidden = true
         
     }
     
@@ -345,19 +344,20 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
             print("Button capture")
-            let imagePicker = UIImagePickerController()
             
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
-            imagePicker.allowsEditing = false
+            imagePicker!.delegate = self
+            imagePicker!.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
+            imagePicker!.allowsEditing = false
             
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+            self.presentViewController(imagePicker!, animated: true, completion: nil)
         }
-        
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
-            let selectedImage : UIImage = image
-            print(selectedImage)
-        }
+    }
+    
+    func imagePickerController(imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        imagePicker .dismissViewControllerAnimated(true, completion: nil)
+        let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        image = UIImageView(image: selectedImage)
+        loadImage(image)
     }
 
     
@@ -371,7 +371,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         // For touch detection on an image
         self.initializeGestureRecognizer()
-        self.loadImage("yawIcon.png")
         
         print("Running Haversine")
         let distance = Haversine(40.7486, lonA: -73.9864, latB : 42.7486, lonB : -75.9864)
