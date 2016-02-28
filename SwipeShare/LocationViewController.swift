@@ -15,32 +15,15 @@ import Darwin
 
 
 class LocationViewController: ViewController, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
+    
     // MARK: Properties
     
-<<<<<<< HEAD
     // Button for accessing photos
     @IBOutlet weak var photoz: UIButton!
     
     @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var cameraButton: UIButton!
     
-=======
-    @IBOutlet weak var latitudeLabel: UILabel!
-    @IBOutlet weak var longitudeLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var headingLabel: UILabel!
-    @IBOutlet weak var nearbyLabel: UILabel!
-    
-    @IBOutlet weak var usernameLabel: UILabel!
-    // Swipeable image
-//    @IBOutlet weak var image: UIImageView!
-    
-    
-    // Button for accessing photos
-    @IBOutlet weak var photoz: UIButton!
-    
-
->>>>>>> master
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
     var currentHeading: CLHeading!
@@ -49,6 +32,27 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
+    var angle: CGFloat!
+    var panGesture: UIPanGestureRecognizer!
+    var image: UIImageView!
+    var imagePicker:UIImagePickerController?=UIImagePickerController()
+    
+    var swipedHeading = Float()
+    var DEBUG = true
+    
+    @IBAction func openCamera(sender: AnyObject) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
+            
+            
+            imagePicker!.delegate = self
+            imagePicker!.sourceType = UIImagePickerControllerSourceType.Camera;
+            
+            self.presentViewController(imagePicker!, animated: true, completion: nil)
+        }
+    }
+    
+    @IBOutlet weak var sendAnother: UIButton!
     
     /*
     Rough Distances:
@@ -56,28 +60,148 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     .01 = 1km = 1000m
     .001 = .1km = 100m
     .0001 = .01km = 10m
-    
-<<<<<<< HEAD
     */
-    var searchDistance = 0.0001
+    var searchDistance = 0.001
     var earthRadius = 6371.0
-=======
-
     
     
->>>>>>> master
-    
-    
-    
-    @IBAction func getCurrentLocation(sender: AnyObject) {
+    @IBAction func uploadImageToParse(sender: AnyObject) {
+        if (DEBUG) {
+            print("Uploading image to parse.")
+        }
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
+        let imageObject = PFObject(className: "imageTester")
         
+        imageObject["userID"] = PFUser.currentUser()?.objectId
+        
+        let filename = "badbitch.jpg"
+        let pngImage = UIImageJPEGRepresentation(image.image!, 1.0)
+        let imageFile = PFFile(name: filename, data: pngImage!)
+        imageObject["image"] = imageFile
+        
+        if (DEBUG) {
+            print("Finished uploading image to parse.")
+        }
+        
+        imageObject.saveInBackground()
+    }
+    
+    /*
+    * Initialize panGestureRecognizer
+    */
+    func initializeGestureRecognizer() {
+        //For PanGesture Recoginzation
+        panGesture = UIPanGestureRecognizer(target: self, action: Selector("recognizePanGesture:"))
+        panGesture.minimumNumberOfTouches = 1
+        panGesture.maximumNumberOfTouches = 1
+    }
+    
+    /*
+    * Performs updating on objects to which the gesture recognizer is added
+    *
+    */
+    func recognizePanGesture(sender: UIPanGestureRecognizer) {
+        
+        
+        let translate = sender.translationInView(self.view)
+        
+        sender.view!.center = CGPoint(x:sender.view!.center.x + translate.x,
+            y:sender.view!.center.y + translate.y)
+        
+        sender.setTranslation(CGPointZero, inView: self.view)
+        
+        let centerPoint = CGPoint(x:self.view.frame.size.width/2,
+            y:self.view.frame.size.height/2)
+        
+        if sender.state == UIGestureRecognizerState.Ended {
+            
+            let velocity = sender.velocityInView(self.view)
+            
+            
+            // If velocity less than threshold, final point is center and returns with set velocity
+            if abs(velocity.x) < 250 || abs(velocity.y) < 250 {
+                let finalPoint = centerPoint
+                
+                UIView.animateWithDuration(0.2,
+                    delay: 0,
+                    options: UIViewAnimationOptions.CurveEaseIn,
+                    animations: {sender.view!.center = finalPoint},
+                    completion: nil)
+                
+            }
+                
+                
+                // If velocity threshold exceeded, animate in the swiped direction
+            else {
+                
+                // Calculate final point based on object center and velocity
+                let finalPoint = CGPoint(x:sender.view!.center.x + (velocity.x),
+                    y:sender.view!.center.y + (velocity.y))
+                
+                // Change in y and x
+                let dy = Float(centerPoint.y - finalPoint.y)
+                let dx = Float(centerPoint.x - finalPoint.x)
+                
+                // Calculate angle and correct rotation
+                angle = CGFloat(atan2(dy,dx)*Float((180/M_PI)))
+                if angle < -90 {
+                    angle = angle + 270
+                }
+                else {
+                    angle = angle - 90
+                }
+                
+                swipedHeading = Float(currentHeading.trueHeading) + Float(angle)
+                
+                UIView.animateWithDuration(1,
+                    delay: 0,
+                    options: UIViewAnimationOptions.CurveLinear,
+                    animations: {sender.view!.center = finalPoint },
+                    completion: { (finished: Bool) -> Void in
+                        sender.view!.removeFromSuperview()
+                        // make "send another copy" pressable again
+                        self.sendAnother.hidden = false
+                        
+                        print("animation complete and removed from superview")
+                })
+            }
+        }
+    }
+    
+    
+    /*
+    * Load image with given filename
+    */
+    func loadImage(image: UIImageView) {
+        
+        image.frame = CGRect(x: (self.view.frame.size.width/2-75), y: (self.view.frame.size.height/2-75), width: 150, height: 150)
+        view.addSubview(image)
+        image.userInteractionEnabled = true
+        image.addGestureRecognizer(panGesture)
+        
+        self.sendAnother.hidden = true
         
     }
+    
+    
+    /*
+    * Resend the previously swiped image
+    */
+    @IBAction func resend(sender: AnyObject) {
+        
+        // stop animation if still animating and remove image
+        if image.center.x != self.view.frame.size.width/2 && image.center.y != self.view.frame.size.height/2 {
+            if image.isAnimating() {
+                image.stopAnimating()
+            }
+            image.removeFromSuperview()
+        }
+        
+        self.loadImage(image)
+        
+    }
+    
+    
     
     // Calculates distance from point A to B using Haversine formula
     // Currently returns distance in KM
@@ -118,30 +242,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
     
     @IBAction func logout() {
-        
-        
-        // Clean up user location information when they log out
-        let user = PFUser.currentUser()
-        user!["location"].deleteInBackground()
-        
-        
-//        let query = PFQuery(className:"Location")
-//        query.getObjectInBackgroundWithId(userObjectId) {
-//            
-//            (location : PFObject?, error: NSError?) -> Void in
-//            if error != nil {
-//                print(error)
-//            } else if let location = location {
-//                print("deleting shit")
-//                location.deleteInBackground()
-//            }
-//        }
-//        
-        // Log em out
+        print(PFUser.currentUser())
         PFUser.logOut()
         
-
-        // Send back to login screen
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
             self.presentViewController(viewController, animated: true, completion: nil)
@@ -150,7 +253,67 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     
     
-    @IBAction func findNeighbors(sender: AnyObject) {
+    // Sorting function
+    // Pass in 1 to sort by distance, otherwise sorts by bearing
+    @IBAction func callSortNeighbors(sender: AnyObject) {
+        
+        let users = findNeighbors()
+        
+        let sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: users, sortBy: 0)
+        
+        print(sortedNeighbors)
+    }
+    
+    func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
+        var doubleToObjects = [Double : Array<PFObject>]()
+        var distances = [Double]()
+        
+        for n in neighbors {
+            var distance = 0.0
+            // Sort by distance
+            if sortBy == 1 {
+                distance = Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
+            }
+                // Sort by bearing
+            else {
+                let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
+                distance = Double(swipedHeading) - direction;
+            }
+            
+            // Old entry in dictionary
+            var previousEntry = doubleToObjects[distance]
+            // Check if someone else has same distance
+            if previousEntry == nil {
+                var newArray = [PFObject]()
+                newArray.append(n)
+                
+                doubleToObjects[distance] = newArray
+                distances.append(distance)
+                
+            }
+            else {
+                previousEntry!.append(n)
+                doubleToObjects[distance] = previousEntry
+            }
+        }
+        
+        distances.sortInPlace() // Is this less efficient than regular sort?
+        var orderedNeighbors = [PFObject]()
+        
+        // Convert sorted distances into sorted objects.
+        for d in distances {
+            let arr = doubleToObjects[d]
+            for obj in arr! {
+                orderedNeighbors.append(obj)
+            }
+        }
+        return orderedNeighbors
+    }
+    
+    
+    func findNeighbors() -> Array<PFObject> {
         
         print("Querying for neighbors")
         let query = PFQuery(className:"_User")
@@ -165,7 +328,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         
         // Get all close neighbors
-        var users = []
+        var users = [PFObject]()
         var index = -1
         do {
             try users = query.findObjects()
@@ -177,6 +340,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                     index = i
                 }
             }
+            // UNTESTED
+            users.removeAtIndex(index)
         }
         catch {
             print("Error getting neighbors!")
@@ -185,79 +350,83 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         // Send to first neighbor in return array.
         //        print(users)
         
-        for (i, recipient) in users.enumerate() {
+        for recipient in users {
             print("____________________")
             print("Recipient: " + String(recipient.objectId))
             print("Current: " + self.userObjectId)
             
-            if (i != index) {
-                
-                let toSend = PFObject(className: "sentObject")
-                toSend["message"] = "What up, badBitch"
-                toSend["date"] = NSDate()
-                
-                let sender = PFUser.currentUser()
-                toSend["sender"] = sender
-                
-                let recipient = users[0]
-                
-                
-                print("Only sending to: " + String(recipient["username"]))
-                toSend["recipient"] = recipient
-                
-                toSend.saveInBackgroundWithBlock { (success, error) -> Void in
-                    if success {
-                        print("Saved toSend object.")
-                    }
-                    else {
-                        print("Failed saving toSend object")
-                    }
+            //if (i != index) {
+            
+            let toSend = PFObject(className: "sentObject")
+            toSend["message"] = "What up, badBitch"
+            toSend["date"] = NSDate()
+            
+            let sender = PFUser.currentUser()
+            toSend["sender"] = sender
+            
+            let recipient = users[0]
+            
+            
+            print("Am sending to this person")
+            toSend["recipient"] = recipient
+            
+            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
+                if success {
+                    print("Saved toSend object.")
+                }
+                else {
+                    print("Failed saving toSend object")
                 }
             }
+            //}
         }
+        return users
     }
+    
     
     @IBAction func openPhotos(){
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
             print("Button capture")
-            let imagePicker = UIImagePickerController()
             
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
-            imagePicker.allowsEditing = false
+            imagePicker!.delegate = self
+            imagePicker!.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
+            imagePicker!.allowsEditing = false
             
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-        }
-        
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
-            let selectedImage : UIImage = image
-            print(selectedImage)
+            self.presentViewController(imagePicker!, animated: true, completion: nil)
         }
     }
-
+    
+    func imagePickerController(imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        imagePicker .dismissViewControllerAnimated(true, completion: nil)
+        let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        image = UIImageView(image: selectedImage)
+        loadImage(image)
+    }
+    
     
     override func viewDidLoad()  {
-        
         super.viewDidLoad()
         locationManager = CLLocationManager()
         locationManager.requestAlwaysAuthorization()
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        // locationManager.distanceFilter = 5
+        locationManager.distanceFilter = 5
         
-        print("Running Haversine")
-        let distance = Haversine(40.7486, lonA: -73.9864, latB : 42.7486, lonB : -75.9864)
-        print("Distance: \(distance)")
-        let bearing = Bearing(40.7486, lonA: -73.9864, latB : 42.7486, lonB : -75.9864)
-        print("Bearing:  \(bearing)")
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
+        
+        // For touch detection on an image
+        self.initializeGestureRecognizer()
         
         let user = PFUser.currentUser()
-<<<<<<< HEAD
         if user == nil {
             print("Could not get current User")
         }
         else {
+            // userLabel.text = user?.username
             user!["latitude"] = Double()
             user!["longitude"] = Double()
         }
@@ -265,125 +434,14 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         user!.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 self.userObjectId = user!.objectId!
-                print(self.userObjectId)
+                if (self.DEBUG) {
+                    print(self.userObjectId)
+                }
             }
         }
     }
-=======
-        user!["location"] = PFGeoPoint()
-        
-        user!.saveInBackgroundWithBlock {
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                print("Location has been saved.")
-                print(user)
-            }
-            else {
-                print("Location was not saved!")
-            }
-        }
-    }
-//
-//        usernameLabel.text = user?.username
-//        
-//        let l = PFObject(className:"Location")
-//        
-//        l["latitude"] = Double()
-//        l["longitude"] = Double()
-//        if user == nil {
-//        l["user"] = NSNull()
-//        }
-//        else {
-//            l["user"] = user
-//        }
-//        
-//        //print(userObjectId)
-//        
-//        l.saveInBackgroundWithBlock { (success, error) -> Void in
-//            if success {
-//                self.userObjectId = l.objectId!
-//                print(self.userObjectId)
-//            }
-//        }
-
-        
-        
-        
-        
-        
-        
-        // To enable swiping:
-//        self.initializeGestureRecognizer()
-        
-        // Testing Parse
-//        let testObject = PFObject(className: "TestObject")
-//        testObject["foo"] = "bar"
-//        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-//            print("Object has been saved.")
-//        }
-//        
-//        PFGeoPoint.geoPointForCurrentLocationInBackground {
-//            (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-//            if error == nil {
-//                let user = PFUser.currentUser()
-//                user!["location"] = geoPoint
-//                user!.saveInBackgroundWithBlock {
-//                    (success: Bool, error: NSError?) -> Void in
-//                    if (success) {
-//                        // The object has been saved.
-//                        print("Location has been saved.")
-//                        print(user)
-            
-//                        let userGeoPoint = user!["location"] as! PFGeoPoint
-//                        let query = PFUser.query()
-//                        query!.whereKey("location", nearGeoPoint:userGeoPoint)
-//                        query!.findObjectsInBackgroundWithBlock {
-//                            (nearbies: [PFObject]?, error: NSError?) -> Void in
-//                            if error == nil {
-//                                 print("Successfully retrieved \(nearbies!.count) nearby users.")
-//                                var nearbyText = ""
-//                                for object in nearbies! {
-//                                    if object.objectId != user?.objectId {
-//                                        let name = object.objectForKey("username") as! String;
-//                                        if nearbyText.isEmpty {
-//                                            nearbyText = name
-//                                        } else {
-//                                            nearbyText += ", \(name)"
-//                                        }
-//                                    }
-////                                    print(object)
-//                                }
-//                                self.nearbyLabel.text = nearbyText
-//                            }
-//                        }
-//                        
-//                        let userGeoPoint = user!["location"] as! PFGeoPoint
-//                        let query = PFUser.query()
-//                        query!.whereKey("location", nearGeoPoint:userGeoPoint)
-//                        query!.limit = 10
-//                        let nearbies = query!.findObjects()
-//                            for object in nearbies {
-//                                print(object)
-//                            }
-//                        self.nearbyLabel.text = "\(nearbies[0].username)"
-//                    
-//                    } else {
-//                        print("Location has NOT been saved.")
-//                        // There was a problem, check error.description
-//                    }
-//                }
-//                
-//            }
-//            else {
-//                print("Could not get location in parse")
-//            }
-//        }
-//        
-//    }
->>>>>>> master
     
-
+    
     
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -391,24 +449,18 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         print("Error while updating location " + error.localizedDescription)
     }
     
-<<<<<<< HEAD
     
-
     
-=======
-
->>>>>>> master
     
-
+    
+    
     /*
     * Update longitude/latitude locations
     */
-    func locationManager(manager:CLLocationManager, didUpdateLocations locations: Array <CLLocation>) throws {
+    func locationManager(manager:CLLocationManager, didUpdateLocations locations: Array <CLLocation>) {
         
-        print("In Update")
         currentLocation = locationManager.location!
-<<<<<<< HEAD
-
+        
         let user = PFUser.currentUser()
         
         if user == nil {
@@ -421,44 +473,13 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         user!.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
-                print("Saved Successfully")
+                if (self.DEBUG) {
+                    print("Saved Successfully")
+                }
                 self.userLatitude = self.currentLocation.coordinate.latitude
                 self.userLongitude = self.currentLocation.coordinate.longitude
             }
         }
-=======
-        
-        latitudeLabel.text = "\(currentLocation.coordinate.latitude)"
-        longitudeLabel.text = "\(currentLocation.coordinate.longitude)"
-        
-        let user = PFUser.currentUser()! as PFUser
-        
-        let location = user["location"]! as! PFGeoPoint
-        print(location.latitude)
-        location.latitude = self.currentLocation.coordinate.latitude
-        location.longitude = self.currentLocation.coordinate.longitude
-        print(location.latitude)
-        
-        try user.save()
-        
-        
-        //let query = PFQuery(className:"Location")
-        
-        
-//        query.getObjectInBackgroundWithId(userObjectId) {
-//            
-//            (location : PFObject?, error: NSError?) -> Void in
-//            if error != nil {
-//                print(error)
-//            } else if let location = location {
-//                location["latitude"] = self.currentLocation.coordinate.latitude
-//                location["longitude"] = self.currentLocation.coordinate.longitude
-//                location.saveInBackground()
-//            }
-//        }
-
-        
->>>>>>> master
     }
     
     
@@ -471,24 +492,24 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         currentHeading = locationManager.heading!
     }
     
-
-
-
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
     
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
