@@ -180,7 +180,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             }
             image.removeFromSuperview()
         }
-        self.loadImage("yawIcon.png")
+        self.loadImage(image)
     }
     
     
