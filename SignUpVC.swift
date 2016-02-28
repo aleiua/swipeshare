@@ -16,7 +16,6 @@ class SignUpVC: UIViewController {
     
     @IBOutlet weak var passwordField: UITextField!
     
-    @IBOutlet weak var cancelButton: UIButton!
     
     @IBAction func submit(sender: AnyObject) {
         usernameField.autocorrectionType = .No
@@ -62,9 +61,18 @@ class SignUpVC: UIViewController {
         
     }
     
-    @IBAction func cancelToPlayersViewController(segue:UIStoryboardSegue) {
-        
+    
+    @IBAction func cancelToLogin(sender: AnyObject) {
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+            self.presentViewController(viewController, animated: true, completion: nil)
+            
+            
+        })
+
     }
+    
+
     
 
     

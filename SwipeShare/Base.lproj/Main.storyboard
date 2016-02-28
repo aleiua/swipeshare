@@ -129,10 +129,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcg-gq-ie1">
-                                <rect key="frame" x="126" y="448" width="48" height="30"/>
+                                <rect key="frame" x="133" y="450" width="48" height="30"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <segue destination="7n0-zh-4XB" kind="unwind" unwindAction="cancelToPlayersViewController:" id="bb9-qf-79t"/>
+                                    <action selector="cancelToLogin:" destination="SjQ-Ec-acg" eventType="touchUpInside" id="utc-0F-HkQ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -140,15 +140,13 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="cancelButton" destination="lcg-gq-ie1" id="sYe-x4-f5v"/>
                         <outlet property="passwordField" destination="COO-1n-gwS" id="Lf4-ru-4ex"/>
                         <outlet property="usernameField" destination="ykN-AE-lHc" id="BbC-9A-OJe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ur3-e6-U8d" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="7n0-zh-4XB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-659" y="1108"/>
+            <point key="canvasLocation" x="-707" y="1239"/>
         </scene>
         <!--Reset Password View Controller-->
         <scene sceneID="IaE-aw-jE7">
@@ -284,9 +282,6 @@
                         <gestureRecognizers/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="photoz" destination="pdP-Zv-t4l" id="Q5h-zv-EdW"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="vw9-8C-Mvb">
@@ -295,10 +290,10 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-79" y="328"/>
+            <point key="canvasLocation" x="-8" y="140"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="VT0-7d-otA"/>
+        <segue reference="ImI-mB-FqZ"/>
     </inferredMetricsTieBreakers>
 </document>
