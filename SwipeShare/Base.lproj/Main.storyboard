@@ -272,6 +272,13 @@
                                     <action selector="resend:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2CM-ye-a2V"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaL-Sg-xUu">
+                                <rect key="frame" x="119" y="128" width="89" height="30"/>
+                                <state key="normal" title="Take a photo"/>
+                                <connections>
+                                    <action selector="openCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ssn-fT-DAS"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmm-u6-XFL">
                                 <rect key="frame" x="106" y="199" width="115" height="30"/>
                                 <state key="normal" title="Sort Neighbors"/>
@@ -286,13 +293,42 @@
                                     <action selector="callSendToClosest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xhh-La-48y"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaL-Sg-xUu">
-                                <rect key="frame" x="119" y="123" width="89" height="30"/>
-                                <state key="normal" title="Take a photo"/>
-                                <connections>
-                                    <action selector="openCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ssn-fT-DAS"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90V-KY-ZgM">
+                                <rect key="frame" x="22" y="244" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Longitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aos-c4-BlR">
+                                <rect key="frame" x="8" y="273" width="82" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nearest:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1D-5F-g5I">
+                                <rect key="frame" x="25" y="302" width="65" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wv-o0-yXE">
+                                <rect key="frame" x="98" y="244" width="184" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6PD-lh-g19">
+                                <rect key="frame" x="98" y="273" width="184" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5T3-8C-2Vt">
+                                <rect key="frame" x="98" y="302" width="184" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.99159159339630587" green="1" blue="0.96909158622102409" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.31341638378628611" green="0.49561332507590039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -301,6 +337,9 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="cameraButton" destination="QaL-Sg-xUu" id="Lmr-mH-Uty"/>
+                        <outlet property="latitudeLabel" destination="2wv-o0-yXE" id="KuC-OH-cmO"/>
+                        <outlet property="longitudeLabel" destination="6PD-lh-g19" id="jgg-nd-IDu"/>
+                        <outlet property="nearestLabel" destination="5T3-8C-2Vt" id="rxv-pB-U9Q"/>
                         <outlet property="photoz" destination="pdP-Zv-t4l" id="Q5h-zv-EdW"/>
                         <outlet property="sendAnother" destination="weO-zx-raa" id="3o7-OL-u2k"/>
                     </connections>

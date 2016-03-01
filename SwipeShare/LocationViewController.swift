@@ -23,6 +23,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var sendAnother: UIButton!
+    @IBOutlet weak var latitudeLabel: UILabel!
+    @IBOutlet weak var longitudeLabel: UILabel!
+    @IBOutlet weak var nearestLabel: UILabel!
     
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
@@ -297,7 +300,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         let users = findNeighbors()
         
         let sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: users, sortBy: 0)
-        
+        nearestLabel.text = String(sortedNeighbors[0]["username"])
         print(sortedNeighbors)
     }
 
@@ -452,6 +455,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         else {
             user!["latitude"] = self.currentLocation.coordinate.latitude
             user!["longitude"] = self.currentLocation.coordinate.longitude
+            latitudeLabel.text = String(user!["latitude"])
+            longitudeLabel.text = String(user!["longitude"])
         }
         
         user!.saveInBackgroundWithBlock { (success, error) -> Void in
