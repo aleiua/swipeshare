@@ -407,11 +407,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.distanceFilter = 5
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
-        
         // For touch detection on an image
         self.initializeGestureRecognizer()
         
