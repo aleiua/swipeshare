@@ -159,8 +159,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     */
     func loadImage(image: UIImageView) {
         
+        
         image.frame = CGRect(x: (self.view.frame.size.width/2-75), y: (self.view.frame.size.height/2-75), width: 150, height: 150)
         view.addSubview(image)
+        
         image.userInteractionEnabled = true
         image.addGestureRecognizer(panGesture)
         
@@ -404,6 +406,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.distanceFilter = 5
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
         
         // For touch detection on an image
         self.initializeGestureRecognizer()
