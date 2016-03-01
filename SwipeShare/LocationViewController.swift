@@ -123,9 +123,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 
                 swipedHeading = Float(currentHeading.trueHeading) + Float(angle)
                 
-                // SEND TO NEAREST NEIGHBOR BY BEARING! (troy sucks)
-                sendToClosestNeighbor(0);
-                
                 UIView.animateWithDuration(1,
                     delay: 0,
                     options: UIViewAnimationOptions.CurveLinear,
@@ -137,6 +134,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                         
                         print("animation complete and removed from superview")
                 })
+                
+                // SEND TO NEAREST NEIGHBOR BY BEARING! (troy sucks)
+                sendToClosestNeighbor(0);
             }
         }
     }
@@ -347,8 +347,10 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         // Convert sorted distances into sorted objects.
         for d in distances {
+            print("Object with distance: \(d):")
             let arr = doubleToObjects[d]
             for obj in arr! {
+                print(obj["username"])
                 orderedNeighbors.append(obj)
             }
         }
