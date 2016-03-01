@@ -114,11 +114,16 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 
                 // Calculate angle and correct rotation
                 angle = CGFloat(atan2(dy,dx)*Float((180/M_PI)))
+                
                 if angle < -90 {
                     angle = angle + 270
                 }
                 else {
                     angle = angle - 90
+                }
+                
+                if angle < 0 {
+                    angle = angle + 360
                 }
                 
                 swipedHeading = (Float(currentHeading.trueHeading) + Float(angle)) % 360
