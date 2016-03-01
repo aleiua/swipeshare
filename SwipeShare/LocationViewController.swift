@@ -41,9 +41,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var DEBUG = true
    
     
-    
-    
-    
     /*
     Rough Distances:
     .1 = 11km
