@@ -303,7 +303,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         let users = findNeighbors()
         
         let sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: users, sortBy: 0)
-        nearestLabel.text = String(sortedNeighbors[0]["username"])
         print(sortedNeighbors)
     }
 
@@ -354,6 +353,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 orderedNeighbors.append(obj)
             }
         }
+        nearestLabel.text = String(orderedNeighbors[0]["username"])
         return orderedNeighbors
     }
     
