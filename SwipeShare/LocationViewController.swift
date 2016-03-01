@@ -121,7 +121,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                     angle = angle - 90
                 }
                 
-                swipedHeading = Float(currentHeading.trueHeading) + Float(angle)
+                swipedHeading = (Float(currentHeading.trueHeading) + Float(angle)) % 360
                 
                 UIView.animateWithDuration(1,
                     delay: 0,
@@ -250,7 +250,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         let b = atan2(y, x)
         
-        return b * (180 / M_PI)
+        return b * (180 / M_PI) + 180
     }
 
     
@@ -322,7 +322,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             else {
                 let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
                     latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
-                distance = Double(swipedHeading) - direction;
+                distance = abs(Double(swipedHeading) - direction)
             }
             
             // Old entry in dictionary
