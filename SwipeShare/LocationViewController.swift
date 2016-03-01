@@ -120,6 +120,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 
                 swipedHeading = Float(currentHeading.trueHeading) + Float(angle)
                 
+                // SEND TO NEAREST NEIGHBOR BY BEARING! (troy sucks)
+                sendToClosestNeighbor(0);
+                
                 UIView.animateWithDuration(1,
                     delay: 0,
                     options: UIViewAnimationOptions.CurveLinear,
@@ -248,9 +251,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
 
     
-    @IBAction func callSendToClosest(sender: AnyObject) {
-        sendToClosestNeighbor(1)
-    }
+//    @IBAction func callSendToClosest(sender: AnyObject) {
+//        sendToClosestNeighbor(1)
+//    }
 
     func sendToClosestNeighbor(sort: Int) {
         if (DEBUG) {
