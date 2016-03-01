@@ -397,6 +397,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         locationManager = CLLocationManager()
         locationManager.requestAlwaysAuthorization()
         
+        
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
+        
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.distanceFilter = 5
         
@@ -421,13 +426,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 }
             }
         }
-    }
-    
-    @IBAction func getCurrentLocation(sender: AnyObject) {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
     }
     
     

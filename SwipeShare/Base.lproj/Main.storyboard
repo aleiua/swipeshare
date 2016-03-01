@@ -258,14 +258,6 @@
                                     <segue destination="Tu0-3k-hV1" kind="show" id="ImI-mB-FqZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLn-v6-Lnh">
-                                <rect key="frame" x="42" y="53" width="237" height="38"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="Get Location"/>
-                                <connections>
-                                    <action selector="getCurrentLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="faF-y6-z0U"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofq-KL-a5p">
                                 <rect key="frame" x="111" y="129" width="105" height="30"/>
                                 <state key="normal" title="Find Neighbors"/>
