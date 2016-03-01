@@ -250,7 +250,12 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         let b = atan2(y, x)
         
-        return b * (180 / M_PI) + 180
+        var angle = b * (180 / M_PI)
+        if (b < 0) {
+            angle = angle + 360
+        }
+        return angle
+        
     }
 
     
