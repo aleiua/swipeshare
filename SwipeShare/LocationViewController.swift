@@ -335,13 +335,13 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
                     latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
                 
-                print("Direction when sending to: \(n["username"]) = \(direction)")
+                print("Direction from me to neighbor: \(n["username"]) = \(direction)")
 
                 let a = abs(Double(swipedHeading) - direction)
                 let b = 360 - a
                 distance = min(a, b)
                 
-                print("Bearing when sending to: \(n["username"]) = \(distance)")
+                print("Accuracy of swipe: \(n["username"]) = \(distance)")
             }
             
             // Old entry in dictionary
