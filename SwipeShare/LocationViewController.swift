@@ -89,7 +89,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             
             
             // If velocity less than threshold, final point is center and returns with set velocity
-            if abs(velocity.x) < 250 || abs(velocity.y) < 250 {
+            if abs(velocity.x) < 200 || abs(velocity.y) < 200 {
                 let finalPoint = centerPoint
                 
                 UIView.animateWithDuration(0.2,
