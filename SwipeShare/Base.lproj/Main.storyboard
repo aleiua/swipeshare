@@ -279,13 +279,6 @@
                                     <action selector="callSortNeighbors:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8W1-bb-c7O"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9K-XF-zmV">
-                                <rect key="frame" x="111" y="530" width="98" height="30"/>
-                                <state key="normal" title="GetFromParse"/>
-                                <connections>
-                                    <action selector="getSentPictures:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mcT-EM-jjj"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90V-KY-ZgM">
                                 <rect key="frame" x="25" y="90" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
