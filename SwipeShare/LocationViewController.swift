@@ -420,7 +420,13 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBAction func getSentPictures(sender: AnyObject) {
         let objs = getPicturesObjectsFromParse()
         let pics = extractPicturesFromObjects(objs)
-        // Troy, do some displaying?
+        
+        if (pics.count > 0) {
+        
+            let imageView = UIImageView(image: pics[0])
+            loadImage(imageView)
+            
+        }
     }
      
     func getPicturesObjectsFromParse() -> Array<PFObject> {
