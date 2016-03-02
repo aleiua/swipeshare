@@ -417,15 +417,18 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     
     /****************************RETRIEVE IMAGES*********************************/
+    
     @IBAction func getSentPictures(sender: AnyObject) {
         let objs = getPicturesObjectsFromParse()
         let pics = extractPicturesFromObjects(objs)
         
+        // ONLY SHOWS FIRST IMAGE
         if (pics.count > 0) {
-        
             let imageView = UIImageView(image: pics[0])
             loadImage(imageView)
-            
+        }
+        else {
+            print("No pictures remaining in parse.")
         }
     }
      
@@ -433,12 +436,14 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         print("Getting parse images")
         let query = PFQuery(className: "sentPicture")
-        query.whereKey("recipient", equalTo: userObjectId)
+        query.whereKey("recipient", equalTo: PFUser.currentUser()!)
         query.whereKey("hasBeenRead", equalTo: false)
         
         var pictureObjects = [PFObject]()
         do {
+            print("ABOUT TO QUERY")
             try pictureObjects = query.findObjects()
+            print("FINISH QUERY")
             for object in pictureObjects {
                 object["hasBeenRead"] = true
                 object.saveInBackground()
