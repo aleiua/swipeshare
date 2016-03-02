@@ -142,9 +142,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                         self.sendToClosestNeighbor(0);
                         print("animation complete and removed from superview")
                 })
-                
-                // SEND TO NEAREST NEIGHBOR BY BEARING
-                
             }
         }
     }
@@ -288,6 +285,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             toSend["date"] = NSDate()
             toSend["recipient"] = closestNeighbor
             toSend["sender"] = PFUser.currentUser()
+            toSend["hasBeenRead"] = false
             
             let filename = "image.jpg"
             let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
@@ -408,7 +406,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                     index = i
                 }
             }
-            // UNTESTED
             users.removeAtIndex(index)
         }
         catch {
@@ -417,6 +414,59 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         return users
     }
+    
+    
+    /****************************RETRIEVE IMAGES*********************************/
+    @IBAction func getSentPictures(sender: AnyObject) {
+        let objs = getPicturesObjectsFromParse()
+        let pics = extractPicturesFromObjects(objs)
+        // Troy, do some displaying?
+    }
+     
+    func getPicturesObjectsFromParse() -> Array<PFObject> {
+        
+        print("Getting parse images")
+        let query = PFQuery(className: "sentPicture")
+        query.whereKey("recipient", equalTo: userObjectId)
+        query.whereKey("hasBeenRead", equalTo: false)
+        
+        var pictureObjects = [PFObject]()
+        do {
+            try pictureObjects = query.findObjects()
+            for object in pictureObjects {
+                object["hasBeenRead"] = true
+                object.saveInBackground()
+            }
+        }
+        catch {
+            print("Error getting received pictures")
+        }
+        
+        return pictureObjects
+    }
+    
+    func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
+        
+        var pictures = [UIImage]()
+        for object in objects {
+            let picture = object["image"] as! PFFile
+            do {
+                
+                let imageData = try picture.getData()
+                let image = UIImage(data: imageData)
+                pictures.append(image!)
+
+            }
+            catch {
+                print("Error getting data for pictures")
+            }
+            
+        }
+        return pictures
+    }
+    
+     
+     
     
     /****************************LOCATION UPDATES********************************/
     
