@@ -174,7 +174,28 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     func loadImage(image: UIImageView) {
         
         
-        image.frame = CGRect(x: (self.view.frame.size.width/2-75), y: (self.view.frame.size.height/2-75), width: 150, height: 150)
+        let maxDimension = 175
+        
+        let width = image.image!.size.width
+        let height = image.image!.size.height
+
+        let scaledHeight: Double
+        let scaledWidth: Double
+        
+        if width > height {
+            scaledWidth = Double(maxDimension)
+            scaledHeight = (Double(height) * scaledWidth)/(Double(width))
+        }
+            
+        else {
+            
+            scaledHeight = Double(maxDimension)
+            scaledWidth = (Double(width) * scaledHeight)/(Double(height))
+        }
+        
+        image.frame = CGRect(x: Double(self.view.frame.size.width/2-CGFloat(scaledWidth/2)), y: Double(self.view.frame.size.height/2-CGFloat(scaledHeight/2)), width: scaledWidth , height: scaledHeight)
+        
+        
         view.addSubview(image)
         
         image.userInteractionEnabled = true
