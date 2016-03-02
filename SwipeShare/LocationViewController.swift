@@ -37,6 +37,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     var angle: CGFloat!
     var panGesture: UIPanGestureRecognizer!
+    
+    
     var image: UIImageView!
     var imagePicker:UIImagePickerController?=UIImagePickerController()
     
@@ -134,11 +136,22 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                     animations: {sender.view!.center = finalPoint },
                     completion: { (finished: Bool) -> Void in
                         sender.view!.removeFromSuperview()
-                        // make "send another copy" pressable again
+
                         self.sendAnother.hidden = false
+                        // Fade the refresh image button back in
+                        UIView.animateWithDuration(0.5,
+                            delay: 0,
+                            options: UIViewAnimationOptions.CurveEaseIn,
+                            animations: {
+                            self.sendAnother.alpha = 1
+                            }, completion: { finished in
+                                self.sendAnother.hidden = false
+                        })
+                        
                         self.swipedHeading = (Float(self.currentHeading.trueHeading) + Float(self.angle)) % 360
                         print("currentHeading is: \(self.currentHeading.trueHeading)")
                         print("Swiped Heading iself.s: \(self.swipedHeading)")
+                        
                         self.sendToClosestNeighbor(0);
                         print("animation complete and removed from superview")
                 })
@@ -171,20 +184,50 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     func loadImage(image: UIImageView) {
         
         
-        image.frame = CGRect(x: (self.view.frame.size.width/2-75), y: (self.view.frame.size.height/2-75), width: 150, height: 150)
+        
+        let maxDimension = 175
+        
+        let width = image.image!.size.width
+        let height = image.image!.size.height
+        
+        let scaledHeight: Double
+        let scaledWidth: Double
+        
+        if width > height {
+            scaledWidth = Double(maxDimension)
+            scaledHeight = (Double(height) * scaledWidth)/(Double(width))
+        }
+            
+        else {
+            
+            scaledHeight = Double(maxDimension)
+            scaledWidth = (Double(width) * scaledHeight)/(Double(height))
+        }
+        
+        image.frame = CGRect(x: Double(self.view.frame.size.width/2-CGFloat(scaledWidth/2)), y: Double(self.view.frame.size.height/2-CGFloat(scaledHeight/2)), width: scaledWidth , height: scaledHeight)
+        
+        
         view.addSubview(image)
         
         image.userInteractionEnabled = true
         image.addGestureRecognizer(panGesture)
         
-        self.sendAnother.hidden = true
         
+        // Fade out reload button
+        UIView.animateWithDuration(0.5,
+            delay: 0,
+            options: UIViewAnimationOptions.CurveEaseIn,
+            animations: {
+                self.sendAnother.alpha = 0
+            }, completion: { finished in
+                self.sendAnother.hidden = true
+        })
     }
     
     /*
-    * Resend the previously swiped image
+    * Reload the previously swiped image
     */
-    @IBAction func resend(sender: AnyObject) {
+    @IBAction func reload(sender: AnyObject) {
         
         // stop animation if still animating and remove image
         if image.center.x != self.view.frame.size.width/2 && image.center.y != self.view.frame.size.height/2 {
@@ -214,6 +257,12 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     func imagePickerController(imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         imagePicker .dismissViewControllerAnimated(true, completion: nil)
         let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        // Clear the previous image if one already exists
+        if image != nil {
+            image.removeFromSuperview()
+        }
+        
         image = UIImageView(image: selectedImage)
         loadImage(image)
     }
@@ -494,6 +543,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
 //        locationManager.distanceFilter = 5
+        
+        self.sendAnother.hidden = true
+        self.sendAnother.alpha = 0
         
         // For touch detection on an image
         self.initializeGestureRecognizer()
