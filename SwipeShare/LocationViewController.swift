@@ -126,9 +126,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                     angle = angle + 360
                 }
                 
-                swipedHeading = (Float(currentHeading.trueHeading) + Float(angle)) % 360
-                print("currentHeading is: \(currentHeading.trueHeading)")
-                print("Swiped Heading is: \(swipedHeading)")
+
                 
                 UIView.animateWithDuration(1,
                     delay: 0,
@@ -138,12 +136,15 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                         sender.view!.removeFromSuperview()
                         // make "send another copy" pressable again
                         self.sendAnother.hidden = false
-                        
+                        self.swipedHeading = (Float(self.currentHeading.trueHeading) + Float(self.angle)) % 360
+                        print("currentHeading is: \(self.currentHeading.trueHeading)")
+                        print("Swiped Heading iself.s: \(self.swipedHeading)")
+                        self.sendToClosestNeighbor(0);
                         print("animation complete and removed from superview")
                 })
                 
                 // SEND TO NEAREST NEIGHBOR BY BEARING
-                sendToClosestNeighbor(0);
+                
             }
         }
     }
