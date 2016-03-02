@@ -11,7 +11,7 @@ import Foundation
 
 import UIKit
 
-class BooksViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
+class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
     //let messageManager = messageManager.sharedMessageManager
     // ** CREATE MESSAGE MANAGAER **
@@ -88,30 +88,6 @@ class BooksViewController: UITableViewController, UISearchBarDelegate, UISearchD
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
-        if segue.identifier == "bookDetailSegue" {
-            
-            let destinationViewController = segue.destinationViewController as! BookDetailViewController
-            
-            if searchDisplayController!.active {
-                
-                if let selectedRow = searchDisplayController!.searchResultsTableView.indexPathForSelectedRow?.row {
-                    
-                    destinationViewController.book = filteredBooks?[selectedRow]
-                }
-                
-            } else {
-                
-                let book = bookManager.books[tableView.indexPathForSelectedRow!.row]
-                destinationViewController.book = book
-            }
-        }
-    }
-    
-    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
-        
-        filteredBooks = bookManager.filteredBooksForSearchText(searchString)
-        
-        return true
-    }
+
     
 }
