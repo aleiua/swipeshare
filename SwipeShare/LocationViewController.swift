@@ -127,6 +127,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 }
                 
                 swipedHeading = (Float(currentHeading.trueHeading) + Float(angle)) % 360
+                print("currentHeading is: \(currentHeading.trueHeading)")
+                print("Swiped Heading is: \(swipedHeading)")
                 
                 UIView.animateWithDuration(1,
                     delay: 0,
@@ -140,7 +142,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                         print("animation complete and removed from superview")
                 })
                 
-                // SEND TO NEAREST NEIGHBOR BY BEARING! (troy sucks)
+                // SEND TO NEAREST NEIGHBOR BY BEARING
                 sendToClosestNeighbor(0);
             }
         }
@@ -331,7 +333,14 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             else {
                 let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
                     latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
-                distance = abs(Double(swipedHeading) - direction)
+                
+                print("Direction when sending to: \(n["username"]) = \(direction)")
+
+                let a = abs(Double(swipedHeading) - direction)
+                let b = 360 - a
+                distance = min(a, b)
+                
+                print("Bearing when sending to: \(n["username"]) = \(distance)")
             }
             
             // Old entry in dictionary
@@ -356,7 +365,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         // Convert sorted distances into sorted objects.
         for d in distances {
-            print("Object with distance: \(d):")
             let arr = doubleToObjects[d]
             for obj in arr! {
                 print(obj["username"])
@@ -423,7 +431,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         locationManager.startUpdatingHeading()
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.distanceFilter = 5
+//        locationManager.distanceFilter = 5
         
         // For touch detection on an image
         self.initializeGestureRecognizer()
