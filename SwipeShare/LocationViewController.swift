@@ -418,6 +418,16 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     /****************************RETRIEVE IMAGES*********************************/
     
+    
+    func createNewMessageObject(sender: AnyObject) {
+//        let msg = Message(sender: <#T##String#>, receiver: PFUser.currentUser()!, text: String?, image: <#T##UIImage?#>)
+    }
+    
+    
+    func saveMessage(sender: AnyObject) {
+        
+    }
+    
     @IBAction func getSentPictures(sender: AnyObject) {
         let objs = getPicturesObjectsFromParse()
         let pics = extractPicturesFromObjects(objs)

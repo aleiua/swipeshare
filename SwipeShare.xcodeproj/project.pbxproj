@@ -36,6 +36,7 @@
 		939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B829C1C87859700770F79 /* MessageTableVC.swift */; };
 		939B829F1C8785AC00770F79 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B829E1C8785AC00770F79 /* MessageDetailVC.swift */; };
 		939B82A11C87882400770F79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82A01C87882400770F79 /* Message.swift */; };
+		939B82A31C87D2D800770F79 /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82A21C87D2D800770F79 /* MessageManager.swift */; };
 		93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */; };
 		93F422281C556B82006DEB7E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F422271C556B82006DEB7E /* MapKit.framework */; };
 		93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4222D1C5575B1006DEB7E /* LocationViewController.swift */; };
@@ -99,6 +100,7 @@
 		939B829C1C87859700770F79 /* MessageTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableVC.swift; sourceTree = "<group>"; };
 		939B829E1C8785AC00770F79 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailVC.swift; sourceTree = "<group>"; };
 		939B82A01C87882400770F79 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		939B82A21C87D2D800770F79 /* MessageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 		93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewCont.swift; sourceTree = "<group>"; };
 		93F422271C556B82006DEB7E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		93F4222D1C5575B1006DEB7E /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				937E7F301C55672700057D32 /* ViewController.swift */,
 				939B829C1C87859700770F79 /* MessageTableVC.swift */,
 				939B82A01C87882400770F79 /* Message.swift */,
+				939B82A21C87D2D800770F79 /* MessageManager.swift */,
 				939B829E1C8785AC00770F79 /* MessageDetailVC.swift */,
 				939B82961C87852300770F79 /* MessageCell.swift */,
 				5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */,
@@ -385,6 +388,7 @@
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				939B82A11C87882400770F79 /* Message.swift in Sources */,
 				939B829F1C8785AC00770F79 /* MessageDetailVC.swift in Sources */,
+				939B82A31C87D2D800770F79 /* MessageManager.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */,
 			);

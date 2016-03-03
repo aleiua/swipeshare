@@ -14,7 +14,7 @@ import UIKit
 class MessageCell: UITableViewCell {
     
     @IBOutlet weak var senderLabel: UILabel!
-    @IBOutlet weak var receiverLable: UILabel!
+    @IBOutlet weak var msgTextView: UITextView!
     @IBOutlet weak var messageImageView: UIImageView!
 
     
