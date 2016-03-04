@@ -433,16 +433,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     @IBAction func getSentPictures(sender: AnyObject) {
         let objs = getPictureObjectsFromParse()
-        let pics = extractPicturesFromObjects(objs)
         
-        // ONLY SHOWS FIRST IMAGE
-        if (pics.count > 0) {
-            let imageView = UIImageView(image: pics[0])
-            loadImage(imageView)
-        }
-        else {
-            print("No pictures remaining in parse.")
-        }
     }
      
     func getPictureObjectsFromParse() -> Array<PFObject> {
@@ -451,6 +442,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         let query = PFQuery(className: "sentPicture")
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
         query.whereKey("hasBeenRead", equalTo: false)
+        query.orderByAscending("date")
         
         var pictureObjects = [PFObject]()
         do {
@@ -465,24 +457,29 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 let msgSender = object["sender"]
                 let picture = object["image"] as! PFFile
                 
-                do {
-                    let imageData = try picture.getData()
-                    let msgImage = UIImage(data: imageData)
-                    let msg = Message(sender: msgSender! as! PFObject, image: msgImage)
-                    msgManager.addMessage(msg)
-                    
-                }
-                catch {
-                    print("Error getting data from Parse")
+                picture.getDataInBackgroundWithBlock {
+                    (imageData: NSData?, error: NSError?) -> Void in
+                    print("HI?")
+                    if (error == nil) {
+                        print("HELLO?")
+                        if let imageData = imageData {
+                            let msgImage = UIImage(data:imageData)
+                            let msg = Message(sender: msgSender! as! PFObject, image: msgImage)
+                            self.msgManager.addMessage(msg)
+                            self.msgManager.saveMessages()
+                            print("Saved message")
+                        }
+                    }
+                    else {
+                        print("NO")
+                    }
                 }
             }
-            msgManager.saveMessages()
-
         }
         catch {
             print("Error getting received pictures")
         }
-        
+        print("LEAVING METHOD")
         return pictureObjects
     }
     
@@ -577,7 +574,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         user!.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 if (self.DEBUG) {
-                    print("Saved Successfully")
+//                    print("Saved Successfully")
                 }
                 self.userLatitude = self.currentLocation.coordinate.latitude
                 self.userLongitude = self.currentLocation.coordinate.longitude
