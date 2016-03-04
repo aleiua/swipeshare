@@ -9,34 +9,27 @@
 import Foundation
 import Foundation
 import UIKit
+import Parse
 
 class Message {
     
-    var sender: String
-    var receiver: String
-    var text: String?
+    var sender: PFObject
     var image: UIImage?
     
     
     // Set text and image to default "nil" if they are not part of the message
     // Could be problematic with unwrapping that comes later ***
-    init(sender: String, receiver: String, text: String? = nil, image: UIImage? = nil) {
+    init(sender: PFObject, image: UIImage? = nil) {
         self.sender = sender
-        self.receiver = receiver
-        self.text = text
         self.image = image
     }
     
     convenience init(dictionary: NSDictionary) {
         
-        let sender = dictionary["sender"] as? String
-        let receiver = dictionary["receiver"] as? String
-        
+        let sender = dictionary["sender"]
         
         // Purposeful application crash/error - only used in debugging
-        assert(sender != nil && receiver != nil, "the message must have a sender and receiver")
-        
-        let text = dictionary["text"] as? String
+        assert(sender != nil, "the message must have a sender and receiver")
         
         
         let imageData = dictionary["image-data"] as? NSData
@@ -45,18 +38,14 @@ class Message {
             image = UIImage(data: imageData!)
         }
         
-        self.init(sender: sender!, receiver: receiver!, text: text!, image: image)
+        self.init(sender: sender, image: image)
     }
     
     
     
     func toPropertyListObject() -> NSDictionary {
         
-        let dictionary: NSMutableDictionary = ["sender" : sender, "receiver" : receiver]
-        
-        if text != nil {
-            dictionary["text"] = text!
-        }
+        let dictionary: NSMutableDictionary = ["sender" : sender]
         
         if image != nil {
             dictionary["image-data"] = UIImageJPEGRepresentation(image!, 0.7)

@@ -429,7 +429,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
     
     @IBAction func getSentPictures(sender: AnyObject) {
-        let objs = getPicturesObjectsFromParse()
+        let objs = getPictureObjectsFromParse()
         let pics = extractPicturesFromObjects(objs)
         
         // ONLY SHOWS FIRST IMAGE
@@ -442,7 +442,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         }
     }
      
-    func getPicturesObjectsFromParse() -> Array<PFObject> {
+    func getPictureObjectsFromParse() -> Array<PFObject> {
         
         print("Getting parse images")
         let query = PFQuery(className: "sentPicture")
@@ -451,13 +451,31 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         var pictureObjects = [PFObject]()
         do {
-            print("ABOUT TO QUERY")
             try pictureObjects = query.findObjects()
-            print("FINISH QUERY")
+            let msgManager = MessageManager.sharedMessageManager
+            
             for object in pictureObjects {
+                // Set object to read.
                 object["hasBeenRead"] = true
                 object.saveInBackground()
+                
+                // Create message objects
+                let msgSender = object["sender"]
+                let picture = object["image"] as! PFFile
+                
+                do {
+                    let imageData = try picture.getData()
+                    let msgImage = UIImage(data: imageData)
+                    let msg = Message(sender: msgSender! as! PFObject, image: msgImage)
+                    msgManager.addMessage(msg)
+                    
+                }
+                catch {
+                    print("Error getting data from Parse")
+                }
             }
+            msgManager.saveMessages()
+
         }
         catch {
             print("Error getting received pictures")

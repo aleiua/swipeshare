@@ -20,12 +20,14 @@ class MessageManager {
         return messageManagerInstance
     }
     
-
-    
     func documentsDirectoryPaths() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as [String]
         
         return paths.first!
+    }
+    
+    func addMessage(msg : Message) {
+        messages.append(msg)
     }
     
     
@@ -47,15 +49,13 @@ class MessageManager {
         
         let plistData: NSData? = NSData(contentsOfFile: messagesFilePath)
         if plistData != nil {
-            let messagePropertyListObjects =  NSPropertyListSerialization.propertyList(plistData!, isValidForFormat: nil) as NSArray
-                
+            let messagePropertyListObjects =  try? NSPropertyListSerialization.propertyListWithData(plistData!, options: NSPropertyListMutabilityOptions.MutableContainers, format: nil)
             
-            for messageDictionary in messagePropertyListObjects {
-                let message = Message(dictionary: messageDictionary as NSDictionary)
+            for messageDictionary in messagePropertyListObjects as! NSArray {
+                let message = Message(dictionary: messageDictionary as! NSDictionary)
                 messages.append(message)
                 
             }
         }
-}
-
+    }
 }
