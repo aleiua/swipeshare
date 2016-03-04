@@ -44,6 +44,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var DEBUG = true
    
     
+    
+    let msgManager = MessageManager.sharedMessageManager
+
     /*
     Rough Distances:
     .1 = 11km
@@ -452,7 +455,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         var pictureObjects = [PFObject]()
         do {
             try pictureObjects = query.findObjects()
-            let msgManager = MessageManager.sharedMessageManager
             
             for object in pictureObjects {
                 // Set object to read.

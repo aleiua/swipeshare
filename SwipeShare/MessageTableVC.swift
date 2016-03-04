@@ -57,11 +57,11 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
         var message: Message
         
+        let messageManager = MessageManager.sharedMessageManager
+        
         message = messageManager.messages[indexPath.row]
         
-        
-        cell.senderLabel?.text = message.sender
-        cell.receiverLable?.text = message.receiver
+        cell.senderLabel?.text = String(message.sender["username"])
         cell.messageImageView?.image = message.image
         
         
@@ -89,5 +89,5 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
 
-    
+    }
 }

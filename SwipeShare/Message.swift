@@ -38,7 +38,7 @@ class Message {
             image = UIImage(data: imageData!)
         }
         
-        self.init(sender: sender, image: image)
+        self.init(sender: sender! as! PFObject, image: image)
     }
     
     
