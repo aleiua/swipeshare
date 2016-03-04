@@ -441,9 +441,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         var pictureObjects = [PFObject]()
         do {
-            print("ABOUT TO QUERY")
             try pictureObjects = query.findObjects()
-            print("FINISH QUERY")
             for object in pictureObjects {
                 object["hasBeenRead"] = true
                 object.saveInBackground()
