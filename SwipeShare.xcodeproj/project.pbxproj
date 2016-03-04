@@ -292,9 +292,12 @@
 				TargetAttributes = {
 					937E7F2A1C55672700057D32 = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = H2XLU6XFFF;
+						DevelopmentTeam = 87SFFAJD8E;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -519,7 +522,7 @@
 				);
 				INFOPLIST_FILE = SwipeShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yaw666.SwipeShare;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.dartmouth.yaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwipeShare/Yaw-Bridging-Header.h";
@@ -537,7 +540,7 @@
 				);
 				INFOPLIST_FILE = SwipeShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yaw666.SwipeShare;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.dartmouth.yaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwipeShare/Yaw-Bridging-Header.h";
