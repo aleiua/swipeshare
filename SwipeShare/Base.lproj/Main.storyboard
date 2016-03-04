@@ -193,7 +193,7 @@
             </objects>
             <point key="canvasLocation" x="-110" y="1071"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Title-->
         <scene sceneID="Y9w-zi-uw7">
             <objects>
                 <tableViewController id="31l-X0-ZTx" sceneMemberID="viewController">
@@ -201,6 +201,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Re0-ZC-u7V">
+                            <rect key="frame" x="0.0" y="213" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Back"/>
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" id="N96-kc-NrQ"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="121" id="Aq1-Rd-qgg" customClass="MessageCell" customModule="SwipeShare" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="320" height="121"/>
@@ -231,11 +239,13 @@
                             <outlet property="delegate" destination="31l-X0-ZTx" id="2Qy-dJ-pZ3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="rMt-VY-Nka"/>
+                    <navigationItem key="navigationItem" title="Title" id="DIs-ls-bs8">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="eUH-sp-47v"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ul9-Ff-45c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="940" y="346"/>
+            <point key="canvasLocation" x="333" y="72"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="WVN-DF-aLX">
@@ -439,4 +449,7 @@
             <point key="canvasLocation" x="464" y="346"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="N96-kc-NrQ"/>
+    </inferredMetricsTieBreakers>
 </document>
