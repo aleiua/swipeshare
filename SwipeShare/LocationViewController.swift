@@ -448,32 +448,32 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         do {
             try pictureObjects = query.findObjects()
             
+            print("Entering for loop")
             for object in pictureObjects {
-                // Set object to read.
-                object["hasBeenRead"] = true
-                object.saveInBackground()
                 
-                // Create message objects
-                let msgSender = object["sender"]
-                let picture = object["image"] as! PFFile
-                
-                picture.getDataInBackgroundWithBlock {
-                    (imageData: NSData?, error: NSError?) -> Void in
-                    print("HI?")
-                    if (error == nil) {
-                        print("HELLO?")
-                        if let imageData = imageData {
-                            let msgImage = UIImage(data:imageData)
+                if let picture = object["image"] as? PFFile {
+                    picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                        if (error == nil) {
+                            
+                            print("No error")
+                            let msgImage = UIImage(data:imageData!)
+                            let msgSender = object["sender"]
+
                             let msg = Message(sender: msgSender! as! PFObject, image: msgImage)
                             self.msgManager.addMessage(msg)
-                            self.msgManager.saveMessages()
-                            print("Saved message")
+                            
+                            print("Message created")
+                            
+                            // Set object to read.
+                            object["hasBeenRead"] = true
+                            object.saveInBackground()
+                        }
+                        else {
+                            print("Error getting image data")
                         }
                     }
-                    else {
-                        print("NO")
-                    }
                 }
+                
             }
         }
         catch {
@@ -482,7 +482,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         print("LEAVING METHOD")
         return pictureObjects
     }
-    
+
     func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
         
         var pictures = [UIImage]()
