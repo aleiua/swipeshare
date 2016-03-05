@@ -13,19 +13,18 @@ import UIKit
 
 class MessageCell: UITableViewCell {
     
-    @IBOutlet weak var senderLabel: UILabel!
-    @IBOutlet weak var msgTextView: UITextView!
-    @IBOutlet weak var messageImageView: UIImageView!
+    @IBOutlet var senderLabel: UILabel!
+    @IBOutlet var messageImageView: UIImageView!
 
     
     
 
     
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
+//    override func setSelected(selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//        
+//        // Configure the view for the selected state
+//    }
     
 
     

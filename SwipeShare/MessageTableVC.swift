@@ -51,21 +51,42 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("MessageTableViewCell", forIndexPath: indexPath) as! MessageCell
-        
-        
-        var message: Message
+        let cellIdentifier = "cell"
+        print("0")
+
+        let cell : UITableViewCell? = (tableView.dequeueReusableCellWithIdentifier(cellIdentifier)! as UITableViewCell)
+        print("1")
         
         let messageManager = MessageManager.sharedMessageManager
+        let message : Message = messageManager.messages[indexPath.row]
+
+        cell!.textLabel!.text = String(message.sender["username"])
+        print("2")
+
+        cell!.imageView!.image = message.image
+        print("3")
+
         
-        message = messageManager.messages[indexPath.row]
-        
-        cell.senderLabel?.text = String(message.sender["username"])
-        cell.messageImageView?.image = message.image
+        return cell!
         
         
-        return cell
+        
+//        let cell = self.tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as! MessageCell
+//        
+//        
+//        var message: Message
+//        
+//        let messageManager = MessageManager.sharedMessageManager
+//        print("MessageManager Count:")
+//        print(messageManager.messages.count)
+//        
+//        message = messageManager.messages[indexPath.row]
+//        
+//        cell.senderLabel?.text = String(message.sender["username"])
+//        cell.messageImageView?.image = message.image
+//        
+//        
+//        return cell
     }
     
     
