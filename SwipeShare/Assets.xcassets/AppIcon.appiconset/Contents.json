@@ -36,8 +36,9 @@
       "scale" : "1x"
     },
     {
-      "idiom" : "iphone",
       "size" : "57x57",
+      "idiom" : "iphone",
+      "filename" : "logo-concept-114.png",
       "scale" : "2x"
     },
     {
