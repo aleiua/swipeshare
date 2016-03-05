@@ -11,71 +11,52 @@ import Parse
 
 class SignUpViewCont: UIViewController {
     
-    @IBOutlet weak var username: UITextField!
+    @IBOutlet weak var usernameField: UITextField!
     
-    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     
     
     @IBAction func submit(sender: AnyObject) {
-        if (username.text == "" || password.text == "")
+        usernameField.autocorrectionType = .No
+        passwordField.autocorrectionType = .No
+        let username = self.usernameField.text
+        let password = self.passwordField.text
+        
+        if (username == "" || password == "")
         {
             print("NOTHING ENTERED")
             return
         }
         
-        let user = PFUser()
-        user.username = username.text
-        user.password = password.text
+        let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
+        spinner.startAnimating()
         
-        user.signUpInBackgroundWithBlock {
-            (succeeded: Bool, error: NSError?) -> Void in
+        let newUser = PFUser()
+        newUser.username = username
+        newUser.password = password
+        
+        newUser.signUpInBackgroundWithBlock( {  (succeed, error) -> Void in
             
-            if let error = error {
+            spinner.stopAnimating()
+            
+                if ((error) != nil) {
+                    print("signup error:")
+                    print(error)
                 
-                // Display an alert view to show the error message
-                if (error.code == 202) {
-                    //                    self.alert.title = "Username alredy in use"
-                    //                    self.alert.message = "Please choose a new username"
-                }
-                
-                // Incase we simply want to pipe the exact error message to the title, use the following line
-                //self.alert.title = error.userInfo.debugDescription
-                
-                
-                //                let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-                //                self.alert.addAction(defaultAction)
-                
-                
-                //                self.presentViewController(self.alert, animated: true, completion: nil)
-                
-                
-                
-                //                // Bring the keyboard back up, because they probably need to change something.
-                //                self.username.becomeFirstResponder()
-                //                self.username.text = "";
-                //                self.password.text = "";
-                
-            } else {
-                // Move on to next interface
-                self.performSegueWithIdentifier("infoSubmitted", sender: nil)
+                } else {
+                    print("signup succes!")
+                    
+                    
+
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LocationViewController")
+                        self.presentViewController(viewController, animated: true, completion: nil)
+                    })
             }
-        }
-        print("User submitted password")
-        
-        
-        PFUser.logInWithUsernameInBackground(user.username!, password: user.password!, block: { (user, error) -> Void in
-            
-            if (user != nil) {
-                print("successful login")
-                print(user!.username)
-            } else {
-                print("login error")
-            }
-            
         })
-        
-    }
     
+    }
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
