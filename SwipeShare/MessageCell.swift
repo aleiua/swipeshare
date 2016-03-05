@@ -18,6 +18,20 @@ class MessageCell: UITableViewCell {
     @IBOutlet var sentDate: UILabel!
 
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        messageImageView.layer.masksToBounds = true
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        messageImageView.layer.cornerRadius = messageImageView.bounds.width / 8.0
+        
+
+    }
+
     
 
     
