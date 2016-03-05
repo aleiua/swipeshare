@@ -13,13 +13,13 @@ import Parse
 
 class Message {
     
-    var sender: PFObject
+    var sender: PFUser
     var image: UIImage?
     
     
     // Set text and image to default "nil" if they are not part of the message
     // Could be problematic with unwrapping that comes later ***
-    init(sender: PFObject, image: UIImage? = nil) {
+    init(sender: PFUser, image: UIImage? = nil) {
         self.sender = sender
         self.image = image
     }
@@ -38,7 +38,7 @@ class Message {
             image = UIImage(data: imageData!)
         }
         
-        self.init(sender: sender! as! PFObject, image: image)
+        self.init(sender: sender! as! PFUser, image: image)
     }
     
     

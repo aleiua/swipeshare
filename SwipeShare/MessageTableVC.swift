@@ -13,7 +13,9 @@ import UIKit
 
 class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
-    //let messageManager = messageManager.sharedMessageManager
+    
+    let messageCellIdentifier = "MessageCell"
+    let messageManager = MessageManager.sharedMessageManager
     // ** CREATE MESSAGE MANAGAER **
     
     override func viewDidLoad() {
@@ -42,34 +44,28 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        //return messageManager.messages.count
-        return 2
-    
+        return messageManager.messages.count
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        return messageCellAtIndexPath(indexPath)
         
-        let cellIdentifier = "cell"
-        print("0")
+    }
+    
+    func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
+        
+        let msg = messageManager.messages[indexPath.row] as Message
+        print(msg.sender["username"])
+        cell.senderLabel.text = String(msg.sender["username"])
+        cell.messageImageView?.image = msg.image
+        
+        return cell
+        
+    }
+    
 
-        let cell : UITableViewCell? = (tableView.dequeueReusableCellWithIdentifier(cellIdentifier)! as UITableViewCell)
-        print("1")
-        
-        let messageManager = MessageManager.sharedMessageManager
-        let message : Message = messageManager.messages[indexPath.row]
-
-        cell!.textLabel!.text = String(message.sender["username"])
-        print("2")
-
-        cell!.imageView!.image = message.image
-        print("3")
-
-        
-        return cell!
-        
-        
         
 //        let cell = self.tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as! MessageCell
 //        
@@ -87,7 +83,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
 //        
 //        
 //        return cell
-    }
+    
     
     
 

@@ -432,7 +432,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
     
     @IBAction func getSentPictures(sender: AnyObject) {
-        let objs = getPictureObjectsFromParse()
+        getPictureObjectsFromParse()
         
     }
      
@@ -443,6 +443,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
         query.whereKey("hasBeenRead", equalTo: false)
         query.orderByAscending("date")
+        query.includeKey("sender")
         
         var pictureObjects = [PFObject]()
         do {
@@ -459,7 +460,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                             let msgImage = UIImage(data:imageData!)
                             let msgSender = object["sender"]
 
-                            let msg = Message(sender: msgSender! as! PFObject, image: msgImage)
+                            let msg = Message(sender: msgSender! as! PFUser, image: msgImage)
                             self.msgManager.addMessage(msg)
                             
                             print("Message created")
