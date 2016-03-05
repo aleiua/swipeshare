@@ -57,9 +57,12 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
         
         let msg = messageManager.messages[indexPath.row] as Message
-        print(msg.sender["username"])
         cell.senderLabel.text = String(msg.sender["username"])
         cell.messageImageView?.image = msg.image
+        
+
+        let date = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+        cell.sentDate.text = date
         
         return cell
         

@@ -442,8 +442,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         let query = PFQuery(className: "sentPicture")
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
         query.whereKey("hasBeenRead", equalTo: false)
-        query.orderByAscending("date")
         query.includeKey("sender")
+        query.orderByAscending("date")
         
         var pictureObjects = [PFObject]()
         do {
@@ -459,8 +459,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                             print("No error")
                             let msgImage = UIImage(data:imageData!)
                             let msgSender = object["sender"]
+                            let sentDate = object.createdAt! as NSDate
 
-                            let msg = Message(sender: msgSender! as! PFUser, image: msgImage)
+                            let msg = Message(sender: msgSender! as! PFUser, image: msgImage, date: sentDate)
                             self.msgManager.addMessage(msg)
                             
                             print("Message created")

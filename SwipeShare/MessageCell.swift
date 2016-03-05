@@ -15,6 +15,7 @@ class MessageCell: UITableViewCell {
     
     @IBOutlet var senderLabel: UILabel!
     @IBOutlet var messageImageView: UIImageView!
+    @IBOutlet var sentDate: UILabel!
 
     
     

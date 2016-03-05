@@ -35,7 +35,6 @@
 		937E7F521C55672700057D32 /* SwipeShareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F511C55672700057D32 /* SwipeShareUITests.swift */; };
 		939B82971C87852300770F79 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82961C87852300770F79 /* MessageCell.swift */; };
 		939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B829C1C87859700770F79 /* MessageTableVC.swift */; };
-		939B829F1C8785AC00770F79 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B829E1C8785AC00770F79 /* MessageDetailVC.swift */; };
 		939B82A11C87882400770F79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82A01C87882400770F79 /* Message.swift */; };
 		939B82A31C87D2D800770F79 /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82A21C87D2D800770F79 /* MessageManager.swift */; };
 		93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */; };
@@ -100,7 +99,6 @@
 		937E7F531C55672700057D32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		939B82961C87852300770F79 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		939B829C1C87859700770F79 /* MessageTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableVC.swift; sourceTree = "<group>"; };
-		939B829E1C8785AC00770F79 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailVC.swift; sourceTree = "<group>"; };
 		939B82A01C87882400770F79 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		939B82A21C87D2D800770F79 /* MessageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 		93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewCont.swift; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 				939B82A01C87882400770F79 /* Message.swift */,
 				939B82A21C87D2D800770F79 /* MessageManager.swift */,
 				930DF7F01C8B693A00747C73 /* messages.plist */,
-				939B829E1C8785AC00770F79 /* MessageDetailVC.swift */,
 				939B82961C87852300770F79 /* MessageCell.swift */,
 				5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */,
 				93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */,
@@ -391,7 +388,6 @@
 				939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				939B82A11C87882400770F79 /* Message.swift in Sources */,
-				939B829F1C8785AC00770F79 /* MessageDetailVC.swift in Sources */,
 				939B82A31C87D2D800770F79 /* MessageManager.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */,
