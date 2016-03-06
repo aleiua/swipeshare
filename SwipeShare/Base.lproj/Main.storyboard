@@ -249,6 +249,7 @@
                                     <outlet property="messageImageView" destination="4La-Ed-swu" id="4vH-wF-kSf"/>
                                     <outlet property="senderLabel" destination="m2p-MJ-xsY" id="JWE-XO-fkU"/>
                                     <outlet property="sentDate" destination="Yyz-zD-IbX" id="Vsp-oH-Tlq"/>
+                                    <segue destination="UAW-Xy-VNY" kind="presentation" identifier="messageDetailSegue" id="LG8-S9-6fO"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -264,6 +265,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ul9-Ff-45c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1548" y="125"/>
+        </scene>
+        <!--Message DetailVC-->
+        <scene sceneID="pag-fj-chS">
+            <objects>
+                <viewController id="UAW-Xy-VNY" customClass="MessageDetailVC" customModule="SwipeShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3bS-BA-daB"/>
+                        <viewControllerLayoutGuide type="bottom" id="lyz-2O-kXW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="H7M-yR-XF3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zW-MM-INq">
+                                <rect key="frame" x="20" y="71" width="280" height="317"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFg-6U-NCH">
+                                <rect key="frame" x="108" y="454" width="55" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="messageImageView" destination="8zW-MM-INq" id="rmp-Jy-sUM"/>
+                        <outlet property="messageSenderLabel" destination="VFg-6U-NCH" id="Jmf-ha-VRH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qAC-5U-4xV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2160" y="141"/>
         </scene>
         <!--Flow View Controller-->
         <scene sceneID="4ED-5K-1Xd">

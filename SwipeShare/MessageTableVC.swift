@@ -100,14 +100,29 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 120
         
+        
     }
-    
     
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
-
+        if segue.identifier == "messageDetailSegue" {
+            
+            let destinationViewController = segue.destinationViewController as! MessageDetailVC
+            
+        
+                
+            let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
+            destinationViewController.message = message
+            
+            }
+        }
     }
-}
+
+    
+    
+
+
+
