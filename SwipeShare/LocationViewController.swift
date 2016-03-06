@@ -136,6 +136,16 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                         sender.view!.removeFromSuperview()
                         // make "send another copy" pressable again
                         self.sendAnother.hidden = false
+                        // Fade the refresh image button back in
+                        UIView.animateWithDuration(0.2,
+                            delay: 0,
+                            options: UIViewAnimationOptions.CurveEaseIn,
+                            animations: {
+                                self.sendAnother.alpha = 1
+                            }, completion: { finished in
+                                self.sendAnother.hidden = false
+                        })
+                        
                         self.swipedHeading = (Float(self.currentHeading.trueHeading) + Float(self.angle)) % 360
                         print("currentHeading is: \(self.currentHeading.trueHeading)")
                         print("Swiped Heading iself.s: \(self.swipedHeading)")
@@ -200,15 +210,37 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         image.userInteractionEnabled = true
         image.addGestureRecognizer(panGesture)
+        applyPlainShadow(image)
         
-        self.sendAnother.hidden = true
+        // Fade out reload button
+        UIView.animateWithDuration(0.5,
+            delay: 0,
+            options: UIViewAnimationOptions.CurveEaseIn,
+            animations: {
+                self.sendAnother.alpha = 0
+            }, completion: { finished in
+                self.sendAnother.hidden = true
+        })
         
     }
+    
+    
+    /*
+    * Add shadow beneath a UIImageView
+    */
+    func applyPlainShadow(view: UIImageView) {
+        let layer = view.layer
+        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowOffset = CGSize(width: 0, height: 10)
+        layer.shadowOpacity = 0.4
+        layer.shadowRadius = 5
+    }
+    
     
     /*
     * Resend the previously swiped image
     */
-    @IBAction func resend(sender: AnyObject) {
+    @IBAction func reload(sender: AnyObject) {
         
         // stop animation if still animating and remove image
         if image.center.x != self.view.frame.size.width/2 && image.center.y != self.view.frame.size.height/2 {
@@ -238,6 +270,12 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     func imagePickerController(imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         imagePicker .dismissViewControllerAnimated(true, completion: nil)
         let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        // Clear the previous image if one already exists
+        if image != nil {
+            image.removeFromSuperview()
+        }
+        
         image = UIImageView(image: selectedImage)
         loadImage(image)
     }
@@ -454,6 +492,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
 //        locationManager.distanceFilter = 5
+        
+        self.sendAnother.hidden = true
+        self.sendAnother.alpha = 0
         
         // For touch detection on an image
         self.initializeGestureRecognizer()
