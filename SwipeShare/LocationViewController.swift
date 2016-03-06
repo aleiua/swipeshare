@@ -323,13 +323,13 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                     print("Failed saving toSend object")
                 }
             }
-            
+            pushToUser(PFUser.currentUser()!, recipient: closestNeighbor as! PFUser, photo: toSend)
         }
         else {
             print("No closest neighbor found")
         }
     }
-        
+    
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
     @IBAction func callSortNeighbors(sender: AnyObject) {
@@ -476,6 +476,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 }
             }
         }
+        
+        let installation = PFInstallation.currentInstallation()
+        installation["user"] = user
+        installation.saveInBackground()
+        
     }
     
     
@@ -537,7 +542,24 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             self.presentViewController(viewController, animated: true, completion: nil)
         })
     }
-
+    
+    func pushToUser(sender: PFUser, recipient: PFUser, photo: PFObject){
+        let push = PFPush()
+        let senderName = sender["username"]
+        let recipientName = recipient["username"]
+        let data = [
+            "alert" : "\(senderName) just sent you a photo!",
+            "badge" : "Increment",
+            "p" : "\(photo.objectId)"
+        ]
+        print(senderName, recipientName, data)
+        let query = PFQuery(className:"installation")
+        query.whereKey("user", equalTo: recipientName)
+        
+        push.setData(data)
+        push.setQuery(query)
+        push.sendPushInBackground()
+    }
 
     
     /*
