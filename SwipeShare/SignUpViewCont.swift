@@ -66,6 +66,7 @@ class SignUpViewCont: UIViewController {
                
 
 >>>>>>> FixingSignUp-fromMessageTableView
+
         })
         
         

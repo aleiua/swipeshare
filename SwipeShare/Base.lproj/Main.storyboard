@@ -9,6 +9,7 @@
         <scene sceneID="3fY-O8-kA1">
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" id="Tu0-3k-hV1" customClass="LoginViewController" customModule="Yaw" customModuleProvider="target" colorLabel="IBBuiltInLabel-Red" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" id="Tu0-3k-hV1" customClass="LoginViewController" customModule="Yaw" customModuleProvider="target" colorLabel="IBBuiltInLabel-Red" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZTN-hZ-edb"/>
                         <viewControllerLayoutGuide type="bottom" id="Tpu-gF-HIM"/>
@@ -54,6 +55,7 @@
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <segue destination="fFi-44-xV3" kind="presentation" id="JYg-j3-8lr"/>
+                                    <segue destination="fFi-44-xV3" kind="presentation" id="zfQ-5t-l8k"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBy-6C-hpi">
@@ -80,6 +82,7 @@
         <scene sceneID="sca-kd-pPy">
             <objects>
                 <viewController id="fFi-44-xV3" customClass="SignUpViewCont" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUp" id="fFi-44-xV3" customClass="SignUpViewCont" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zlr-Ev-2Nk"/>
                         <viewControllerLayoutGuide type="bottom" id="96t-5a-0jT"/>
@@ -131,7 +134,9 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="password" destination="Zcd-LH-EQH" id="cgR-SJ-X9p"/>
+                        <outlet property="passwordField" destination="Zcd-LH-EQH" id="nqX-3y-g5j"/>
                         <outlet property="username" destination="dy9-8n-qRw" id="07B-el-GrT"/>
+                        <outlet property="usernameField" destination="dy9-8n-qRw" id="VNO-Ih-dIg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I4Z-5b-u7w" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -210,6 +215,7 @@
                                 <rect key="frame" x="0.0" y="72" width="320" height="101"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eQX-Of-NUF" id="Ggh-ea-aTs">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sender" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="53" translatesAutoresizingMaskIntoConstraints="NO" id="m2p-MJ-xsY">
@@ -521,7 +527,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="u5J-H4-AnF"/>
+        <segue reference="a39-w0-ewB"/>
         <segue reference="N0y-Sl-xAv"/>
     </inferredMetricsTieBreakers>
 </document>
