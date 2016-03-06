@@ -27,52 +27,30 @@ class SignUpViewCont: UIViewController {
         user.username = username.text
         user.password = password.text
         
-        user.signUpInBackgroundWithBlock {
-            (succeeded: Bool, error: NSError?) -> Void in
-            
-            if let error = error {
-                
-                // Display an alert view to show the error message
-                if (error.code == 202) {
-                    //                    self.alert.title = "Username alredy in use"
-                    //                    self.alert.message = "Please choose a new username"
-                }
-                
-                // Incase we simply want to pipe the exact error message to the title, use the following line
-                //self.alert.title = error.userInfo.debugDescription
-                
-                
-                //                let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-                //                self.alert.addAction(defaultAction)
-                
-                
-                //                self.presentViewController(self.alert, animated: true, completion: nil)
-                
-                
-                
-                //                // Bring the keyboard back up, because they probably need to change something.
-                //                self.username.becomeFirstResponder()
-                //                self.username.text = "";
-                //                self.password.text = "";
-                
-            } else {
-                // Move on to next interface
-                self.performSegueWithIdentifier("infoSubmitted", sender: nil)
-            }
-        }
-        print("User submitted password")
+        let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
+        spinner.startAnimating()
         
         
-        PFUser.logInWithUsernameInBackground(user.username!, password: user.password!, block: { (user, error) -> Void in
+        user.signUpInBackgroundWithBlock({ (user, error) -> Void in
             
-            if (user != nil) {
-                print("successful login")
-                print(user!.username)
+            spinner.stopAnimating()
+            
+            if (PFUser.currentUser() == nil) {
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LocationViewController")
+                    self.presentViewController(viewController, animated: true, completion: nil)
+                })
+                print("logged in as:")
+                print(PFUser.currentUser()!.username)
+               
             } else {
                 print("login error")
             }
             
         })
+        
+        
         
     }
     

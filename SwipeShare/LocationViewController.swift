@@ -580,6 +580,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         if user == nil {
             print("Could not get current User")
+            return
         }
         else {
             user!["latitude"] = self.currentLocation.coordinate.latitude
