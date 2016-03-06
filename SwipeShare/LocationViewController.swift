@@ -548,17 +548,28 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         let senderName = sender["username"]
         let recipientName = recipient["username"]
         let data = [
-            "alert" : "\(senderName) just sent you a photo!",
+            "alert" : "\(senderName) sent you a photo!",
             "badge" : "Increment",
             "p" : "\(photo.objectId)"
         ]
         print(senderName, recipientName, data)
-        let query = PFQuery(className:"installation")
-        query.whereKey("user", equalTo: recipientName)
+        let query = PFInstallation.query()
+        query!.whereKey("user", equalTo: recipient)
         
         push.setData(data)
         push.setQuery(query)
-        push.sendPushInBackground()
+        
+        push.sendPushInBackgroundWithBlock {
+            (success: Bool , error: NSError?) -> Void in
+            if (success) {
+                print("Pushed to \(recipientName).")
+            } else if (error!.code == 112) {
+                print("Could not send push. Push is misconfigured: \(error!.description).")
+            } else {
+                print("Error sending push: \(error!.description).")
+            }
+        }
+        
     }
 
     
