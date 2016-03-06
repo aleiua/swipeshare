@@ -11,13 +11,18 @@ import Parse
 
 class SignUpViewCont: UIViewController {
     
-    @IBOutlet weak var username: UITextField!
+    @IBOutlet weak var usernameField: UITextField!
     
-    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     
     
     @IBAction func submit(sender: AnyObject) {
-        if (username.text == "" || password.text == "")
+        usernameField.autocorrectionType = .No
+        passwordField.autocorrectionType = .No
+        let username = self.usernameField.text
+        let password = self.passwordField.text
+        
+        if (username == "" || password == "")
         {
             print("NOTHING ENTERED")
             return
@@ -30,6 +35,9 @@ class SignUpViewCont: UIViewController {
         let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
         spinner.startAnimating()
         
+        let newUser = PFUser()
+        newUser.username = username
+        newUser.password = password
         
         user.signUpInBackgroundWithBlock({ (user, error) -> Void in
             
@@ -48,12 +56,28 @@ class SignUpViewCont: UIViewController {
                 print("login error")
             }
             
+                if ((error) != nil) {
+                    print("signup error:")
+                    print(error)
+                
+                } else {
+                    print("signup succes!")
+                    
+                    
+
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LocationViewController")
+                        self.presentViewController(viewController, animated: true, completion: nil)
+                    })
+            }
         })
         
         
         
     }
     
+    }
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()

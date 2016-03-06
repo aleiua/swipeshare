@@ -79,7 +79,7 @@
         <!--Sign Up View Cont-->
         <scene sceneID="sca-kd-pPy">
             <objects>
-                <viewController id="fFi-44-xV3" customClass="SignUpViewCont" customModule="SwipeShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fFi-44-xV3" customClass="SignUpViewCont" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zlr-Ev-2Nk"/>
                         <viewControllerLayoutGuide type="bottom" id="96t-5a-0jT"/>
@@ -141,7 +141,7 @@
         <!--Reset Password View Controller-->
         <scene sceneID="IaE-aw-jE7">
             <objects>
-                <viewController id="hAI-qc-QOY" customClass="ResetPasswordViewController" customModule="SwipeShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hAI-qc-QOY" customClass="ResetPasswordViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S6E-4A-Udt"/>
                         <viewControllerLayoutGuide type="bottom" id="QiS-qP-exa"/>
@@ -340,7 +340,7 @@
         <!--Flow View Controller-->
         <scene sceneID="4ED-5K-1Xd">
             <objects>
-                <viewController id="g9v-4q-UM7" customClass="FlowViewController" customModule="SwipeShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="g9v-4q-UM7" customClass="FlowViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DHk-h6-Y21"/>
                         <viewControllerLayoutGuide type="bottom" id="OW8-6y-BCd"/>
@@ -378,7 +378,7 @@
         <!--LocationViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="LocationViewController" title="LocationViewController" id="BYZ-38-t0r" customClass="LocationViewController" customModule="SwipeShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationViewController" title="LocationViewController" id="BYZ-38-t0r" customClass="LocationViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>

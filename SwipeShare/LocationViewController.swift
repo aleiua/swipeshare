@@ -98,7 +98,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             
             
             // If velocity less than threshold, final point is center and returns with set velocity
-            if abs(velocity.x) < 250 || abs(velocity.y) < 250 {
+            if abs(velocity.x) < 200 || abs(velocity.y) < 200 {
                 let finalPoint = centerPoint
                 
                 UIView.animateWithDuration(0.2,
@@ -180,7 +180,28 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     func loadImage(image: UIImageView) {
         
         
-        image.frame = CGRect(x: (self.view.frame.size.width/2-75), y: (self.view.frame.size.height/2-75), width: 150, height: 150)
+        let maxDimension = 175
+        
+        let width = image.image!.size.width
+        let height = image.image!.size.height
+
+        let scaledHeight: Double
+        let scaledWidth: Double
+        
+        if width > height {
+            scaledWidth = Double(maxDimension)
+            scaledHeight = (Double(height) * scaledWidth)/(Double(width))
+        }
+            
+        else {
+            
+            scaledHeight = Double(maxDimension)
+            scaledWidth = (Double(width) * scaledHeight)/(Double(height))
+        }
+        
+        image.frame = CGRect(x: Double(self.view.frame.size.width/2-CGFloat(scaledWidth/2)), y: Double(self.view.frame.size.height/2-CGFloat(scaledHeight/2)), width: scaledWidth , height: scaledHeight)
+        
+        
         view.addSubview(image)
         
         image.userInteractionEnabled = true
@@ -309,13 +330,13 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                     print("Failed saving toSend object")
                 }
             }
-            
+            pushToUser(PFUser.currentUser()!, recipient: closestNeighbor as! PFUser, photo: toSend)
         }
         else {
             print("No closest neighbor found")
         }
     }
-        
+    
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
     @IBAction func callSortNeighbors(sender: AnyObject) {
@@ -560,6 +581,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 }
             }
         }
+        
+        let installation = PFInstallation.currentInstallation()
+        installation["user"] = user
+        installation.saveInBackground()
+        
     }
     
     
@@ -624,7 +650,24 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             self.presentViewController(viewController, animated: true, completion: nil)
         })
     }
-
+    
+    func pushToUser(sender: PFUser, recipient: PFUser, photo: PFObject){
+        let push = PFPush()
+        let senderName = sender["username"]
+        let recipientName = recipient["username"]
+        let data = [
+            "alert" : "\(senderName) just sent you a photo!",
+            "badge" : "Increment",
+            "p" : "\(photo.objectId)"
+        ]
+        print(senderName, recipientName, data)
+        let query = PFQuery(className:"installation")
+        query.whereKey("user", equalTo: recipientName)
+        
+        push.setData(data)
+        push.setQuery(query)
+        push.sendPushInBackground()
+    }
 
     
     /*
