@@ -57,6 +57,22 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var searchDistance = 0.001
     var earthRadius = 6371.0
     
+    
+
+    
+    
+    /*****************************LOGIN?********************************/
+    override func viewWillAppear(animated: Bool) {
+        if (PFUser.currentUser() == nil) {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                
+                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Login") as! LoginViewController
+                self.presentViewController(viewController, animated: true, completion: nil)
+            })
+        }
+    }
+    
+    
    /*****************************GESTURE HANDLING********************************/
     
     /*
@@ -530,6 +546,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         let user = PFUser.currentUser()
         if user == nil {
             print("Could not get current User")
+            return
         }
         else {
             // userLabel.text = user?.username
@@ -597,12 +614,14 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     @IBAction func logout() {
         print(PFUser.currentUser())
         PFUser.logOut()
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Login") as! LoginViewController
             self.presentViewController(viewController, animated: true, completion: nil)
         })
     }
