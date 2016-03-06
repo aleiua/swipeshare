@@ -35,4 +35,18 @@ class MessageDetailVC: UIViewController{
         messageImageView?.image = message.image
     }
     
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        
+        if segue.identifier == "sendAgainSegue" {
+            
+            let destinationViewController = segue.destinationViewController as! LocationViewController
+            
+            destinationViewController.image = messageImageView
+            
+            
+        }
+    }
+    
 }

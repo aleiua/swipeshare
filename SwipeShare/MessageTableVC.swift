@@ -117,9 +117,9 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
             let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
             destinationViewController.message = message
             
-            }
         }
     }
+}
 
     
     

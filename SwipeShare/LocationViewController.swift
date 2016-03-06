@@ -61,17 +61,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
 
     
     
-    /*****************************LOGIN?********************************/
-    override func viewWillAppear(animated: Bool) {
-        if (PFUser.currentUser() == nil) {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                
-                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Login") as! LoginViewController
-                self.presentViewController(viewController, animated: true, completion: nil)
-            })
-        }
-    }
-    
+
     
    /*****************************GESTURE HANDLING********************************/
     
@@ -546,6 +536,14 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         let user = PFUser.currentUser()
         if user == nil {
             print("Could not get current User")
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                print("presenting login view")
+
+                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Login") as! LoginViewController
+                self.presentViewController(viewController, animated: true, completion: nil)
+                
+            })
             return
         }
         else {
