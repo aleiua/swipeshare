@@ -13,6 +13,12 @@ import Foundation
 import Darwin
 
 
+// Protocol written for container
+@objc
+protocol LocationViewControllerDelegate {
+    optional func toggleSettingsPanel()
+}
+
 class LocationViewController: ViewController, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     // MARK: Properties
@@ -23,8 +29,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var sendAnother: UIButton!
-    @IBOutlet weak var latitudeLabel: UILabel!
-    @IBOutlet weak var longitudeLabel: UILabel!
+//    @IBOutlet weak var latitudeLabel: UILabel!
+//    @IBOutlet weak var longitudeLabel: UILabel!
     @IBOutlet weak var nearestLabel: UILabel!
     
     var locationManager: CLLocationManager!
@@ -44,6 +50,17 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     var swipedHeading = Float()
     var DEBUG = true
+    
+    // New things for container
+    var delegate: LocationViewControllerDelegate?
+    
+    @IBAction func settingsTapped(sender: AnyObject) {
+        print("tapped the button")
+        delegate?.toggleSettingsPanel?()
+    }
+    
+    
+    
    
     
     /*
@@ -139,7 +156,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
 
                         self.sendAnother.hidden = false
                         // Fade the refresh image button back in
-                        UIView.animateWithDuration(0.5,
+                        UIView.animateWithDuration(0.2,
                             delay: 0,
                             options: UIViewAnimationOptions.CurveEaseIn,
                             animations: {
@@ -183,8 +200,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     */
     func loadImage(image: UIImageView) {
         
-        
-        
         let maxDimension = 175
         
         let width = image.image!.size.width
@@ -197,9 +212,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             scaledWidth = Double(maxDimension)
             scaledHeight = (Double(height) * scaledWidth)/(Double(width))
         }
-            
         else {
-            
             scaledHeight = Double(maxDimension)
             scaledWidth = (Double(width) * scaledHeight)/(Double(height))
         }
@@ -211,7 +224,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         image.userInteractionEnabled = true
         image.addGestureRecognizer(panGesture)
-        
+        applyPlainShadow(image)
         
         // Fade out reload button
         UIView.animateWithDuration(0.5,
@@ -222,6 +235,17 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             }, completion: { finished in
                 self.sendAnother.hidden = true
         })
+    }
+    
+    /*
+    * Add shadow beneath a UIImageView
+    */
+    func applyPlainShadow(view: UIImageView) {
+        let layer = view.layer
+        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowOffset = CGSize(width: 0, height: 10)
+        layer.shadowOpacity = 0.4
+        layer.shadowRadius = 5
     }
     
     /*
@@ -358,7 +382,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
-    @IBAction func callSortNeighbors(sender: AnyObject) {
+    func callSortNeighbors(sender: AnyObject) {
         
         let users = findNeighbors()
         
@@ -424,7 +448,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
     
     
-    @IBAction func callFindNeighbors(sender: AnyObject) {
+    func callFindNeighbors(sender: AnyObject) {
         findNeighbors()
     }
     
@@ -592,8 +616,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         else {
             user!["latitude"] = self.currentLocation.coordinate.latitude
             user!["longitude"] = self.currentLocation.coordinate.longitude
-            latitudeLabel.text = String(user!["latitude"])
-            longitudeLabel.text = String(user!["longitude"])
+//            latitudeLabel.text = String(user!["latitude"])
+//            longitudeLabel.text = String(user!["longitude"])
         }
         
         user!.saveInBackgroundWithBlock { (success, error) -> Void in
