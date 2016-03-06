@@ -28,10 +28,6 @@ class SignUpViewCont: UIViewController {
             return
         }
         
-        let user = PFUser()
-        user.username = username.text
-        user.password = password.text
-        
         let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
         spinner.startAnimating()
         
@@ -39,7 +35,7 @@ class SignUpViewCont: UIViewController {
         newUser.username = username
         newUser.password = password
         
-        user.signUpInBackgroundWithBlock({ (user, error) -> Void in
+        newUser.signUpInBackgroundWithBlock( {  (succeed, error) -> Void in
             
             spinner.stopAnimating()
             
@@ -74,8 +70,6 @@ class SignUpViewCont: UIViewController {
         
         
         
-    }
-    
     }
         
     
