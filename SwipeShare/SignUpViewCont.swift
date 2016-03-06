@@ -35,19 +35,16 @@ class SignUpViewCont: UIViewController {
             
             spinner.stopAnimating()
             
-            if (PFUser.currentUser() == nil) {
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LocationViewController")
-                    self.presentViewController(viewController, animated: true, completion: nil)
-                })
-                print("logged in as:")
-                print(PFUser.currentUser()!.username)
-               
-            } else {
-                print("login error")
-            }
+       
             
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LocationViewController")
+                self.presentViewController(viewController, animated: true, completion: nil)
+            })
+            print("logged in as:")
+            print(PFUser.currentUser()!.username)
+               
+
         })
         
         
