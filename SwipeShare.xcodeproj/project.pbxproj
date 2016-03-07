@@ -24,6 +24,8 @@
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
 		5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
+		93101E641C8CCE61007E39D4 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93101E631C8CCE61007E39D4 /* MessageDetailVC.swift */; };
+		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
 		937E7F341C55672700057D32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937E7F321C55672700057D32 /* Main.storyboard */; };
@@ -32,6 +34,10 @@
 		937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */; };
 		937E7F471C55672700057D32 /* SwipeShareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F461C55672700057D32 /* SwipeShareTests.swift */; };
 		937E7F521C55672700057D32 /* SwipeShareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F511C55672700057D32 /* SwipeShareUITests.swift */; };
+		939B82971C87852300770F79 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82961C87852300770F79 /* MessageCell.swift */; };
+		939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B829C1C87859700770F79 /* MessageTableVC.swift */; };
+		939B82A11C87882400770F79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82A01C87882400770F79 /* Message.swift */; };
+		939B82A31C87D2D800770F79 /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82A21C87D2D800770F79 /* MessageManager.swift */; };
 		93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */; };
 		93F422281C556B82006DEB7E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F422271C556B82006DEB7E /* MapKit.framework */; };
 		93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4222D1C5575B1006DEB7E /* LocationViewController.swift */; };
@@ -77,6 +83,7 @@
 		5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewContoller.swift; sourceTree = "<group>"; };
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EF38CC31C7925CE00827882 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
 		937E7F2B1C55672700057D32 /* Yaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F2E1C55672700057D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		937E7F301C55672700057D32 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +98,10 @@
 		937E7F4D1C55672700057D32 /* SwipeShareUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwipeShareUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F511C55672700057D32 /* SwipeShareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeShareUITests.swift; sourceTree = "<group>"; };
 		937E7F531C55672700057D32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		939B82961C87852300770F79 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		939B829C1C87859700770F79 /* MessageTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableVC.swift; sourceTree = "<group>"; };
+		939B82A01C87882400770F79 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		939B82A21C87D2D800770F79 /* MessageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 		93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewCont.swift; sourceTree = "<group>"; };
 		93F422271C556B82006DEB7E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		93F4222D1C5575B1006DEB7E /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
@@ -189,9 +200,15 @@
 		937E7F2D1C55672700057D32 /* SwipeShare */ = {
 			isa = PBXGroup;
 			children = (
+				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
 				0520578D1C81089B00009D91 /* yawIcon.png */,
+				93101E631C8CCE61007E39D4 /* MessageDetailVC.swift */,
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,
 				937E7F301C55672700057D32 /* ViewController.swift */,
+				939B829C1C87859700770F79 /* MessageTableVC.swift */,
+				939B82A01C87882400770F79 /* Message.swift */,
+				939B82A21C87D2D800770F79 /* MessageManager.swift */,
+				939B82961C87852300770F79 /* MessageCell.swift */,
 				5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */,
 				93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */,
 				93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */,
@@ -310,6 +327,7 @@
 				};
 			};
 			buildConfigurationList = 937E7F261C55672700057D32 /* Build configuration list for PBXProject "Swipeshare" */;
+			buildConfigurationList = 937E7F261C55672700057D32 /* Build configuration list for PBXProject "SwipeShare" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -363,12 +381,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				93FA3F221C66A8C000BB3791 /* LoginViewController.swift in Sources */,
+				939B82971C87852300770F79 /* MessageCell.swift in Sources */,
 				937E7F371C55672700057D32 /* SwipeShare.xcdatamodeld in Sources */,
 				937E7F311C55672700057D32 /* ViewController.swift in Sources */,
 				05746A6A1C7E833100161135 /* iCarousel.m in Sources */,
 				93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */,
+				932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */,
 				93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */,
+				93101E641C8CCE61007E39D4 /* MessageDetailVC.swift in Sources */,
+				93101E641C8CCE61007E39D4 /* (null) in Sources */,
+				939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
+				939B82A11C87882400770F79 /* Message.swift in Sources */,
+				939B82A31C87D2D800770F79 /* MessageManager.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */,
 			);
@@ -597,7 +622,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		937E7F261C55672700057D32 /* Build configuration list for PBXProject "Swipeshare" */ = {
+		937E7F261C55672700057D32 /* Build configuration list for PBXProject "SwipeShare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				937E7F541C55672700057D32 /* Debug */,

@@ -44,6 +44,9 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var DEBUG = true
    
     
+    
+    let msgManager = MessageManager.sharedMessageManager
+
     /*
     Rough Distances:
     .1 = 11km
@@ -53,6 +56,12 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     */
     var searchDistance = 0.001
     var earthRadius = 6371.0
+    
+    
+
+    
+    
+
     
    /*****************************GESTURE HANDLING********************************/
     
@@ -152,9 +161,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                         self.sendToClosestNeighbor(0);
                         print("animation complete and removed from superview")
                 })
-                
-                // SEND TO NEAREST NEIGHBOR BY BEARING
-                
             }
         }
     }
@@ -347,6 +353,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
             toSend["date"] = NSDate()
             toSend["recipient"] = closestNeighbor
             toSend["sender"] = PFUser.currentUser()
+            toSend["hasBeenRead"] = false
             
             let filename = "image.jpg"
             let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
@@ -361,13 +368,13 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                     print("Failed saving toSend object")
                 }
             }
-            
+            pushToUser(PFUser.currentUser()!, recipient: closestNeighbor as! PFUser, photo: toSend)
         }
         else {
             print("No closest neighbor found")
         }
     }
-        
+    
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
     @IBAction func callSortNeighbors(sender: AnyObject) {
@@ -467,7 +474,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                     index = i
                 }
             }
-            // UNTESTED
             users.removeAtIndex(index)
         }
         catch {
@@ -476,6 +482,96 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         return users
     }
+    
+    
+    /****************************RETRIEVE IMAGES*********************************/
+    
+    
+    func createNewMessageObject(sender: AnyObject) {
+//        let msg = Message(sender: <#T##String#>, receiver: PFUser.currentUser()!, text: String?, image: <#T##UIImage?#>)
+    }
+    
+    
+    func saveMessage(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func getSentPictures(sender: AnyObject) {
+        getPictureObjectsFromParse()
+        
+    }
+     
+    func getPictureObjectsFromParse() -> Array<PFObject> {
+        
+        print("Getting parse images")
+        let query = PFQuery(className: "sentPicture")
+        query.whereKey("recipient", equalTo: PFUser.currentUser()!)
+        query.whereKey("hasBeenRead", equalTo: false)
+        query.includeKey("sender")
+        query.orderByAscending("date")
+        
+        var pictureObjects = [PFObject]()
+        do {
+            try pictureObjects = query.findObjects()
+            
+            print("Entering for loop")
+            for object in pictureObjects {
+                
+                if let picture = object["image"] as? PFFile {
+                    picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                        if (error == nil) {
+                            
+                            print("No error")
+                            let msgImage = UIImage(data:imageData!)
+                            let msgSender = object["sender"]
+                            let sentDate = object.createdAt! as NSDate
+
+                            let msg = Message(sender: msgSender! as! PFUser, image: msgImage, date: sentDate)
+                            self.msgManager.addMessage(msg)
+                            
+                            print("Message created")
+                            
+                            // Set object to read.
+                            object["hasBeenRead"] = true
+                            object.saveInBackground()
+                        }
+                        else {
+                            print("Error getting image data")
+                        }
+                    }
+                }
+                
+            }
+        }
+        catch {
+            print("Error getting received pictures")
+        }
+        print("LEAVING METHOD")
+        return pictureObjects
+    }
+
+    func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
+        
+        var pictures = [UIImage]()
+        for object in objects {
+            let picture = object["image"] as! PFFile
+            do {
+                
+                let imageData = try picture.getData()
+                let image = UIImage(data: imageData)
+                pictures.append(image!)
+
+            }
+            catch {
+                print("Error getting data for pictures")
+            }
+            
+        }
+        return pictures
+    }
+    
+     
+     
     
     /****************************LOCATION UPDATES********************************/
     
@@ -502,6 +598,15 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         let user = PFUser.currentUser()
         if user == nil {
             print("Could not get current User")
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                print("presenting login view")
+
+                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Login") as! LoginViewController
+                self.presentViewController(viewController, animated: true, completion: nil)
+                
+            })
+            return
         }
         else {
             // userLabel.text = user?.username
@@ -517,6 +622,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
                 }
             }
         }
+        
+        let installation = PFInstallation.currentInstallation()
+        installation["user"] = user
+        installation.saveInBackground()
+        
     }
     
     
@@ -537,6 +647,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         
         if user == nil {
             print("Could not get current User")
+            return
         }
         else {
             user!["latitude"] = self.currentLocation.coordinate.latitude
@@ -548,7 +659,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         user!.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 if (self.DEBUG) {
-                    print("Saved Successfully")
+//                    print("Saved Successfully")
                 }
                 self.userLatitude = self.currentLocation.coordinate.latitude
                 self.userLongitude = self.currentLocation.coordinate.longitude
@@ -569,16 +680,35 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     @IBAction func logout() {
         print(PFUser.currentUser())
         PFUser.logOut()
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Login") as! LoginViewController
             self.presentViewController(viewController, animated: true, completion: nil)
         })
     }
-
+    
+    func pushToUser(sender: PFUser, recipient: PFUser, photo: PFObject){
+        let push = PFPush()
+        let senderName = sender["username"]
+        let recipientName = recipient["username"]
+        let data = [
+            "alert" : "\(senderName) just sent you a photo!",
+            "badge" : "Increment",
+            "p" : "\(photo.objectId)"
+        ]
+        print(senderName, recipientName, data)
+        let query = PFQuery(className:"installation")
+        query.whereKey("user", equalTo: recipientName)
+        
+        push.setData(data)
+        push.setQuery(query)
+        push.sendPushInBackground()
+    }
 
     
     /*

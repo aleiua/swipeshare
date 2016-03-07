@@ -16,6 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "937E7F2A1C55672700057D32"
                BuildableName = "SwipeShare.app"
+               BuildableName = "Yaw.app"
                BlueprintName = "SwipeShare"
                ReferencedContainer = "container:SwipeShare.xcodeproj">
             </BuildableReference>
@@ -54,6 +55,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "937E7F2A1C55672700057D32"
             BuildableName = "SwipeShare.app"
+            BuildableName = "Yaw.app"
             BlueprintName = "SwipeShare"
             ReferencedContainer = "container:SwipeShare.xcodeproj">
          </BuildableReference>
@@ -77,6 +79,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "937E7F2A1C55672700057D32"
             BuildableName = "SwipeShare.app"
+            BuildableName = "Yaw.app"
             BlueprintName = "SwipeShare"
             ReferencedContainer = "container:SwipeShare.xcodeproj">
          </BuildableReference>
@@ -96,6 +99,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "937E7F2A1C55672700057D32"
             BuildableName = "SwipeShare.app"
+            BuildableName = "Yaw.app"
             BlueprintName = "SwipeShare"
             ReferencedContainer = "container:SwipeShare.xcodeproj">
          </BuildableReference>
