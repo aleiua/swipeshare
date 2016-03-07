@@ -28,8 +28,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
-    @IBOutlet weak var sendAnother: UIButton!
     @IBOutlet weak var nearestLabel: UILabel!
+    @IBOutlet weak var sendAnother: UIButton!
     
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
