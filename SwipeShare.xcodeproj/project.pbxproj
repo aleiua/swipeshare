@@ -10,6 +10,8 @@
 		050B634E1C55CA3B0033279B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634D1C55CA3B0033279B /* UIKit.framework */; };
 		050B63501C55D7D70033279B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634F1C55D7D70033279B /* CoreMotion.framework */; };
 		0520578E1C81089B00009D91 /* yawIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0520578D1C81089B00009D91 /* yawIcon.png */; };
+		054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B661C8E04BE00496D38 /* ContainerViewController.swift */; };
+		054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B681C8E04D900496D38 /* SettingsViewController.swift */; };
 		05746A6A1C7E833100161135 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05746A691C7E833100161135 /* iCarousel.m */; };
 		05FA09121C5E8A6C0025A1F6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09111C5E8A6C0025A1F6 /* Parse.framework */; };
 		05FA09141C5E8AAF0025A1F6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09131C5E8AAF0025A1F6 /* Bolts.framework */; };
@@ -24,7 +26,7 @@
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
 		5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
-		93101E641C8CCE61007E39D4 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93101E631C8CCE61007E39D4 /* MessageDetailVC.swift */; };
+		93101E641C8CCE61007E39D4 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
@@ -67,6 +69,8 @@
 		050B634D1C55CA3B0033279B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		050B634F1C55D7D70033279B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		0520578D1C81089B00009D91 /* yawIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yawIcon.png; sourceTree = "<group>"; };
+		054F0B661C8E04BE00496D38 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		054F0B681C8E04D900496D38 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		05746A681C7E833100161135 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCarousel.h; path = iCarousel/iCarousel.h; sourceTree = "<group>"; };
 		05746A691C7E833100161135 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCarousel.m; path = iCarousel/iCarousel.m; sourceTree = "<group>"; };
 		05FA09111C5E8A6C0025A1F6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -202,7 +206,6 @@
 			children = (
 				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
 				0520578D1C81089B00009D91 /* yawIcon.png */,
-				93101E631C8CCE61007E39D4 /* MessageDetailVC.swift */,
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,
 				937E7F301C55672700057D32 /* ViewController.swift */,
 				939B829C1C87859700770F79 /* MessageTableVC.swift */,
@@ -214,6 +217,8 @@
 				93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */,
 				93FA3F211C66A8C000BB3791 /* LoginViewController.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
+				054F0B661C8E04BE00496D38 /* ContainerViewController.swift */,
+				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
 				5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
@@ -326,7 +331,6 @@
 					};
 				};
 			};
-			buildConfigurationList = 937E7F261C55672700057D32 /* Build configuration list for PBXProject "Swipeshare" */;
 			buildConfigurationList = 937E7F261C55672700057D32 /* Build configuration list for PBXProject "SwipeShare" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -388,14 +392,16 @@
 				93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */,
 				932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */,
 				93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */,
-				93101E641C8CCE61007E39D4 /* MessageDetailVC.swift in Sources */,
+				93101E641C8CCE61007E39D4 /* (null) in Sources */,
 				93101E641C8CCE61007E39D4 /* (null) in Sources */,
 				939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */,
+				054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				939B82A11C87882400770F79 /* Message.swift in Sources */,
 				939B82A31C87D2D800770F79 /* MessageManager.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */,
+				054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

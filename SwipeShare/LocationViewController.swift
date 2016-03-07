@@ -12,6 +12,12 @@ import Parse
 import Foundation
 import Darwin
 
+// Protocol written for container
+@objc
+protocol LocationViewControllerDelegate {
+    optional func toggleSettingsPanel()
+}
+
 
 class LocationViewController: ViewController, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -43,6 +49,14 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     var swipedHeading = Float()
     var DEBUG = true
    
+    
+    // New things for container
+    var delegate: LocationViewControllerDelegate?
+    
+    @IBAction func settingsMenuButton(sender: AnyObject) {
+        print("settings menu button pressed")
+        delegate?.toggleSettingsPanel?()
+    }
     
     
     let msgManager = MessageManager.sharedMessageManager
