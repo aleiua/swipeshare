@@ -622,7 +622,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		937E7F261C55672700057D32 /* Build configuration list for PBXProject "Swipeshare" */ = {
 		937E7F261C55672700057D32 /* Build configuration list for PBXProject "SwipeShare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

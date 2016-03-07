@@ -40,23 +40,7 @@ class SignUpViewCont: UIViewController {
             spinner.stopAnimating()
             
        
-            
-<<<<<<< HEAD
-                if ((error) != nil) {
-                    print("signup error:")
-                    print(error)
-                
-                } else {
-                    print("signup succes!")
-                    
-                    
 
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LocationViewController")
-                        self.presentViewController(viewController, animated: true, completion: nil)
-                    })
-            }
-=======
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LocationViewController")
                 self.presentViewController(viewController, animated: true, completion: nil)
@@ -65,7 +49,6 @@ class SignUpViewCont: UIViewController {
             print(PFUser.currentUser()!.username)
                
 
->>>>>>> FixingSignUp-fromMessageTableView
 
         })
         
