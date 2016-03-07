@@ -29,8 +29,6 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var sendAnother: UIButton!
-    @IBOutlet weak var latitudeLabel: UILabel!
-    @IBOutlet weak var longitudeLabel: UILabel!
     @IBOutlet weak var nearestLabel: UILabel!
     
     var locationManager: CLLocationManager!
@@ -666,8 +664,8 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
         else {
             user!["latitude"] = self.currentLocation.coordinate.latitude
             user!["longitude"] = self.currentLocation.coordinate.longitude
-            latitudeLabel.text = String(user!["latitude"])
-            longitudeLabel.text = String(user!["longitude"])
+//            latitudeLabel.text = String(user!["latitude"])
+//            longitudeLabel.text = String(user!["longitude"])
         }
         
         user!.saveInBackgroundWithBlock { (success, error) -> Void in

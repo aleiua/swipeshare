@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
+
 enum SlideMenuState {
     case SettingsPanelCollapsed
     case SettingsPanelExpanded
@@ -41,8 +42,6 @@ class ContainerViewController: UIViewController, UINavigationControllerDelegate 
         locationViewController = UIStoryboard.locationViewController()
         locationViewController.delegate = self
 
-        // wrap the centerViewController in a navigation controller, so we can push views to it
-        // and display bar button items in the navigation bar
         locationNavigationController = UINavigationController(rootViewController: locationViewController)
         view.addSubview(locationNavigationController.view)
         addChildViewController(locationNavigationController)
@@ -52,13 +51,12 @@ class ContainerViewController: UIViewController, UINavigationControllerDelegate 
         
         let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
         locationNavigationController.view.addGestureRecognizer(swipeGestureRecognizer)
-        
+                
     }
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
    
 }
@@ -67,7 +65,7 @@ extension ContainerViewController: LocationViewControllerDelegate {
     
     func toggleSettingsPanel() {
         
-        print("attempting to toggle settings panel")
+        
         let notAlreadyExpanded = (currentState != .SettingsPanelExpanded)
         
         if notAlreadyExpanded {
@@ -75,12 +73,13 @@ extension ContainerViewController: LocationViewControllerDelegate {
         }
         
         animateSettingsPanel(shouldExpand: notAlreadyExpanded)
+        
     }
     
     func addSettingsViewController() {
         if (settingsViewController == nil) {
             settingsViewController = UIStoryboard.settingsViewController()
-            
+  
             addChildSidePanelController(settingsViewController!)
         }
     }
@@ -88,6 +87,7 @@ extension ContainerViewController: LocationViewControllerDelegate {
     func addChildSidePanelController(sidePanelController: SettingsViewController) {
         view.insertSubview(sidePanelController.view, atIndex: 0)
         
+        print("attempting to toggle settings panel")
         addChildViewController(sidePanelController)
         sidePanelController.didMoveToParentViewController(self)
     }
