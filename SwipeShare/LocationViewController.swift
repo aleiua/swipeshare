@@ -11,6 +11,8 @@ import CoreLocation
 import Parse
 import Foundation
 import Darwin
+import LocationKit
+
 
 // Protocol written for container
 @objc
@@ -19,7 +21,7 @@ protocol LocationViewControllerDelegate {
 }
 
 
-class LocationViewController: ViewController, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class LocationViewController: ViewController, LKLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     // MARK: Properties
     
@@ -31,7 +33,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     @IBOutlet weak var nearestLabel: UILabel!
     @IBOutlet weak var sendAnother: UIButton!
     
-    var locationManager: CLLocationManager!
+    var locationManager: LKLocationManager!
     var currentLocation: CLLocation!
     var currentHeading: CLHeading!
     
@@ -590,11 +592,11 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     
     override func viewDidLoad()  {
         super.viewDidLoad()
-        locationManager = CLLocationManager()
+        locationManager = LKLocationManager()
         locationManager.requestAlwaysAuthorization()
         
         
-        locationManager.delegate = self
+        locationManager.advancedDelegate = self
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
@@ -642,7 +644,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     }
     
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(manager: LKLocationManager, didFailWithError error: NSError) {
         locationManager.stopUpdatingLocation()
         print("Error while updating location " + error.localizedDescription)
     }
@@ -651,7 +653,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     /*
     * Update longitude/latitude locations
     */
-    func locationManager(manager:CLLocationManager, didUpdateLocations locations: Array <CLLocation>) {
+    func locationManager(manager:LKLocationManager, didUpdateLocations locations: Array <CLLocation>) {
         
         currentLocation = locationManager.location!
 
@@ -682,7 +684,7 @@ class LocationViewController: ViewController, CLLocationManagerDelegate, UINavig
     /*
     * Update displayed heading
     */
-    func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+    func locationManager(manager: LKLocationManager, didUpdateHeading newHeading: CLHeading) {
         
         currentHeading = locationManager.heading!
     }

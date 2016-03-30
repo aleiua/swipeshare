@@ -8,6 +8,8 @@
 
 import UIKit
 import Parse
+import LocationKit
+
 
 
 class LoginViewController: UIViewController {
