@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 import Parse
 import Bolts
+import LocationKit
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,6 +36,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
+        
+        
+        // Set Up Location Kit Manager
+        let locationManager = LKLocationManager()
+        // The debug flag is not necessary (and should not be enabled in prod)
+        // but does help to ensure things are working correctly
+        locationManager.debug = true
+        locationManager.apiToken = "76f847c677f70038"
+        locationManager.startUpdatingLocation()
+        
         
         return true
     }
