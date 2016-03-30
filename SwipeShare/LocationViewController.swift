@@ -645,7 +645,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
     }
     
-    
+    // Test comment
     func locationManager(manager: LKLocationManager, didFailWithError error: NSError) {
         locationManager.stopUpdatingLocation()
         print("Error while updating location " + error.localizedDescription)
