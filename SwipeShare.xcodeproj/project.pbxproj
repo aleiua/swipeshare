@@ -26,6 +26,7 @@
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
 		5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
+		626CA8053A18B117D7A76CFD /* libPods-SwipeShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C529E6B38AD79844321C474 /* libPods-SwipeShare.a */; };
 		93101E641C8CCE61007E39D4 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
@@ -84,9 +85,11 @@
 		05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05FA09231C5E8D440025A1F6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		4C529E6B38AD79844321C474 /* libPods-SwipeShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwipeShare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewContoller.swift; sourceTree = "<group>"; };
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EF38CC31C7925CE00827882 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
 		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
 		937E7F2B1C55672700057D32 /* Yaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F2E1C55672700057D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +115,7 @@
 		93F422311C5584A8006DEB7E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		93FA3F211C66A8C000BB3791 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		FE915271C625A055062ADB56 /* Pods-SwipeShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +139,7 @@
 				05FA09141C5E8AAF0025A1F6 /* Bolts.framework in Frameworks */,
 				93F422281C556B82006DEB7E /* MapKit.framework in Frameworks */,
 				05FA09121C5E8A6C0025A1F6 /* Parse.framework in Frameworks */,
+				626CA8053A18B117D7A76CFD /* libPods-SwipeShare.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +193,8 @@
 				937E7F451C55672700057D32 /* SwipeShareTests */,
 				937E7F501C55672700057D32 /* SwipeShareUITests */,
 				937E7F2C1C55672700057D32 /* Products */,
+				F2AD1F52D51C852F23E7429A /* Pods */,
+				A8C924E621ED279BF5B031BC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -247,6 +254,23 @@
 			path = SwipeShareUITests;
 			sourceTree = "<group>";
 		};
+		A8C924E621ED279BF5B031BC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C529E6B38AD79844321C474 /* libPods-SwipeShare.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F2AD1F52D51C852F23E7429A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FE915271C625A055062ADB56 /* Pods-SwipeShare.debug.xcconfig */,
+				82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -254,9 +278,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 937E7F561C55672700057D32 /* Build configuration list for PBXNativeTarget "SwipeShare" */;
 			buildPhases = (
+				C9E3B26555649ECDFBE29C78 /* Check Pods Manifest.lock */,
 				937E7F271C55672700057D32 /* Sources */,
 				937E7F281C55672700057D32 /* Frameworks */,
 				937E7F291C55672700057D32 /* Resources */,
+				D884CFF6695F1E879C65790D /* Embed Pods Frameworks */,
+				93F50C3D31C06A815D6C10AC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -316,6 +343,9 @@
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = 87SFFAJD8E;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
@@ -378,6 +408,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		93F50C3D31C06A815D6C10AC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9E3B26555649ECDFBE29C78 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D884CFF6695F1E879C65790D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		937E7F271C55672700057D32 /* Sources */ = {
@@ -541,6 +619,7 @@
 		};
 		937E7F571C55672700057D32 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FE915271C625A055062ADB56 /* Pods-SwipeShare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -560,6 +639,7 @@
 		};
 		937E7F581C55672700057D32 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

@@ -34,6 +34,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     @IBOutlet weak var sendAnother: UIButton!
     
     var locationManager: LKLocationManager!
+
+    
     var currentLocation: CLLocation!
     var currentHeading: CLHeading!
     
@@ -593,6 +595,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     override func viewDidLoad()  {
         super.viewDidLoad()
         locationManager = LKLocationManager()
+        locationManager.apiToken = "76f847c677f70038"
         locationManager.requestAlwaysAuthorization()
         
         
@@ -601,7 +604,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         locationManager.startUpdatingHeading()
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-//        locationManager.distanceFilter = 5
         
         self.sendAnother.hidden = true
         self.sendAnother.alpha = 0
