@@ -655,9 +655,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     /*
     * Update longitude/latitude locations
     */
-    func locationManager(manager:LKLocationManager, didUpdateLocations locations: Array <CLLocation>) {
+    func locationManager(manager:LKLocationManager, var didUpdateLocations locations: Array <CLLocation>) {
         
         currentLocation = locationManager.location!
+        var loc = locations.removeLast()
 
         let user = PFUser.currentUser()
         
@@ -666,21 +667,24 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             return
         }
         else {
-            user!["latitude"] = self.currentLocation.coordinate.latitude
-            user!["longitude"] = self.currentLocation.coordinate.longitude
+//            user!["latitude"] = self.currentLocation.coordinate.latitude
+//            user!["longitude"] = self.currentLocation.coordinate.longitude
+            user!["latitude"] = loc.coordinate.latitude
+            user!["longitude"] = loc.coordinate.longitude
 //            latitudeLabel.text = String(user!["latitude"])
 //            longitudeLabel.text = String(user!["longitude"])
-        }
-        
-        user!.saveInBackgroundWithBlock { (success, error) -> Void in
-            if success {
-                if (self.DEBUG) {
-//                    print("Saved Successfully")
+            
+            user!.saveInBackgroundWithBlock { (success, error) -> Void in
+                if success {
+                    if (self.DEBUG) {
+                        print("Saved Successfully")
+                    }
+                    self.userLatitude = self.currentLocation.coordinate.latitude
+                    self.userLongitude = self.currentLocation.coordinate.longitude
                 }
-                self.userLatitude = self.currentLocation.coordinate.latitude
-                self.userLongitude = self.currentLocation.coordinate.longitude
             }
         }
+
     }
     
     /*
