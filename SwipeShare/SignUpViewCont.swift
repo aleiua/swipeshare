@@ -35,7 +35,7 @@ class SignUpViewCont: UIViewController {
         newUser.username = username
         newUser.password = password
         
-        newUser.signUpInBackgroundWithBlock( {  (succeed, error) -> Void in
+        newUser.signUpInBackgroundWithBlock( {  (newUser, error) -> Void in
             
             spinner.stopAnimating()
             
