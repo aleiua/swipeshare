@@ -32,9 +32,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var nearestLabel: UILabel!
     @IBOutlet weak var sendAnother: UIButton!
+    @IBOutlet weak var intendedUserField: UITextField!
+
     
     var locationManager: LKLocationManager!
 
+    
     
     var currentLocation: CLLocation!
     var currentHeading: CLHeading!
@@ -391,6 +394,38 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
     }
     
+    func storeSendingInformation(intendedRecipient : PFObject, actualRecipient : PFObject, intendedBear : Double, actualBear : Double) {
+        
+        let data = PFObject(className: "sendingData")
+        
+        let currUser = PFUser.currentUser()
+        
+        data["currentUser"] = currUser!["username"]
+        data["currentBearing"] = currentHeading
+        data["currentLatitude"] = currUser!["latitude"]
+        data["currentLongitude"] = currUser!["longitude"]
+        
+        data["intendedRecipient"] = intendedRecipient["username"]
+        data["intendedBearingAccuracy"] = intendedBear
+        data["intendedLatitude"] = intendedRecipient["latitude"]
+        data["intendedLongitude"] = intendedRecipient["longitude"]
+        
+        data["actualRecipient"] = actualRecipient["username"]
+        data["actualBearingAccuracy"] = actualBear
+        data["actualLatitude"] = actualRecipient["latitude"]
+        data["actualLongitude"] = actualRecipient["longitude"]
+        
+        data.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                print("Saved data object.")
+            }
+            else {
+                print("Failed saving data")
+            }
+        }  
+        
+    }
+    
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
     @IBAction func callSortNeighbors(sender: AnyObject) {
@@ -446,14 +481,31 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         distances.sortInPlace() // Is this less efficient than regular sort?
         var orderedNeighbors = [PFObject]()
         
+        // Data Collection Variables
+        let intendedUser = self.intendedUserField.text
+        
+        var intended: PFObject!
+        var intendedBearing = Double()
+        
+        
         // Convert sorted distances into sorted objects.
         for d in distances {
             let arr = doubleToObjects[d]
             for obj in arr! {
                 print(obj["username"])
                 orderedNeighbors.append(obj)
+                
+                
+                if (String(obj["username"]) == intendedUser) {
+                    intended = obj
+                    intendedBearing = d
+                }
+                
             }
         }
+        
+        storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
+        
         nearestLabel.text = String(orderedNeighbors[0]["username"])
         return orderedNeighbors
     }
@@ -661,6 +713,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         var loc = locations.removeLast()
 
         let user = PFUser.currentUser()
+        
         
         if user == nil {
             print("Could not get current User")
