@@ -106,9 +106,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     func getPhoto(msg: Message){
         let query = PFQuery(className: "sentPicture")
-//        query.whereKey("recipient", equalTo: PFUser.currentUser()!)
-//        query.whereKey("sender", equalTo: msg.sender)
-//        query.whereKey("date", equalTo: msg.date)
         query.getObjectInBackgroundWithId(msg.id){
             (object: PFObject?, error: NSError?) -> Void in
             if error == nil {
@@ -136,7 +133,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
                 print(error)
             }
         }
-        
     }
     
     // MARK: - Navigation
@@ -152,7 +148,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
                 
             let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
             destinationViewController.message = message
-            getPhoto(message)
+//            getPhoto(message)
             
         }
     }
