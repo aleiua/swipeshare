@@ -615,7 +615,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         catch {
             print("Error getting received pictures")
         }
-        print("LEAVING METHOD")
         return pictureObjects
     }
 

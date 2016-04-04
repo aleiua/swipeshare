@@ -10,6 +10,9 @@ import UIKit
 import Parse
 import LocationKit
 
+import FBSDKCoreKit
+import ParseFacebookUtilsV4
+
 
 
 class LoginViewController: UIViewController {
@@ -55,6 +58,26 @@ class LoginViewController: UIViewController {
         })
         
     }
+    
+    let facebookReadPermissions = ["public_profile", "email", "user_friends"]
+    
+    @IBAction func loginToFacebook(sender: AnyObject) {
+        
+        
+        PFFacebookUtils.logInInBackgroundWithReadPermissions(facebookReadPermissions) {
+            (user: PFUser?, error: NSError?) -> Void in
+            if let user = user {
+                if user.isNew {
+                    print("User signed up and logged in through Facebook!")
+                } else {
+                    print("User logged in through Facebook!")
+                }
+            } else {
+                print("Uh oh. The user cancelled the Facebook login.")
+            }
+        }
+    }
+
     
     
     override func viewDidLoad() {

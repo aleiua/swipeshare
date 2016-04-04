@@ -27,7 +27,11 @@
 		5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
 		626CA8053A18B117D7A76CFD /* libPods-SwipeShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C529E6B38AD79844321C474 /* libPods-SwipeShare.a */; };
-		93101E641C8CCE61007E39D4 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7927EF301CB2CF8A00571161 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		793635EB1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EA1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework */; };
+		793635EF1CB2DB8F005CA708 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EC1CB2DB8F005CA708 /* FBSDKCoreKit.framework */; };
+		793635F01CB2DB8F005CA708 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */; };
+		793635F11CB2DB8F005CA708 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
@@ -89,6 +93,10 @@
 		5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewContoller.swift; sourceTree = "<group>"; };
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EF38CC31C7925CE00827882 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		793635EA1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
+		793635EC1CB2DB8F005CA708 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
 		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
 		937E7F2B1C55672700057D32 /* Yaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +131,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				793635EF1CB2DB8F005CA708 /* FBSDKCoreKit.framework in Frameworks */,
+				793635F01CB2DB8F005CA708 /* FBSDKLoginKit.framework in Frameworks */,
+				793635F11CB2DB8F005CA708 /* FBSDKShareKit.framework in Frameworks */,
+				793635EB1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */,
 				05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */,
 				05FA09241C5E8D440025A1F6 /* libz.tbd in Frameworks */,
@@ -169,13 +181,15 @@
 			name = iCarousel;
 			sourceTree = "<group>";
 		};
-		937E7F221C55672700057D32 = {
+		79C8FF3A1CB2C81D0037B488 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				793635EC1CB2DB8F005CA708 /* FBSDKCoreKit.framework */,
+				793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */,
+				793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */,
+				793635EA1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework */,
+				4C529E6B38AD79844321C474 /* libPods-SwipeShare.a */,
 				5EF38CC31C7925CE00827882 /* Photos.framework */,
-				05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */,
-				05FA09231C5E8D440025A1F6 /* libz.tbd */,
-				05746A671C7E832000161135 /* iCarousel */,
 				05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */,
 				05FA091F1C5E8D310025A1F6 /* StoreKit.framework */,
 				05FA091D1C5E8D260025A1F6 /* Security.framework */,
@@ -189,12 +203,22 @@
 				050B634D1C55CA3B0033279B /* UIKit.framework */,
 				93F422311C5584A8006DEB7E /* CoreLocation.framework */,
 				93F422271C556B82006DEB7E /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		937E7F221C55672700057D32 = {
+			isa = PBXGroup;
+			children = (
+				79C8FF3A1CB2C81D0037B488 /* Frameworks */,
+				05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */,
+				05FA09231C5E8D440025A1F6 /* libz.tbd */,
+				05746A671C7E832000161135 /* iCarousel */,
 				937E7F2D1C55672700057D32 /* SwipeShare */,
 				937E7F451C55672700057D32 /* SwipeShareTests */,
 				937E7F501C55672700057D32 /* SwipeShareUITests */,
 				937E7F2C1C55672700057D32 /* Products */,
 				F2AD1F52D51C852F23E7429A /* Pods */,
-				A8C924E621ED279BF5B031BC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -252,14 +276,6 @@
 				937E7F531C55672700057D32 /* Info.plist */,
 			);
 			path = SwipeShareUITests;
-			sourceTree = "<group>";
-		};
-		A8C924E621ED279BF5B031BC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4C529E6B38AD79844321C474 /* libPods-SwipeShare.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F2AD1F52D51C852F23E7429A /* Pods */ = {
@@ -336,7 +352,7 @@
 		937E7F231C55672700057D32 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = yaw;
 				TargetAttributes = {
 					937E7F2A1C55672700057D32 = {
@@ -470,8 +486,7 @@
 				93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */,
 				932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */,
 				93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */,
-				93101E641C8CCE61007E39D4 /* (null) in Sources */,
-				93101E641C8CCE61007E39D4 /* (null) in Sources */,
+				7927EF301CB2CF8A00571161 /* (null) in Sources */,
 				939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */,
 				054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
@@ -537,7 +552,7 @@
 		937E7F541C55672700057D32 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -556,6 +571,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -582,7 +598,7 @@
 		937E7F551C55672700057D32 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -601,6 +617,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -625,8 +642,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
+					"$(SRCROOT)/**",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-20160316",
 				);
 				INFOPLIST_FILE = SwipeShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -645,8 +663,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
+					"$(SRCROOT)/**",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-20160316",
 				);
 				INFOPLIST_FILE = SwipeShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

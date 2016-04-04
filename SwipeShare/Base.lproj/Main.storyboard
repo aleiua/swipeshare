@@ -63,6 +63,13 @@
                                     <segue destination="hAI-qc-QOY" kind="presentation" id="6zT-A6-y19"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jQb-ow-hwc">
+                                <rect key="frame" x="95" y="370" width="141" height="30"/>
+                                <state key="normal" title="Login with Facebook"/>
+                                <connections>
+                                    <action selector="loginToFacebook:" destination="Tu0-3k-hV1" eventType="touchUpInside" id="gaF-IO-B3n"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

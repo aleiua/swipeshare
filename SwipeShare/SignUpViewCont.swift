@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 
+
 class SignUpViewCont: UIViewController {
     
     @IBOutlet weak var usernameField: UITextField!
@@ -35,22 +36,24 @@ class SignUpViewCont: UIViewController {
         newUser.username = username
         newUser.password = password
         
-        newUser.signUpInBackgroundWithBlock( {  (newUser, error) -> Void in
-            
-            spinner.stopAnimating()
-            
-       
 
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LocationViewController")
-                self.presentViewController(viewController, animated: true, completion: nil)
-            })
-            print("logged in as:")
-            print(PFUser.currentUser()!.username)
-               
-
-
-        })
+        
+//        newUser.signUpInBackgroundWithBlock( {  (newUser, error) -> Void in
+//            
+//            spinner.stopAnimating()
+//            
+//       
+//
+//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LocationViewController")
+//                self.presentViewController(viewController, animated: true, completion: nil)
+//            })
+//            print("logged in as:")
+//            print(PFUser.currentUser()!.username)
+//               
+//
+//
+//        })
         
         
         
