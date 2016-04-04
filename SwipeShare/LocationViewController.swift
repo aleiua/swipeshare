@@ -12,6 +12,7 @@ import Parse
 import Foundation
 import Darwin
 import LocationKit
+import CoreBluetooth
 
 
 // Protocol written for container
@@ -651,6 +652,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         locationManager.apiToken = "76f847c677f70038"
         locationManager.requestAlwaysAuthorization()
         
+        //set up iBeacon region
+        let uuid = NSUUID()
+        let beaconID = "yaw_iBeacon_region"
+        let beaconRegion:CLBeaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.startMonitoringForRegion(beaconRegion)
+        locationManager.startRangingBeaconsInRegion(beaconRegion)
+        print("successfully initialized beacon region")
+        
         
         locationManager.advancedDelegate = self
         locationManager.startUpdatingLocation()
@@ -748,6 +758,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         currentHeading = locationManager.heading!
     }
+    
+    
+    /*
+    * Print out all beacons within the vicinity of the device
+    */
+    func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
+        print(beacons)
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
