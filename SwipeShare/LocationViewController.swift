@@ -575,7 +575,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Getting parse images")
         let query = PFQuery(className: "sentPicture")
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
-        query.whereKey("hasBeenRead", equalTo: false)
+//        query.whereKey("hasBeenRead", equalTo: false)
         query.includeKey("sender")
         query.orderByAscending("date")
         
@@ -584,31 +584,40 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             try pictureObjects = query.findObjects()
             
             print("Entering for loop")
+            print(pictureObjects.endIndex)
             for object in pictureObjects {
+                let msgSender = object["sender"]
+                let sentDate = object.createdAt! as NSDate
                 
-                if let picture = object["image"] as? PFFile {
-                    picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-                        if (error == nil) {
-                            
-                            print("No error")
-                            let msgImage = UIImage(data:imageData!)
-                            let msgSender = object["sender"]
-                            let sentDate = object.createdAt! as NSDate
-
-                            let msg = Message(sender: msgSender! as! PFUser, image: msgImage, date: sentDate)
-                            self.msgManager.addMessage(msg)
-                            
-                            print("Message created")
-                            
-                            // Set object to read.
-                            object["hasBeenRead"] = true
-                            object.saveInBackground()
-                        }
-                        else {
-                            print("Error getting image data")
-                        }
-                    }
-                }
+                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate)
+                self.msgManager.addMessage(msg)
+                
+                print("Message created")
+                
+//                if let picture = object["image"] as? PFFile {
+//              
+//                    picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+//                        if (error == nil) {
+//                            
+//                            print("No error")
+//                            let msgImage = UIImage(data:imageData!)
+//                            let msgSender = object["sender"]
+//                            let sentDate = object.createdAt! as NSDate
+//
+//                            let msg = Message(sender: msgSender! as! PFUser, image: msgImage, date: sentDate)
+//                            self.msgManager.addMessage(msg)
+//                            
+//                            print("Message created")
+//                            
+//                            // Set object to read.
+//                            object["hasBeenRead"] = true
+//                            object.saveInBackground()
+//                        }
+//                        else {
+//                            print("Error getting image data")
+//                        }
+//                    }
+//                }
                 
             }
         }
@@ -711,7 +720,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     func locationManager(manager:LKLocationManager, var didUpdateLocations locations: Array <CLLocation>) {
         
         currentLocation = locationManager.location!
-        var loc = locations.removeLast()
+        let loc = locations.removeLast()
 
         let user = PFUser.currentUser()
         
@@ -796,14 +805,18 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
 
     
-    /*
+
     // MARK: - Navigation
 
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "msgListSegue" && msgManager.messages.endIndex == 0 {
+            getPictureObjectsFromParse()
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+
 
 }

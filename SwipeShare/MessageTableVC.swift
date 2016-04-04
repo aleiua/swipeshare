@@ -58,7 +58,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
         let msg = messageManager.messages[indexPath.row] as Message
         cell.senderLabel.text = String(msg.sender["username"])
-        cell.messageImageView?.image = msg.image
+//        cell.messageImageView?.image = msg.image
         
 
         let date = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
@@ -102,6 +102,34 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
         
     }
+    
+//    func getPhoto(msg: Message){
+//        if let picture = object["image"] as? PFFile {
+//            
+//            picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+//                if (error == nil) {
+//                    
+//                    print("No error")
+//                    let msgImage = UIImage(data:imageData!)
+//                    let msgSender = object["sender"]
+//                    let sentDate = object.createdAt! as NSDate
+//                    
+//                    let msg = Message(sender: msgSender! as! PFUser, image: msgImage, date: sentDate)
+//                    self.msgManager.addMessage(msg)
+//                    
+//                    print("Message created")
+//                    
+//                    // Set object to read.
+//                    object["hasBeenRead"] = true
+//                    object.saveInBackground()
+//                }
+//                else {
+//                    print("Error getting image data")
+//                }
+//            }
+//        }
+//        
+//    }
     
     // MARK: - Navigation
     
