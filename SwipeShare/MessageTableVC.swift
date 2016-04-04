@@ -10,6 +10,7 @@ import Foundation
 
 
 import UIKit
+import Parse
 
 class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
@@ -58,7 +59,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
         let msg = messageManager.messages[indexPath.row] as Message
         cell.senderLabel.text = String(msg.sender["username"])
-        cell.messageImageView?.image = msg.image
+//        cell.messageImageView?.image = msg.image
         
 
         let date = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
