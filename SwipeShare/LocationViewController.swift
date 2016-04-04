@@ -22,7 +22,7 @@ protocol LocationViewControllerDelegate {
 }
 
 
-class LocationViewController: ViewController, LKLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class LocationViewController: ViewController, LKLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CBPeripheralManagerDelegate {
 
     // MARK: Properties
     
@@ -38,6 +38,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     var locationManager: LKLocationManager!
 
+    var beaconRegion: CLBeaconRegion!
+    var peripheralManager: CBPeripheralManager!
+    var beaconPeripheralData: NSDictionary!
     
     
     var currentLocation: CLLocation!
@@ -655,10 +658,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         //set up iBeacon region
         let uuid = NSUUID()
         let beaconID = "yaw_iBeacon_region"
-        let beaconRegion:CLBeaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
+        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.startMonitoringForRegion(beaconRegion)
         locationManager.startRangingBeaconsInRegion(beaconRegion)
+        beaconPeripheralData = beaconRegion.peripheralDataWithMeasuredPower(nil)
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
         print("successfully initialized beacon region")
         
         
@@ -812,6 +817,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             }
         }
         
+    }
+    
+    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
+        if peripheral.state == .PoweredOn {
+            peripheralManager.startAdvertising(beaconPeripheralData as! [String: AnyObject]!)
+            print("began advertising as iBeacon")
+        }
+        else if peripheral.state == .PoweredOff {
+                peripheralManager.stopAdvertising()
+        }
     }
 
     
