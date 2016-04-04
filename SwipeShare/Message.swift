@@ -16,14 +16,23 @@ class Message {
     var sender: PFUser
     var image: UIImage?
     var date: NSDate
-    
+    var id: String
     
     // Set text and image to default "nil" if they are not part of the message
     // Could be problematic with unwrapping that comes later ***
+    init(sender: PFUser, image: UIImage? = nil, date: NSDate, id: String) {
+        self.sender = sender
+        self.image = image
+        self.date = date
+        self.id = id
+    }
+    
+    // ID is an entirely optional parameter
     init(sender: PFUser, image: UIImage? = nil, date: NSDate) {
         self.sender = sender
         self.image = image
         self.date = date
+        self.id = ""
     }
     
     convenience init(dictionary: NSDictionary) {

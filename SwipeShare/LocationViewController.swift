@@ -12,6 +12,7 @@ import Parse
 import Foundation
 import Darwin
 import LocationKit
+import CoreBluetooth
 
 
 // Protocol written for container
@@ -21,7 +22,7 @@ protocol LocationViewControllerDelegate {
 }
 
 
-class LocationViewController: ViewController, LKLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class LocationViewController: ViewController, LKLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CBPeripheralManagerDelegate {
 
     // MARK: Properties
     
@@ -37,6 +38,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     var locationManager: LKLocationManager!
 
+    var beaconRegion: CLBeaconRegion!
+    var peripheralManager: CBPeripheralManager!
+    var beaconPeripheralData: NSDictionary!
     
     
     var currentLocation: CLLocation!
@@ -575,7 +579,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Getting parse images")
         let query = PFQuery(className: "sentPicture")
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
-        query.whereKey("hasBeenRead", equalTo: false)
+//        query.whereKey("hasBeenRead", equalTo: false)
         query.includeKey("sender")
         query.orderByAscending("date")
         
@@ -584,31 +588,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             try pictureObjects = query.findObjects()
             
             print("Entering for loop")
+            print(pictureObjects.endIndex)
             for object in pictureObjects {
+                let msgSender = object["sender"]
+                let msgId = object.objectId
+                let sentDate = object.createdAt! as NSDate
                 
-                if let picture = object["image"] as? PFFile {
-                    picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-                        if (error == nil) {
-                            
-                            print("No error")
-                            let msgImage = UIImage(data:imageData!)
-                            let msgSender = object["sender"]
-                            let sentDate = object.createdAt! as NSDate
-
-                            let msg = Message(sender: msgSender! as! PFUser, image: msgImage, date: sentDate)
-                            self.msgManager.addMessage(msg)
-                            
-                            print("Message created")
-                            
-                            // Set object to read.
-                            object["hasBeenRead"] = true
-                            object.saveInBackground()
-                        }
-                        else {
-                            print("Error getting image data")
-                        }
-                    }
-                }
+                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
+                self.msgManager.addMessage(msg)
                 
             }
         }
@@ -649,6 +636,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         locationManager = LKLocationManager()
         locationManager.apiToken = "76f847c677f70038"
         locationManager.requestAlwaysAuthorization()
+        
+        //set up iBeacon region
+        let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
+        let beaconID = "yaw_iBeacon_region"
+        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.startMonitoringForRegion(beaconRegion)
+        locationManager.startRangingBeaconsInRegion(beaconRegion)
+        beaconPeripheralData = beaconRegion.peripheralDataWithMeasuredPower(nil)
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+        print("successfully initialized beacon region")
         
         
         locationManager.advancedDelegate = self
@@ -710,7 +708,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     func locationManager(manager:LKLocationManager, var didUpdateLocations locations: Array <CLLocation>) {
         
         currentLocation = locationManager.location!
-        var loc = locations.removeLast()
+        let loc = locations.removeLast()
 
         let user = PFUser.currentUser()
         
@@ -747,6 +745,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         currentHeading = locationManager.heading!
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -793,16 +792,40 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
     }
+    
+    /****************************iBeacon Region Establishment********************************/
+    
+     /*
+     *  Print out detected beacons
+     */
+    func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
+        print(beacons)
+    }
+    
+    
+    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
+        if peripheral.state == .PoweredOn {
+            peripheralManager.startAdvertising(beaconPeripheralData as! [String: AnyObject]!)
+            print("began advertising as iBeacon")
+        }
+        else if peripheral.state == .PoweredOff {
+                peripheralManager.stopAdvertising()
+        }
+    }
 
     
-    /*
+
     // MARK: - Navigation
 
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "msgListSegue" && msgManager.messages.endIndex == 0 {
+            getPictureObjectsFromParse()
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+
 
 }
