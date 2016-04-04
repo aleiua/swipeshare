@@ -656,7 +656,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         locationManager.requestAlwaysAuthorization()
         
         //set up iBeacon region
-        let uuid = NSUUID()
+        let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
         let beaconID = "yaw_iBeacon_region"
         let beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
         locationManager.pausesLocationUpdatesAutomatically = false
@@ -765,14 +765,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
     
     
-    /*
-    * Print out all beacons within the vicinity of the device
-    */
-    func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-        print(beacons)
-    }
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -818,6 +810,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
     }
+    
+    /****************************iBeacon Region Establishment********************************/
+    
+     /*
+     *  Print out detected beacons
+     */
+    func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
+        print(beacons)
+    }
+    
     
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
         if peripheral.state == .PoweredOn {
