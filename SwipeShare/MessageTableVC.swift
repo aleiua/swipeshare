@@ -104,37 +104,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
     }
     
-    func getPhoto(msg: Message){
-        let query = PFQuery(className: "sentPicture")
-        query.getObjectInBackgroundWithId(msg.id){
-            (object: PFObject?, error: NSError?) -> Void in
-            if error == nil {
-                
-                if let picture = object!["image"] as? PFFile {
-                    
-                    picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-                        if (error == nil) {
-                            
-                            msg.image = UIImage(data:imageData!)
-                            
-                            
-                            // Set object to read.
-                            object!["hasBeenRead"] = true
-                            object!.saveInBackground()
-                        }
-                        else {
-                            print("Error getting image data")
-                        }
-                    }
-                }
-                
-            }
-            else {
-                print(error)
-            }
-        }
-    }
-    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -148,7 +117,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
                 
             let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
             destinationViewController.message = message
-//            getPhoto(message)
             
         }
     }
