@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fE7-WG-u1V">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -43,10 +42,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HFA-7R-Iov">
                                 <rect key="frame" x="129" y="293" width="63" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Log In">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="normal" title="Log In"/>
                                 <connections>
                                     <action selector="loginAction:" destination="Tu0-3k-hV1" eventType="touchUpInside" id="zqs-J4-0Ji"/>
                                 </connections>
@@ -84,6 +80,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBg-HR-p05" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-665" y="354"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3lh-2V-CRO">
+            <objects>
+                <navigationController toolbarHidden="NO" id="IPV-kz-RS6" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dFs-DO-BbX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="a5G-hZ-ZEV">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="za0-y3-G6A"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dtB-rC-aZh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-96" y="431"/>
         </scene>
         <!--Sign Up View Cont-->
         <scene sceneID="sca-kd-pPy">
@@ -205,18 +221,14 @@
         <!--Messages-->
         <scene sceneID="Y9w-zi-uw7">
             <objects>
-                <tableViewController id="31l-X0-ZTx" customClass="MessageTableVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Messages" id="31l-X0-ZTx" customClass="MessageTableVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="28" sectionFooterHeight="28" id="nqS-FR-2JF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="KAS-1G-W5Z">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                        </navigationBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" rowHeight="67" id="eQX-Of-NUF" customClass="MessageCell" customModule="Yaw" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="320" height="67"/>
+                                <rect key="frame" x="0.0" y="92" width="320" height="67"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="eQX-Of-NUF" id="Ggh-ea-aTs">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="66.5"/>
@@ -250,7 +262,7 @@
                                 <connections>
                                     <outlet property="senderLabel" destination="m2p-MJ-xsY" id="JWE-XO-fkU"/>
                                     <outlet property="sentDate" destination="Yyz-zD-IbX" id="Vsp-oH-Tlq"/>
-                                    <segue destination="UAW-Xy-VNY" kind="presentation" identifier="messageDetailSegue" id="LG8-S9-6fO"/>
+                                    <segue destination="UAW-Xy-VNY" kind="show" identifier="messageDetailSegue" id="sDJ-Df-ru8"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -260,24 +272,19 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Messages" id="DIs-ls-bs8">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="eUH-sp-47v">
-                            <connections>
-                                <segue destination="BYZ-38-t0r" kind="presentation" id="u5J-H4-AnF"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationItem key="navigationItem" title="Messages" id="yKr-az-Vm7"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ul9-Ff-45c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1542" y="125"/>
+            <point key="canvasLocation" x="1154" y="505"/>
         </scene>
-        <!--Message DetailVC-->
+        <!--Message-->
         <scene sceneID="pag-fj-chS">
             <objects>
-                <viewController id="UAW-Xy-VNY" customClass="MessageDetailVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" id="UAW-Xy-VNY" customClass="MessageDetailVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3bS-BA-daB"/>
                         <viewControllerLayoutGuide type="bottom" id="lyz-2O-kXW"/>
@@ -286,48 +293,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lWg-G7-Co7">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <items>
-                                    <navigationItem title="Message" id="UdQ-gH-c69">
-                                        <barButtonItem key="leftBarButtonItem" style="plain" id="Cy5-DU-HGi">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="h1b-fE-8zd">
-                                                <rect key="frame" x="16" y="7" width="34" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Back"/>
-                                                <connections>
-                                                    <segue destination="31l-X0-ZTx" kind="presentation" id="N0y-Sl-xAv"/>
-                                                </connections>
-                                            </button>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rdY-gO-JaC">
-                                <rect key="frame" x="0.0" y="531" width="90" height="37"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="90" id="1aw-XT-hRp"/>
-                                    <constraint firstAttribute="height" constant="37" id="9Gp-yf-uhH"/>
-                                </constraints>
-                                <state key="normal" title="Send Again"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="sendAgainSegue" id="a39-w0-ewB"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGK-de-pzJ">
-                                <rect key="frame" x="248" y="531" width="72" height="37"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="72" id="6TE-T5-DlD"/>
-                                </constraints>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="savePhoto:" destination="UAW-Xy-VNY" eventType="touchUpInside" id="CDt-5T-KPl"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8zW-MM-INq">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zW-MM-INq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
                         </subviews>
@@ -335,75 +301,41 @@
                         <constraints>
                             <constraint firstItem="8zW-MM-INq" firstAttribute="top" secondItem="H7M-yR-XF3" secondAttribute="topMargin" id="2Ky-q4-peT"/>
                             <constraint firstItem="lyz-2O-kXW" firstAttribute="top" secondItem="8zW-MM-INq" secondAttribute="bottom" id="4YV-WI-CjE"/>
-                            <constraint firstItem="rdY-gO-JaC" firstAttribute="firstBaseline" secondItem="CGK-de-pzJ" secondAttribute="baseline" id="5Hu-Zc-RUq"/>
-                            <constraint firstItem="CGK-de-pzJ" firstAttribute="bottom" secondItem="8zW-MM-INq" secondAttribute="bottom" id="Bph-x9-XYa"/>
                             <constraint firstItem="lyz-2O-kXW" firstAttribute="top" secondItem="8zW-MM-INq" secondAttribute="bottom" id="COt-a5-0kS"/>
-                            <constraint firstItem="rdY-gO-JaC" firstAttribute="leading" secondItem="lWg-G7-Co7" secondAttribute="leading" id="EP9-Nf-n6d"/>
-                            <constraint firstItem="rdY-gO-JaC" firstAttribute="bottom" secondItem="lyz-2O-kXW" secondAttribute="top" id="HLB-v3-lBq"/>
-                            <constraint firstItem="rdY-gO-JaC" firstAttribute="baseline" secondItem="CGK-de-pzJ" secondAttribute="firstBaseline" id="IMt-Vr-yrW"/>
-                            <constraint firstItem="rdY-gO-JaC" firstAttribute="bottom" secondItem="8zW-MM-INq" secondAttribute="bottom" id="PkY-IT-JEe"/>
-                            <constraint firstItem="CGK-de-pzJ" firstAttribute="trailing" secondItem="lWg-G7-Co7" secondAttribute="trailing" id="TyP-Kb-bYV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8zW-MM-INq" secondAttribute="trailing" constant="-20" id="W5a-lV-98y"/>
-                            <constraint firstItem="CGK-de-pzJ" firstAttribute="trailing" secondItem="8zW-MM-INq" secondAttribute="trailing" id="Wi8-D5-djM"/>
                             <constraint firstItem="8zW-MM-INq" firstAttribute="leading" secondItem="H7M-yR-XF3" secondAttribute="leadingMargin" id="YBc-iU-GkF"/>
                             <constraint firstItem="8zW-MM-INq" firstAttribute="leading" secondItem="H7M-yR-XF3" secondAttribute="leadingMargin" constant="-20" id="fLT-jM-rx2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8zW-MM-INq" secondAttribute="trailing" constant="-20" id="gLV-J8-jKT"/>
-                            <constraint firstItem="rdY-gO-JaC" firstAttribute="top" secondItem="CGK-de-pzJ" secondAttribute="top" id="jOd-zX-u9x"/>
-                            <constraint firstItem="rdY-gO-JaC" firstAttribute="leading" secondItem="H7M-yR-XF3" secondAttribute="leading" id="ntP-EB-eMz"/>
-                            <constraint firstItem="rdY-gO-JaC" firstAttribute="leading" secondItem="8zW-MM-INq" secondAttribute="leading" id="snI-bh-DZj"/>
                             <constraint firstItem="8zW-MM-INq" firstAttribute="top" secondItem="H7M-yR-XF3" secondAttribute="topMargin" id="sy6-W9-VUz"/>
-                            <constraint firstAttribute="trailing" secondItem="CGK-de-pzJ" secondAttribute="trailing" id="tMt-Ba-3kO"/>
                             <constraint firstItem="8zW-MM-INq" firstAttribute="leading" secondItem="H7M-yR-XF3" secondAttribute="leadingMargin" constant="-20" id="vUx-EO-4gk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8zW-MM-INq" secondAttribute="trailing" id="xBY-vt-Sma"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem systemItem="save" id="MLO-KB-cjz">
+                            <connections>
+                                <action selector="savePhoto:" destination="UAW-Xy-VNY" id="sEG-Li-5UU"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="FKY-it-Hh3"/>
+                        <barButtonItem systemItem="refresh" id="3mD-hu-cJ8">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="showDetail" action="showViewController:sender:" id="mjG-qp-Buc"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Message" id="dfa-0j-c5q"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="messageImageView" destination="8zW-MM-INq" id="rmp-Jy-sUM"/>
-                        <outlet property="messageNavBar" destination="UdQ-gH-c69" id="5Ww-Qi-TRl"/>
+                        <outlet property="messageNavBar" destination="dfa-0j-c5q" id="M7B-rM-T6A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qAC-5U-4xV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2392" y="118"/>
-        </scene>
-        <!--Flow View Controller-->
-        <scene sceneID="4ED-5K-1Xd">
-            <objects>
-                <viewController id="g9v-4q-UM7" customClass="FlowViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="DHk-h6-Y21"/>
-                        <viewControllerLayoutGuide type="bottom" id="OW8-6y-BCd"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="4LC-CR-pUO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V8M-07-q5s" customClass="iCarousel">
-                                <rect key="frame" x="0.0" y="100" width="600" height="474"/>
-                                <color key="backgroundColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ar-U4-9wW">
-                                <rect key="frame" x="0.0" y="0.0" width="67" height="50"/>
-                                <state key="normal" title="&lt; Back"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose a photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gB-Pf-Vga">
-                                <rect key="frame" x="239" y="20" width="122" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <connections>
-                        <outlet property="carousel" destination="V8M-07-q5s" id="hW2-MK-ASC"/>
-                        <outlet property="vwCarousel" destination="V8M-07-q5s" id="m61-8Y-3W0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="V6s-Fn-0aI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="512" y="1061"/>
+            <point key="canvasLocation" x="2392" y="128"/>
         </scene>
         <!--Container View Controller-->
         <scene sceneID="GMu-9Q-pyQ">
@@ -448,51 +380,49 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IvU-Ro-0wE">
-                                <rect key="frame" x="13" y="33" width="34" height="38"/>
-                                <state key="normal" image="menuIcon"/>
-                                <connections>
-                                    <action selector="settingsMenuButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4B0-CX-rR8"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaL-Sg-xUu">
-                                <rect key="frame" x="31" y="490" width="42" height="43"/>
+                                <rect key="frame" x="102" y="495" width="42" height="43"/>
                                 <state key="normal" image="cameraIcon"/>
                                 <connections>
                                     <action selector="openCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ssn-fT-DAS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9K-XF-zmV">
-                                <rect key="frame" x="169" y="486" width="47" height="51"/>
-                                <state key="normal" title="Download from parse" image="downloadIcon"/>
-                                <connections>
-                                    <action selector="getSentPictures:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mcT-EM-jjj"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9uy-Tc-LY7">
-                                <rect key="frame" x="241" y="482" width="51" height="59"/>
-                                <state key="normal" image="messagesIcon"/>
-                                <connections>
-                                    <segue destination="Cvi-RA-ZdK" kind="presentation" identifier="msgListSegue" id="MgL-4W-c6z"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pdP-Zv-t4l">
-                                <rect key="frame" x="93" y="482" width="57" height="59"/>
+                                <rect key="frame" x="161" y="487" width="57" height="59"/>
                                 <state key="normal" image="photosIcon"/>
                                 <connections>
                                     <action selector="openPhotos" destination="BYZ-38-t0r" eventType="touchUpInside" id="eWJ-uF-az6"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aK7-N0-dgW">
-                                <rect key="frame" x="112" y="393" width="97" height="30"/>
+                                <rect key="frame" x="102" y="393" width="116" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="0.99159159339630587" green="1" blue="0.96909158622102409" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.31341638378628611" green="0.49561332507590039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                     </view>
+                    <navigationItem key="navigationItem" id="Nje-XY-VEa">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="Mvc-Ge-1dR">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IvU-Ro-0wE">
+                                <rect key="frame" x="16" y="3" width="34" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="menuIcon"/>
+                                <connections>
+                                    <action selector="settingsMenuButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4B0-CX-rR8"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="sth-pV-YMJ">
+                            <connections>
+                                <segue destination="31l-X0-ZTx" kind="show" identifier="msgListSegue" id="Vda-8I-GGL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="cameraButton" destination="QaL-Sg-xUu" id="Lmr-mH-Uty"/>
@@ -509,23 +439,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-79" y="330"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="AIu-h3-Ix1">
-            <objects>
-                <navigationController id="Cvi-RA-ZdK" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zs7-GC-4mt">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="31l-X0-ZTx" kind="relationship" relationship="rootViewController" id="WHd-yE-8FH"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DSR-5E-3Ee" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="830" y="188"/>
+            <point key="canvasLocation" x="487" y="391"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="b75-Qd-7PJ">
@@ -632,17 +546,14 @@
     </scenes>
     <resources>
         <image name="cameraIcon" width="256" height="256"/>
-        <image name="downloadIcon" width="128" height="128"/>
         <image name="logoutIcon" width="256" height="256"/>
         <image name="menuIcon" width="512" height="512"/>
-        <image name="messagesIcon" width="128" height="128"/>
         <image name="photosIcon" width="388" height="388"/>
         <image name="reloadIcon" width="128" height="128"/>
         <image name="settingsIcon" width="128" height="128"/>
         <image name="userIcon" width="462" height="462"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="u5J-H4-AnF"/>
-        <segue reference="N0y-Sl-xAv"/>
+        <segue reference="za0-y3-G6A"/>
     </inferredMetricsTieBreakers>
 </document>

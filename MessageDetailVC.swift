@@ -27,17 +27,19 @@ class MessageDetailVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.navigationController!.toolbarHidden = false
         messageNavBar.title = String(message.sender["username"])
         if message.image == nil{
          getPhoto()
         }
         messageImageView?.image = message.image
+    }
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController!.toolbarHidden = true
     }
     
     func getPhoto(){

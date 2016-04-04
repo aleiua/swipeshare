@@ -21,7 +21,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func viewWillAppear(animated: Bool) {

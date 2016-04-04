@@ -47,7 +47,6 @@ class ContainerViewController: UIViewController, UINavigationControllerDelegate 
         addChildViewController(locationNavigationController)
         
         locationNavigationController.didMoveToParentViewController(self)
-        locationNavigationController.navigationBarHidden = true
         
         let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
         locationNavigationController.view.addGestureRecognizer(swipeGestureRecognizer)
