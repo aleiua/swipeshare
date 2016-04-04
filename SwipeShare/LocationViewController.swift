@@ -401,7 +401,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let currUser = PFUser.currentUser()
         
         data["currentUser"] = currUser!["username"]
-        data["currentBearing"] = currentHeading
+        data["currentHeading"] = Double(currentHeading.trueHeading)
+        data["swipedHeading"] = Double(swipedHeading)
         data["currentLatitude"] = currUser!["latitude"]
         data["currentLongitude"] = currUser!["longitude"]
         
@@ -730,7 +731,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             user!.saveInBackgroundWithBlock { (success, error) -> Void in
                 if success {
                     if (self.DEBUG) {
-                        print("Saved Successfully")
+//                        print("Location saved Successfully")
                     }
                     self.userLatitude = self.currentLocation.coordinate.latitude
                     self.userLongitude = self.currentLocation.coordinate.longitude
