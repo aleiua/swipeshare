@@ -587,9 +587,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             print(pictureObjects.endIndex)
             for object in pictureObjects {
                 let msgSender = object["sender"]
+                let msgId = object.objectId
                 let sentDate = object.createdAt! as NSDate
                 
-                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate)
+                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
                 self.msgManager.addMessage(msg)
                 
                 print("Message created")

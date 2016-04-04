@@ -10,6 +10,7 @@ import Foundation
 
 
 import UIKit
+import Parse
 
 class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
@@ -103,33 +104,40 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
     }
     
-//    func getPhoto(msg: Message){
-//        if let picture = object["image"] as? PFFile {
-//            
-//            picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-//                if (error == nil) {
-//                    
-//                    print("No error")
-//                    let msgImage = UIImage(data:imageData!)
-//                    let msgSender = object["sender"]
-//                    let sentDate = object.createdAt! as NSDate
-//                    
-//                    let msg = Message(sender: msgSender! as! PFUser, image: msgImage, date: sentDate)
-//                    self.msgManager.addMessage(msg)
-//                    
-//                    print("Message created")
-//                    
-//                    // Set object to read.
-//                    object["hasBeenRead"] = true
-//                    object.saveInBackground()
-//                }
-//                else {
-//                    print("Error getting image data")
-//                }
-//            }
-//        }
-//        
-//    }
+    func getPhoto(msg: Message){
+        let query = PFQuery(className: "sentPicture")
+//        query.whereKey("recipient", equalTo: PFUser.currentUser()!)
+//        query.whereKey("sender", equalTo: msg.sender)
+//        query.whereKey("date", equalTo: msg.date)
+        query.getObjectInBackgroundWithId(msg.id){
+            (object: PFObject?, error: NSError?) -> Void in
+            if error == nil {
+                
+                if let picture = object!["image"] as? PFFile {
+                    
+                    picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                        if (error == nil) {
+                            
+                            msg.image = UIImage(data:imageData!)
+                            
+                            
+                            // Set object to read.
+                            object!["hasBeenRead"] = true
+                            object!.saveInBackground()
+                        }
+                        else {
+                            print("Error getting image data")
+                        }
+                    }
+                }
+                
+            }
+            else {
+                print(error)
+            }
+        }
+        
+    }
     
     // MARK: - Navigation
     
@@ -144,6 +152,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
                 
             let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
             destinationViewController.message = message
+            getPhoto(message)
             
         }
     }
