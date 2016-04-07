@@ -52,8 +52,44 @@ class SignUpViewCont: UIViewController {
 
         })
         
-        
-        
+        // For RSSI:
+        // Find the highest preexisting userID and assign a new one with the previous value incremented
+        var currentIdentifier = 0
+        var query = PFQuery(className:"_User")
+        query.orderByDescending("identifier")
+        query.getFirstObjectInBackgroundWithBlock {
+            (object: PFObject?, error: NSError?) -> Void in
+            
+            // Failure
+            if error != nil || object == nil {
+                print("The getFirstObject request failed.")
+            }
+            
+            // If successful, increment the identifier and reassign with a subsequent query
+            else {
+                print("Successfully retrieved the object.")
+                let maxIdentifier = object!["identifier"] as! Int
+                currentIdentifier = maxIdentifier + 1
+                
+                query = PFQuery(className: "_User")
+                query.whereKey("username", equalTo: PFUser.currentUser()!)
+                query.getObjectInBackgroundWithId(PFUser.currentUser()!.objectId!) {
+                    (user: PFObject?, error: NSError?) -> Void in
+                    
+                    // Failure
+                    if error != nil {
+                        print("failed to get current user object for setting unique identifier")
+                    }
+                    
+                    // Save the new user identifier to parse
+                    else if let user = user {
+                        user["identifier"] = currentIdentifier
+                        user.saveInBackground()
+                        print("successfully saved new user identifier of value: \(currentIdentifier)")
+                    }
+                }
+            }
+        }
     }
         
     
