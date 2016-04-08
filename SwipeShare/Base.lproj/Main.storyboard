@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fE7-WG-u1V">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -296,16 +295,27 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zW-MM-INq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XBd-j6-aqf">
+                                <rect key="frame" x="143" y="264" width="37" height="37"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iaR-bu-JpP">
+                                        <rect key="frame" x="0.0" y="0.0" width="37" height="37"/>
+                                        <color key="color" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="8zW-MM-INq" firstAttribute="top" secondItem="H7M-yR-XF3" secondAttribute="topMargin" id="2Ky-q4-peT"/>
                             <constraint firstItem="lyz-2O-kXW" firstAttribute="top" secondItem="8zW-MM-INq" secondAttribute="bottom" id="4YV-WI-CjE"/>
                             <constraint firstItem="lyz-2O-kXW" firstAttribute="top" secondItem="8zW-MM-INq" secondAttribute="bottom" id="COt-a5-0kS"/>
+                            <constraint firstItem="XBd-j6-aqf" firstAttribute="centerY" secondItem="H7M-yR-XF3" secondAttribute="centerY" id="Euq-Lq-Rni"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8zW-MM-INq" secondAttribute="trailing" constant="-20" id="W5a-lV-98y"/>
                             <constraint firstItem="8zW-MM-INq" firstAttribute="leading" secondItem="H7M-yR-XF3" secondAttribute="leadingMargin" id="YBc-iU-GkF"/>
                             <constraint firstItem="8zW-MM-INq" firstAttribute="leading" secondItem="H7M-yR-XF3" secondAttribute="leadingMargin" constant="-20" id="fLT-jM-rx2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8zW-MM-INq" secondAttribute="trailing" constant="-20" id="gLV-J8-jKT"/>
+                            <constraint firstItem="XBd-j6-aqf" firstAttribute="centerX" secondItem="H7M-yR-XF3" secondAttribute="centerX" id="oaK-WH-h9n"/>
                             <constraint firstItem="8zW-MM-INq" firstAttribute="top" secondItem="H7M-yR-XF3" secondAttribute="topMargin" id="sy6-W9-VUz"/>
                             <constraint firstItem="8zW-MM-INq" firstAttribute="leading" secondItem="H7M-yR-XF3" secondAttribute="leadingMargin" constant="-20" id="vUx-EO-4gk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8zW-MM-INq" secondAttribute="trailing" id="xBY-vt-Sma"/>
@@ -329,6 +339,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="iaR-bu-JpP" id="yZY-ha-awZ"/>
                         <outlet property="messageImageView" destination="8zW-MM-INq" id="rmp-Jy-sUM"/>
                         <outlet property="messageNavBar" destination="dfa-0j-c5q" id="M7B-rM-T6A"/>
                     </connections>
@@ -554,6 +565,6 @@
         <image name="userIcon" width="462" height="462"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="za0-y3-G6A"/>
+        <segue reference="mjG-qp-Buc"/>
     </inferredMetricsTieBreakers>
 </document>

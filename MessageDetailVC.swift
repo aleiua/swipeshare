@@ -20,6 +20,8 @@ class MessageDetailVC: UIViewController{
     @IBOutlet weak var messageNavBar: UINavigationItem!
     @IBOutlet weak var messageImageView: UIImageView!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     @IBAction func savePhoto(sender: AnyObject) {
         UIImageWriteToSavedPhotosAlbum(messageImageView.image!, self, "image:didFinishSavingWithError:contextInfo:", nil)
     }
@@ -32,6 +34,7 @@ class MessageDetailVC: UIViewController{
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController!.toolbarHidden = false
+        self.navigationController!.hidesBarsOnTap = true
         messageNavBar.title = String(message.sender["username"])
         if message.image == nil{
          getPhoto()
@@ -40,6 +43,7 @@ class MessageDetailVC: UIViewController{
     }
     override func viewWillDisappear(animated: Bool) {
         self.navigationController!.toolbarHidden = true
+        self.navigationController!.hidesBarsOnTap = false
     }
     
     func getPhoto(){
@@ -55,13 +59,14 @@ class MessageDetailVC: UIViewController{
                             print("Photo downloaded")
                             self.message.image = UIImage(data:imageData!)
                             self.messageImageView.image = self.message.image
-                            
+                            self.activityIndicator.stopAnimating()
                             // Set object to read.
                             object!["hasBeenRead"] = true
                             object!.saveInBackground()
                         }
                         else {
                             print("Error getting image data")
+                            self.activityIndicator.stopAnimating()
                         }
                     }
                 }
