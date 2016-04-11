@@ -655,18 +655,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         locationManager.apiToken = "76f847c677f70038"
         locationManager.requestAlwaysAuthorization()
         
-        //set up iBeacon region
-        let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
-        let beaconID = "yaw_iBeacon_region"
-        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
-        locationManager.pausesLocationUpdatesAutomatically = false
-        locationManager.startMonitoringForRegion(beaconRegion)
-        locationManager.startRangingBeaconsInRegion(beaconRegion)
-        beaconPeripheralData = beaconRegion.peripheralDataWithMeasuredPower(nil)
-        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
-        print("successfully initialized beacon region")
-        
-        
         locationManager.advancedDelegate = self
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
@@ -710,6 +698,33 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let installation = PFInstallation.currentInstallation()
         installation["user"] = user
         installation.saveInBackground()
+        
+        
+        // Set up iBeacon region
+        let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
+        let beaconID = "yaw_iBeacon_region"
+        
+        //convert user ID to major and minor values to broadcast
+        var major: CLBeaconMajorValue!
+        var minor: CLBeaconMinorValue!
+        let identifier = user!["identifier"] as? NSNumber
+        if (Int(identifier!) > 65535) {
+            major = 65535
+            minor = CLBeaconMinorValue(Int(identifier!) - 65535)
+        }
+        else {
+            major = CLBeaconMajorValue(Int(identifier!))
+            minor = 0
+        }
+
+        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, major: major, minor: minor, identifier: beaconID)
+        
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.startMonitoringForRegion(beaconRegion)
+        locationManager.startRangingBeaconsInRegion(beaconRegion)
+        beaconPeripheralData = beaconRegion.peripheralDataWithMeasuredPower(nil)
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+        //print("successfully initialized beacon region")
         
     }
     
