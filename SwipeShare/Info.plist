@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SIMPLIFICA Typeface.ttf</string>
+		<string>Dense-Regular.otf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -27,9 +32,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>"I need to know where you are"</string>
+	<string>&quot;I need to know where you are&quot;</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>"I need to know"</string>
+	<string>&quot;I need to know&quot;</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
@@ -57,25 +62,25 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb587940864708653</string>
-            </array>
-        </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>587940864708653</string>
-    <key>FacebookDisplayName</key>
-    <string>Yaw</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>fbapi</string>
-        <string>fb-messenger-api</string>
-        <string>fbauth2</string>
-        <string>fbshareextension</string>
-    </array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb587940864708653</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>587940864708653</string>
+	<key>FacebookDisplayName</key>
+	<string>Yaw</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>
