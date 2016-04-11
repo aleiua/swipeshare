@@ -410,6 +410,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6A-Kt-gft">
+                                <rect key="frame" x="264" y="502" width="30" height="30"/>
+                                <state key="normal" title="√"/>
+                                <connections>
+                                    <segue destination="aWG-6J-9p0" kind="show" id="uuL-ys-eXW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.31341638378628611" green="0.49561332507590039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -451,6 +458,37 @@
                 </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="487" y="391"/>
+        </scene>
+        <!--Check List View Controller-->
+        <scene sceneID="6Qx-HR-yTo">
+            <objects>
+                <tableViewController id="aWG-6J-9p0" customClass="CheckListViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="RIm-MP-VE1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="checkCell" id="BhM-yS-vzd">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BhM-yS-vzd" id="Zyn-2I-z5v">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="aWG-6J-9p0" id="79j-hW-75w"/>
+                            <outlet property="delegate" destination="aWG-6J-9p0" id="EJi-RN-KNx"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="tableView" destination="RIm-MP-VE1" id="MOg-KY-fyd"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="13F-gS-ebb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="584" y="1231"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="b75-Qd-7PJ">
@@ -565,6 +603,6 @@
         <image name="userIcon" width="462" height="462"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mjG-qp-Buc"/>
+        <segue reference="za0-y3-G6A"/>
     </inferredMetricsTieBreakers>
 </document>
