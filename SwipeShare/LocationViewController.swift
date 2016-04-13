@@ -505,6 +505,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 if (String(obj["username"]) == intendedUser) {
                     intended = obj
                     intendedBearing = d
+                    updateHeadingBias(intendedBearing)
                 }
                 
             }
@@ -813,6 +814,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         else if peripheral.state == .PoweredOff {
                 peripheralManager.stopAdvertising()
         }
+    }
+    
+    /****************************Calculating Heading Bias********************************/
+     
+    func updateHeadingBias(selectedUserHeading: Double) {
+        
+        let error: Double = Double(swipedHeading) - selectedUserHeading
+        
+        //etc...
     }
 
     
