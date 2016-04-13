@@ -44,7 +44,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     var currentLocation: CLLocation!
-    var currentHeading: CLHeading!
+    var currentHeading = Float()
+    var headingBias = Float()
     
     var userObjectId = String()
     var userLatitude = Double()
@@ -178,8 +179,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                                 self.sendAnother.hidden = false
                         })
                         
-                        self.swipedHeading = (Float(self.currentHeading.trueHeading) + Float(self.angle)) % 360
-                        print("currentHeading is: \(self.currentHeading.trueHeading)")
+                        self.swipedHeading = self.currentHeading + Float(self.angle) % 360
+                        print("currentHeading is: \(self.currentHeading)")
                         print("Swiped Heading iself.s: \(self.swipedHeading)")
                         self.sendToClosestNeighbor(0);
                         print("animation complete and removed from superview")
@@ -405,7 +406,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let currUser = PFUser.currentUser()
         
         data["currentUser"] = currUser!["username"]
-        data["currentHeading"] = Double(currentHeading.trueHeading)
+        data["currentHeading"] = Double(currentHeading)
         data["swipedHeading"] = Double(swipedHeading)
         data["currentLatitude"] = currUser!["latitude"]
         data["currentLongitude"] = currUser!["longitude"]
@@ -743,7 +744,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func locationManager(manager: LKLocationManager, didUpdateHeading newHeading: CLHeading) {
         
-        currentHeading = locationManager.heading!
+        headingBias = 0
+        currentHeading = Float(locationManager.heading!.trueHeading) + headingBias
     }
     
     
