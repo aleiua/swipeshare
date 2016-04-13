@@ -26,12 +26,14 @@
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
 		5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
-		626CA8053A18B117D7A76CFD /* libPods-SwipeShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C529E6B38AD79844321C474 /* libPods-SwipeShare.a */; };
 		7927EF301CB2CF8A00571161 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		793635EB1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EA1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework */; };
 		793635EF1CB2DB8F005CA708 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EC1CB2DB8F005CA708 /* FBSDKCoreKit.framework */; };
 		793635F01CB2DB8F005CA708 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */; };
 		793635F11CB2DB8F005CA708 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */; };
+		79ED85831CBB30E3000D6E4E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED85821CBB30E3000D6E4E /* ParseUI.framework */; };
+		79ED858A1CBB3C07000D6E4E /* Dense-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79ED85891CBB3C07000D6E4E /* Dense-Regular.otf */; };
+		79ED858C1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79ED858B1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf */; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
@@ -51,6 +53,7 @@
 		93F422321C5584A8006DEB7E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F422311C5584A8006DEB7E /* CoreLocation.framework */; };
 		93FA3F221C66A8C000BB3791 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FA3F211C66A8C000BB3791 /* LoginViewController.swift */; };
 		93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */; };
+		E09FA7AEC3903240FBB09000 /* Pods_SwipeShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,7 +92,6 @@
 		05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05FA09231C5E8D440025A1F6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		4C529E6B38AD79844321C474 /* libPods-SwipeShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwipeShare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewContoller.swift; sourceTree = "<group>"; };
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EF38CC31C7925CE00827882 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -97,7 +99,11 @@
 		793635EC1CB2DB8F005CA708 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		79ED85821CBB30E3000D6E4E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		79ED85891CBB3C07000D6E4E /* Dense-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Dense-Regular.otf"; path = "../../../Downloads/Dense-Regular.otf"; sourceTree = "<group>"; };
+		79ED858B1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SIMPLIFICA Typeface.ttf"; path = "../../../Downloads/SIMPLIFICA Typeface.ttf"; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
+		929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwipeShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
 		937E7F2B1C55672700057D32 /* Yaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F2E1C55672700057D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +137,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79ED85831CBB30E3000D6E4E /* ParseUI.framework in Frameworks */,
+				05FA09141C5E8AAF0025A1F6 /* Bolts.framework in Frameworks */,
 				793635EF1CB2DB8F005CA708 /* FBSDKCoreKit.framework in Frameworks */,
 				793635F01CB2DB8F005CA708 /* FBSDKLoginKit.framework in Frameworks */,
 				793635F11CB2DB8F005CA708 /* FBSDKShareKit.framework in Frameworks */,
@@ -148,10 +156,9 @@
 				050B63501C55D7D70033279B /* CoreMotion.framework in Frameworks */,
 				050B634E1C55CA3B0033279B /* UIKit.framework in Frameworks */,
 				93F422321C5584A8006DEB7E /* CoreLocation.framework in Frameworks */,
-				05FA09141C5E8AAF0025A1F6 /* Bolts.framework in Frameworks */,
 				93F422281C556B82006DEB7E /* MapKit.framework in Frameworks */,
 				05FA09121C5E8A6C0025A1F6 /* Parse.framework in Frameworks */,
-				626CA8053A18B117D7A76CFD /* libPods-SwipeShare.a in Frameworks */,
+				E09FA7AEC3903240FBB09000 /* Pods_SwipeShare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,11 +191,11 @@
 		79C8FF3A1CB2C81D0037B488 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				79ED85821CBB30E3000D6E4E /* ParseUI.framework */,
 				793635EC1CB2DB8F005CA708 /* FBSDKCoreKit.framework */,
 				793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */,
 				793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */,
 				793635EA1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework */,
-				4C529E6B38AD79844321C474 /* libPods-SwipeShare.a */,
 				5EF38CC31C7925CE00827882 /* Photos.framework */,
 				05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */,
 				05FA091F1C5E8D310025A1F6 /* StoreKit.framework */,
@@ -203,13 +210,24 @@
 				050B634D1C55CA3B0033279B /* UIKit.framework */,
 				93F422311C5584A8006DEB7E /* CoreLocation.framework */,
 				93F422271C556B82006DEB7E /* MapKit.framework */,
+				929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		79ED85881CBB3BDE000D6E4E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				79ED85891CBB3C07000D6E4E /* Dense-Regular.otf */,
+				79ED858B1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		937E7F221C55672700057D32 = {
 			isa = PBXGroup;
 			children = (
+				79ED85881CBB3BDE000D6E4E /* Resources */,
 				79C8FF3A1CB2C81D0037B488 /* Frameworks */,
 				05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */,
 				05FA09231C5E8D440025A1F6 /* libz.tbd */,
@@ -404,6 +422,8 @@
 			files = (
 				0520578E1C81089B00009D91 /* yawIcon.png in Resources */,
 				937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */,
+				79ED858A1CBB3C07000D6E4E /* Dense-Regular.otf in Resources */,
+				79ED858C1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf in Resources */,
 				937E7F391C55672700057D32 /* Assets.xcassets in Resources */,
 				937E7F341C55672700057D32 /* Main.storyboard in Resources */,
 			);

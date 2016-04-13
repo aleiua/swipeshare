@@ -8,96 +8,46 @@
 
 import UIKit
 import Parse
+import ParseUI
 import LocationKit
-
 import FBSDKCoreKit
 import ParseFacebookUtilsV4
 
 
+class LoginViewController: PFLogInViewController {
+    
+    
+  
 
-class LoginViewController: UIViewController {
-
-    @IBOutlet weak var usernameField: UITextField!
-    
-    @IBOutlet weak var passwordField: UITextField!
-    
-    
-    @IBAction func loginAction(sender: AnyObject) {
-        usernameField.autocorrectionType = .No
-        passwordField.autocorrectionType = .No
-        let username = self.usernameField.text
-        let password = self.passwordField.text
-        
-        if (username == "" || password == "")
-        {
-            print("NOTHING ENTERED")
-            return
-        }
-        
-        let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
-        spinner.startAnimating()
-        
-        
-        PFUser.logInWithUsernameInBackground(username!, password: password!, block: { (user, error) -> Void in
-            
-            spinner.stopAnimating()
-            
-            if (user != nil) {
-
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ContainerViewController")
-                    self.presentViewController(viewController, animated: true, completion: nil)
-                })
-                
-                print(username)
-                
-            } else {
-                print("login error")
-            }
-            
-        })
-        
-    }
-    
-    let facebookReadPermissions = ["public_profile", "email", "user_friends"]
-    
-    @IBAction func loginToFacebook(sender: AnyObject) {
-        
-        
-        PFFacebookUtils.logInInBackgroundWithReadPermissions(facebookReadPermissions) {
-            (user: PFUser?, error: NSError?) -> Void in
-            if let user = user {
-                if user.isNew {
-                    print("User signed up and logged in through Facebook!")
-                } else {
-                    print("User logged in through Facebook!")
-                }
-            } else {
-                print("Uh oh. The user cancelled the Facebook login.")
-            }
-        }
-    }
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        view.addGestureRecognizer(tap)
+        self.signUpController = SignUpViewCont()
+        self.signUpController!.fields = [.UsernameAndPassword, .SignUpButton, .DismissButton]
+
         
-    }
-    
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+        // remove the parse Logo
+        let logo = UILabel()
+        logo.text = "YAW"
+        logo.textColor = UIColor.darkGrayColor()
+        logo.font = UIFont(name: "Simplifica", size: 100)
+        logo.shadowColor = UIColor.lightGrayColor()
+        logo.shadowOffset = CGSizeMake(2, 2)
+        logInView?.logo = logo
+
 
     
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // stretch background image to fill screen
+        // position logo at top with larger frame
+        logInView!.logo!.sizeToFit()
+        let logoFrame = logInView!.logo!.frame
+        logInView!.logo!.frame = CGRectMake(logoFrame.origin.x, logInView!.usernameField!.frame.origin.y - logoFrame.height - 16, logInView!.frame.width,  logoFrame.height)
+    }
+
 }

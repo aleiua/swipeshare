@@ -31,9 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId("Gsr2KOBej8uVGrhLE7uzbhqrihagNICRk51VDaBj",
             clientKey: "rFScD5ejwXbR0CcI5AP91ijYRNV1JY2qhWvFMkl2")
         
-        // [Optional] Track statistics around application opens.
-        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-        
+        // Initialize Facebook Notifications
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
 
         
@@ -47,13 +45,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let locationManager = LKLocationManager()
         // The debug flag is not necessary (and should not be enabled in prod)
         // but does help to ensure things are working correctly
-        locationManager.debug = true
+        locationManager.debug = false
         locationManager.apiToken = "76f847c677f70038"
         locationManager.startUpdatingLocation()
+        
+        // [Optional] Track statistics around application opens.
+        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
         
         return true
     }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+    
+    func applicationDidBecomeActive(application: UIApplication) {
+        FBSDKAppEvents.activateApp()
+    }
+
+    
+    
+    
     
     // Registered push notifications
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -85,15 +98,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        FBSDKAppEvents.activateApp()
-        let currentInstallation = PFInstallation.currentInstallation()
-        if currentInstallation.badge != 0 {
-            currentInstallation.badge = 0
-            currentInstallation.saveEventually()
-        }
-    }
+//    func applicationDidBecomeActive(application: UIApplication) {
+//        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+//        FBSDKAppEvents.activateApp()
+//        let currentInstallation = PFInstallation.currentInstallation()
+//        if currentInstallation.badge != 0 {
+//            currentInstallation.badge = 0
+//            currentInstallation.saveEventually()
+//        }
+//    }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -164,19 +177,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application(application: UIApplication,
-        openURL url: NSURL,
-        sourceApplication: String?,
-        annotation: AnyObject) -> Bool {
-            var scheme : String?
-            scheme = url.scheme
-            
-            let isFacebookURL = scheme != nil && url.scheme.hasPrefix("fb\(FBSDKSettings.appID())") && url.host == "authorize"
-            if isFacebookURL {
-                return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
-            }
-            return false
-    }
+//    func application(application: UIApplication,
+//        openURL url: NSURL,
+//        sourceApplication: String?,
+//        annotation: AnyObject) -> Bool {
+//            var scheme : String?
+//            scheme = url.scheme
+//            
+//            let isFacebookURL = scheme != nil && url.scheme.hasPrefix("fb\(FBSDKSettings.appID())") && url.host == "authorize"
+//            if isFacebookURL {
+//                return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+//            }
+//            return false
+//    }
     
     
 }
