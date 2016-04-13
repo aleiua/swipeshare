@@ -31,21 +31,24 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if (PFUser.currentUser() == nil) {
+            
             let loginViewController = LoginViewController()
             loginViewController.delegate = self
+            
+            loginViewController.fields = [.UsernameAndPassword, .LogInButton, .PasswordForgotten, .SignUpButton, .Facebook]
+
             loginViewController.emailAsUsername = false
             loginViewController.signUpController?.emailAsUsername = false
             loginViewController.signUpController?.delegate = self
 
             
-            loginViewController.fields = [.UsernameAndPassword, .LogInButton, .PasswordForgotten, .SignUpButton, .Facebook]
 
                         
             self.presentViewController(loginViewController, animated: false, completion: nil)
         }
             
         else {
-            presentLoggedInAlert()
+//            presentLoggedInAlert()
         }
     }
     
