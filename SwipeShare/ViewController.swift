@@ -21,14 +21,6 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for family: String in UIFont.familyNames()
-        {
-            print("\(family)")
-            for names: String in UIFont.fontNamesForFamilyName(family)
-            {
-                print("== \(names)")
-            }
-        }
         
         // Do any additional setup after loading the view, typically from a nib.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
@@ -41,10 +33,14 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
         if (PFUser.currentUser() == nil) {
             let loginViewController = LoginViewController()
             loginViewController.delegate = self
+            loginViewController.emailAsUsername = false
+            loginViewController.signUpController?.emailAsUsername = false
+            loginViewController.signUpController?.delegate = self
+
             
             loginViewController.fields = [.UsernameAndPassword, .LogInButton, .PasswordForgotten, .SignUpButton, .Facebook]
-            loginViewController.signUpController?.delegate = self
-            
+
+                        
             self.presentViewController(loginViewController, animated: false, completion: nil)
         }
             

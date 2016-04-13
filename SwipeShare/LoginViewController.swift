@@ -10,16 +10,22 @@ import UIKit
 import Parse
 import ParseUI
 import LocationKit
-
 import FBSDKCoreKit
 import ParseFacebookUtilsV4
 
 
 class LoginViewController: PFLogInViewController {
     
+    
+  
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.signUpController = SignUpViewCont()
+        self.signUpController!.fields = [.UsernameAndPassword, .SignUpButton, .DismissButton]
+
         
         // remove the parse Logo
         let logo = UILabel()
@@ -29,6 +35,9 @@ class LoginViewController: PFLogInViewController {
         logo.shadowColor = UIColor.lightGrayColor()
         logo.shadowOffset = CGSizeMake(2, 2)
         logInView?.logo = logo
+
+
+    
     }
     
     
