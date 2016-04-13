@@ -16,10 +16,6 @@ import ParseFacebookUtilsV4
 
 class LoginViewController: PFLogInViewController {
     
-    
-  
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,11 +31,8 @@ class LoginViewController: PFLogInViewController {
         logo.shadowColor = UIColor.lightGrayColor()
         logo.shadowOffset = CGSizeMake(2, 2)
         logInView?.logo = logo
-
-
     
     }
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
