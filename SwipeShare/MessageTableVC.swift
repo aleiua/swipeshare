@@ -7,8 +7,7 @@
 //
 
 import Foundation
-
-
+import CoreData
 import UIKit
 
 class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
@@ -16,10 +15,19 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     let messageCellIdentifier = "MessageCell"
     let messageManager = MessageManager.sharedMessageManager
+    
+    
     // ** CREATE MESSAGE MANAGAER **
+    // Retreive the managedObjectContext from AppDelegate
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //print it to the console
+        print(managedObjectContext)
 
     }
     
@@ -44,7 +52,8 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messageManager.messages.count
+        //return messageManager.messages.count
+        return 10
     }
     
     
@@ -54,38 +63,59 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     }
     
     func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
         
-        let msg = messageManager.messages[indexPath.row] as Message
-        cell.senderLabel.text = String(msg.sender["username"])
-        cell.messageImageView?.image = msg.image
+        // Create a new fetch request using the LogItem entity
+        let fetchRequest = NSFetchRequest(entityName: "Message")
+        print("setting up fetch request")
         
+        
+        
+        do {
+            
+            let fetchedMessages = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Message]
+            
+            print("fetching messages: ")
+            print(fetchedMessages.count)
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
+            let msg = fetchedMessages[indexPath.row] as Message
+            cell.senderLabel.text = String(msg.sender)
+            if msg.imageData != nil {
+                cell.messageImageView.image = UIImage(data: msg.imageData!)
+            }
+            
+            
+            //DATE FORMATING NEEDS TO BE REWORKED FOR COREDATA
+            //            let date = NSDateFormatter.localizedStringFromDate(NSDate(msg.date), dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+            cell.sentDate.text = String(msg.date)
+            return cell
+            
+        } catch {
+            fatalError("Failed to fetch messages: \(error)")
+            
+        }
 
-        let date = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
-        cell.sentDate.text = date
         
-        return cell
+        
+        // OLD
+        
+//        
+//        let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
+//        
+//        let msg = messageManager.messages[indexPath.row] as Message
+//        cell.senderLabel.text = msg.sender["username"]
+//        cell.messageImageView?.image = msg.image
+//        
+//
+//        let date = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+//        cell.sentDate.text = date
+//        
+        
+//        return cell
         
     }
     
 
-        
-//        let cell = self.tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as! MessageCell
-//        
-//        
-//        var message: Message
-//        
-//        let messageManager = MessageManager.sharedMessageManager
-//        print("MessageManager Count:")
-//        print(messageManager.messages.count)
-//        
-//        message = messageManager.messages[indexPath.row]
-//        
-//        cell.senderLabel?.text = String(message.sender["username"])
-//        cell.messageImageView?.image = message.image
-//        
-//        
-//        return cell
     
     
     

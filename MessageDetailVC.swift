@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import CoreData
 import UIKit
 
 class MessageDetailVC: UIViewController{
@@ -31,8 +31,11 @@ class MessageDetailVC: UIViewController{
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        messageSenderLabel.text = String(message.sender["username"])
-        messageImageView?.image = message.image
+//        messageSenderLabel.text = String(message.sender["username"])
+//        messageImageView?.image = message.image
+        
+        messageSenderLabel.text = String(message.sender)
+        messageImageView?.image = UIImage(data: message.imageData!)
     }
     
     
@@ -43,6 +46,7 @@ class MessageDetailVC: UIViewController{
             
             let destinationViewController = segue.destinationViewController as! LocationViewController
             
+            // Look at how we are trying to pass the immage
             destinationViewController.image = messageImageView
             
             

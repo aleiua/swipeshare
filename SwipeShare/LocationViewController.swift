@@ -13,6 +13,7 @@ import Foundation
 import Darwin
 import LocationKit
 import CoreBluetooth
+import CoreData
 
 
 // Protocol written for container
@@ -69,6 +70,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     let msgManager = MessageManager.sharedMessageManager
+    
+    // Core Data Stuff
+    // Retreive the managedObjectContext from AppDelegate
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    
+    
 
     /*
     Rough Distances:
@@ -570,7 +577,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
     
     @IBAction func getSentPictures(sender: AnyObject) {
-        getPictureObjectsFromParse()
+        
+        
+        let pictures = getPictureObjectsFromParse()
+        
+        if pictures.count > 0 {
+            print("pic should show on screen")
+        }
+        
         
     }
      
@@ -588,30 +602,35 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             try pictureObjects = query.findObjects()
             
             print("Entering for loop")
+            print(pictureObjects.count)
+            dump(pictureObjects)
+            
+            
             for object in pictureObjects {
+                let msgSender = object["sender"]
+                let msgId = object.objectId
+                let sentDate = object.createdAt! as NSDate
                 
-                if let picture = object["image"] as? PFFile {
-                    picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-                        if (error == nil) {
-                            
-                            print("No error")
-                            let msgImage = UIImage(data:imageData!)
-                            let msgSender = object["sender"]
-                            let sentDate = object.createdAt! as NSDate
-
-                            let msg = Message(sender: msgSender! as! PFUser, image: msgImage, date: sentDate)
-                            self.msgManager.addMessage(msg)
-                            
-                            print("Message created")
-                            
-                            // Set object to read.
-                            object["hasBeenRead"] = true
-                            object.saveInBackground()
-                        }
-                        else {
-                            print("Error getting image data")
-                        }
-                    }
+                
+                // Do we still want to be adding messages to message manager?
+//                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
+//                self.msgManager.addMessage(msg)
+                
+                let message = NSEntityDescription.insertNewObjectForEntityForName("Message", inManagedObjectContext: self.managedObjectContext) as! Message
+                
+                message.sender = String(msgSender["username"])
+                message.date = sentDate as NSDate
+                message.imageData = object["image"] as? NSData
+                message.objectId = msgId
+                
+                
+                do {
+                    try self.managedObjectContext.save()
+                    print("The sender is: \(message.sender)")
+                    
+                } catch {
+                    print("Unresolved error")
+                    abort()
                 }
                 
             }
@@ -619,8 +638,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         catch {
             print("Error getting received pictures")
         }
-        print("LEAVING METHOD")
         return pictureObjects
+        
     }
 
     func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
