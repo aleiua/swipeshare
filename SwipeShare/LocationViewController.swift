@@ -399,7 +399,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
     }
     
-    func storeSendingInformation(intendedRecipient : PFObject, actualRecipient : PFObject, intendedBear : Double, actualBear : Double) {
+    func storeSendingInformation(intendedRecipient : PFObject, actualRecipient : PFObject, intendedBear : Double, actualBear : Double, errorVal: Bool) {
         
         let data = PFObject(className: "sendingData")
         
@@ -420,6 +420,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         data["actualBearingAccuracy"] = actualBear
         data["actualLatitude"] = actualRecipient["latitude"]
         data["actualLongitude"] = actualRecipient["longitude"]
+        
+        data["errorIsPositive"] = errorVal
         
         data.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
@@ -444,7 +446,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
     func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
         var doubleToObjects = [Double : Array<PFObject>]()
+        var objectsToErrorVal = [PFObject: Bool]()
         var distances = [Double]()
+        var errorIsPositive: Bool
         
         for n in neighbors {
             var distance = 0.0
@@ -455,6 +459,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             }
             // Sort by bearing
             else {
+                // Angle between neighbor and north (from current user's device)
                 let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
                     latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
                 
@@ -463,6 +468,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 let a = abs(Double(swipedHeading) - direction)
                 let b = 360 - a
                 distance = min(a, b)
+                
+                // Check to see if the error between the swipe and the direction of the user is positive
+                if ((Double(swipedHeading) - direction) > 0) {
+                    errorIsPositive = true
+                } else {
+                    errorIsPositive = false
+                }
+                objectsToErrorVal[n] = errorIsPositive
                 
                 print("Accuracy of swipe: \(n["username"]) = \(distance)")
             }
@@ -492,6 +505,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         var intended: PFObject!
         var intendedBearing = Double()
+        var errorVal: Bool = true
         
         
         // Convert sorted distances into sorted objects.
@@ -505,13 +519,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 if (String(obj["username"]) == intendedUser) {
                     intended = obj
                     intendedBearing = d
-                    updateHeadingBias(intendedBearing)
+                    errorVal = objectsToErrorVal[obj]!
+                    let intendedUserBearingError: Double = Double(swipedHeading) - d
+                    updateHeadingBias(intendedUserBearingError)
                 }
                 
             }
         }
         
-        storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
+        storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0], errorVal: errorVal)
         
         nearestLabel.text = String(orderedNeighbors[0]["username"])
         return orderedNeighbors
@@ -818,11 +834,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     /****************************Calculating Heading Bias********************************/
      
-    func updateHeadingBias(selectedUserHeading: Double) {
+    func updateHeadingBias(error: Double) {
         
-        let error: Double = Double(swipedHeading) - selectedUserHeading
         
-        //etc...
+        headingBias = headingBias + Float(error)
+        
     }
 
     
