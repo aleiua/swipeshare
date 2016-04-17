@@ -49,5 +49,9 @@ class LoginViewController: PFLogInViewController {
         let logoFrame = logInView!.logo!.frame
         logInView!.logo!.frame = CGRectMake(logoFrame.origin.x, logInView!.usernameField!.frame.origin.y - logoFrame.height - 16, logInView!.frame.width,  logoFrame.height)
     }
+    
+
+
+    
 
 }

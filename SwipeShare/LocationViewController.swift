@@ -56,7 +56,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var imagePicker:UIImagePickerController?=UIImagePickerController()
     
     var swipedHeading = Float()
-    var DEBUG = true
+    var DEBUG = false
    
     
     // New things for container
@@ -663,7 +663,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         let user = PFUser.currentUser()
         if user == nil {
-            print("Could not get current User")
+            if (DEBUG) {
+                print("ViewDidLoad: Could not get current User")
+            }
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 print("presenting login view")
@@ -695,6 +697,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
     }
     
+    
+    
+//    override func viewDidAppear(animated: Bool) {
+//        print("viewDidAppear")
+//    }
+    
     // Test comment
     func locationManager(manager: LKLocationManager, didFailWithError error: NSError) {
         locationManager.stopUpdatingLocation()
@@ -714,21 +722,20 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         
         if user == nil {
-            print("Could not get current User")
+            if (DEBUG) {
+                print("LocationUpdate: Could not get current User")
+            }
             return
         }
+            
         else {
-//            user!["latitude"] = self.currentLocation.coordinate.latitude
-//            user!["longitude"] = self.currentLocation.coordinate.longitude
             user!["latitude"] = loc.coordinate.latitude
             user!["longitude"] = loc.coordinate.longitude
-//            latitudeLabel.text = String(user!["latitude"])
-//            longitudeLabel.text = String(user!["longitude"])
             
             user!.saveInBackgroundWithBlock { (success, error) -> Void in
                 if success {
                     if (self.DEBUG) {
-//                        print("Location saved Successfully")
+                        print("Location saved successfully")
                     }
                     self.userLatitude = self.currentLocation.coordinate.latitude
                     self.userLongitude = self.currentLocation.coordinate.longitude
@@ -763,6 +770,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             self.presentViewController(viewController, animated: true, completion: nil)
         })
     }
+    
+    
+    
+    /*************************** Push Notifications *******************************/
     
     func pushToUser(sender: PFUser, recipient: PFUser, photo: PFObject){
         let push = PFPush()
