@@ -547,7 +547,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     index = i
                 }
             }
-            users.removeAtIndex(index)
+            if (index != -1) {
+                users.removeAtIndex(index)
+            }
         }
         catch {
             print("Error getting neighbors!")
@@ -699,10 +701,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     
-//    override func viewDidAppear(animated: Bool) {
-//        print("viewDidAppear")
-//    }
-    
+
     // Test comment
     func locationManager(manager: LKLocationManager, didFailWithError error: NSError) {
         locationManager.stopUpdatingLocation()
@@ -715,30 +714,34 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func locationManager(manager:LKLocationManager, var didUpdateLocations locations: Array <CLLocation>) {
         
-        currentLocation = locationManager.location!
-        let loc = locations.removeLast()
 
-        let user = PFUser.currentUser()
-        
-        
-        if user == nil {
-            if (DEBUG) {
-                print("LocationUpdate: Could not get current User")
+        if (LKLocationManager.locationServicesEnabled()) {
+            
+            currentLocation = locationManager.location!
+            let loc = locations.removeLast()
+
+            let user = PFUser.currentUser()
+            
+            
+            if user == nil {
+                if (DEBUG) {
+                    print("LocationUpdate: Could not get current User")
+                }
+                return
             }
-            return
-        }
-            
-        else {
-            user!["latitude"] = loc.coordinate.latitude
-            user!["longitude"] = loc.coordinate.longitude
-            
-            user!.saveInBackgroundWithBlock { (success, error) -> Void in
-                if success {
-                    if (self.DEBUG) {
-                        print("Location saved successfully")
+                
+            else {
+                user!["latitude"] = loc.coordinate.latitude
+                user!["longitude"] = loc.coordinate.longitude
+                
+                user!.saveInBackgroundWithBlock { (success, error) -> Void in
+                    if success {
+                        if (self.DEBUG) {
+                            print("Location saved successfully")
+                        }
+                        self.userLatitude = self.currentLocation.coordinate.latitude
+                        self.userLongitude = self.currentLocation.coordinate.longitude
                     }
-                    self.userLatitude = self.currentLocation.coordinate.latitude
-                    self.userLongitude = self.currentLocation.coordinate.longitude
                 }
             }
         }

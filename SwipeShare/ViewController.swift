@@ -67,6 +67,8 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
         self.dismissViewControllerAnimated(true, completion: nil)
         
+        
+        
         if (PFUser.currentUser() != nil) {
             let user = PFUser.currentUser()
             user!["name"] = user!["username"]
