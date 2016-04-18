@@ -15,10 +15,10 @@ import Parse
 
 class Message: NSManagedObject  {
     
-    @NSManaged var sender: String?
-    @NSManaged var date: NSDate?
+    @NSManaged var sender: String
+    @NSManaged var date: NSDate
     @NSManaged var imageData: NSData?
-    @NSManaged var objectId: String?
+    @NSManaged var objectId: String
     
     
     override init(entity: NSEntityDescription,

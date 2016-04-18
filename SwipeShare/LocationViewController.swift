@@ -607,9 +607,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             
             
             for object in pictureObjects {
-                let msgSender = object["sender"]
+                let msgSender = object["sender"] as! PFUser
                 let msgId = object.objectId
                 let sentDate = object.createdAt! as NSDate
+                
+                
                 
                 
                 // Do we still want to be adding messages to message manager?
@@ -620,8 +622,31 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 
                 message.sender = String(msgSender["username"])
                 message.date = sentDate as NSDate
-                message.imageData = object["image"] as? NSData
-                message.objectId = msgId
+                
+                let imageFile = object["image"] as! PFFile
+                do {
+                    
+                    let imageData = try imageFile.getData()
+                    //let image = UIImage(data: imageData)
+                    message.imageData = imageData
+                    
+                }
+                catch {
+                    print("Error getting data for pictures")
+                }
+
+                
+                
+                //message.imageData = object["image"] as? NSData
+                message.objectId = msgId!
+                
+                print(message.sender)
+                print(message.date)
+                //print(message.imageData)
+                print(message.objectId)
+                
+                object["hasBeenRead"] = true
+                object.saveInBackground()
                 
                 
                 do {

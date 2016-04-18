@@ -20,15 +20,23 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     // ** CREATE MESSAGE MANAGAER **
     // Retreive the managedObjectContext from AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    
+    var fetchedMessages: [Message] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //print it to the console
-        print(managedObjectContext)
-
+        // Create a new fetch request using the LogItem entity
+        let fetchRequest = NSFetchRequest(entityName: "Message")
+        print("setting up fetch request")
+        
+        
+        do {
+            fetchedMessages = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Message]
+            
+        } catch {
+            fatalError("Failed to fetch messages: \(error)")
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -52,47 +60,38 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return messageManager.messages.count
-        return 10
+        return fetchedMessages.count
+        
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return messageCellAtIndexPath(indexPath)
         
+        
+        
     }
     
     func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
         
-        // Create a new fetch request using the LogItem entity
-        let fetchRequest = NSFetchRequest(entityName: "Message")
-        print("setting up fetch request")
+        
+        print("fetching messages: ")
+        print(fetchedMessages.count)
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
+        let msg = fetchedMessages[indexPath.row] as Message
+        cell.senderLabel.text = String(msg.sender)
+        if msg.imageData != nil {
+            cell.messageImageView.image = UIImage(data: msg.imageData!)
+        }
         
         
-        
-        do {
-            
-            let fetchedMessages = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Message]
-            
-            print("fetching messages: ")
-            print(fetchedMessages.count)
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
-            let msg = fetchedMessages[indexPath.row] as Message
-            cell.senderLabel.text = String(msg.sender)
-            if msg.imageData != nil {
-                cell.messageImageView.image = UIImage(data: msg.imageData!)
-            }
-            
-            
-            //DATE FORMATING NEEDS TO BE REWORKED FOR COREDATA
-            //            let date = NSDateFormatter.localizedStringFromDate(NSDate(msg.date), dateStyle: .ShortStyle, timeStyle: .ShortStyle)
-            cell.sentDate.text = String(msg.date)
-            return cell
-            
-        } catch {
-            fatalError("Failed to fetch messages: \(error)")
-            
+        //DATE FORMATING NEEDS TO BE REWORKED FOR COREDATA
+        //            let date = NSDateFormatter.localizedStringFromDate(NSDate(msg.date), dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+        cell.sentDate.text = String(msg.date)
+        return cell
+
+ 
         }
 
         
@@ -113,14 +112,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
 //        return cell
         
-    }
-    
 
-    
-    
-    
-
-    
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the item to be re-orderable.
@@ -144,7 +136,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
             
         
                 
-            let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
+            let message = fetchedMessages[tableView.indexPathForSelectedRow!.row]
             destinationViewController.message = message
             
         }
