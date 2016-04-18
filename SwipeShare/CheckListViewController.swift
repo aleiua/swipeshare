@@ -11,14 +11,24 @@ import UIKit
 class CheckListViewController: UITableViewController {
     var items = [String]()
     
+    @IBOutlet weak var blurredBackgroundView: UIVisualEffectView!
+    
+    @IBOutlet weak var navBar: UINavigationBar!
+    
+    @IBAction func cancelMessage(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         items = ["Garrett","Troy","Lexie","Robbie"]
         self.setEditing(true, animated: true)
         self.tableView.setEditing(true, animated: true)
-        self.tableView.allowsMultipleSelectionDuringEditing = true
-        self.tableView.allowsMultipleSelection  = true
+        
+        tableView.backgroundView = blurredBackgroundView
+        navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
+//        tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurredBackgroundView.effect as! UIBlurEffect)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -54,6 +64,9 @@ class CheckListViewController: UITableViewController {
     }
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         return UITableViewCellEditingStyle(rawValue: 3)!
+    }
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        
     }
 
     /*

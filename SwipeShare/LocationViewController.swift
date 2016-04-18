@@ -69,7 +69,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     let msgManager = MessageManager.sharedMessageManager
-
+    let overlayView = OverlayView()
     /*
     Rough Distances:
     .1 = 11km
@@ -82,6 +82,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
 
+    @IBAction func displayOverlay(sender: AnyObject) {
+        overlayView.displayView(view)
+    }
     
     
 
@@ -239,7 +242,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         image.userInteractionEnabled = true
         image.addGestureRecognizer(panGesture)
-        applyPlainShadow(image)
         
         // Fade out reload button
         UIView.animateWithDuration(0.5,
@@ -579,7 +581,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Getting parse images")
         let query = PFQuery(className: "sentPicture")
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
-//        query.whereKey("hasBeenRead", equalTo: false)
         query.includeKey("sender")
         query.orderByAscending("date")
         

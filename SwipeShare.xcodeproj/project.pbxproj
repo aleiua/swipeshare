@@ -94,8 +94,8 @@
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		4C529E6B38AD79844321C474 /* libPods-SwipeShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwipeShare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
-		5EB8A1111CBB38B0003B575D /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OverlayView.swift; path = SwipeShare/OverlayView.swift; sourceTree = "<group>"; };
-		5EB8A1131CBB38C4003B575D /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
+		5EB8A1111CBB38B0003B575D /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		5EB8A1131CBB38C4003B575D /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverlayView.xib; path = ../OverlayView.xib; sourceTree = "<group>"; };
 		5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewContoller.swift; sourceTree = "<group>"; };
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EF38CC31C7925CE00827882 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -216,8 +216,6 @@
 		937E7F221C55672700057D32 = {
 			isa = PBXGroup;
 			children = (
-				5EB8A1111CBB38B0003B575D /* OverlayView.swift */,
-				5EB8A1131CBB38C4003B575D /* OverlayView.xib */,
 				79C8FF3A1CB2C81D0037B488 /* Frameworks */,
 				05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */,
 				05FA09231C5E8D440025A1F6 /* libz.tbd */,
@@ -243,6 +241,8 @@
 		937E7F2D1C55672700057D32 /* SwipeShare */ = {
 			isa = PBXGroup;
 			children = (
+				5EB8A1111CBB38B0003B575D /* OverlayView.swift */,
+				5EB8A1131CBB38C4003B575D /* OverlayView.xib */,
 				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
 				0520578D1C81089B00009D91 /* yawIcon.png */,
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,

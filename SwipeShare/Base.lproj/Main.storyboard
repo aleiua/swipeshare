@@ -50,14 +50,14 @@
                                 <rect key="frame" x="133" y="443" width="55" height="30"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
-                                    <segue destination="fFi-44-xV3" kind="presentation" id="zfQ-5t-l8k"/>
+                                    <segue destination="fFi-44-xV3" kind="show" id="zfQ-5t-l8k"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBy-6C-hpi">
                                 <rect key="frame" x="103" y="496" width="115" height="30"/>
                                 <state key="normal" title="Forgot Password"/>
                                 <connections>
-                                    <segue destination="hAI-qc-QOY" kind="presentation" id="6zT-A6-y19"/>
+                                    <segue destination="hAI-qc-QOY" kind="show" id="6zT-A6-y19"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jQb-ow-hwc">
@@ -411,10 +411,17 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6A-Kt-gft">
-                                <rect key="frame" x="264" y="502" width="30" height="30"/>
-                                <state key="normal" title="√"/>
+                                <rect key="frame" x="254" y="502" width="51" height="30"/>
+                                <state key="normal" title="Checks"/>
                                 <connections>
-                                    <segue destination="aWG-6J-9p0" kind="show" id="uuL-ys-eXW"/>
+                                    <segue destination="aWG-6J-9p0" kind="presentation" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="uuL-ys-eXW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAh-8x-Hfg">
+                                <rect key="frame" x="13" y="502" width="52" height="30"/>
+                                <state key="normal" title="Overlay"/>
+                                <connections>
+                                    <action selector="displayOverlay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4mw-tU-pJI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -463,13 +470,100 @@
         <scene sceneID="6Qx-HR-yTo">
             <objects>
                 <tableViewController id="aWG-6J-9p0" customClass="CheckListViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="RIm-MP-VE1">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="RIm-MP-VE1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <visualEffectView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" id="dFx-xh-KF3">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="b81-oI-JSK">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Luv-0p-Pyq">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="evl-aq-nzl"/>
+                                        </constraints>
+                                        <items>
+                                            <navigationItem title="Send to these people?" id="n98-0x-kBV">
+                                                <barButtonItem key="leftBarButtonItem" systemItem="stop" id="rB2-FG-gzS">
+                                                    <connections>
+                                                        <action selector="cancelMessage:" destination="aWG-6J-9p0" id="P3Z-cW-5Wm"/>
+                                                    </connections>
+                                                </barButtonItem>
+                                            </navigationItem>
+                                        </items>
+                                    </navigationBar>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Luv-0p-Pyq" firstAttribute="leading" secondItem="b81-oI-JSK" secondAttribute="leading" id="A5h-fs-t7x"/>
+                                    <constraint firstItem="Luv-0p-Pyq" firstAttribute="top" secondItem="b81-oI-JSK" secondAttribute="top" id="HC6-QR-1Th"/>
+                                    <constraint firstAttribute="trailing" secondItem="Luv-0p-Pyq" secondAttribute="trailing" id="vNY-Ke-Cgy"/>
+                                </constraints>
+                            </view>
+                            <vibrancyEffect>
+                                <blurEffect style="dark"/>
+                            </vibrancyEffect>
+                        </visualEffectView>
+                        <visualEffectView key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="u41-WR-TIV">
+                            <rect key="frame" x="0.0" y="187" width="320" height="371"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="esf-5V-rNi">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="371"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1E-iw-npS">
+                                        <rect key="frame" x="0.0" y="301" width="320" height="70"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TAY-la-jWy">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvD-PP-DOV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                                                    <color key="backgroundColor" red="0.0016079409364734287" green="1" blue="0.58493671771606648" alpha="0.75" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="Send">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <state key="selected">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="cancelMessage:" destination="aWG-6J-9p0" eventType="touchUpInside" id="GCg-EQ-gsS"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="bvD-PP-DOV" secondAttribute="bottom" id="8Be-gn-15H"/>
+                                                <constraint firstAttribute="trailing" secondItem="bvD-PP-DOV" secondAttribute="trailing" id="Hdu-C2-R7m"/>
+                                                <constraint firstItem="bvD-PP-DOV" firstAttribute="leading" secondItem="TAY-la-jWy" secondAttribute="leading" id="bIM-lN-Gxn"/>
+                                                <constraint firstItem="bvD-PP-DOV" firstAttribute="top" secondItem="TAY-la-jWy" secondAttribute="top" id="z82-Jr-jki"/>
+                                            </constraints>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="wd1-T4-zYy"/>
+                                        </constraints>
+                                        <vibrancyEffect>
+                                            <blurEffect style="dark"/>
+                                        </vibrancyEffect>
+                                    </visualEffectView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="H1E-iw-npS" secondAttribute="bottom" id="3W1-za-oP2"/>
+                                    <constraint firstAttribute="trailing" secondItem="H1E-iw-npS" secondAttribute="trailing" id="dVN-fi-D8r"/>
+                                    <constraint firstItem="H1E-iw-npS" firstAttribute="leading" secondItem="esf-5V-rNi" secondAttribute="leading" id="j2T-LF-P6J"/>
+                                </constraints>
+                            </view>
+                            <blurEffect style="dark"/>
+                        </visualEffectView>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="checkCell" id="BhM-yS-vzd">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="checkCell" id="BhM-yS-vzd">
+                                <rect key="frame" x="0.0" y="143" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BhM-yS-vzd" id="Zyn-2I-z5v">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -483,6 +577,8 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="blurredBackgroundView" destination="u41-WR-TIV" id="bz2-Xx-zqs"/>
+                        <outlet property="navBar" destination="Luv-0p-Pyq" id="SGR-DX-lEf"/>
                         <outlet property="tableView" destination="RIm-MP-VE1" id="MOg-KY-fyd"/>
                     </connections>
                 </tableViewController>
