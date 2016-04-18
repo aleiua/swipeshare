@@ -508,9 +508,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 
             }
         }
-        
-        storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
-        
+        // Check to make sure user entered a person.
+        if (!(intendedUser ?? "").isEmpty) {
+            print("Storing sending information")
+            storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
+        }
+
         nearestLabel.text = String(orderedNeighbors[0]["username"])
         return orderedNeighbors
     }
@@ -544,10 +547,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     print("Adjacent User: " + String(user["username"]))
                 }
                 else {
+                    if (DEBUG) {
+                        print("Found myself when looking for nearby neighbors")
+                    }
                     index = i
                 }
             }
             if (index != -1) {
+                if (DEBUG) {
+                    print("Removing myself from neighby neighbors")
+                }
                 users.removeAtIndex(index)
             }
         }
