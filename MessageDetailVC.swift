@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import CoreData
 import UIKit
 import Parse
 
@@ -98,6 +98,7 @@ class MessageDetailVC: UIViewController{
             
             let destinationViewController = segue.destinationViewController as! LocationViewController
             
+            // Look at how we are trying to pass the immage
             destinationViewController.image = messageImageView
             
             

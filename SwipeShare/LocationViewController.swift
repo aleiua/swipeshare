@@ -13,6 +13,7 @@ import Foundation
 import Darwin
 import LocationKit
 import CoreBluetooth
+import CoreData
 
 
 // Protocol written for container
@@ -70,6 +71,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     let msgManager = MessageManager.sharedMessageManager
+    
+    // Core Data Stuff
+    // Retreive the managedObjectContext from AppDelegate
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    
+    
 
     /*
     Rough Distances:
@@ -571,7 +578,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
     
     @IBAction func getSentPictures(sender: AnyObject) {
-        getPictureObjectsFromParse()
+        
+        
+        let pictures = getPictureObjectsFromParse()
+        
+        if pictures.count > 0 {
+            print("pic should show on screen")
+        }
+        
         
     }
      
@@ -604,6 +618,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             print("Error getting received pictures")
         }
         return pictureObjects
+        
     }
 
     func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {

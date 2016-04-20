@@ -7,11 +7,13 @@
 //
 
 import Foundation
-import Foundation
+import CoreData
 import UIKit
 import Parse
 
-class Message {
+@objc(Message)
+
+class Message: NSManagedObject  {
     
     var sender: PFUser
     var image: UIImage?
@@ -35,40 +37,51 @@ class Message {
         self.id = ""
     }
     
-    convenience init(dictionary: NSDictionary) {
-        
-        let sender = dictionary["sender"]
-        let date = dictionary["date"]
-        
-        // Purposeful application crash/error - only used in debugging
-        assert(sender != nil, "the message must have a sender and receiver")
-        
-        
-        let imageData = dictionary["image-data"] as? NSData
-        var image: UIImage?
-        if imageData != nil {
-            image = UIImage(data: imageData!)
-        }
-        
-        
-        self.init(sender: sender! as! PFUser, image: image, date: date! as! NSDate)
-    }
-    
-    
-    
-    func toPropertyListObject() -> NSDictionary {
-        
-        let dictionary: NSMutableDictionary = ["sender" : sender]
-        dictionary["date"] = date
-
-        
-        if image != nil {
-            dictionary["image-data"] = UIImageJPEGRepresentation(image!, 0.7)
-            
-        }
-        
-        
-        return dictionary
-        
-    }
+//    init(sender: String, date: NSDate, imageData: NSData, objectId: String) {
+//        super.init()
+//        self.sender = sender
+//        self.imageData = imageData
+//        self.date = date
+//        self.objectId = objectId
+//    }
+//    
+//    init(sender: PFUser, image: UIImage? = nil, date: NSDate) {
+//        self.sender = sender
+//        self.image = image
+//        self.date = date
+//    }
+//    
+//    convenience init(dictionary: NSDictionary) {
+//        
+//        let sender = dictionary["sender"]
+//        let date = dictionary["date"]
+//        
+//        
+//        let imageData = dictionary["image-data"] as? NSData
+//        var image: UIImage?
+//        if imageData != nil {
+//            image = UIImage(data: imageData!)
+//        }
+//        
+//        
+//        self.init(sender: sender! as! PFUser, image: image, date: date! as! NSDate)
+//    }
+//    
+//    
+//    
+//    func toPropertyListObject() -> NSDictionary {
+//        
+//        let dictionary: NSMutableDictionary = ["sender" : sender]
+//        dictionary["date"] = date
+//
+//        
+//        if image != nil {
+//            dictionary["image-data"] = UIImageJPEGRepresentation(image!, 0.7)
+//            
+//        }
+//        
+//        
+//        return dictionary
+//        
+//    }
 }
