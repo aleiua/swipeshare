@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Parse
 
 class CheckListViewController: UITableViewController {
-    var items = [String]()
+    var items = [PFObject]()
+    var delegate: LocationViewController? = nil
     
     @IBOutlet weak var blurredBackgroundView: UIVisualEffectView!
     
@@ -18,19 +20,24 @@ class CheckListViewController: UITableViewController {
     @IBAction func cancelMessage(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    @IBAction func sendMessage(sender: AnyObject) {
+        let selected = self.tableView.indexPathsForSelectedRows!
+        var users = [PFObject]()
+        for selectedItem in selected {
+            users.append(items[selectedItem.row])
+        }
+        delegate?.sendToUsers(users)
+    }
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        items = ["Garrett","Troy","Lexie","Robbie"]
         self.setEditing(true, animated: true)
-        self.tableView.setEditing(true, animated: true)
-        
         tableView.backgroundView = blurredBackgroundView
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
-//        tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurredBackgroundView.effect as! UIBlurEffect)
-        
+         self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.Middle)
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+//         self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
@@ -56,9 +63,16 @@ class CheckListViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("checkCell", forIndexPath: indexPath)
-
+        
         // Configure the cell...
-        cell.textLabel!.text = items[indexPath.row]
+        cell.textLabel!.text = items[indexPath.row]["username"] as? String
+//        
+//        if(indexPath.row == 0){
+//            self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.Middle)
+//        }
+
+//        cell.textLabel!.text = String(indexPath.row)
+
 
         return cell
     }

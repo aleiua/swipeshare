@@ -410,13 +410,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6A-Kt-gft">
-                                <rect key="frame" x="254" y="502" width="51" height="30"/>
-                                <state key="normal" title="Checks"/>
-                                <connections>
-                                    <segue destination="aWG-6J-9p0" kind="presentation" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="uuL-ys-eXW"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAh-8x-Hfg">
                                 <rect key="frame" x="13" y="502" width="52" height="30"/>
                                 <state key="normal" title="Overlay"/>
@@ -469,7 +462,7 @@
         <!--Check List View Controller-->
         <scene sceneID="6Qx-HR-yTo">
             <objects>
-                <tableViewController id="aWG-6J-9p0" customClass="CheckListViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="checklist" modalTransitionStyle="crossDissolve" id="aWG-6J-9p0" customClass="CheckListViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="RIm-MP-VE1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -535,6 +528,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="cancelMessage:" destination="aWG-6J-9p0" eventType="touchUpInside" id="GCg-EQ-gsS"/>
+                                                        <action selector="sendMessage:" destination="aWG-6J-9p0" eventType="touchUpInside" id="cye-JG-Yzt"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -562,12 +556,21 @@
                             <blurEffect style="dark"/>
                         </visualEffectView>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="checkCell" id="BhM-yS-vzd">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="checkCell" textLabel="q2f-Fb-INw" style="IBUITableViewCellStyleDefault" id="BhM-yS-vzd">
                                 <rect key="frame" x="0.0" y="143" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BhM-yS-vzd" id="Zyn-2I-z5v">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q2f-Fb-INw">
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -576,6 +579,7 @@
                             <outlet property="delegate" destination="aWG-6J-9p0" id="EJi-RN-KNx"/>
                         </connections>
                     </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="blurredBackgroundView" destination="u41-WR-TIV" id="bz2-Xx-zqs"/>
                         <outlet property="navBar" destination="Luv-0p-Pyq" id="SGR-DX-lEf"/>
@@ -584,7 +588,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="13F-gS-ebb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="584" y="1231"/>
+            <point key="canvasLocation" x="546" y="1395"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="b75-Qd-7PJ">

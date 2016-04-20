@@ -34,7 +34,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     @IBOutlet weak var nearestLabel: UILabel!
     @IBOutlet weak var sendAnother: UIButton!
     @IBOutlet weak var intendedUserField: UITextField!
-
     
     var locationManager: LKLocationManager!
 
@@ -69,7 +68,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     let msgManager = MessageManager.sharedMessageManager
-    let overlayView = OverlayView()
     /*
     Rough Distances:
     .1 = 11km
@@ -83,6 +81,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
 
     @IBAction func displayOverlay(sender: AnyObject) {
+        let overlayView = OverlayView()
         overlayView.displayView(view)
     }
     
@@ -184,7 +183,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                         self.swipedHeading = (Float(self.currentHeading.trueHeading) + Float(self.angle)) % 360
                         print("currentHeading is: \(self.currentHeading.trueHeading)")
                         print("Swiped Heading iself.s: \(self.swipedHeading)")
-                        self.sendToClosestNeighbor(0);
+                        self.findClosestNeighbor(0);
                         print("animation complete and removed from superview")
                 })
             }
@@ -357,9 +356,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
 
     
-//    @IBAction func callSendToClosest(sender: AnyObject) {
-//        sendToClosestNeighbor(1)
-//    }
 
     func sendToClosestNeighbor(sort: Int) {
         if (DEBUG) {
@@ -399,6 +395,54 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             print("No closest neighbor found")
         }
     }
+    
+    func findClosestNeighbor(sort: Int) {
+        let nearbyUsers = findNeighbors()
+        var sortedNeighbors = [PFObject]()
+        sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
+        if (sortedNeighbors.count != 0) {
+            // if it finds users, display the checklist
+            let checkListViewController = storyboard!.instantiateViewControllerWithIdentifier("checklist") as! CheckListViewController
+            checkListViewController.modalPresentationStyle = .OverCurrentContext
+            checkListViewController.delegate = self
+            checkListViewController.items = sortedNeighbors
+            presentViewController(checkListViewController, animated: true, completion: nil)
+        }
+        else {
+            // otherwise, show the error overlay
+            let overlayView = OverlayView()
+            overlayView.displayView(view)
+        }
+    }
+    
+    func sendToUsers(users: [PFObject]) {
+        if (DEBUG) {
+            print("Sending to users")
+        }
+        
+        let filename = "image.jpg"
+        let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
+        let imageFile = PFFile(name: filename, data: jpgImage!)
+        
+        for user in users {
+            let toSend = PFObject(className: "sentPicture")
+            toSend["date"] = NSDate()
+            toSend["sender"] = PFUser.currentUser()
+            toSend["hasBeenRead"] = false
+            toSend["image"] = imageFile
+            toSend["recipient"] = user
+            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
+                if success {
+                    print("Saved toSend object.")
+                }
+                else {
+                    print("Failed saving toSend object")
+                }
+            }
+            pushToUser(PFUser.currentUser()!, recipient: user as! PFUser, photo: toSend)
+        }
+    }
+
     
     func storeSendingInformation(intendedRecipient : PFObject, actualRecipient : PFObject, intendedBear : Double, actualBear : Double) {
         
@@ -489,10 +533,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         var orderedNeighbors = [PFObject]()
         
         // Data Collection Variables
-        let intendedUser = self.intendedUserField.text
+//        let intendedUser = self.intendedUserField.text
         
-        var intended: PFObject!
-        var intendedBearing = Double()
+//        var intended: PFObject!
+//        var intendedBearing = Double()
         
         
         // Convert sorted distances into sorted objects.
@@ -502,16 +546,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 print(obj["username"])
                 orderedNeighbors.append(obj)
                 
-                
-                if (String(obj["username"]) == intendedUser) {
-                    intended = obj
-                    intendedBearing = d
-                }
+//                
+//                if (String(obj["username"]) == intendedUser) {
+//                    intended = obj
+//                    intendedBearing = d
+//                }
                 
             }
         }
-        
-        storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
+//            storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
+
         
         nearestLabel.text = String(orderedNeighbors[0]["username"])
         return orderedNeighbors
@@ -719,17 +763,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             return
         }
         else {
-//            user!["latitude"] = self.currentLocation.coordinate.latitude
-//            user!["longitude"] = self.currentLocation.coordinate.longitude
             user!["latitude"] = loc.coordinate.latitude
             user!["longitude"] = loc.coordinate.longitude
-//            latitudeLabel.text = String(user!["latitude"])
-//            longitudeLabel.text = String(user!["longitude"])
             
             user!.saveInBackgroundWithBlock { (success, error) -> Void in
                 if success {
                     if (self.DEBUG) {
-//                        print("Location saved Successfully")
+                        print("Location saved Successfully")
                     }
                     self.userLatitude = self.currentLocation.coordinate.latitude
                     self.userLongitude = self.currentLocation.coordinate.longitude
