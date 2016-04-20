@@ -176,21 +176,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-//    func application(application: UIApplication,
-//        openURL url: NSURL,
-//        sourceApplication: String?,
-//        annotation: AnyObject) -> Bool {
-//            var scheme : String?
-//            scheme = url.scheme
-//            
-//            let isFacebookURL = scheme != nil && url.scheme.hasPrefix("fb\(FBSDKSettings.appID())") && url.host == "authorize"
-//            if isFacebookURL {
-//                return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
-//            }
-//            return false
-//    }
-    
-    
+
 }
 

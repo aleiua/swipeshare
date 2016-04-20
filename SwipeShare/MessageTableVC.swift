@@ -26,6 +26,27 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Create a new fetch request using the LogItem entity
+        let fetchRequest = NSFetchRequest(entityName: "Message")
+        print("setting up fetch request")
+        
+        
+        // Create a sort descriptor object that sorts on the "title"
+        // property of the Core Data object
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        
+        // Set the list of sort descriptors in the fetch request,
+        // so it includes the sort descriptor
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        
+        do {
+            fetchedMessages = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Message]
+            
+        } catch {
+            fatalError("Failed to fetch messages: \(error)")
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -70,12 +91,12 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
         let msg = fetchedMessages[indexPath.row] as Message
         cell.senderLabel.text = String(msg.sender)
-        if msg.imageData != nil {
-            cell.messageImageView.image = UIImage(data: msg.imageData!)
-        }
+//        if msg.imageData != nil {
+//            cell.messageImageView.image = UIImage(data: msg.imageData!)
+//        }
         
-        let msg = messageManager.messages[indexPath.row] as Message
-        cell.senderLabel.text = String(msg.sender["username"])
+        //let msg = messageManager.messages[indexPath.row] as Message
+        cell.senderLabel.text = String(msg.sender)
 //        cell.messageImageView?.image = msg.image
         
         //DATE FORMATING NEEDS TO BE REWORKED FOR COREDATA

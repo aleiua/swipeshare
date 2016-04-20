@@ -603,14 +603,61 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             try pictureObjects = query.findObjects()
             
             print("Entering for loop")
-            print(pictureObjects.endIndex)
+            print(pictureObjects.count)
+            dump(pictureObjects)
+            
+            
             for object in pictureObjects {
-                let msgSender = object["sender"]
+                let msgSender = object["sender"] as! PFUser
                 let msgId = object.objectId
                 let sentDate = object.createdAt! as NSDate
                 
-                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
-                self.msgManager.addMessage(msg)
+                
+                
+                
+                // Do we still want to be adding messages to message manager?
+//                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
+//                self.msgManager.addMessage(msg)
+                
+                let message = NSEntityDescription.insertNewObjectForEntityForName("Message", inManagedObjectContext: self.managedObjectContext) as! Message
+                
+                message.sender = String(msgSender["username"])
+                message.date = sentDate as NSDate
+                
+                let imageFile = object["image"] as! PFFile
+                do {
+                    
+                    let imageData = try imageFile.getData()
+                    //let image = UIImage(data: imageData)
+                    message.imageData = imageData
+                    
+                }
+                catch {
+                    print("Error getting data for pictures")
+                }
+
+                
+                
+                //message.imageData = object["image"] as? NSData
+                message.objectId = msgId!
+                
+                print(message.sender)
+                print(message.date)
+                //print(message.imageData)
+                print(message.objectId)
+                
+                object["hasBeenRead"] = true
+                object.saveInBackground()
+                
+                
+                do {
+                    try self.managedObjectContext.save()
+                    print("The sender is: \(message.sender)")
+                    
+                } catch {
+                    print("Unresolved error")
+                    abort()
+                }
                 
             }
         }
@@ -621,25 +668,25 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
     }
 
-    func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
-        
-        var pictures = [UIImage]()
-        for object in objects {
-            let picture = object["image"] as! PFFile
-            do {
-                
-                let imageData = try picture.getData()
-                let image = UIImage(data: imageData)
-                pictures.append(image!)
-
-            }
-            catch {
-                print("Error getting data for pictures")
-            }
-            
-        }
-        return pictures
-    }
+//    func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
+//        
+//        var pictures = [UIImage]()
+//        for object in objects {
+//            let picture = object["image"] as! PFFile
+//            do {
+//                
+//                let imageData = try picture.getData()
+//                let image = UIImage(data: imageData)
+//                pictures.append(image!)
+//
+//            }
+//            catch {
+//                print("Error getting data for pictures")
+//            }
+//            
+//        }
+//        return pictures
+//    }
     
      
      

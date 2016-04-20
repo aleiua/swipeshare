@@ -32,8 +32,6 @@
 		793635F01CB2DB8F005CA708 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */; };
 		793635F11CB2DB8F005CA708 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */; };
 		79ED85831CBB30E3000D6E4E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED85821CBB30E3000D6E4E /* ParseUI.framework */; };
-		79ED858A1CBB3C07000D6E4E /* Dense-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79ED85891CBB3C07000D6E4E /* Dense-Regular.otf */; };
-		79ED858C1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79ED858B1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf */; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
@@ -100,8 +98,6 @@
 		793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		79ED85821CBB30E3000D6E4E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
-		79ED85891CBB3C07000D6E4E /* Dense-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Dense-Regular.otf"; path = "../../../Downloads/Dense-Regular.otf"; sourceTree = "<group>"; };
-		79ED858B1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SIMPLIFICA Typeface.ttf"; path = "../../../Downloads/SIMPLIFICA Typeface.ttf"; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
 		929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwipeShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
@@ -124,6 +120,8 @@
 		939B82A01C87882400770F79 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		939B82A21C87D2D800770F79 /* MessageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 		93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewCont.swift; sourceTree = "<group>"; };
+		93EB4FD91CC70DBF008C4901 /* Dense-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dense-Regular.otf"; sourceTree = "<group>"; };
+		93EB4FDA1CC70DBF008C4901 /* SIMPLIFICA Typeface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SIMPLIFICA Typeface.ttf"; sourceTree = "<group>"; };
 		93F422271C556B82006DEB7E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		93F4222D1C5575B1006DEB7E /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		93F422311C5584A8006DEB7E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -218,8 +216,8 @@
 		79ED85881CBB3BDE000D6E4E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				79ED85891CBB3C07000D6E4E /* Dense-Regular.otf */,
-				79ED858B1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf */,
+				93EB4FD91CC70DBF008C4901 /* Dense-Regular.otf */,
+				93EB4FDA1CC70DBF008C4901 /* SIMPLIFICA Typeface.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -422,8 +420,6 @@
 			files = (
 				0520578E1C81089B00009D91 /* yawIcon.png in Resources */,
 				937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */,
-				79ED858A1CBB3C07000D6E4E /* Dense-Regular.otf in Resources */,
-				79ED858C1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf in Resources */,
 				937E7F391C55672700057D32 /* Assets.xcassets in Resources */,
 				937E7F341C55672700057D32 /* Main.storyboard in Resources */,
 			);

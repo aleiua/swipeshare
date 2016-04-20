@@ -15,26 +15,18 @@ import Parse
 
 class Message: NSManagedObject  {
     
-    var sender: PFUser
-    var image: UIImage?
-    var date: NSDate
-    var id: String
+    @NSManaged var sender: String
+    @NSManaged var date: NSDate
+    @NSManaged var imageData: NSData?
+    @NSManaged var objectId: String
     
     // Set text and image to default "nil" if they are not part of the message
     // Could be problematic with unwrapping that comes later ***
-    init(sender: PFUser, image: UIImage? = nil, date: NSDate, id: String) {
-        self.sender = sender
-        self.image = image
-        self.date = date
-        self.id = id
-    }
+
     
-    // ID is an entirely optional parameter
-    init(sender: PFUser, image: UIImage? = nil, date: NSDate) {
-        self.sender = sender
-        self.image = image
-        self.date = date
-        self.id = ""
+    override init(entity: NSEntityDescription,
+        insertIntoManagedObjectContext context: NSManagedObjectContext!) {
+            super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
 //    init(sender: String, date: NSDate, imageData: NSData, objectId: String) {

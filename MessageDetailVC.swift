@@ -35,12 +35,13 @@ class MessageDetailVC: UIViewController{
         super.viewWillAppear(animated)
         self.navigationController!.toolbarHidden = false
         self.navigationController!.hidesBarsOnTap = true
-        messageNavBar.title = String(message.sender["username"])
-        if message.image == nil{
+        messageNavBar.title = String(message.sender)
+        if message.imageData == nil{
          getPhoto()
         }
-        messageImageView?.image = message.image
+        messageImageView?.image = UIImage(data: message.imageData!)
     }
+    
     override func viewWillDisappear(animated: Bool) {
         self.navigationController!.toolbarHidden = true
         self.navigationController!.hidesBarsOnTap = false
@@ -48,7 +49,7 @@ class MessageDetailVC: UIViewController{
     
     func getPhoto(){
         let query = PFQuery(className: "sentPicture")
-        query.getObjectInBackgroundWithId(self.message.id){
+        query.getObjectInBackgroundWithId(self.message.objectId){
             (object: PFObject?, error: NSError?) -> Void in
             if error == nil {
                 
@@ -57,8 +58,8 @@ class MessageDetailVC: UIViewController{
                     picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
                         if (error == nil) {
                             print("Photo downloaded")
-                            self.message.image = UIImage(data:imageData!)
-                            self.messageImageView.image = self.message.image
+                            self.message.imageData = imageData
+                            self.messageImageView.image = UIImage(data: self.message.imageData!)
                             self.activityIndicator.stopAnimating()
                             // Set object to read.
                             object!["hasBeenRead"] = true
