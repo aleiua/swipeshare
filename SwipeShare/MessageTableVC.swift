@@ -31,6 +31,15 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         print("setting up fetch request")
         
         
+        // Create a sort descriptor object that sorts on the "title"
+        // property of the Core Data object
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        
+        // Set the list of sort descriptors in the fetch request,
+        // so it includes the sort descriptor
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        
         do {
             fetchedMessages = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Message]
             
