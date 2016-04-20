@@ -813,6 +813,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         push.setData(data)
         push.setQuery(query)
         
+        
         push.sendPushInBackgroundWithBlock {
             (success: Bool , error: NSError?) -> Void in
             if (success) {
