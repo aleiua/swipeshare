@@ -34,7 +34,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     @IBOutlet weak var nearestLabel: UILabel!
     @IBOutlet weak var sendAnother: UIButton!
     @IBOutlet weak var intendedUserField: UITextField!
-
     
     var locationManager: LKLocationManager!
 
@@ -71,7 +70,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     let msgManager = MessageManager.sharedMessageManager
-
     /*
     Rough Distances:
     .1 = 11km
@@ -84,6 +82,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
 
+    @IBAction func displayOverlay(sender: AnyObject) {
+        let overlayView = OverlayView()
+        overlayView.displayView(view)
+    }
     
     
 
@@ -183,7 +185,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                         self.swipedHeading = self.currentHeading + Float(self.angle) % 360
                         print("currentHeading is: \(self.currentHeading)")
                         print("Swiped Heading iself.s: \(self.swipedHeading)")
-                        self.sendToClosestNeighbor(0);
+                        self.findClosestNeighbor(0);
                         print("animation complete and removed from superview")
                 })
             }
@@ -241,7 +243,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         image.userInteractionEnabled = true
         image.addGestureRecognizer(panGesture)
-        applyPlainShadow(image)
         
         // Fade out reload button
         UIView.animateWithDuration(0.5,
@@ -357,9 +358,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
 
     
-//    @IBAction func callSendToClosest(sender: AnyObject) {
-//        sendToClosestNeighbor(1)
-//    }
 
     func sendToClosestNeighbor(sort: Int) {
         if (DEBUG) {
@@ -396,6 +394,54 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             pushToUser(PFUser.currentUser()!, recipient: closestNeighbor as! PFUser, photo: toSend)
         }
     }
+    
+    func findClosestNeighbor(sort: Int) {
+        let nearbyUsers = findNeighbors()
+        var sortedNeighbors = [PFObject]()
+        sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
+        if (sortedNeighbors.count != 0) {
+            // if it finds users, display the checklist
+            let checkListViewController = storyboard!.instantiateViewControllerWithIdentifier("checklist") as! CheckListViewController
+            checkListViewController.modalPresentationStyle = .OverCurrentContext
+            checkListViewController.delegate = self
+            checkListViewController.items = sortedNeighbors
+            presentViewController(checkListViewController, animated: true, completion: nil)
+        }
+        else {
+            // otherwise, show the error overlay
+            let overlayView = OverlayView()
+            overlayView.displayView(view)
+        }
+    }
+    
+    func sendToUsers(users: [PFObject]) {
+        if (DEBUG) {
+            print("Sending to users")
+        }
+        
+        let filename = "image.jpg"
+        let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
+        let imageFile = PFFile(name: filename, data: jpgImage!)
+        
+        for user in users {
+            let toSend = PFObject(className: "sentPicture")
+            toSend["date"] = NSDate()
+            toSend["sender"] = PFUser.currentUser()
+            toSend["hasBeenRead"] = false
+            toSend["image"] = imageFile
+            toSend["recipient"] = user
+            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
+                if success {
+                    print("Saved toSend object.")
+                }
+                else {
+                    print("Failed saving toSend object")
+                }
+            }
+            pushToUser(PFUser.currentUser()!, recipient: user as! PFUser, photo: toSend)
+        }
+    }
+
     
     func storeSendingInformation(intendedRecipient : PFObject, actualRecipient : PFObject, intendedBear : Double, actualBear : Double) {
         
@@ -498,7 +544,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             let arr = doubleToObjects[d]
             for obj in arr! {
                 orderedNeighbors.append(obj)
-        
                 if (String(obj["username"]) == intendedUser) {
                     intended = obj
                     intendedBearing = d
@@ -509,7 +554,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         if (DEBUG) {
             print("Sorted Neighbors: \(orderedNeighbors)")
         }
-        
+
         // Check to make sure user entered a person.
         if (!(intendedUser ?? "").isEmpty) {
             print("Storing sending information")
