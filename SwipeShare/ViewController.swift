@@ -61,7 +61,7 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
         }
         
         
-        presentLoggedInAlert()
+//        presentLoggedInAlert()
     }
     
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
@@ -75,7 +75,7 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
             user?.saveInBackground()
         }
         
-        presentLoggedInAlert()
+//        presentLoggedInAlert()
     }
     
     

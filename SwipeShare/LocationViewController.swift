@@ -58,6 +58,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     var swipedHeading = Float()
     var DEBUG = false
+    var ACCURACY = false
    
     
     // New things for container
@@ -366,10 +367,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
         let nearbyUsers = findNeighbors()
-        var sortedNeighbors = [PFObject]()
-        sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
-        
-        if (sortedNeighbors.count != 0) {
+        if (nearbyUsers.count > 0) {
+            var sortedNeighbors = [PFObject]()
+            sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
+            
             let closestNeighbor = sortedNeighbors[0]
             
             let toSend = PFObject(className: "sentPicture")
@@ -393,9 +394,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 }
             }
             pushToUser(PFUser.currentUser()!, recipient: closestNeighbor as! PFUser, photo: toSend)
-        }
-        else {
-            print("No closest neighbor found")
         }
     }
     
@@ -457,14 +455,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             else {
                 let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
                     latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
-                
-                print("Direction from me to neighbor: \(n["username"]) = \(direction)")
-
+              
                 let a = abs(Double(swipedHeading) - direction)
                 let b = 360 - a
                 distance = min(a, b)
                 
-                print("Accuracy of swipe: \(n["username"]) = \(distance)")
+                if (ACCURACY) {
+                    print("Direction from me to neighbor: \(n["username"]) = \(direction)")
+                    print("Accuracy of swipe: \(n["username"]) = \(distance)")
+                }
             }
             
             // Old entry in dictionary
@@ -498,17 +497,19 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         for d in distances {
             let arr = doubleToObjects[d]
             for obj in arr! {
-                print(obj["username"])
                 orderedNeighbors.append(obj)
-                
-                
+        
                 if (String(obj["username"]) == intendedUser) {
                     intended = obj
                     intendedBearing = d
                 }
-                
             }
         }
+        
+        if (DEBUG) {
+            print("Sorted Neighbors: \(orderedNeighbors)")
+        }
+        
         // Check to make sure user entered a person.
         if (!(intendedUser ?? "").isEmpty) {
             print("Storing sending information")
@@ -544,9 +545,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         do {
             try users = query.findObjects()
             for (i, user) in users.enumerate() {
+                
                 if (user.objectId != self.userObjectId) {
                     print("Adjacent User: " + String(user["username"]))
                 }
+                    
                 else {
                     if (DEBUG) {
                         print("Found myself when looking for nearby neighbors")
@@ -591,7 +594,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Getting parse images")
         let query = PFQuery(className: "sentPicture")
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
-//        query.whereKey("hasBeenRead", equalTo: false)
+        query.whereKey("hasBeenRead", equalTo: false)
         query.includeKey("sender")
         query.orderByAscending("date")
         
@@ -609,6 +612,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
                 self.msgManager.addMessage(msg)
                 
+                object.saveInBackground()
             }
         }
         catch {
@@ -709,7 +713,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
     }
     
-    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
+        print("What up?")
+    }
     
 
     // Test comment
@@ -798,7 +806,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             "badge" : "Increment",
             "p" : "\(photo.objectId)"
         ]
-        print(senderName, recipientName, data)
+
         let query = PFInstallation.query()
         query!.whereKey("user", equalTo: recipient)
         
