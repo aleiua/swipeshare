@@ -11,16 +11,31 @@ import Foundation
 
 import UIKit
 import Parse
+import CoreData
 
 class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
     
     let messageCellIdentifier = "MessageCell"
     let messageManager = MessageManager.sharedMessageManager
-    // ** CREATE MESSAGE MANAGAER **
+    
+    var fetchedFriends = [Friend]()
+    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    // ** CREATE MESSAGE MANAGER **
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Fetch list of friends by username from CoreData
+        let fetchRequest = NSFetchRequest(entityName: "Friend")
+
+        do {
+            fetchedFriends = try managedContext.executeFetchRequest(fetchRequest) as! [Friend]
+            print("going to print friend count")
+            print(fetchedFriends.count)
+        } catch {
+            print("error")
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -115,9 +130,50 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
                 
             let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
-            destinationViewController.message = message
+            
+            if !isFriend(message.sender.username!) {
+                
+                //Prompt the user for action
+                print("received message from non-friend")
+                saveFriend(message.sender.username!)
+                destinationViewController.message = message
+            }
+            else {
+                print("message was sent from friend")
+                destinationViewController.message = message
+            }
             
         }
+    }
+    
+    
+    // Called when a message is received from a new user to save friend to CoreData
+    func saveFriend(username: String) {
+        
+        // Save to CoreData
+        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: managedObjectContext)
+        let friend = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
+        friend.setValue(username, forKey: "username")
+        
+        do {
+            try managedObjectContext.save()
+            print("successfully saved friend")
+        } catch let error {
+            print("error saving new friend in managedObjectContext: \(error)")
+        }
+    }
+    
+    // Check to see if the user is a friend
+    func isFriend(username: String) -> Bool {
+        
+        for friend in fetchedFriends {
+            print(friend.username)
+            if friend.username == username {
+                return true
+            }
+        }
+        return false
     }
 }
 
