@@ -32,8 +32,6 @@
 		793635F01CB2DB8F005CA708 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */; };
 		793635F11CB2DB8F005CA708 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */; };
 		79ED85831CBB30E3000D6E4E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED85821CBB30E3000D6E4E /* ParseUI.framework */; };
-		79ED858A1CBB3C07000D6E4E /* Dense-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79ED85891CBB3C07000D6E4E /* Dense-Regular.otf */; };
-		79ED858C1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79ED858B1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf */; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
@@ -92,6 +90,8 @@
 		05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05FA09231C5E8D440025A1F6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		5E3D4C601CC725110001EBE4 /* Dense-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dense-Regular.otf"; sourceTree = "<group>"; };
+		5E3D4C611CC725110001EBE4 /* SIMPLIFICA Typeface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SIMPLIFICA Typeface.ttf"; sourceTree = "<group>"; };
 		5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewContoller.swift; sourceTree = "<group>"; };
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EF38CC31C7925CE00827882 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -100,8 +100,6 @@
 		793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		79ED85821CBB30E3000D6E4E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
-		79ED85891CBB3C07000D6E4E /* Dense-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Dense-Regular.otf"; path = "../../../Downloads/Dense-Regular.otf"; sourceTree = "<group>"; };
-		79ED858B1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SIMPLIFICA Typeface.ttf"; path = "../../../Downloads/SIMPLIFICA Typeface.ttf"; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
 		929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwipeShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
@@ -218,8 +216,8 @@
 		79ED85881CBB3BDE000D6E4E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				79ED85891CBB3C07000D6E4E /* Dense-Regular.otf */,
-				79ED858B1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf */,
+				5E3D4C601CC725110001EBE4 /* Dense-Regular.otf */,
+				5E3D4C611CC725110001EBE4 /* SIMPLIFICA Typeface.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -422,8 +420,6 @@
 			files = (
 				0520578E1C81089B00009D91 /* yawIcon.png in Resources */,
 				937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */,
-				79ED858A1CBB3C07000D6E4E /* Dense-Regular.otf in Resources */,
-				79ED858C1CBB3CBC000D6E4E /* SIMPLIFICA Typeface.ttf in Resources */,
 				937E7F391C55672700057D32 /* Assets.xcassets in Resources */,
 				937E7F341C55672700057D32 /* Main.storyboard in Resources */,
 			);
