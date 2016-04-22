@@ -16,10 +16,11 @@ class MessageDetailVC: UIViewController{
     
     var message: Message!
     
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+
     
     @IBOutlet weak var messageNavBar: UINavigationItem!
     @IBOutlet weak var messageImageView: UIImageView!
-    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBAction func savePhoto(sender: AnyObject) {
@@ -27,9 +28,11 @@ class MessageDetailVC: UIViewController{
     }
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -38,8 +41,10 @@ class MessageDetailVC: UIViewController{
         messageNavBar.title = String(message.sender)
         if message.imageData == nil{
          getPhoto()
+            
+        } else {
+            messageImageView?.image = UIImage(data: message.imageData!)
         }
-        messageImageView?.image = UIImage(data: message.imageData!)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -64,13 +69,22 @@ class MessageDetailVC: UIViewController{
                             // Set object to read.
                             object!["hasBeenRead"] = true
                             object!.saveInBackground()
+                            
+                            do {
+                                try self.managedObjectContext.save()
+                            } catch {
+                                fatalError("Failure to save context: \(error)")
+                            }
                         }
                         else {
                             print("Error getting image data")
                             self.activityIndicator.stopAnimating()
                         }
                     }
+                    
                 }
+                
+                
                 
             }
             else {

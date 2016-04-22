@@ -594,7 +594,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Getting parse images")
         let query = PFQuery(className: "sentPicture")
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
-//        query.whereKey("hasBeenRead", equalTo: false)
+        query.whereKey("hasBeenRead", equalTo: false)
         query.includeKey("sender")
         query.orderByAscending("date")
         
@@ -613,50 +613,33 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 let sentDate = object.createdAt! as NSDate
                 
                 
+                let entityDescripition = NSEntityDescription.entityForName("Message", inManagedObjectContext: managedObjectContext)
                 
                 
-                // Do we still want to be adding messages to message manager?
-//                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
-//                self.msgManager.addMessage(msg)
-                
-                let message = NSEntityDescription.insertNewObjectForEntityForName("Message", inManagedObjectContext: self.managedObjectContext) as! Message
-                
-                message.sender = String(msgSender["username"])
-                message.date = sentDate as NSDate
-                
-                let imageFile = object["image"] as! PFFile
-                do {
-                    
-                    let imageData = try imageFile.getData()
-                    //let image = UIImage(data: imageData)
-                    message.imageData = imageData
-                    
-                }
-                catch {
-                    print("Error getting data for pictures")
-                }
-
+                let message = Message(sender: String(msgSender["username"]), date: sentDate as NSDate, imageData: nil, objectId: msgId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
                 
                 
-                //message.imageData = object["image"] as? NSData
-                message.objectId = msgId!
                 
+                // OLD WAY OF CREATING MESSAGES
+                
+//              let message = NSEntityDescription.insertNewObjectForEntityForName("Message", inManagedObjectContext: self.managedObjectContext) as! Message
+//                
+//                message.sender = String(msgSender["username"])
+//                message.date = sentDate as NSDate
+//                message.objectId = msgId!
+                
+                
+                // DEBUG PRINT STATEMENTS
                 print(message.sender)
                 print(message.date)
-                //print(message.imageData)
                 print(message.objectId)
                 
-                object["hasBeenRead"] = true
-                object.saveInBackground()
                 
-                
+                // SAVING MANAGED OBJECT CONTEXT - SAVES MESSAGES TO CORE DATA
                 do {
-                    try self.managedObjectContext.save()
-                    print("The sender is: \(message.sender)")
-                    
+                    try managedObjectContext.save()
                 } catch {
-                    print("Unresolved error")
-                    abort()
+                    fatalError("Failure to save context: \(error)")
                 }
                 
             }
