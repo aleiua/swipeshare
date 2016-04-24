@@ -37,7 +37,7 @@ class CheckListViewController: UITableViewController {
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
          self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.Middle)
         // Uncomment the following line to preserve selection between presentations
-//         self.clearsSelectionOnViewWillAppear = false
+        // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()

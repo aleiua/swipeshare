@@ -80,14 +80,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var searchDistance = 0.001
     var earthRadius = 6371.0
     
-    
-
-    @IBAction func displayOverlay(sender: AnyObject) {
-        let overlayView = OverlayView()
-        overlayView.displayView(view)
-    }
-    
-    
 
     
    /*****************************GESTURE HANDLING********************************/
