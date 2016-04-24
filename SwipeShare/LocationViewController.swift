@@ -52,6 +52,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
+    var blockedUsers = [BlockedUser]()
+    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+
+    
     var angle: CGFloat!
     var panGesture: UIPanGestureRecognizer!
     var image: UIImageView!
@@ -593,19 +597,34 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             print("Entering for loop")
             print(pictureObjects.endIndex)
             for object in pictureObjects {
-                let msgSender = object["sender"]
+                let msgSender = object["sender"] as! PFUser
                 let msgId = object.objectId
                 let sentDate = object.createdAt! as NSDate
                 
-                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
-                self.msgManager.addMessage(msg)
-                
+                // Filter messages coming from blocked users
+                if !isBlocked(msgSender.username!) {
+                    print("Message not from blocked user")
+                    let msg = Message(sender: msgSender, image: nil, date: sentDate, id: msgId!)
+                    self.msgManager.addMessage(msg)
+                }
             }
         }
         catch {
             print("Error getting received pictures")
         }
         return pictureObjects
+    }
+    
+    // Check to see if the user is blocked
+    func isBlocked(username: String) -> Bool {
+        print("checking for blocked users in LocationVC...")
+        for user in blockedUsers {
+            print(user.username)
+            if user.username == username {
+                return true
+            }
+        }
+        return false
     }
 
     func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
@@ -695,6 +714,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let installation = PFInstallation.currentInstallation()
         installation["user"] = user
         installation.saveInBackground()
+        
+        // Fetch list of blocked users by username from CoreData
+        let blockedFetchRequest = NSFetchRequest(entityName: "BlockedUser")
+        
+        do {
+            blockedUsers = try managedContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
+            print(blockedUsers.count)
+        } catch {
+            print("error fetching list of blocked users")
+        }
         
     }
     

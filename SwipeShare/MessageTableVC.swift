@@ -43,7 +43,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
         do {
             blockedUsers = try managedContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
-            print(fetchedFriends.count)
+            print(blockedUsers.count)
         } catch {
             print("error fetching list of blocked users")
         }
@@ -51,7 +51,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         tableView.reloadData()
         
     }
@@ -81,6 +80,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
+        
         
         let msg = messageManager.messages[indexPath.row] as Message
         cell.senderLabel.text = String(msg.sender["username"])
@@ -137,8 +137,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         if segue.identifier == "messageDetailSegue" {
             
             let destinationViewController = segue.destinationViewController as! MessageDetailVC
-            
-        
                 
             let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
             
