@@ -20,6 +20,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     let messageManager = MessageManager.sharedMessageManager
     
     var fetchedFriends = [Friend]()
+    var blockedUsers = [BlockedUser]()
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     // ** CREATE MESSAGE MANAGER **
     
@@ -27,14 +28,24 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         super.viewDidLoad()
         
         // Fetch list of friends by username from CoreData
-        let fetchRequest = NSFetchRequest(entityName: "Friend")
+        let friendFetchRequest = NSFetchRequest(entityName: "Friend")
 
         do {
-            fetchedFriends = try managedContext.executeFetchRequest(fetchRequest) as! [Friend]
+            fetchedFriends = try managedContext.executeFetchRequest(friendFetchRequest) as! [Friend]
             print("going to print friend count")
             print(fetchedFriends.count)
         } catch {
-            print("error")
+            print("error fetching friend list from CoreData")
+        }
+        
+        // Fetch list of blocked users by username from CoreData
+        let blockedFetchRequest = NSFetchRequest(entityName: "BlockedUser")
+        
+        do {
+            blockedUsers = try managedContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
+            print(fetchedFriends.count)
+        } catch {
+            print("error fetching list of blocked users")
         }
     }
     
