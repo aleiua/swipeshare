@@ -288,7 +288,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xh2-Ee-Joc">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iaR-bu-JpP">
+                                <rect key="frame" x="141" y="266" width="37" height="37"/>
+                                <color key="color" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xh2-Ee-Joc">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8zW-MM-INq">
@@ -297,11 +301,17 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="568" id="LaE-wy-sRg"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="LaE-wy-sRg"/>
+                                            </mask>
+                                        </variation>
                                     </imageView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="8zW-MM-INq" firstAttribute="leading" secondItem="xh2-Ee-Joc" secondAttribute="leading" id="Gon-mD-NSv"/>
                                     <constraint firstItem="8zW-MM-INq" firstAttribute="centerX" secondItem="xh2-Ee-Joc" secondAttribute="centerX" id="I80-HW-MiO"/>
+                                    <constraint firstItem="8zW-MM-INq" firstAttribute="centerY" secondItem="xh2-Ee-Joc" secondAttribute="centerY" id="LBc-T6-v3L"/>
                                     <constraint firstAttribute="trailing" secondItem="8zW-MM-INq" secondAttribute="trailing" id="S5J-Vd-FYP"/>
                                     <constraint firstItem="8zW-MM-INq" firstAttribute="top" secondItem="xh2-Ee-Joc" secondAttribute="top" id="VO6-aG-aDY"/>
                                     <constraint firstAttribute="bottom" secondItem="8zW-MM-INq" secondAttribute="bottom" id="rKL-kP-2xh"/>
@@ -310,26 +320,23 @@
                                     <outlet property="delegate" destination="UAW-Xy-VNY" id="iaM-6e-9nT"/>
                                 </connections>
                             </scrollView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XBd-j6-aqf">
-                                <rect key="frame" x="143" y="264" width="37" height="37"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iaR-bu-JpP">
-                                        <rect key="frame" x="0.0" y="0.0" width="37" height="37"/>
-                                        <color key="color" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="iaR-bu-JpP" firstAttribute="centerX" secondItem="xh2-Ee-Joc" secondAttribute="centerX" id="2G9-yW-RKl"/>
                             <constraint firstAttribute="bottom" secondItem="xh2-Ee-Joc" secondAttribute="bottom" id="3PY-a2-Txm"/>
+                            <constraint firstItem="iaR-bu-JpP" firstAttribute="centerY" secondItem="xh2-Ee-Joc" secondAttribute="centerY" id="5X1-JT-F05"/>
                             <constraint firstAttribute="trailing" secondItem="xh2-Ee-Joc" secondAttribute="trailing" id="Bgu-Fc-zjD"/>
-                            <constraint firstItem="XBd-j6-aqf" firstAttribute="centerY" secondItem="H7M-yR-XF3" secondAttribute="centerY" id="Euq-Lq-Rni"/>
                             <constraint firstItem="xh2-Ee-Joc" firstAttribute="leading" secondItem="H7M-yR-XF3" secondAttribute="leading" id="OZJ-ge-EfR"/>
+                            <constraint firstItem="xh2-Ee-Joc" firstAttribute="centerY" secondItem="H7M-yR-XF3" secondAttribute="centerY" id="Xea-rh-Vi4"/>
                             <constraint firstItem="xh2-Ee-Joc" firstAttribute="top" secondItem="H7M-yR-XF3" secondAttribute="top" id="kp5-7C-jgy"/>
-                            <constraint firstItem="XBd-j6-aqf" firstAttribute="centerX" secondItem="H7M-yR-XF3" secondAttribute="centerX" id="oaK-WH-h9n"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Xea-rh-Vi4"/>
+                            </mask>
+                        </variation>
                     </view>
                     <toolbarItems>
                         <barButtonItem systemItem="save" id="MLO-KB-cjz">
@@ -344,7 +351,11 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Message" id="dfa-0j-c5q"/>
+                    <navigationItem key="navigationItem" title="Message" id="dfa-0j-c5q">
+                        <barButtonItem key="rightBarButtonItem" title=" " style="plain" id="RBP-KX-mex">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

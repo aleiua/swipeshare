@@ -38,7 +38,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.scrollView.minimumZoomScale = 1.0
-        self.scrollView.maximumZoomScale = 6.0
+        self.scrollView.maximumZoomScale = 4.0
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -46,8 +46,13 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         self.navigationController!.toolbarHidden = false
         self.navigationController!.hidesBarsOnTap = true
         messageNavBar.title = String(message.sender["username"])
+        let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+         messageNavBar.rightBarButtonItem?.title = date
         if message.image == nil{
          getPhoto()
+        }
+        else {
+            self.activityIndicator.stopAnimating()
         }
         messageImageView?.image = message.image
     }

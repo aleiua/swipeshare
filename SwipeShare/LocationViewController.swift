@@ -631,7 +631,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Getting parse images")
         let query = PFQuery(className: "sentPicture")
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
-        query.whereKey("hasBeenRead", equalTo: false)
         query.includeKey("sender")
         query.orderByAscending("date")
         
