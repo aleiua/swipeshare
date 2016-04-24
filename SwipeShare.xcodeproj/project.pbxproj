@@ -14,6 +14,7 @@
 		054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B661C8E04BE00496D38 /* ContainerViewController.swift */; };
 		054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B681C8E04D900496D38 /* SettingsViewController.swift */; };
 		05746A6A1C7E833100161135 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05746A691C7E833100161135 /* iCarousel.m */; };
+		05ECD7121CCD755400B63B80 /* BlockedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ECD7111CCD755400B63B80 /* BlockedUser.swift */; };
 		05FA09121C5E8A6C0025A1F6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09111C5E8A6C0025A1F6 /* Parse.framework */; };
 		05FA09141C5E8AAF0025A1F6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09131C5E8AAF0025A1F6 /* Bolts.framework */; };
 		05FA09161C5E8D070025A1F6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09151C5E8D070025A1F6 /* AudioToolbox.framework */; };
@@ -83,6 +84,7 @@
 		054F0B681C8E04D900496D38 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		05746A681C7E833100161135 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCarousel.h; path = iCarousel/iCarousel.h; sourceTree = "<group>"; };
 		05746A691C7E833100161135 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCarousel.m; path = iCarousel/iCarousel.m; sourceTree = "<group>"; };
+		05ECD7111CCD755400B63B80 /* BlockedUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUser.swift; sourceTree = "<group>"; };
 		05FA09111C5E8A6C0025A1F6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		05FA09131C5E8AAF0025A1F6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		05FA09151C5E8D070025A1F6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -258,6 +260,7 @@
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,
 				937E7F301C55672700057D32 /* ViewController.swift */,
 				939B829C1C87859700770F79 /* MessageTableVC.swift */,
+				05ECD7111CCD755400B63B80 /* BlockedUser.swift */,
 				939B82A01C87882400770F79 /* Message.swift */,
 				939B82A21C87D2D800770F79 /* MessageManager.swift */,
 				939B82961C87852300770F79 /* MessageCell.swift */,
@@ -499,6 +502,7 @@
 			files = (
 				93FA3F221C66A8C000BB3791 /* LoginViewController.swift in Sources */,
 				939B82971C87852300770F79 /* MessageCell.swift in Sources */,
+				05ECD7121CCD755400B63B80 /* BlockedUser.swift in Sources */,
 				937E7F371C55672700057D32 /* SwipeShare.xcdatamodeld in Sources */,
 				937E7F311C55672700057D32 /* ViewController.swift in Sources */,
 				05746A6A1C7E833100161135 /* iCarousel.m in Sources */,

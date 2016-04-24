@@ -137,6 +137,13 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
                 print("received message from non-friend")
                 saveFriend(message.sender.username!)
                 destinationViewController.message = message
+                
+                // give user option to add, add later, or block user
+                
+                // If user decides to block
+//                if(block) {
+//                    blockUser(message.sender.username)
+//                }
             }
             else {
                 print("message was sent from friend")
@@ -162,6 +169,25 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         } catch let error {
             print("error saving new friend in managedObjectContext: \(error)")
         }
+    }
+    
+    // Called when user decides to block another user
+    // Saves a corresponding BlockedUser entity to CoreData
+    func blockUser(username: String) {
+        
+        // Save to CoreData
+        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let entity = NSEntityDescription.entityForName("BlockedUser", inManagedObjectContext: managedObjectContext)
+        let blockedUser = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
+        blockedUser.setValue(username, forKey: "username")
+        
+        do {
+            try managedObjectContext.save()
+            print("successfully blocked user")
+        } catch let error {
+            print("error blocking user in managedObjectContext: \(error)")
+        }
+        
     }
     
     // Check to see if the user is a friend

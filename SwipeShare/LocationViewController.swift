@@ -13,6 +13,7 @@ import Foundation
 import Darwin
 import LocationKit
 import CoreBluetooth
+import CoreData
 
 
 // Protocol written for container
@@ -70,6 +71,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     let msgManager = MessageManager.sharedMessageManager
+    
 
     /*
     Rough Distances:
