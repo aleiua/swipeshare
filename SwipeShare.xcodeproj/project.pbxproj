@@ -24,6 +24,9 @@
 		05FA09221C5E8D3B0025A1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */; };
 		05FA09241C5E8D440025A1F6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09231C5E8D440025A1F6 /* libz.tbd */; };
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
+		5E711FCB1CB7365800A3F113 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */; };
+		5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB8A1111CBB38B0003B575D /* OverlayView.swift */; };
+		5EB8A1141CBB38C4003B575D /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB8A1131CBB38C4003B575D /* OverlayView.xib */; };
 		5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
 		7927EF301CB2CF8A00571161 /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -90,6 +93,11 @@
 		05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05FA09231C5E8D440025A1F6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		5E3D4C601CC725110001EBE4 /* Dense-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dense-Regular.otf"; sourceTree = "<group>"; };
+		5E3D4C611CC725110001EBE4 /* SIMPLIFICA Typeface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SIMPLIFICA Typeface.ttf"; sourceTree = "<group>"; };
+		5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
+		5EB8A1111CBB38B0003B575D /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		5EB8A1131CBB38C4003B575D /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverlayView.xib; path = ../OverlayView.xib; sourceTree = "<group>"; };
 		5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewContoller.swift; sourceTree = "<group>"; };
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EF38CC31C7925CE00827882 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -216,8 +224,8 @@
 		79ED85881CBB3BDE000D6E4E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				93EB4FD91CC70DBF008C4901 /* Dense-Regular.otf */,
-				93EB4FDA1CC70DBF008C4901 /* SIMPLIFICA Typeface.ttf */,
+				5E3D4C601CC725110001EBE4 /* Dense-Regular.otf */,
+				5E3D4C611CC725110001EBE4 /* SIMPLIFICA Typeface.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -225,12 +233,12 @@
 		937E7F221C55672700057D32 = {
 			isa = PBXGroup;
 			children = (
+				937E7F2D1C55672700057D32 /* SwipeShare */,
 				79ED85881CBB3BDE000D6E4E /* Resources */,
 				79C8FF3A1CB2C81D0037B488 /* Frameworks */,
 				05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */,
 				05FA09231C5E8D440025A1F6 /* libz.tbd */,
 				05746A671C7E832000161135 /* iCarousel */,
-				937E7F2D1C55672700057D32 /* SwipeShare */,
 				937E7F451C55672700057D32 /* SwipeShareTests */,
 				937E7F501C55672700057D32 /* SwipeShareUITests */,
 				937E7F2C1C55672700057D32 /* Products */,
@@ -251,11 +259,11 @@
 		937E7F2D1C55672700057D32 /* SwipeShare */ = {
 			isa = PBXGroup;
 			children = (
-				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
+				5EB8A1111CBB38B0003B575D /* OverlayView.swift */,
+				5EB8A1131CBB38C4003B575D /* OverlayView.xib */,
 				0520578D1C81089B00009D91 /* yawIcon.png */,
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,
 				937E7F301C55672700057D32 /* ViewController.swift */,
-				939B829C1C87859700770F79 /* MessageTableVC.swift */,
 				939B82A01C87882400770F79 /* Message.swift */,
 				939B82A21C87D2D800770F79 /* MessageManager.swift */,
 				939B82961C87852300770F79 /* MessageCell.swift */,
@@ -263,10 +271,13 @@
 				93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */,
 				93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */,
 				93FA3F211C66A8C000BB3791 /* LoginViewController.swift */,
-				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
 				054F0B661C8E04BE00496D38 /* ContainerViewController.swift */,
 				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
 				5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */,
+				939B829C1C87859700770F79 /* MessageTableVC.swift */,
+				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
+				5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */,
+				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
 				937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */,
@@ -420,6 +431,7 @@
 			files = (
 				0520578E1C81089B00009D91 /* yawIcon.png in Resources */,
 				937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */,
+				5EB8A1141CBB38C4003B575D /* OverlayView.xib in Resources */,
 				937E7F391C55672700057D32 /* Assets.xcassets in Resources */,
 				937E7F341C55672700057D32 /* Main.storyboard in Resources */,
 			);
@@ -498,12 +510,14 @@
 				939B82971C87852300770F79 /* MessageCell.swift in Sources */,
 				937E7F371C55672700057D32 /* SwipeShare.xcdatamodeld in Sources */,
 				937E7F311C55672700057D32 /* ViewController.swift in Sources */,
+				5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */,
 				05746A6A1C7E833100161135 /* iCarousel.m in Sources */,
 				93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */,
 				932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */,
 				93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */,
 				7927EF301CB2CF8A00571161 /* (null) in Sources */,
 				939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */,
+				5E711FCB1CB7365800A3F113 /* CheckListViewController.swift in Sources */,
 				054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				939B82A11C87882400770F79 /* Message.swift in Sources */,

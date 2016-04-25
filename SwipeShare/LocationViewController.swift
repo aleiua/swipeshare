@@ -35,7 +35,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     @IBOutlet weak var nearestLabel: UILabel!
     @IBOutlet weak var sendAnother: UIButton!
     @IBOutlet weak var intendedUserField: UITextField!
-
     
     var locationManager: LKLocationManager!
 
@@ -58,7 +57,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var imagePicker:UIImagePickerController?=UIImagePickerController()
     
     var swipedHeading = Float()
-    var DEBUG = true
+    var DEBUG = false
+    var ACCURACY = false
    
     
     // New things for container
@@ -70,14 +70,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
     
     
-    let msgManager = MessageManager.sharedMessageManager
-    
+//    let msgManager = MessageManager.sharedMessageManager
+
     // Core Data Stuff
     // Retreive the managedObjectContext from AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
-    
-
     /*
     Rough Distances:
     .1 = 11km
@@ -87,10 +85,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     var searchDistance = 0.001
     var earthRadius = 6371.0
-    
-    
-
-    
     
 
     
@@ -189,7 +183,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                         self.swipedHeading = self.currentHeading + Float(self.angle) % 360
                         print("currentHeading is: \(self.currentHeading)")
                         print("Swiped Heading iself.s: \(self.swipedHeading)")
-                        self.sendToClosestNeighbor(0);
+                        self.findClosestNeighbor(0);
                         print("animation complete and removed from superview")
                 })
             }
@@ -247,7 +241,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         image.userInteractionEnabled = true
         image.addGestureRecognizer(panGesture)
-        applyPlainShadow(image)
         
         // Fade out reload button
         UIView.animateWithDuration(0.5,
@@ -363,9 +356,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
 
     
-//    @IBAction func callSendToClosest(sender: AnyObject) {
-//        sendToClosestNeighbor(1)
-//    }
 
     func sendToClosestNeighbor(sort: Int) {
         if (DEBUG) {
@@ -373,10 +363,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
         let nearbyUsers = findNeighbors()
-        var sortedNeighbors = [PFObject]()
-        sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
-        
-        if (sortedNeighbors.count != 0) {
+        if (nearbyUsers.count > 0) {
+            var sortedNeighbors = [PFObject]()
+            sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
+            
             let closestNeighbor = sortedNeighbors[0]
             
             let toSend = PFObject(className: "sentPicture")
@@ -401,10 +391,55 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             }
             pushToUser(PFUser.currentUser()!, recipient: closestNeighbor as! PFUser, photo: toSend)
         }
+    }
+    
+    func findClosestNeighbor(sort: Int) {
+        let nearbyUsers = findNeighbors()
+        var sortedNeighbors = [PFObject]()
+        sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
+        if (sortedNeighbors.count != 0) {
+            // if it finds users, display the checklist
+            let checkListViewController = storyboard!.instantiateViewControllerWithIdentifier("checklist") as! CheckListViewController
+            checkListViewController.modalPresentationStyle = .OverCurrentContext
+            checkListViewController.delegate = self
+            checkListViewController.items = sortedNeighbors
+            presentViewController(checkListViewController, animated: true, completion: nil)
+        }
         else {
-            print("No closest neighbor found")
+            // otherwise, show the error overlay
+            let overlayView = OverlayView()
+            overlayView.displayView(view)
         }
     }
+    
+    func sendToUsers(users: [PFObject]) {
+        if (DEBUG) {
+            print("Sending to users")
+        }
+        
+        let filename = "image.jpg"
+        let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
+        let imageFile = PFFile(name: filename, data: jpgImage!)
+        
+        for user in users {
+            let toSend = PFObject(className: "sentPicture")
+            toSend["date"] = NSDate()
+            toSend["sender"] = PFUser.currentUser()
+            toSend["hasBeenRead"] = false
+            toSend["image"] = imageFile
+            toSend["recipient"] = user
+            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
+                if success {
+                    print("Saved toSend object.")
+                }
+                else {
+                    print("Failed saving toSend object")
+                }
+            }
+            pushToUser(PFUser.currentUser()!, recipient: user as! PFUser, photo: toSend)
+        }
+    }
+
     
     func storeSendingInformation(intendedRecipient : PFObject, actualRecipient : PFObject, intendedBear : Double, actualBear : Double) {
         
@@ -464,14 +499,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             else {
                 let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
                     latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
-                
-                print("Direction from me to neighbor: \(n["username"]) = \(direction)")
-
+              
                 let a = abs(Double(swipedHeading) - direction)
                 let b = 360 - a
                 distance = min(a, b)
                 
-                print("Accuracy of swipe: \(n["username"]) = \(distance)")
+                if (ACCURACY) {
+                    print("Direction from me to neighbor: \(n["username"]) = \(direction)")
+                    print("Accuracy of swipe: \(n["username"]) = \(distance)")
+                }
             }
             
             // Old entry in dictionary
@@ -505,20 +541,24 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         for d in distances {
             let arr = doubleToObjects[d]
             for obj in arr! {
-                print(obj["username"])
                 orderedNeighbors.append(obj)
-                
-                
                 if (String(obj["username"]) == intendedUser) {
                     intended = obj
                     intendedBearing = d
                 }
-                
             }
         }
         
-        storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
-        
+        if (DEBUG) {
+            print("Sorted Neighbors: \(orderedNeighbors)")
+        }
+
+        // Check to make sure user entered a person.
+        if (!(intendedUser ?? "").isEmpty) {
+            print("Storing sending information")
+            storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
+        }
+
         nearestLabel.text = String(orderedNeighbors[0]["username"])
         return orderedNeighbors
     }
@@ -548,14 +588,24 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         do {
             try users = query.findObjects()
             for (i, user) in users.enumerate() {
+                
                 if (user.objectId != self.userObjectId) {
                     print("Adjacent User: " + String(user["username"]))
                 }
+                    
                 else {
+                    if (DEBUG) {
+                        print("Found myself when looking for nearby neighbors")
+                    }
                     index = i
                 }
             }
-            users.removeAtIndex(index)
+            if (index != -1) {
+                if (DEBUG) {
+                    print("Removing myself from neighby neighbors")
+                }
+                users.removeAtIndex(index)
+            }
         }
         catch {
             print("Error getting neighbors!")
@@ -642,6 +692,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     fatalError("Failure to save context: \(error)")
                 }
                 
+                object.saveInBackground()
             }
         }
         catch {
@@ -709,7 +760,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         let user = PFUser.currentUser()
         if user == nil {
-            print("Could not get current User")
+            if (DEBUG) {
+                print("ViewDidLoad: Could not get current User")
+            }
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 print("presenting login view")
@@ -741,6 +794,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
+        print("What up?")
+    }
+    
+
     // Test comment
     func locationManager(manager: LKLocationManager, didFailWithError error: NSError) {
         locationManager.stopUpdatingLocation()
@@ -753,31 +813,34 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func locationManager(manager:LKLocationManager, var didUpdateLocations locations: Array <CLLocation>) {
         
-        currentLocation = locationManager.location!
-        let loc = locations.removeLast()
 
-        let user = PFUser.currentUser()
-        
-        
-        if user == nil {
-            print("Could not get current User")
-            return
-        }
-        else {
-//            user!["latitude"] = self.currentLocation.coordinate.latitude
-//            user!["longitude"] = self.currentLocation.coordinate.longitude
-            user!["latitude"] = loc.coordinate.latitude
-            user!["longitude"] = loc.coordinate.longitude
-//            latitudeLabel.text = String(user!["latitude"])
-//            longitudeLabel.text = String(user!["longitude"])
+        if (LKLocationManager.locationServicesEnabled()) {
             
-            user!.saveInBackgroundWithBlock { (success, error) -> Void in
-                if success {
-                    if (self.DEBUG) {
-//                        print("Location saved Successfully")
+            currentLocation = locationManager.location!
+            let loc = locations.removeLast()
+
+            let user = PFUser.currentUser()
+            
+            
+            if user == nil {
+                if (DEBUG) {
+                    print("LocationUpdate: Could not get current User")
+                }
+                return
+            }
+                
+            else {
+                user!["latitude"] = loc.coordinate.latitude
+                user!["longitude"] = loc.coordinate.longitude
+                
+                user!.saveInBackgroundWithBlock { (success, error) -> Void in
+                    if success {
+                        if (self.DEBUG) {
+                            print("Location saved successfully")
+                        }
+                        self.userLatitude = self.currentLocation.coordinate.latitude
+                        self.userLongitude = self.currentLocation.coordinate.longitude
                     }
-                    self.userLatitude = self.currentLocation.coordinate.latitude
-                    self.userLongitude = self.currentLocation.coordinate.longitude
                 }
             }
         }
@@ -811,6 +874,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         })
     }
     
+    
+    
+    /*************************** Push Notifications *******************************/
+    
     func pushToUser(sender: PFUser, recipient: PFUser, photo: PFObject){
         let push = PFPush()
         let senderName = sender["username"]
@@ -820,12 +887,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             "badge" : "Increment",
             "p" : "\(photo.objectId)"
         ]
-        print(senderName, recipientName, data)
+
         let query = PFInstallation.query()
         query!.whereKey("user", equalTo: recipient)
         
         push.setData(data)
         push.setQuery(query)
+        
         
         push.sendPushInBackgroundWithBlock {
             (success: Bool , error: NSError?) -> Void in
@@ -867,7 +935,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "msgListSegue" && msgManager.messages.endIndex == 0 {
+        if segue.identifier == "msgListSegue" {
             getPictureObjectsFromParse()
         }
         // Get the new view controller using segue.destinationViewController.

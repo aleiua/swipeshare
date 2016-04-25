@@ -81,14 +81,12 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
         
-        print("fetching messages: ")
-        print(fetchedMessages.count)
-        
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
         let msg = fetchedMessages[indexPath.row] as Message
         cell.senderLabel.text = String(msg.sender)
 
-        cell.sentDate.text = String(msg.date)
+        cell.sentDate.text = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+
         return cell
 
  

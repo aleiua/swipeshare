@@ -11,7 +11,7 @@ import CoreData
 import UIKit
 import Parse
 
-class MessageDetailVC: UIViewController{
+class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     
     
     var message: Message!
@@ -23,14 +23,23 @@ class MessageDetailVC: UIViewController{
     @IBOutlet weak var messageImageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBAction func savePhoto(sender: AnyObject) {
         UIImageWriteToSavedPhotosAlbum(messageImageView.image!, self, "image:didFinishSavingWithError:contextInfo:", nil)
     }
     
+    @IBOutlet weak var imageView: UIImageView!
     
-    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView?
+    {
+        return self.imageView
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.maximumZoomScale = 4.0
     }
     
     
@@ -39,10 +48,12 @@ class MessageDetailVC: UIViewController{
         self.navigationController!.toolbarHidden = false
         self.navigationController!.hidesBarsOnTap = true
         messageNavBar.title = String(message.sender)
+        let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+         messageNavBar.rightBarButtonItem?.title = date
         if message.imageData == nil{
-         getPhoto()
-            
+            getPhoto()
         } else {
+            self.activityIndicator.stopAnimating()
             messageImageView?.image = UIImage(data: message.imageData!)
         }
     }

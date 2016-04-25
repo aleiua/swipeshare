@@ -23,7 +23,7 @@ class LoginViewController: PFLogInViewController {
         self.signUpController!.fields = [.UsernameAndPassword, .SignUpButton, .DismissButton]
 
         
-        // remove the parse Logo
+        // Remove the parse Logo
         let logo = UILabel()
         logo.text = "YAW"
         logo.textColor = UIColor.darkGrayColor()
@@ -42,5 +42,4 @@ class LoginViewController: PFLogInViewController {
         let logoFrame = logInView!.logo!.frame
         logInView!.logo!.frame = CGRectMake(logoFrame.origin.x, logInView!.usernameField!.frame.origin.y - logoFrame.height - 16, logInView!.frame.width,  logoFrame.height)
     }
-
 }
