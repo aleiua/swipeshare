@@ -544,10 +544,23 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         // Get all close neighbors
         var users = [PFObject]()
         var index = -1
+        var isBlocked: Bool
         do {
             try users = query.findObjects()
             for (i, user) in users.enumerate() {
-                if (user.objectId != self.userObjectId) {
+                
+                
+                // Filter out blocked users by removing from list returned by query
+                isBlocked = false
+                for blockedUser in blockedUsers {
+                    if (String(user["username"]) == blockedUser.username!) {
+                        users.removeAtIndex(i)
+                        isBlocked = true
+                        break
+                    }
+                }
+                
+                if (user.objectId != self.userObjectId && isBlocked == false) {
                     print("Adjacent User: " + String(user["username"]))
                 }
                 else {
@@ -603,7 +616,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 
                 // Filter messages coming from blocked users
                 if !isBlocked(msgSender.username!) {
-                    print("Message not from blocked user")
                     let msg = Message(sender: msgSender, image: nil, date: sentDate, id: msgId!)
                     self.msgManager.addMessage(msg)
                 }
@@ -617,7 +629,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     // Check to see if the user is blocked
     func isBlocked(username: String) -> Bool {
-        print("checking for blocked users in LocationVC...")
         for user in blockedUsers {
             print(user.username)
             if user.username == username {
