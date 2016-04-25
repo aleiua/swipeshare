@@ -20,8 +20,11 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     let messageManager = MessageManager.sharedMessageManager
     
     var fetchedFriends = [Friend]()
-    var blockedUsers = [BlockedUser]()
+//    var blockedUsers = [BlockedUser]()
+    
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    
+    
     // ** CREATE MESSAGE MANAGER **
     
     override func viewDidLoad() {
@@ -38,15 +41,15 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
             print("error fetching friend list from CoreData")
         }
         
-        // Fetch list of blocked users by username from CoreData
-        let blockedFetchRequest = NSFetchRequest(entityName: "BlockedUser")
-        
-        do {
-            blockedUsers = try managedContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
-            print(blockedUsers.count)
-        } catch {
-            print("error fetching list of blocked users")
-        }
+        // Fetch list of blocked users by username from CoreData (unneeded at present)
+//        let blockedFetchRequest = NSFetchRequest(entityName: "BlockedUser")
+//        
+//        do {
+//            blockedUsers = try managedContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
+//            print(blockedUsers.count)
+//        } catch {
+//            print("error fetching list of blocked users")
+//        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -77,6 +80,17 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         return messageCellAtIndexPath(indexPath)
         
     }
+    
+    // Swipe left on a message to delete (will only remove from temporary store)
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            messageManager.messages.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            
+            // send to parse that message has been removed!!
+        }
+    }
+    
     
     func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
@@ -140,19 +154,34 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
                 
             let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
             
+            // Prompt user for action if message is from a non-friend user
             if !isFriend(message.sender.username!) {
                 
-                //Prompt the user for action
                 print("received message from non-friend")
                 saveFriend(message.sender.username!)
                 destinationViewController.message = message
                 
-                // give user option to add, add later, or block user
-                
-                // If user decides to block
-//                if(block) {
-//                    blockUser(message.sender.username)
+
+//                // If user decides to "add friend," add them and continue to the message
+//                if (addFriend) {
+//                    saveFriend(message.sender.username!)
+//                    destinationViewController.message = message
 //                }
+                
+//                // If user decides to "add friend later" simply continue to view the message
+//                if (addFriendLater) {
+//                    destinationViewController.message = message
+//                }
+                
+                
+//                //If user decides to "block," block the user and hide the message
+//                if(block) {
+//                  blockUser(message.sender.username)
+//                  //hide message
+//                  self.tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
+//                  messageManager.messages.removeAtIndex(self.tableView.indexPathForSelectedRow!.row)
+//                }
+                
             }
             else {
                 print("message was sent from friend")
