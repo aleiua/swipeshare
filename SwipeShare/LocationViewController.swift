@@ -13,6 +13,7 @@ import Foundation
 import Darwin
 import LocationKit
 import CoreBluetooth
+import CoreData
 import FontAwesomeKit
 
 
@@ -54,6 +55,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     var blockedUsers = [BlockedUser]()
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+
     
     var angle: CGFloat!
     var panGesture: UIPanGestureRecognizer!
@@ -81,6 +83,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     let msgManager = MessageManager.sharedMessageManager
+    
+
     /*
     Rough Distances:
     .1 = 11km
@@ -608,11 +612,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             print(pictureObjects.endIndex)
             for object in pictureObjects {
                 
-                let msgSender = object["sender"]
+                let msgSender = object["sender"] as? PFObject
                 let msgId = object.objectId
                 let sentDate = object.createdAt! as NSDate
                 
-                if !isBlocked(msgSender.username!) {
+                // Filter messages coming from blocked users
+                if (!isBlocked(msgSender!["username"] as! String)) {
 
                     let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
                     self.msgManager.addMessage(msg)
@@ -625,16 +630,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         return pictureObjects
     }
     
-    // Check to see if the user is blocked
-    func isBlocked(username: String) -> Bool {
-        for user in blockedUsers {
-            print(user.username)
-            if user.username == username {
-                return true
-            }
-        }
-        return false
-    }
 
     func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
         
@@ -715,6 +710,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let installation = PFInstallation.currentInstallation()
         installation["user"] = user
         installation.saveInBackground()
+        
+
+        // Fetch list of blocked users by username from CoreData
+        let blockedFetchRequest = NSFetchRequest(entityName: "BlockedUser")
+        
+        do {
+            blockedUsers = try managedContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
+            print(blockedUsers.count)
+        } catch {
+            print("error fetching list of blocked users")
+        }
         
         // Set up iBeacon region
         let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
