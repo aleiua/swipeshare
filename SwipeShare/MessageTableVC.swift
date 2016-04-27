@@ -57,7 +57,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
         
         let msg = messageManager.messages[indexPath.row] as Message
-        cell.senderLabel.text = String(msg.sender["username"])
+        cell.senderLabel.text = String(msg.sender["name"])
 //        cell.messageImageView?.image = msg.image
         
 
@@ -81,7 +81,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
 //        
 //        message = messageManager.messages[indexPath.row]
 //        
-//        cell.senderLabel?.text = String(message.sender["username"])
+//        cell.senderLabel?.text = String(message.sender["name"])
 //        cell.messageImageView?.image = message.image
 //        
 //        

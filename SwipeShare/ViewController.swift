@@ -56,12 +56,12 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
         self.dismissViewControllerAnimated(true, completion: nil)
-        if (PFUser.currentUser() != nil) {
+
+        if (PFUser.currentUser() != nil && FBSDKAccessToken.currentAccessToken() == nil) {
             self.storeFacebookData()
         }
         
         
-//        presentLoggedInAlert()
     }
     
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
@@ -74,8 +74,6 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
             user!["name"] = user!["username"]
             user?.saveInBackground()
         }
-        
-//        presentLoggedInAlert()
     }
     
     
@@ -97,6 +95,8 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     /*************************** Facebook Data ******************************/
     
     func storeFacebookData() {
+        
+        print("GRABBING FB DATA FOR NON FACEBOOK USER")
 
         let user = PFUser.currentUser()
         

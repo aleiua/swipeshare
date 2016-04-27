@@ -65,7 +65,7 @@ class CheckListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("checkCell", forIndexPath: indexPath)
         
         // Configure the cell...
-        cell.textLabel!.text = items[indexPath.row]["username"] as? String
+        cell.textLabel!.text = items[indexPath.row]["name"] as? String
 //        
 //        if(indexPath.row == 0){
 //            self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.Middle)

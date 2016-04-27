@@ -441,18 +441,18 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         let currUser = PFUser.currentUser()
         
-        data["currentUser"] = currUser!["username"]
+        data["currentUser"] = currUser!["name"]
         data["currentHeading"] = Double(currentHeading)
         data["swipedHeading"] = Double(swipedHeading)
         data["currentLatitude"] = currUser!["latitude"]
         data["currentLongitude"] = currUser!["longitude"]
         
-        data["intendedRecipient"] = intendedRecipient["username"]
+        data["intendedRecipient"] = intendedRecipient["name"]
         data["intendedBearingAccuracy"] = intendedBear
         data["intendedLatitude"] = intendedRecipient["latitude"]
         data["intendedLongitude"] = intendedRecipient["longitude"]
         
-        data["actualRecipient"] = actualRecipient["username"]
+        data["actualRecipient"] = actualRecipient["name"]
         data["actualBearingAccuracy"] = actualBear
         data["actualLatitude"] = actualRecipient["latitude"]
         data["actualLongitude"] = actualRecipient["longitude"]
@@ -499,8 +499,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 distance = min(a, b)
                 
                 if (ACCURACY) {
-                    print("Direction from me to neighbor: \(n["username"]) = \(direction)")
-                    print("Accuracy of swipe: \(n["username"]) = \(distance)")
+                    print("Direction from me to neighbor: \(n["name"]) = \(direction)")
+                    print("Accuracy of swipe: \(n["name"]) = \(distance)")
                 }
             }
             
@@ -536,7 +536,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             let arr = doubleToObjects[d]
             for obj in arr! {
                 orderedNeighbors.append(obj)
-                if (String(obj["username"]) == intendedUser) {
+                if (String(obj["name"]) == intendedUser) {
                     intended = obj
                     intendedBearing = d
                 }
@@ -553,7 +553,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
         }
 
-        nearestLabel.text = String(orderedNeighbors[0]["username"])
+        nearestLabel.text = String(orderedNeighbors[0]["name"])
         return orderedNeighbors
     }
     
@@ -584,7 +584,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             for (i, user) in users.enumerate() {
                 
                 if (user.objectId != self.userObjectId) {
-                    print("Adjacent User: " + String(user["username"]))
+                    print("Adjacent User: " + String(user["name"]))
                 }
                     
                 else {
@@ -729,7 +729,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             return
         }
         else {
-            // userLabel.text = user?.username
             user!["latitude"] = Double()
             user!["longitude"] = Double()
         }
@@ -835,8 +834,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     func pushToUser(sender: PFUser, recipient: PFUser, photo: PFObject){
         let push = PFPush()
-        let senderName = sender["username"]
-        let recipientName = recipient["username"]
+        let senderName = sender["name"]
+        let recipientName = recipient["name"]
         let data = [
             "alert" : "\(senderName) sent you a photo!",
             "badge" : "Increment",
