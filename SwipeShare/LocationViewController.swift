@@ -521,10 +521,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             }
             pushToUser(PFUser.currentUser()!, recipient: user as! PFUser, photo: toSend)
         }
-        
-        if (STORE_DATA && users.count == 1) {
-            storeActionData(users[0])
-        }
+//        
+//        if (STORE_DATA && users.count == 1) {
+//            storeActionData(users[0])
+//        }
         
     }
 
@@ -831,12 +831,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         print(beacons)
         for beacon in beacons {
-            if beacon.rssi > -30 {
-                for neighbor in findNeighbors() {
-                    if (Int(beacon.major) + Int(beacon.minor)) == Int(neighbor["btIdentifier"] as! NSNumber) {
-                        print("entered close range")
-                    }
-                }
+            if beacon.rssi > -35 {
+                let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
+                sendToUsers(neighbor)
+                // remove photo from view
+                // image = nil
             }
         }
     }
