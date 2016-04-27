@@ -16,6 +16,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     
     var message: Message!
     
+    @IBOutlet weak var dateLabel: UIBarButtonItem!
     
     @IBOutlet weak var messageNavBar: UINavigationItem!
     @IBOutlet weak var messageImageView: UIImageView!
@@ -47,7 +48,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         self.navigationController!.hidesBarsOnTap = true
         messageNavBar.title = String(message.sender["name"])
         let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
-         messageNavBar.rightBarButtonItem?.title = date
+         dateLabel.title = date
         if message.image == nil{
          getPhoto()
         }
@@ -58,6 +59,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     }
     override func viewWillDisappear(animated: Bool) {
         self.navigationController!.toolbarHidden = true
+        self.navigationController!.navigationBarHidden = false
         self.navigationController!.hidesBarsOnTap = false
     }
     

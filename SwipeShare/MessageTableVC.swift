@@ -97,12 +97,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         return true
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 120
-        
-        
-    }
-    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
