@@ -60,6 +60,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var swipedHeading = Float()
     var DEBUG = false
     var ACCURACY = false
+    
+    // Errors in swiping or distance to other user.
+    var STORE_DATA = true
+    var userToSpacialError = [PFObject : Double]()
+    var intendedRecipient: PFObject?
+
    
     
     // New things for container
@@ -179,7 +185,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                         self.swipedHeading = self.currentHeading + Float(self.angle) % 360
                         print("currentHeading is: \(self.currentHeading)")
                         print("Swiped Heading iself.s: \(self.swipedHeading)")
-                        self.findClosestNeighbor(0);
+                        self.passNeighborsToChecklist(0);
                         print("animation complete and removed from superview")
                 })
             }
@@ -307,7 +313,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         loadImage(image)
     }
     
-    /*****************************NEIGHBOR SORTING*****************************/
+    
+    /********************DISTANCE AND BEARING CALCULATIONS********************/
     
     // Calculates distance from point A to B using Haversine formula
     // Currently returns distance in KM
@@ -351,55 +358,132 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         return angle
         
     }
+    
+    /*****************************NEIGHBOR SORTING*****************************/
 
     
+    func findNeighbors() -> Array<PFObject> {
 
-    func sendToClosestNeighbor(sort: Int) {
-        if (DEBUG) {
-            print("Sending to closest neighbor")
+        let currentObjectID = PFUser.currentUser()!.objectId
+        
+        print("Querying for neighbors")
+        let query = PFQuery(className:"_User")
+        query.whereKey("latitude",
+            greaterThan: (userLatitude - searchDistance))
+        query.whereKey("latitude",
+            lessThan: (userLatitude + searchDistance))
+        query.whereKey("longitude",
+            greaterThan: (userLongitude - searchDistance))
+        query.whereKey("longitude",
+            lessThan: (userLongitude + searchDistance))
+        query.whereKey("objectId", notEqualTo: currentObjectID!)
+        
+        
+        // Get all close neighbors
+        var users = [PFObject]()
+        do {
+            try users = query.findObjects()
+
+            for (i, user) in users.enumerate() {
+                print("Adjacent User: " + String(user["name"]))
+            }
+        }
+        catch {
+            print("Error getting neighbors!")
         }
         
-        let nearbyUsers = findNeighbors()
-        if (nearbyUsers.count > 0) {
-            var sortedNeighbors = [PFObject]()
-            sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
-            
-            let closestNeighbor = sortedNeighbors[0]
-            
-            let toSend = PFObject(className: "sentPicture")
-            
-            toSend["date"] = NSDate()
-            toSend["recipient"] = closestNeighbor
-            toSend["sender"] = PFUser.currentUser()
-            toSend["hasBeenRead"] = false
-            
-            let filename = "image.jpg"
-            let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
-            let imageFile = PFFile(name: filename, data: jpgImage!)
-            toSend["image"] = imageFile
-            
-            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
-                if success {
-                    print("Saved toSend object.")
-                }
-                else {
-                    print("Failed saving toSend object")
+        return users
+    }
+
+    // Sorting function
+    // Pass in 1 to sort by distance, otherwise sorts by bearing
+    func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
+        userToSpacialError.removeAll()
+        var spacialErrors = [Double : Array<PFObject>]()
+        var distances = [Double]()
+        
+        for n in neighbors {
+            var distance = 0.0
+            // Sort by distance
+            if sortBy == 1 {
+                distance = Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
+            }
+            // Sort by bearing
+            else {
+                let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
+              
+                let a = abs(Double(swipedHeading) - direction)
+                let b = 360 - a
+                distance = min(a, b)
+                
+                if (ACCURACY) {
+                    print("Direction from me to neighbor: \(n["name"]) = \(direction)")
+                    print("Accuracy of swipe: \(n["name"]) = \(distance)")
                 }
             }
-            pushToUser(PFUser.currentUser()!, recipient: closestNeighbor as! PFUser, photo: toSend)
+            
+            // Data retrieval
+            userToSpacialError[n] = distance
+            
+            
+            // Old entry in dictionary
+            var previousEntry = spacialErrors[distance]
+            // Check if someone else has same distance
+            if previousEntry == nil {
+                var newArray = [PFObject]()
+                newArray.append(n)
+
+                spacialErrors[distance] = newArray
+                distances.append(distance)
+
+            }
+            else {
+                previousEntry!.append(n)
+                spacialErrors[distance] = previousEntry
+            }
         }
+        
+        distances.sortInPlace() // Is this less efficient than regular sort?
+        var orderedNeighbors = [PFObject]()
+        
+        
+        // Convert sorted distances into sorted objects.
+        for d in distances {
+            let arr = spacialErrors[d]
+            for obj in arr! {
+                orderedNeighbors.append(obj)
+            }
+        }
+        
+        if (DEBUG) {
+            print("Sorted Neighbors: \(orderedNeighbors)")
+        }
+
+        
+        return orderedNeighbors
     }
     
-    func findClosestNeighbor(sort: Int) {
-        let nearbyUsers = findNeighbors()
-        var sortedNeighbors = [PFObject]()
-        sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
-        if (sortedNeighbors.count != 0) {
+    
+    func getNeighbors(sort : Int) -> Array<PFObject> {
+        return sortNeighbors(PFUser.currentUser()!, neighbors: findNeighbors(), sortBy: sort)
+    }
+    
+    
+    func passNeighborsToChecklist(sort: Int) {
+        
+        var neighbors = getNeighbors(0)
+        
+        if (neighbors.count != 0) {
+            if (STORE_DATA) {
+                intendedRecipient = neighbors[0]
+            }
             // if it finds users, display the checklist
             let checkListViewController = storyboard!.instantiateViewControllerWithIdentifier("checklist") as! CheckListViewController
             checkListViewController.modalPresentationStyle = .OverCurrentContext
             checkListViewController.delegate = self
-            checkListViewController.items = sortedNeighbors
+            checkListViewController.items = neighbors
             presentViewController(checkListViewController, animated: true, completion: nil)
         }
         else {
@@ -408,6 +492,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             overlayView.displayView(view)
         }
     }
+    
+
     
     func sendToUsers(users: [PFObject]) {
         if (DEBUG) {
@@ -435,12 +521,19 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             }
             pushToUser(PFUser.currentUser()!, recipient: user as! PFUser, photo: toSend)
         }
+        
+        if (STORE_DATA && users.count == 1) {
+            storeActionData(users[0])
+        }
+        
     }
 
     
-    func storeSendingInformation(intendedRecipient : PFObject, actualRecipient : PFObject, intendedBear : Double, actualBear : Double) {
+    func storeActionData(actualRecipient : PFObject) {
         
-        let data = PFObject(className: "sendingData")
+        print("Storing information")
+        
+        let data = PFObject(className: "actionData")
         
         let currUser = PFUser.currentUser()
         
@@ -450,13 +543,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         data["currentLatitude"] = currUser!["latitude"]
         data["currentLongitude"] = currUser!["longitude"]
         
-        data["intendedRecipient"] = intendedRecipient["name"]
-        data["intendedBearingAccuracy"] = intendedBear
-        data["intendedLatitude"] = intendedRecipient["latitude"]
-        data["intendedLongitude"] = intendedRecipient["longitude"]
+        data["intendedRecipient"] = intendedRecipient!["name"]
+        data["intendedBearingAccuracy"] = userToSpacialError[intendedRecipient!]
+        data["intendedLatitude"] = intendedRecipient!["latitude"]
+        data["intendedLongitude"] = intendedRecipient!["longitude"]
         
         data["actualRecipient"] = actualRecipient["name"]
-        data["actualBearingAccuracy"] = actualBear
+        data["actualBearingAccuracy"] = userToSpacialError[actualRecipient]
         data["actualLatitude"] = actualRecipient["latitude"]
         data["actualLongitude"] = actualRecipient["longitude"]
         
@@ -467,120 +560,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             else {
                 print("Failed saving data")
             }
-        }  
-        
-    }
-    
-    // Sorting function
-    // Pass in 1 to sort by distance, otherwise sorts by bearing
-    func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
-        var doubleToObjects = [Double : Array<PFObject>]()
-        var distances = [Double]()
-        
-        for n in neighbors {
-            var distance = 0.0
-            // Sort by distance
-            if sortBy == 1 {
-                distance = Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
-                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
-            }
-            // Sort by bearing
-            else {
-                let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
-                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
-              
-                let a = abs(Double(swipedHeading) - direction)
-                let b = 360 - a
-                distance = min(a, b)
-                
-                if (ACCURACY) {
-                    print("Direction from me to neighbor: \(n["name"]) = \(direction)")
-                    print("Accuracy of swipe: \(n["name"]) = \(distance)")
-                }
-            }
-            
-            // Old entry in dictionary
-            var previousEntry = doubleToObjects[distance]
-            // Check if someone else has same distance
-            if previousEntry == nil {
-                var newArray = [PFObject]()
-                newArray.append(n)
-
-                doubleToObjects[distance] = newArray
-                distances.append(distance)
-
-            }
-            else {
-                previousEntry!.append(n)
-                doubleToObjects[distance] = previousEntry
-            }
         }
         
-        distances.sortInPlace() // Is this less efficient than regular sort?
-        var orderedNeighbors = [PFObject]()
-        
-        // Data Collection Variables
-        let intendedUser = "" //self.intendedUserField.text
-        
-        var intended: PFObject!
-        var intendedBearing = Double()
-        
-        
-        // Convert sorted distances into sorted objects.
-        for d in distances {
-            let arr = doubleToObjects[d]
-            for obj in arr! {
-                orderedNeighbors.append(obj)
-                if (String(obj["name"]) == intendedUser) {
-                    intended = obj
-                    intendedBearing = d
-                }
-            }
-        }
-        
-        if (DEBUG) {
-            print("Sorted Neighbors: \(orderedNeighbors)")
-        }
-
-        // Check to make sure user entered a person.
-        if (!(intendedUser ?? "").isEmpty) {
-            print("Storing sending information")
-            storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
-        }
-        // nearestLabel.text = String(orderedNeighbors[0]["name"])
-        return orderedNeighbors
-    }
-    
-    func findNeighbors() -> Array<PFObject> {
-        
-        print("Querying for neighbors")
-        let query = PFQuery(className:"_User")
-        query.whereKey("latitude",
-            greaterThan: (userLatitude - searchDistance))
-        query.whereKey("latitude",
-            lessThan: (userLatitude + searchDistance))
-        query.whereKey("longitude",
-            greaterThan: (userLongitude - searchDistance))
-        query.whereKey("longitude",
-            lessThan: (userLongitude + searchDistance))
-        query.whereKey("objectId", notEqualTo: self.userObjectId)
-        
-        
-        // Get all close neighbors
-        var users = [PFObject]()
-        do {
-            try users = query.findObjects()
-            for (i, user) in users.enumerate() {
-                
-                print("Adjacent User: " + String(user["name"]))
-                
-            }
-        }
-        catch {
-            print("Error getting neighbors!")
-        }
-        
-        return users
     }
     
     
@@ -650,13 +631,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         locationManager = LKLocationManager()
         locationManager.apiToken = "76f847c677f70038"
         locationManager.requestAlwaysAuthorization()
-        
         locationManager.advancedDelegate = self
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-//        inboxButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Ionicons", size: 30)!], forState: UIControlState.Normal)
+        
         self.sendAnother.hidden = true
         self.sendAnother.alpha = 0
         
@@ -701,8 +680,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         installation["user"] = user
         installation.saveInBackground()
         
-        
-        
         // Set up iBeacon region
         let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
         let beaconID = "yaw_iBeacon_region"
@@ -720,12 +697,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             minor = 0
         }
         
-        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, major: major, minor: minor, identifier: beaconID)
+        let beaconRegionBroadcast = CLBeaconRegion(proximityUUID: uuid, major: major, minor: minor, identifier: beaconID)
+        
+        let beaconRegionFind = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
         
         locationManager.pausesLocationUpdatesAutomatically = false
-        locationManager.startMonitoringForRegion(beaconRegion)
-        locationManager.startRangingBeaconsInRegion(beaconRegion)
-        beaconPeripheralData = beaconRegion.peripheralDataWithMeasuredPower(nil)
+        locationManager.startMonitoringForRegion(beaconRegionBroadcast)
+        locationManager.startRangingBeaconsInRegion(beaconRegionFind)
+        beaconPeripheralData = beaconRegionBroadcast.peripheralDataWithMeasuredPower(nil)
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
         //print("successfully initialized beacon region")
         
@@ -851,6 +830,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
      */
     func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         print(beacons)
+        for beacon in beacons {
+            if beacon.rssi > -30 {
+                for neighbor in findNeighbors() {
+                    if (Int(beacon.major) + Int(beacon.minor)) == Int(neighbor["btIdentifier"] as! NSNumber) {
+                        print("entered close range")
+                    }
+                }
+            }
+        }
     }
     
     
