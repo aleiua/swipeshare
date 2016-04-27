@@ -94,8 +94,6 @@
 		05FA09231C5E8D440025A1F6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		5E331D7B1CD0699F007FF047 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
-		5E3D4C601CC725110001EBE4 /* Dense-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dense-Regular.otf"; sourceTree = "<group>"; };
-		5E3D4C611CC725110001EBE4 /* SIMPLIFICA Typeface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SIMPLIFICA Typeface.ttf"; sourceTree = "<group>"; };
 		5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
 		5EB8A1111CBB38B0003B575D /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		5EB8A1131CBB38C4003B575D /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverlayView.xib; path = ../OverlayView.xib; sourceTree = "<group>"; };
@@ -223,8 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				5E331D7B1CD0699F007FF047 /* ionicons.ttf */,
-				5E3D4C601CC725110001EBE4 /* Dense-Regular.otf */,
-				5E3D4C611CC725110001EBE4 /* SIMPLIFICA Typeface.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
