@@ -45,7 +45,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         super.viewWillAppear(animated)
         self.navigationController!.toolbarHidden = false
         self.navigationController!.hidesBarsOnTap = true
-        messageNavBar.title = String(message.sender["username"])
+        messageNavBar.title = String(message.sender["name"])
         let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
          messageNavBar.rightBarButtonItem?.title = date
         if message.image == nil{
