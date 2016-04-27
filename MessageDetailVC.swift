@@ -47,14 +47,17 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         self.navigationController!.hidesBarsOnTap = true
         messageNavBar.title = String(message.sender["name"])
         let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
-         messageNavBar.rightBarButtonItem?.title = date
+        messageNavBar.rightBarButtonItem?.title = date
         
         
-        if message.image == nil{
+        if (message.image == nil) {
 
             let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
             friendPromptViewController.modalPresentationStyle = .OverCurrentContext
+            
 //            friendPromptViewController.delegate = self
+//            friendPromptViewController.title = "You have received a new photo from \n\(message.sender["name"])!"
+            friendPromptViewController.title = "\(message.sender["name"]) sent you a photo!"
             presentViewController(friendPromptViewController, animated: true, completion: nil)
             
             //getPhoto()
