@@ -13,7 +13,7 @@ import Parse
 
 class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     
-    
+    var delegate: LocationViewController? = nil
     var message: Message!
     
     
@@ -48,8 +48,19 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         messageNavBar.title = String(message.sender["name"])
         let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
          messageNavBar.rightBarButtonItem?.title = date
+        
+        
         if message.image == nil{
-         getPhoto()
+
+            let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
+            friendPromptViewController.modalPresentationStyle = .OverCurrentContext
+//            friendPromptViewController.delegate = self
+            presentViewController(friendPromptViewController, animated: true, completion: nil)
+            
+            //getPhoto()
+
+
+           
         }
         else {
             self.activityIndicator.stopAnimating()

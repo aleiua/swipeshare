@@ -583,7 +583,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
     /****************FRIEND STUFF****************/
      
-    @IBAction func presentView(sender: AnyObject) {
+    func presentView() {
 
         let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
         friendPromptViewController.modalPresentationStyle = .OverCurrentContext

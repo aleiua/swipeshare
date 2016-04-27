@@ -25,7 +25,7 @@ class FriendPromptViewController: UIViewController {
         self.setEditing(true, animated: true)
 //        self.backgroundView = blurredBackgroundView
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
-//        tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurredBackgroundView.effect as! UIBlurEffect)
+        //        tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurredBackgroundView.effect as! UIBlurEffect)
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
