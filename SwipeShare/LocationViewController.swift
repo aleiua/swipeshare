@@ -61,7 +61,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var ACCURACY = false
     
     // Errors in swiping or distance to other user.
-    var spacialErrors = [Double : Array<PFObject>]()
+    var STORE_DATA = true
+    var userToSpacialError = [PFObject : Double]()
+    var intendedRecipient: PFObject?
 
    
     
@@ -360,6 +362,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
     
     func findNeighbors() -> Array<PFObject> {
+
+        let currentObjectID = PFUser.currentUser()!.objectId
         
         print("Querying for neighbors")
         let query = PFQuery(className:"_User")
@@ -371,17 +375,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             greaterThan: (userLongitude - searchDistance))
         query.whereKey("longitude",
             lessThan: (userLongitude + searchDistance))
-        query.whereKey("objectId", notEqualTo: self.userObjectId)
+        query.whereKey("objectId", notEqualTo: currentObjectID!)
         
         
         // Get all close neighbors
         var users = [PFObject]()
         do {
             try users = query.findObjects()
+
             for (i, user) in users.enumerate() {
-                
                 print("Adjacent User: " + String(user["name"]))
-                
             }
         }
         catch {
@@ -394,7 +397,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
     func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
-        spacialErrors.removeAll()
+        userToSpacialError.removeAll()
+        var spacialErrors = [Double : Array<PFObject>]()
         var distances = [Double]()
         
         for n in neighbors {
@@ -418,6 +422,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     print("Accuracy of swipe: \(n["name"]) = \(distance)")
                 }
             }
+            
+            // Data retrieval
+            userToSpacialError[n] = distance
+            
             
             // Old entry in dictionary
             var previousEntry = spacialErrors[distance]
@@ -456,17 +464,25 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         return orderedNeighbors
     }
     
+    
+    func getNeighbors(sort : Int) -> Array<PFObject> {
+        return sortNeighbors(PFUser.currentUser()!, neighbors: findNeighbors(), sortBy: sort)
+    }
+    
+    
     func passNeighborsToChecklist(sort: Int) {
-        let nearbyUsers = findNeighbors()
-        var sortedNeighbors = [PFObject]()
-        sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
         
-        if (sortedNeighbors.count != 0) {
+        var neighbors = getNeighbors(0)
+        
+        if (neighbors.count != 0) {
+            if (STORE_DATA) {
+                intendedRecipient = neighbors[0]
+            }
             // if it finds users, display the checklist
             let checkListViewController = storyboard!.instantiateViewControllerWithIdentifier("checklist") as! CheckListViewController
             checkListViewController.modalPresentationStyle = .OverCurrentContext
             checkListViewController.delegate = self
-            checkListViewController.items = sortedNeighbors
+            checkListViewController.items = neighbors
             presentViewController(checkListViewController, animated: true, completion: nil)
         }
         else {
@@ -476,6 +492,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
     }
     
+
     
     func sendToUsers(users: [PFObject]) {
         if (DEBUG) {
@@ -503,12 +520,19 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             }
             pushToUser(PFUser.currentUser()!, recipient: user as! PFUser, photo: toSend)
         }
+        
+        if (STORE_DATA && users.count == 1) {
+            storeActionData(users[0])
+        }
+        
     }
 
     
-    func storeSendingInformation(intendedRecipient : PFObject, actualRecipient : PFObject, intendedBear : Double, actualBear : Double) {
+    func storeActionData(actualRecipient : PFObject) {
         
-        let data = PFObject(className: "sendingData")
+        print("Storing information")
+        
+        let data = PFObject(className: "actionData")
         
         let currUser = PFUser.currentUser()
         
@@ -518,13 +542,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         data["currentLatitude"] = currUser!["latitude"]
         data["currentLongitude"] = currUser!["longitude"]
         
-        data["intendedRecipient"] = intendedRecipient["name"]
-        data["intendedBearingAccuracy"] = intendedBear
-        data["intendedLatitude"] = intendedRecipient["latitude"]
-        data["intendedLongitude"] = intendedRecipient["longitude"]
+        data["intendedRecipient"] = intendedRecipient!["name"]
+        data["intendedBearingAccuracy"] = userToSpacialError[intendedRecipient!]
+        data["intendedLatitude"] = intendedRecipient!["latitude"]
+        data["intendedLongitude"] = intendedRecipient!["longitude"]
         
         data["actualRecipient"] = actualRecipient["name"]
-        data["actualBearingAccuracy"] = actualBear
+        data["actualBearingAccuracy"] = userToSpacialError[actualRecipient]
         data["actualLatitude"] = actualRecipient["latitude"]
         data["actualLongitude"] = actualRecipient["longitude"]
         
