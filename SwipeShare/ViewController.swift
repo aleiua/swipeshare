@@ -56,12 +56,45 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
         self.dismissViewControllerAnimated(true, completion: nil)
-        if (PFUser.currentUser() != nil) {
+
+        if (PFUser.currentUser() != nil && FBSDKAccessToken.currentAccessToken() != nil) {
             self.storeFacebookData()
+            
+            var currentIdentifier = 0
+            var query = PFQuery(className:"_User")
+            
+            // Determine the highest current identifier in Parse
+            query.orderByDescending("btIdentifier")
+            query.getFirstObjectInBackgroundWithBlock {
+                (object: PFObject?, error: NSError?) -> Void in
+                
+                // Failure
+                if error != nil || object == nil {
+                    print("Failed to retrieve btIdentifier.")
+                }
+                    
+                    // If successful, increment the identifier and reassign with a subsequent query
+                else {
+                    let maxIdentifier = object!["btIdentifier"] as! Int
+                    currentIdentifier = maxIdentifier + 1
+                    
+                    query = PFQuery(className: "_User")
+                    query.whereKey("username", equalTo: user.username!)
+                    do {
+                        let userArray = try query.findObjects()
+                        print(userArray)
+                        userArray[0]["btIdentifier"] = currentIdentifier
+                        userArray[0].saveInBackground()
+                        print("successfully saved \(user.username!) with identifier of value: \(currentIdentifier)")
+                        
+                    } catch {
+                        print("failed to get matching user")
+                    }
+                }
+            }
         }
         
         
-//        presentLoggedInAlert()
     }
     
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
@@ -74,12 +107,9 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
             user!["name"] = user!["username"]
             user?.saveInBackground()
         }
-        
-//        presentLoggedInAlert()
     }
     
-    
-    
+
     func presentLoggedInAlert() {
         let alertController = UIAlertController(title: "You're logged in", message: "Welcome to Yaw", preferredStyle: .Alert)
         let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in
@@ -97,6 +127,8 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     /*************************** Facebook Data ******************************/
     
     func storeFacebookData() {
+        
+        print("GRABBING FB DATA FOR NON FACEBOOK USER")
 
         let user = PFUser.currentUser()
         

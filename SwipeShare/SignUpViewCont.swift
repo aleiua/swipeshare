@@ -21,12 +21,12 @@ class SignUpViewCont: PFSignUpViewController {
         super.viewDidLoad()
         
         
-        // remove the parse Logo
+        // Remove the parse Logo
         let logo = UILabel()
-        logo.text = "YAW"
+        logo.text = "Yaw"
         logo.textColor = UIColor.darkGrayColor()
-        logo.font = UIFont(name: "Simplifica", size: 100)
-        logo.shadowColor = UIColor.lightGrayColor()
+        logo.font = UIFont(name: "HelveticaNeue-UltraLight", size: 80)
+        //        logo.shadowColor = UIColor.lightGrayColor()
         logo.shadowOffset = CGSizeMake(2, 2)
         signUpView?.logo = logo
     }

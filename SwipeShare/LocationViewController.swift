@@ -414,7 +414,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
         let filename = "image.jpg"
-        let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
+        let jpgImage = UIImageJPEGRepresentation(image.image!, 0.5)
         let imageFile = PFFile(name: filename, data: jpgImage!)
         
         for user in users {
@@ -443,18 +443,18 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         let currUser = PFUser.currentUser()
         
-        data["currentUser"] = currUser!["username"]
+        data["currentUser"] = currUser!["name"]
         data["currentHeading"] = Double(currentHeading)
         data["swipedHeading"] = Double(swipedHeading)
         data["currentLatitude"] = currUser!["latitude"]
         data["currentLongitude"] = currUser!["longitude"]
         
-        data["intendedRecipient"] = intendedRecipient["username"]
+        data["intendedRecipient"] = intendedRecipient["name"]
         data["intendedBearingAccuracy"] = intendedBear
         data["intendedLatitude"] = intendedRecipient["latitude"]
         data["intendedLongitude"] = intendedRecipient["longitude"]
         
-        data["actualRecipient"] = actualRecipient["username"]
+        data["actualRecipient"] = actualRecipient["name"]
         data["actualBearingAccuracy"] = actualBear
         data["actualLatitude"] = actualRecipient["latitude"]
         data["actualLongitude"] = actualRecipient["longitude"]
@@ -472,14 +472,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
-    @IBAction func callSortNeighbors(sender: AnyObject) {
-        
-        let users = findNeighbors()
-        
-        let sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: users, sortBy: 0)
-        print(sortedNeighbors)
-    }
-
     func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
         var doubleToObjects = [Double : Array<PFObject>]()
         var distances = [Double]()
@@ -501,8 +493,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 distance = min(a, b)
                 
                 if (ACCURACY) {
-                    print("Direction from me to neighbor: \(n["username"]) = \(direction)")
-                    print("Accuracy of swipe: \(n["username"]) = \(distance)")
+                    print("Direction from me to neighbor: \(n["name"]) = \(direction)")
+                    print("Accuracy of swipe: \(n["name"]) = \(distance)")
                 }
             }
             
@@ -538,7 +530,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             let arr = doubleToObjects[d]
             for obj in arr! {
                 orderedNeighbors.append(obj)
-                if (String(obj["username"]) == intendedUser) {
+                if (String(obj["name"]) == intendedUser) {
                     intended = obj
                     intendedBearing = d
                 }
@@ -554,14 +546,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             print("Storing sending information")
             storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
         }
-
-//        nearestLabel.text = String(orderedNeighbors[0]["username"])
+        // nearestLabel.text = String(orderedNeighbors[0]["name"])
         return orderedNeighbors
-    }
-    
-    
-    @IBAction func callFindNeighbors(sender: AnyObject) {
-        findNeighbors()
     }
     
     func findNeighbors() -> Array<PFObject> {
@@ -576,31 +562,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             greaterThan: (userLongitude - searchDistance))
         query.whereKey("longitude",
             lessThan: (userLongitude + searchDistance))
+        query.whereKey("objectId", notEqualTo: self.userObjectId)
         
         
         // Get all close neighbors
         var users = [PFObject]()
-        var index = -1
         do {
             try users = query.findObjects()
             for (i, user) in users.enumerate() {
                 
-                if (user.objectId != self.userObjectId) {
-                    print("Adjacent User: " + String(user["username"]))
-                }
-                    
-                else {
-                    if (DEBUG) {
-                        print("Found myself when looking for nearby neighbors")
-                    }
-                    index = i
-                }
-            }
-            if (index != -1) {
-                if (DEBUG) {
-                    print("Removing myself from neighby neighbors")
-                }
-                users.removeAtIndex(index)
+                print("Adjacent User: " + String(user["name"]))
+                
             }
         }
         catch {
@@ -613,20 +585,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     /****************************RETRIEVE IMAGES*********************************/
     
-    
-    func createNewMessageObject(sender: AnyObject) {
-//        let msg = Message(sender: <#T##String#>, receiver: PFUser.currentUser()!, text: String?, image: <#T##UIImage?#>)
-    }
-    
-    
-    func saveMessage(sender: AnyObject) {
-        
-    }
-    
-    @IBAction func getSentPictures(sender: AnyObject) {
-        getPictureObjectsFromParse()
-        
-    }
+
      
     func getPictureObjectsFromParse() -> Array<PFObject> {
         
@@ -691,17 +650,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         locationManager.apiToken = "76f847c677f70038"
         locationManager.requestAlwaysAuthorization()
         
-        //set up iBeacon region
-        let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
-        let beaconID = "yaw_iBeacon_region"
-        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
-        locationManager.pausesLocationUpdatesAutomatically = false
-        locationManager.startMonitoringForRegion(beaconRegion)
-        locationManager.startRangingBeaconsInRegion(beaconRegion)
-        beaconPeripheralData = beaconRegion.peripheralDataWithMeasuredPower(nil)
-        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
-        print("successfully initialized beacon region")
-        
+
         
         locationManager.advancedDelegate = self
         locationManager.startUpdatingLocation()
@@ -731,7 +680,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             return
         }
         else {
-            // userLabel.text = user?.username
             user!["latitude"] = Double()
             user!["longitude"] = Double()
         }
@@ -743,18 +691,50 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     print(self.userObjectId)
                 }
             }
+            else {
+                if (self.DEBUG) {
+                    print("Error saving user in viewDidLoad")
+                }
+            }
         }
         
         let installation = PFInstallation.currentInstallation()
         installation["user"] = user
         installation.saveInBackground()
         
+        
+        
+        // Set up iBeacon region
+        let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
+        let beaconID = "yaw_iBeacon_region"
+        
+        //convert user ID to major and minor values to broadcast
+        var major: CLBeaconMajorValue!
+        var minor: CLBeaconMinorValue!
+        let identifier = user!["btIdentifier"] as? NSNumber
+        if (Int(identifier!) > 65535) {
+            major = 65535
+            minor = CLBeaconMinorValue(Int(identifier!) - 65535)
+        }
+        else {
+            major = CLBeaconMajorValue(Int(identifier!))
+            minor = 0
+        }
+        
+        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, major: major, minor: minor, identifier: beaconID)
+        
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.startMonitoringForRegion(beaconRegion)
+        locationManager.startRangingBeaconsInRegion(beaconRegion)
+        beaconPeripheralData = beaconRegion.peripheralDataWithMeasuredPower(nil)
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+        //print("successfully initialized beacon region")
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
-        
-        print("What up?")
     }
     
 
@@ -837,8 +817,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     func pushToUser(sender: PFUser, recipient: PFUser, photo: PFObject){
         let push = PFPush()
-        let senderName = sender["username"]
-        let recipientName = recipient["username"]
+        let senderName = sender["name"]
+        let recipientName = recipient["name"]
         let data = [
             "alert" : "\(senderName) sent you a photo!",
             "badge" : "Increment",

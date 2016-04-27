@@ -67,9 +67,8 @@ class CheckListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("checkCell", forIndexPath: indexPath)
         
         // Configure the cell...
-        cell.textLabel!.text = items[indexPath.row]["username"] as? String
+        cell.textLabel!.text = items[indexPath.row]["name"] as? String
         let bgColorView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-//        bgColorView.backgroundColor = UIColor(white: 1, alpha: 0.3)
         cell.selectedBackgroundView = bgColorView
 //        
 //        if(indexPath.row == 0){
