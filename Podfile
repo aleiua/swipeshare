@@ -9,6 +9,7 @@ xcodeproj 'SwipeShare'
 
 target 'SwipeShare' do
 pod 'LocationKit', '~> 3.0.0'
+pod 'FontAwesomeKit', '~> 2.2.0'
 end
 
 target 'SwipeShareTests' do

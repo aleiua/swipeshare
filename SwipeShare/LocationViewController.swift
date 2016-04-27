@@ -29,6 +29,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     // Button for accessing photos
     @IBOutlet weak var photoz: UIButton!
     
+    @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var nearestLabel: UILabel!
@@ -212,8 +213,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func loadImage(image: UIImageView) {
         
-        
-        let maxDimension = 175
+        promptLabel.hidden = true
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let maxDimension = round(screenWidth*0.6)
         
         let width = image.image!.size.width
         let height = image.image!.size.height
