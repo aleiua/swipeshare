@@ -33,7 +33,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
         // Create a sort descriptor object that sorts on the "title"
         // property of the Core Data object
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true) // Puts newest messages on top
         
         // Set the list of sort descriptors in the fetch request,
         // so it includes the sort descriptor
@@ -85,9 +85,9 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         let msg = fetchedMessages[indexPath.row] as Message
         
         if msg.hasBeenOpened == false {
-            cell.senderLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+            cell.senderLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
         } else {
-            cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 16.0)
+            cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
         }
         cell.senderLabel.text = String(msg.sender)
 
