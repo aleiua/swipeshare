@@ -14,15 +14,28 @@ import Parse
 class SettingsViewController: UITableViewController {
 
     @IBOutlet weak var userIcon: UIImageView!
+    @IBOutlet weak var usernameField: UILabel!
+    
     override func viewDidLoad() {
         print("loaded settings view controller")
         super.viewDidLoad()
         
-        userIcon.layer.borderWidth = 5
+        // Extract profile picture from parse and resize
+        if let profilePicture = PFUser.currentUser()?["profilePicture"] as? PFFile {
+            profilePicture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                if (error == nil) {
+                    self.userIcon.image = self.cropImageToSquare(image: UIImage(data: imageData!)!)
+                }
+            }
+        }
+        userIcon.layer.borderWidth = 4
         userIcon.layer.masksToBounds = false
-        userIcon.layer.borderColor = UIColor.grayColor().CGColor
+        userIcon.layer.borderColor = UIColor.blackColor().CGColor
         userIcon.layer.cornerRadius = userIcon.frame.height/2
         userIcon.clipsToBounds = true
+        
+        // Update name field with Facebook username taken from Parse
+        usernameField.text = PFUser.currentUser()?["name"] as? String
         
     }
     
@@ -39,6 +52,45 @@ class SettingsViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    
+    func cropImageToSquare(image originalImage: UIImage) -> UIImage {
+        // Create a copy of the image without the imageOrientation property so it is in its native orientation (landscape)
+        let contextImage: UIImage = UIImage(CGImage: originalImage.CGImage!)
+        
+        // Get the size of the contextImage
+        let contextSize: CGSize = contextImage.size
+        
+        let posX: CGFloat
+        let posY: CGFloat
+        let width: CGFloat
+        let height: CGFloat
+        
+        // Check to see which length is the longest and create the offset based on that length, then set the width and height of our rect
+        if contextSize.width > contextSize.height {
+            posX = ((contextSize.width - contextSize.height) / 2)
+            posY = 0
+            width = contextSize.height
+            height = contextSize.height
+        } else {
+            posX = 0
+            posY = ((contextSize.height - contextSize.width) / 2)
+            width = contextSize.width
+            height = contextSize.width
+        }
+        
+        let rect: CGRect = CGRectMake(posX, posY, width, height)
+        
+        // Create bitmap image from context using the rect
+        let imageRef: CGImageRef = CGImageCreateWithImageInRect(contextImage.CGImage, rect)!
+        
+        // Create a new image based on the imageRef and rotate back to the original orientation
+        let image: UIImage = UIImage(CGImage: imageRef, scale: originalImage.scale, orientation: originalImage.imageOrientation)
+        
+        return image
+
     }
     
 }
