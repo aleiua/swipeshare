@@ -495,7 +495,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
 
     
-    func sendToUsers(users: [PFObject]) {
+    func sendToUsers(users: [PFObject], bluetooth: Bool) {
         if (DEBUG) {
             print("Sending to users")
         }
@@ -521,10 +521,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             }
             pushToUser(PFUser.currentUser()!, recipient: user as! PFUser, photo: toSend)
         }
-//        
-//        if (STORE_DATA && users.count == 1) {
-//            storeActionData(users[0])
-//        }
+        
+        if (!bluetooth && STORE_DATA && users.count == 1) {
+            storeActionData(users[0])
+        }
         
     }
 
@@ -833,7 +833,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         for beacon in beacons {
             if beacon.rssi > -35 {
                 let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
-                sendToUsers(neighbor)
+                sendToUsers(neighbor, bluetooth: true)
                 // remove photo from view
                 // image = nil
             }
@@ -855,7 +855,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     func findBluetoothNeighbor(identifier : Int) -> Array<PFObject> {
 
         let query = PFQuery(className:"_User")
-       
         query.whereKey("btIdentifier", equalTo: identifier)
         
         

@@ -26,7 +26,7 @@ class CheckListViewController: UITableViewController {
         for selectedItem in selected {
             users.append(items[selectedItem.row])
         }
-        delegate?.sendToUsers(users)
+        delegate?.sendToUsers(users, bluetooth: false)
     }
     
 
