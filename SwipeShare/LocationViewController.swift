@@ -624,6 +624,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         return pictureObjects
     }
+    
+    // Check to see if the user is blocked
+    func isBlocked(username: String) -> Bool {
+        for user in blockedUsers {
+            print(user.username)
+            if user.username == username {
+                return true
+            }
+        }
+        return false
+    }
 
     func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
         
