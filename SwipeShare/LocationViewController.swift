@@ -669,14 +669,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 let message = Message(sender: String(msgSender["username"]), date: sentDate as NSDate, imageData: nil, objectId: msgId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
                 
                 
+
                 
-                // OLD WAY OF CREATING MESSAGES
-                
-//              let message = NSEntityDescription.insertNewObjectForEntityForName("Message", inManagedObjectContext: self.managedObjectContext) as! Message
-//                
-//                message.sender = String(msgSender["username"])
-//                message.date = sentDate as NSDate
-//                message.objectId = msgId!
                 
                 
                 // DEBUG PRINT STATEMENTS
@@ -691,7 +685,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 } catch {
                     fatalError("Failure to save context: \(error)")
                 }
-                
+                // Set object to read.
+                object["hasBeenRead"] = true
                 object.saveInBackground()
             }
         }

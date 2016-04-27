@@ -23,6 +23,7 @@ class Message: NSManagedObject  {
     @NSManaged var date: NSDate
     @NSManaged var imageData: NSData?
     @NSManaged var objectId: ObjectId
+    @NSManaged var hasBeenOpened: Bool
     
     
     // Set text and image to default "nil" if they are not part of the message
@@ -42,6 +43,7 @@ class Message: NSManagedObject  {
         self.sender = sender
         self.date = date
         self.objectId = objectId
+        self.hasBeenOpened = false
         
         if imageData != nil {
             self.imageData = imageData

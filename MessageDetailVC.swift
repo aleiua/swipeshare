@@ -75,11 +75,11 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
                         if (error == nil) {
                             print("Photo downloaded")
                             self.message.imageData = imageData
+                            self.message.hasBeenOpened = true
                             self.messageImageView.image = UIImage(data: self.message.imageData!)
                             self.activityIndicator.stopAnimating()
-                            // Set object to read.
-                            object!["hasBeenRead"] = true
-                            object!.saveInBackground()
+                            
+                            
                             
                             do {
                                 try self.managedObjectContext.save()
@@ -94,6 +94,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
                     }
                     
                 }
+                
                 
                 
                 

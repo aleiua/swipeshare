@@ -83,6 +83,12 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
         let msg = fetchedMessages[indexPath.row] as Message
+        
+        if msg.hasBeenOpened == false {
+            cell.senderLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        } else {
+            cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 16.0)
+        }
         cell.senderLabel.text = String(msg.sender)
 
         cell.sentDate.text = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
