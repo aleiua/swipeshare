@@ -562,7 +562,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
     }
-    
+    /****************FRIEND STUFF****************/
+     
+    @IBAction func presentView(sender: AnyObject) {
+
+        let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
+        friendPromptViewController.modalPresentationStyle = .OverCurrentContext
+        friendPromptViewController.delegate = self
+        presentViewController(friendPromptViewController, animated: true, completion: nil)
+
+    }
     
     /****************************RETRIEVE IMAGES*********************************/
     
