@@ -57,7 +57,7 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
         self.dismissViewControllerAnimated(true, completion: nil)
 
-        if (PFUser.currentUser() != nil && FBSDKAccessToken.currentAccessToken() == nil) {
+        if (PFUser.currentUser() != nil && FBSDKAccessToken.currentAccessToken() != nil) {
             self.storeFacebookData()
         }
         
@@ -76,8 +76,7 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
         }
     }
     
-    
-    
+
     func presentLoggedInAlert() {
         let alertController = UIAlertController(title: "You're logged in", message: "Welcome to Yaw", preferredStyle: .Alert)
         let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in

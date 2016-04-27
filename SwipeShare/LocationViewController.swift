@@ -412,7 +412,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
         let filename = "image.jpg"
-        let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
+        let jpgImage = UIImageJPEGRepresentation(image.image!, 0.5)
         let imageFile = PFFile(name: filename, data: jpgImage!)
         
         for user in users {
@@ -470,14 +470,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
-    @IBAction func callSortNeighbors(sender: AnyObject) {
-        
-        let users = findNeighbors()
-        
-        let sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: users, sortBy: 0)
-        print(sortedNeighbors)
-    }
-
     func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
         var doubleToObjects = [Double : Array<PFObject>]()
         var distances = [Double]()
@@ -557,11 +549,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         return orderedNeighbors
     }
     
-    
-    @IBAction func callFindNeighbors(sender: AnyObject) {
-        findNeighbors()
-    }
-    
     func findNeighbors() -> Array<PFObject> {
         
         print("Querying for neighbors")
@@ -574,31 +561,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             greaterThan: (userLongitude - searchDistance))
         query.whereKey("longitude",
             lessThan: (userLongitude + searchDistance))
+        query.whereKey("objectId", notEqualTo: self.userObjectId)
         
         
         // Get all close neighbors
         var users = [PFObject]()
-        var index = -1
         do {
             try users = query.findObjects()
             for (i, user) in users.enumerate() {
                 
-                if (user.objectId != self.userObjectId) {
-                    print("Adjacent User: " + String(user["name"]))
-                }
-                    
-                else {
-                    if (DEBUG) {
-                        print("Found myself when looking for nearby neighbors")
-                    }
-                    index = i
-                }
-            }
-            if (index != -1) {
-                if (DEBUG) {
-                    print("Removing myself from neighby neighbors")
-                }
-                users.removeAtIndex(index)
+                print("Adjacent User: " + String(user["name"]))
+                
             }
         }
         catch {
@@ -611,20 +584,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     /****************************RETRIEVE IMAGES*********************************/
     
-    
-    func createNewMessageObject(sender: AnyObject) {
-//        let msg = Message(sender: <#T##String#>, receiver: PFUser.currentUser()!, text: String?, image: <#T##UIImage?#>)
-    }
-    
-    
-    func saveMessage(sender: AnyObject) {
-        
-    }
-    
-    @IBAction func getSentPictures(sender: AnyObject) {
-        getPictureObjectsFromParse()
-        
-    }
+
      
     func getPictureObjectsFromParse() -> Array<PFObject> {
         
@@ -740,6 +700,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     print(self.userObjectId)
                 }
             }
+            else {
+                if (self.DEBUG) {
+                    print("Error saving user in viewDidLoad")
+                }
+            }
         }
         
         let installation = PFInstallation.currentInstallation()
@@ -750,8 +715,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
-        
-        print("What up?")
     }
     
 
