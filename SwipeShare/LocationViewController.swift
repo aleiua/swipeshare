@@ -58,6 +58,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var swipedHeading = Float()
     var DEBUG = false
     var ACCURACY = false
+    
+    // Errors in swiping or distance to other user.
+    var spacialErrors = [Double : Array<PFObject>]()
+
    
     
     // New things for container
@@ -177,7 +181,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                         self.swipedHeading = self.currentHeading + Float(self.angle) % 360
                         print("currentHeading is: \(self.currentHeading)")
                         print("Swiped Heading iself.s: \(self.swipedHeading)")
-                        self.findClosestNeighbor(0);
+                        self.passNeighborsToChecklist(0);
                         print("animation complete and removed from superview")
                 })
             }
@@ -304,7 +308,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         loadImage(image)
     }
     
-    /*****************************NEIGHBOR SORTING*****************************/
+    
+    /********************DISTANCE AND BEARING CALCULATIONS********************/
     
     // Calculates distance from point A to B using Haversine formula
     // Currently returns distance in KM
@@ -348,49 +353,112 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         return angle
         
     }
+    
+    /*****************************NEIGHBOR SORTING*****************************/
 
     
-
-    func sendToClosestNeighbor(sort: Int) {
-        if (DEBUG) {
-            print("Sending to closest neighbor")
+    func findNeighbors() -> Array<PFObject> {
+        
+        print("Querying for neighbors")
+        let query = PFQuery(className:"_User")
+        query.whereKey("latitude",
+            greaterThan: (userLatitude - searchDistance))
+        query.whereKey("latitude",
+            lessThan: (userLatitude + searchDistance))
+        query.whereKey("longitude",
+            greaterThan: (userLongitude - searchDistance))
+        query.whereKey("longitude",
+            lessThan: (userLongitude + searchDistance))
+        query.whereKey("objectId", notEqualTo: self.userObjectId)
+        
+        
+        // Get all close neighbors
+        var users = [PFObject]()
+        do {
+            try users = query.findObjects()
+            for (i, user) in users.enumerate() {
+                
+                print("Adjacent User: " + String(user["name"]))
+                
+            }
+        }
+        catch {
+            print("Error getting neighbors!")
         }
         
-        let nearbyUsers = findNeighbors()
-        if (nearbyUsers.count > 0) {
-            var sortedNeighbors = [PFObject]()
-            sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
-            
-            let closestNeighbor = sortedNeighbors[0]
-            
-            let toSend = PFObject(className: "sentPicture")
-            
-            toSend["date"] = NSDate()
-            toSend["recipient"] = closestNeighbor
-            toSend["sender"] = PFUser.currentUser()
-            toSend["hasBeenRead"] = false
-            
-            let filename = "image.jpg"
-            let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
-            let imageFile = PFFile(name: filename, data: jpgImage!)
-            toSend["image"] = imageFile
-            
-            toSend.saveInBackgroundWithBlock { (success, error) -> Void in
-                if success {
-                    print("Saved toSend object.")
-                }
-                else {
-                    print("Failed saving toSend object")
+        return users
+    }
+
+    // Sorting function
+    // Pass in 1 to sort by distance, otherwise sorts by bearing
+    func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
+        spacialErrors.removeAll()
+        var distances = [Double]()
+        
+        for n in neighbors {
+            var distance = 0.0
+            // Sort by distance
+            if sortBy == 1 {
+                distance = Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
+            }
+            // Sort by bearing
+            else {
+                let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
+              
+                let a = abs(Double(swipedHeading) - direction)
+                let b = 360 - a
+                distance = min(a, b)
+                
+                if (ACCURACY) {
+                    print("Direction from me to neighbor: \(n["name"]) = \(direction)")
+                    print("Accuracy of swipe: \(n["name"]) = \(distance)")
                 }
             }
-            pushToUser(PFUser.currentUser()!, recipient: closestNeighbor as! PFUser, photo: toSend)
+            
+            // Old entry in dictionary
+            var previousEntry = spacialErrors[distance]
+            // Check if someone else has same distance
+            if previousEntry == nil {
+                var newArray = [PFObject]()
+                newArray.append(n)
+
+                spacialErrors[distance] = newArray
+                distances.append(distance)
+
+            }
+            else {
+                previousEntry!.append(n)
+                spacialErrors[distance] = previousEntry
+            }
         }
+        
+        distances.sortInPlace() // Is this less efficient than regular sort?
+        var orderedNeighbors = [PFObject]()
+        
+        
+        // Convert sorted distances into sorted objects.
+        for d in distances {
+            let arr = spacialErrors[d]
+            for obj in arr! {
+                orderedNeighbors.append(obj)
+            }
+        }
+        
+        if (DEBUG) {
+            print("Sorted Neighbors: \(orderedNeighbors)")
+        }
+
+        
+        return orderedNeighbors
     }
     
-    func findClosestNeighbor(sort: Int) {
+    func passNeighborsToChecklist(sort: Int) {
         let nearbyUsers = findNeighbors()
         var sortedNeighbors = [PFObject]()
         sortedNeighbors = sortNeighbors(PFUser.currentUser()!, neighbors: nearbyUsers, sortBy: sort)
+        
         if (sortedNeighbors.count != 0) {
             // if it finds users, display the checklist
             let checkListViewController = storyboard!.instantiateViewControllerWithIdentifier("checklist") as! CheckListViewController
@@ -405,6 +473,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             overlayView.displayView(view)
         }
     }
+    
     
     func sendToUsers(users: [PFObject]) {
         if (DEBUG) {
@@ -464,121 +533,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             else {
                 print("Failed saving data")
             }
-        }  
-        
-    }
-    
-    // Sorting function
-    // Pass in 1 to sort by distance, otherwise sorts by bearing
-    func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
-        var doubleToObjects = [Double : Array<PFObject>]()
-        var distances = [Double]()
-        
-        for n in neighbors {
-            var distance = 0.0
-            // Sort by distance
-            if sortBy == 1 {
-                distance = Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
-                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
-            }
-            // Sort by bearing
-            else {
-                let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
-                    latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
-              
-                let a = abs(Double(swipedHeading) - direction)
-                let b = 360 - a
-                distance = min(a, b)
-                
-                if (ACCURACY) {
-                    print("Direction from me to neighbor: \(n["name"]) = \(direction)")
-                    print("Accuracy of swipe: \(n["name"]) = \(distance)")
-                }
-            }
-            
-            // Old entry in dictionary
-            var previousEntry = doubleToObjects[distance]
-            // Check if someone else has same distance
-            if previousEntry == nil {
-                var newArray = [PFObject]()
-                newArray.append(n)
-
-                doubleToObjects[distance] = newArray
-                distances.append(distance)
-
-            }
-            else {
-                previousEntry!.append(n)
-                doubleToObjects[distance] = previousEntry
-            }
         }
         
-        distances.sortInPlace() // Is this less efficient than regular sort?
-        var orderedNeighbors = [PFObject]()
-        
-        // Data Collection Variables
-        let intendedUser = self.intendedUserField.text
-        
-        var intended: PFObject!
-        var intendedBearing = Double()
-        
-        
-        // Convert sorted distances into sorted objects.
-        for d in distances {
-            let arr = doubleToObjects[d]
-            for obj in arr! {
-                orderedNeighbors.append(obj)
-                if (String(obj["name"]) == intendedUser) {
-                    intended = obj
-                    intendedBearing = d
-                }
-            }
-        }
-        
-        if (DEBUG) {
-            print("Sorted Neighbors: \(orderedNeighbors)")
-        }
-
-        // Check to make sure user entered a person.
-        if (!(intendedUser ?? "").isEmpty) {
-            print("Storing sending information")
-            storeSendingInformation(intended, actualRecipient : orderedNeighbors[0], intendedBear : intendedBearing, actualBear : distances[0])
-        }
-
-        nearestLabel.text = String(orderedNeighbors[0]["name"])
-        return orderedNeighbors
-    }
-    
-    func findNeighbors() -> Array<PFObject> {
-        
-        print("Querying for neighbors")
-        let query = PFQuery(className:"_User")
-        query.whereKey("latitude",
-            greaterThan: (userLatitude - searchDistance))
-        query.whereKey("latitude",
-            lessThan: (userLatitude + searchDistance))
-        query.whereKey("longitude",
-            greaterThan: (userLongitude - searchDistance))
-        query.whereKey("longitude",
-            lessThan: (userLongitude + searchDistance))
-        query.whereKey("objectId", notEqualTo: self.userObjectId)
-        
-        
-        // Get all close neighbors
-        var users = [PFObject]()
-        do {
-            try users = query.findObjects()
-            for (i, user) in users.enumerate() {
-                
-                print("Adjacent User: " + String(user["name"]))
-                
-            }
-        }
-        catch {
-            print("Error getting neighbors!")
-        }
-        
-        return users
     }
     
     
