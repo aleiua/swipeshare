@@ -82,14 +82,50 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     }
     
     // Swipe left on a message to delete (will only remove from temporary store)
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            messageManager.messages.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-            
-            // send to parse that message has been removed!!
-        }
+//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if editingStyle == UITableViewCellEditingStyle.Delete {
+//            
+//            print("COMMIT EDITING")
+////            messageManager.messages.removeAtIndex(indexPath.row)
+////            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+//            
+//            // send to parse that message has been removed!!
+//        }
+//    }
+
+    /*********/
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
     }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: " Delete ", handler:{action, indexpath in
+            self.messageManager.messages.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        });
+        deleteAction.backgroundColor = UIColor.redColor()
+        
+        
+        let blockAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "  Block  \n  User", handler:{action, indexpath in
+            print("MORE•ACTION");
+        });
+        blockAction.backgroundColor = UIColor.lightGrayColor();
+        
+        
+        
+        
+        
+        return [deleteAction, blockAction]
+    }
+    
+    //empty implementation
+//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//    }
+
+    /*************/
+    
     
     
     func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
