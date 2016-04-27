@@ -52,6 +52,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
+    var blockedUsers = [BlockedUser]()
+    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    
     var angle: CGFloat!
     var panGesture: UIPanGestureRecognizer!
     var image: UIImageView!
@@ -381,10 +384,21 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         // Get all close neighbors
         var users = [PFObject]()
+        var isBlocked: Bool
+
         do {
             try users = query.findObjects()
 
             for (i, user) in users.enumerate() {
+                // Filter out blocked users by removing from list returned by query
+                isBlocked = false
+                for blockedUser in blockedUsers {
+                    if (String(user["username"]) == blockedUser.username!) {
+                        users.removeAtIndex(i)
+                        isBlocked = true
+                        break
+                    }
+                }
                 print("Adjacent User: " + String(user["name"]))
             }
         }
@@ -566,7 +580,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     /****************************RETRIEVE IMAGES*********************************/
-    
+     // Check to see if the user is blocked
+    func isBlocked(username: String) -> Bool {
+        for user in blockedUsers {
+            print(user.username)
+            if user.username == username {
+                return true
+            }
+        }
+        return false
+    }
 
      
     func getPictureObjectsFromParse() -> Array<PFObject> {
@@ -584,14 +607,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             print("Entering for loop")
             print(pictureObjects.endIndex)
             for object in pictureObjects {
+                
                 let msgSender = object["sender"]
                 let msgId = object.objectId
                 let sentDate = object.createdAt! as NSDate
                 
-                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
-                self.msgManager.addMessage(msg)
-                
-                object.saveInBackground()
+                if !isBlocked(msgSender.username!) {
+
+                    let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
+                    self.msgManager.addMessage(msg)
+                }                
             }
         }
         catch {
