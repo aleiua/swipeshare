@@ -35,7 +35,9 @@ class CheckListViewController: UITableViewController {
         self.setEditing(true, animated: true)
         tableView.backgroundView = blurredBackgroundView
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
-         self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.Middle)
+        self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.Middle)
+        tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurredBackgroundView.effect as! UIBlurEffect)
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -66,6 +68,9 @@ class CheckListViewController: UITableViewController {
         
         // Configure the cell...
         cell.textLabel!.text = items[indexPath.row]["username"] as? String
+        let bgColorView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+//        bgColorView.backgroundColor = UIColor(white: 1, alpha: 0.3)
+        cell.selectedBackgroundView = bgColorView
 //        
 //        if(indexPath.row == 0){
 //            self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.Middle)
