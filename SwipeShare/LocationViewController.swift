@@ -853,6 +853,27 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
 
     
+    func findBluetoothNeighbor(identifier : Int) -> Array<PFObject> {
+
+        let query = PFQuery(className:"_User")
+       
+        query.whereKey("btIdentifier", equalTo: identifier)
+        
+        
+        // Get all close neighbors
+        var neighbor = [PFObject]()
+        do {
+            try neighbor = query.findObjects()
+            
+        }
+        catch {
+            print("Error getting neighbors!")
+        }
+        
+        return neighbor
+
+    }
+    
 
     // MARK: - Navigation
 
