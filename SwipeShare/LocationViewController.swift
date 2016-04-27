@@ -808,6 +808,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
      */
     func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         print(beacons)
+        for beacon in beacons {
+            if beacon.rssi > -30 {
+                for neighbor in findNeighbors() {
+                    if (Int(beacon.major) + Int(beacon.minor)) == Int(neighbor["btIdentifier"] as! NSNumber) {
+                        print("entered close range")
+                    }
+                }
+            }
+        }
     }
     
     
