@@ -690,40 +690,34 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="K6A-wg-Zmp">
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HLz-P2-sG9">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="70" id="9hb-tm-5Br"/>
-                                            </constraints>
-                                            <items>
-                                                <navigationItem title="A new user has sent to you!" id="ff3-Su-lxf">
-                                                    <barButtonItem key="leftBarButtonItem" systemItem="stop" id="6PA-Ld-S7C">
-                                                        <connections>
-                                                            <action selector="cancelMessage:" destination="fTm-fg-zZN" id="2hl-on-Gy3"/>
-                                                        </connections>
-                                                    </barButtonItem>
-                                                </navigationItem>
-                                            </items>
-                                        </navigationBar>
+                                            <subviews>
+                                                <navigationBar contentMode="scaleToFill" ambiguous="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="K6A-wg-Zmp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="70" id="9hb-tm-5Br"/>
+                                                    </constraints>
+                                                    <items>
+                                                        <navigationItem title="A new user has sent to you!" id="ff3-Su-lxf">
+                                                            <barButtonItem key="leftBarButtonItem" systemItem="stop" id="6PA-Ld-S7C">
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <connections>
+                                                                    <action selector="cancelMessage:" destination="fTm-fg-zZN" id="2hl-on-Gy3"/>
+                                                                </connections>
+                                                            </barButtonItem>
+                                                        </navigationItem>
+                                                    </items>
+                                                </navigationBar>
+                                            </subviews>
+                                        </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWK-SK-4m5" userLabel="Block">
-                                            <rect key="frame" x="0.0" y="175" width="320" height="71"/>
+                                            <rect key="frame" x="0.0" y="177" width="320" height="71"/>
                                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="Block">
-                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <state key="selected">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaT-i7-hZ3">
-                                            <rect key="frame" x="0.0" y="322" width="320" height="71"/>
-                                            <color key="backgroundColor" red="0.0016079409359999999" green="1" blue="0.5849367177" alpha="0.75" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <state key="normal" title="Add Friend">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <state key="selected">
@@ -742,6 +736,18 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaT-i7-hZ3">
+                                            <rect key="frame" x="0.0" y="318" width="320" height="71"/>
+                                            <color key="backgroundColor" red="0.0016079409359999999" green="1" blue="0.5849367177" alpha="0.75" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Add Friend">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="selected">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="V36-Ne-xPA" firstAttribute="centerX" secondItem="l4t-KC-kZu" secondAttribute="centerX" id="4M3-7o-hVw"/>
@@ -751,6 +757,8 @@
                                         <constraint firstAttribute="trailing" secondItem="IWK-SK-4m5" secondAttribute="trailing" id="Ocf-Dv-wNj"/>
                                         <constraint firstItem="SaT-i7-hZ3" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="Ufa-DR-WOv"/>
                                         <constraint firstItem="V36-Ne-xPA" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="YDw-0f-RcH"/>
+                                        <constraint firstAttribute="trailing" secondItem="HLz-P2-sG9" secondAttribute="trailing" id="gFY-bs-g8J"/>
+                                        <constraint firstItem="HLz-P2-sG9" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="oKc-oc-dMk"/>
                                         <constraint firstItem="IWK-SK-4m5" firstAttribute="centerX" secondItem="l4t-KC-kZu" secondAttribute="centerX" id="pif-6a-B8J"/>
                                         <constraint firstItem="IWK-SK-4m5" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="wXu-I9-BLt"/>
                                     </constraints>
@@ -758,7 +766,6 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="DAv-il-Hqp" firstAttribute="leading" secondItem="qhp-bj-aZ0" secondAttribute="leading" id="Ikk-Ei-Qg9"/>
                             <constraint firstItem="DAv-il-Hqp" firstAttribute="top" secondItem="qhp-bj-aZ0" secondAttribute="top" id="ZGN-vg-gph"/>
