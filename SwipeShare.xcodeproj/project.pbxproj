@@ -284,12 +284,12 @@
 				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
 				5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
+				793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
 				937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */,
 				937E7F3D1C55672700057D32 /* Info.plist */,
 				937E7F351C55672700057D32 /* SwipeShare.xcdatamodeld */,
-				793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */,
 			);
 			path = SwipeShare;
 			sourceTree = "<group>";
