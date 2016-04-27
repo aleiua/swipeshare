@@ -473,6 +473,13 @@
                                     <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t9j-77-0sN"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZu-3N-oeJ">
+                                <rect key="frame" x="145" y="134" width="30" height="30"/>
+                                <state key="normal" title="YO"/>
+                                <connections>
+                                    <action selector="test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zjY-mT-pft"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.31341638378628611" green="0.49561332507590039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -900,6 +907,108 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jt7-bj-CB8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-96" y="-396"/>
+        </scene>
+        <!--Bump Validation View Controller-->
+        <scene sceneID="Anu-9y-ifF">
+            <objects>
+                <viewController storyboardIdentifier="bumpvalidation" modalTransitionStyle="crossDissolve" id="IIq-kb-Dai" customClass="BumpValidationViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7il-eE-Yrx"/>
+                        <viewControllerLayoutGuide type="bottom" id="wD9-bI-1pa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a1v-KV-CPE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFK-hj-6GC">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Sdg-ue-hsp">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-fE-eIO">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                            <subviews>
+                                                <navigationBar contentMode="scaleToFill" ambiguous="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="QsL-cH-MQc">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="70" id="avn-rp-lyO"/>
+                                                    </constraints>
+                                                    <items>
+                                                        <navigationItem id="nGY-aF-kI0">
+                                                            <barButtonItem key="leftBarButtonItem" systemItem="stop" id="xuF-Tl-zQr">
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <connections>
+                                                                    <action selector="cancelMessage:" destination="IIq-kb-Dai" id="SsH-Gk-4je"/>
+                                                                </connections>
+                                                            </barButtonItem>
+                                                        </navigationItem>
+                                                    </items>
+                                                </navigationBar>
+                                            </subviews>
+                                        </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDX-aj-Q1q" userLabel="Block">
+                                            <rect key="frame" x="0.0" y="204" width="320" height="71"/>
+                                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="No">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="selected">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="cancelMessage:" destination="IIq-kb-Dai" eventType="touchUpInside" id="opE-G9-t5f"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r3Y-h8-Qjx">
+                                            <rect key="frame" x="0.0" y="280" width="320" height="71"/>
+                                            <color key="backgroundColor" red="0.0016079409359999999" green="1" blue="0.5849367177" alpha="0.75" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Yes!">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="selected">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="sendMessage:" destination="IIq-kb-Dai" eventType="touchUpInside" id="97g-I7-Rpe"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="r3Y-h8-Qjx" firstAttribute="centerX" secondItem="Sdg-ue-hsp" secondAttribute="centerX" id="8Z9-JB-9JF"/>
+                                        <constraint firstItem="CDX-aj-Q1q" firstAttribute="centerX" secondItem="Sdg-ue-hsp" secondAttribute="centerX" id="Ce0-rj-kQU"/>
+                                        <constraint firstItem="iC8-fE-eIO" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" id="GVc-ae-mAR"/>
+                                        <constraint firstAttribute="trailing" secondItem="iC8-fE-eIO" secondAttribute="trailing" id="TxN-qx-fbu"/>
+                                        <constraint firstItem="r3Y-h8-Qjx" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" id="bb9-N3-5E4"/>
+                                        <constraint firstAttribute="trailing" secondItem="r3Y-h8-Qjx" secondAttribute="trailing" id="hcL-r2-CFJ"/>
+                                        <constraint firstItem="CDX-aj-Q1q" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" id="oDI-ax-8bD"/>
+                                        <constraint firstAttribute="trailing" secondItem="CDX-aj-Q1q" secondAttribute="trailing" id="ujr-sA-d3j"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="NFK-hj-6GC" firstAttribute="bottom" secondItem="wD9-bI-1pa" secondAttribute="top" id="6e3-QZ-bd8"/>
+                            <constraint firstAttribute="trailing" secondItem="NFK-hj-6GC" secondAttribute="trailing" id="MsP-ee-cp0"/>
+                            <constraint firstItem="NFK-hj-6GC" firstAttribute="leading" secondItem="a1v-KV-CPE" secondAttribute="leading" id="aRX-cu-Zp3"/>
+                            <constraint firstItem="NFK-hj-6GC" firstAttribute="top" secondItem="a1v-KV-CPE" secondAttribute="top" id="smq-e7-SxQ"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="blurredBackgroundView" destination="NFK-hj-6GC" id="t70-NP-1h0"/>
+                        <outlet property="navBar" destination="QsL-cH-MQc" id="AnP-sm-eCC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Kg-Rv-uGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1230" y="1178"/>
         </scene>
     </scenes>
     <resources>

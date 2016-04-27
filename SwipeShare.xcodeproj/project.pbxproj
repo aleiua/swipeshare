@@ -37,6 +37,7 @@
 		793635F01CB2DB8F005CA708 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */; };
 		793635F11CB2DB8F005CA708 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */; };
 		793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */; };
+		793FE0A01CD165300009DEB4 /* BumpValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */; };
 		79ED85831CBB30E3000D6E4E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED85821CBB30E3000D6E4E /* ParseUI.framework */; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
@@ -78,8 +79,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		050318431CC718CC003221F1 /* SIMPLIFICA Typeface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SIMPLIFICA Typeface.ttf"; sourceTree = "<group>"; };
-		050318441CC718D1003221F1 /* Dense-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dense-Regular.otf"; sourceTree = "<group>"; };
 		05033C1D1CC54889001B7428 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		050B634D1C55CA3B0033279B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		050B634F1C55D7D70033279B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -111,6 +110,7 @@
 		793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendPromptViewController.swift; sourceTree = "<group>"; };
+		793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BumpValidationViewController.swift; sourceTree = "<group>"; };
 		79ED85821CBB30E3000D6E4E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
 		929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwipeShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,7 +267,6 @@
 				0520578D1C81089B00009D91 /* yawIcon.png */,
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,
 				937E7F301C55672700057D32 /* ViewController.swift */,
-				939B829C1C87859700770F79 /* MessageTableVC.swift */,
 				05ECD7111CCD755400B63B80 /* BlockedUser.swift */,
 				939B82A01C87882400770F79 /* Message.swift */,
 				939B82A21C87D2D800770F79 /* MessageManager.swift */,
@@ -276,7 +275,6 @@
 				93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */,
 				93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */,
 				93FA3F211C66A8C000BB3791 /* LoginViewController.swift */,
-				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
 				05033C1D1CC54889001B7428 /* Friend.swift */,
 				054F0B661C8E04BE00496D38 /* ContainerViewController.swift */,
 				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
@@ -285,6 +283,7 @@
 				5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
 				793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */,
+				793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
 				937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */,
@@ -521,6 +520,7 @@
 				937E7F311C55672700057D32 /* ViewController.swift in Sources */,
 				5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */,
 				05746A6A1C7E833100161135 /* iCarousel.m in Sources */,
+				793FE0A01CD165300009DEB4 /* BumpValidationViewController.swift in Sources */,
 				93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */,
 				932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */,
 				93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */,
@@ -534,7 +534,6 @@
 				939B82A31C87D2D800770F79 /* MessageManager.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				05033C1E1CC54889001B7428 /* Friend.swift in Sources */,
-				5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */,
 				054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

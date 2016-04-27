@@ -889,24 +889,46 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         if image != nil {
             for beacon in beacons {
                 if (beacon.rssi > -36 && beacon.rssi != 0 && image.hidden == false) {
-                    let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
-                    sendToUsers(neighbor, bluetooth: true)
                     
-                    image.hidden = true
-
-                    // Fade the refresh image button back in
-                    UIView.animateWithDuration(0.2,
-                        delay: 0,
-                        options: UIViewAnimationOptions.CurveEaseIn,
-                        animations: {
-                            self.sendAnother.alpha = 1
-                        }, completion: { finished in
-                            self.sendAnother.hidden = false
-                    })
-                }
+                    let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
+                    
+                    
+                    let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("checklist") as! BumpValidationViewController
+                    bumpViewController.modalPresentationStyle = .OverCurrentContext
+                    bumpViewController.delegate = self
+                    bumpViewController.recipient = neighbor
+                    presentViewController(bumpViewController, animated: true, completion: nil)
+                                    }
             }
         }
     }
+    
+    func refreshSymbol() {
+        
+        image.hidden = true
+        
+        // Fade the refresh image button back in
+        UIView.animateWithDuration(0.2,
+            delay: 0,
+            options: UIViewAnimationOptions.CurveEaseIn,
+            animations: {
+                self.sendAnother.alpha = 1
+            }, completion: { finished in
+                self.sendAnother.hidden = false
+        })
+
+    }
+    
+    
+//    @IBAction func test(sender: AnyObject) {
+//        let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("bumpvalidation") as! BumpValidationViewController
+//        bumpViewController.modalPresentationStyle = .OverCurrentContext
+//        bumpViewController.delegate = self
+//        checkListViewController.recipient = neighbors
+//
+//        presentViewController(bumpViewController, animated: true, completion: nil)
+//
+//    }
     
     
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
