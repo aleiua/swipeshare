@@ -12,7 +12,6 @@
 //
 //#endif /* Yaw_Bridging_Header_h */
 
-#import "iCarousel.h"
 #import <LocationKit/LocationKit.h>
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
@@ -21,4 +20,4 @@
 #import <Bolts/Bolts.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-
+#import <FontAwesomeKit/FontAwesomeKit.h>

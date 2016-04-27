@@ -84,10 +84,8 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-SwipeShare/FontAwesomeKit.framework"
   install_framework "${PODS_ROOT}/LocationKit/LocationKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-SwipeShare/FontAwesomeKit.framework"
   install_framework "${PODS_ROOT}/LocationKit/LocationKit.framework"
 fi

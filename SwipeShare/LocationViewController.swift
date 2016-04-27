@@ -13,6 +13,7 @@ import Foundation
 import Darwin
 import LocationKit
 import CoreBluetooth
+import FontAwesomeKit
 
 
 // Protocol written for container
@@ -28,7 +29,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     // Button for accessing photos
     @IBOutlet weak var photoz: UIButton!
-    
+    @IBOutlet weak var inboxButton: UIBarButtonItem!
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
@@ -650,14 +651,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         locationManager.apiToken = "76f847c677f70038"
         locationManager.requestAlwaysAuthorization()
         
-
-        
         locationManager.advancedDelegate = self
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        
+//        inboxButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Ionicons", size: 30)!], forState: UIControlState.Normal)
         self.sendAnother.hidden = true
         self.sendAnother.alpha = 0
         

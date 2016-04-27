@@ -24,10 +24,10 @@
 		05FA09221C5E8D3B0025A1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */; };
 		05FA09241C5E8D440025A1F6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09231C5E8D440025A1F6 /* libz.tbd */; };
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
+		5E331D7C1CD06B03007FF047 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E331D7B1CD0699F007FF047 /* ionicons.ttf */; };
 		5E711FCB1CB7365800A3F113 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */; };
 		5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB8A1111CBB38B0003B575D /* OverlayView.swift */; };
 		5EB8A1141CBB38C4003B575D /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB8A1131CBB38C4003B575D /* OverlayView.xib */; };
-		5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
 		7927EF301CB2CF8A00571161 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		793635EB1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EA1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework */; };
@@ -93,12 +93,12 @@
 		05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05FA09231C5E8D440025A1F6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		5E331D7B1CD0699F007FF047 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		5E3D4C601CC725110001EBE4 /* Dense-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dense-Regular.otf"; sourceTree = "<group>"; };
 		5E3D4C611CC725110001EBE4 /* SIMPLIFICA Typeface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SIMPLIFICA Typeface.ttf"; sourceTree = "<group>"; };
 		5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
 		5EB8A1111CBB38B0003B575D /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		5EB8A1131CBB38C4003B575D /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverlayView.xib; path = ../OverlayView.xib; sourceTree = "<group>"; };
-		5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewContoller.swift; sourceTree = "<group>"; };
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EF38CC31C7925CE00827882 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		793635EA1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
@@ -222,6 +222,7 @@
 		79ED85881CBB3BDE000D6E4E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5E331D7B1CD0699F007FF047 /* ionicons.ttf */,
 				5E3D4C601CC725110001EBE4 /* Dense-Regular.otf */,
 				5E3D4C611CC725110001EBE4 /* SIMPLIFICA Typeface.ttf */,
 			);
@@ -271,7 +272,6 @@
 				93FA3F211C66A8C000BB3791 /* LoginViewController.swift */,
 				054F0B661C8E04BE00496D38 /* ContainerViewController.swift */,
 				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
-				5EF38CBF1C790F2900827882 /* FlowViewContoller.swift */,
 				939B829C1C87859700770F79 /* MessageTableVC.swift */,
 				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
 				5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */,
@@ -427,6 +427,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E331D7C1CD06B03007FF047 /* ionicons.ttf in Resources */,
 				0520578E1C81089B00009D91 /* yawIcon.png in Resources */,
 				937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */,
 				5EB8A1141CBB38C4003B575D /* OverlayView.xib in Resources */,
@@ -521,7 +522,6 @@
 				939B82A11C87882400770F79 /* Message.swift in Sources */,
 				939B82A31C87D2D800770F79 /* MessageManager.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
-				5EF38CC01C790F2900827882 /* FlowViewContoller.swift in Sources */,
 				054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
