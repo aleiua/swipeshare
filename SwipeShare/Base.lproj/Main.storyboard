@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fE7-WG-u1V">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fE7-WG-u1V">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -438,7 +438,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pick an image to swipe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="vhU-Rl-qMn">
                                 <rect key="frame" x="0.0" y="242" width="320" height="84"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pdP-Zv-t4l">
@@ -467,7 +467,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.31341638378628611" green="0.49561332507590039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -497,7 +497,7 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem systemItem="camera" id="xCx-Ng-dxR">
-                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="Nje-XY-VEa">
@@ -672,6 +672,110 @@
             </objects>
             <point key="canvasLocation" x="487" y="1043"/>
         </scene>
+        <!--Friend Prompt View Controller-->
+        <scene sceneID="3Jo-GH-Laf">
+            <objects>
+                <viewController storyboardIdentifier="friendprompt" modalTransitionStyle="crossDissolve" id="fTm-fg-zZN" customClass="FriendPromptViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jDz-HV-hR6"/>
+                        <viewControllerLayoutGuide type="bottom" id="goA-wo-cBb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qhp-bj-aZ0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAv-il-Hqp">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="l4t-KC-kZu">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="K6A-wg-Zmp">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="70" id="9hb-tm-5Br"/>
+                                            </constraints>
+                                            <items>
+                                                <navigationItem title="A new user has sent to you!" id="ff3-Su-lxf">
+                                                    <barButtonItem key="leftBarButtonItem" systemItem="stop" id="6PA-Ld-S7C">
+                                                        <connections>
+                                                            <action selector="cancelMessage:" destination="fTm-fg-zZN" id="2hl-on-Gy3"/>
+                                                        </connections>
+                                                    </barButtonItem>
+                                                </navigationItem>
+                                            </items>
+                                        </navigationBar>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWK-SK-4m5" userLabel="Block">
+                                            <rect key="frame" x="0.0" y="175" width="320" height="71"/>
+                                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Block">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="selected">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaT-i7-hZ3">
+                                            <rect key="frame" x="0.0" y="322" width="320" height="71"/>
+                                            <color key="backgroundColor" red="0.0016079409359999999" green="1" blue="0.5849367177" alpha="0.75" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Add Friend">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="selected">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V36-Ne-xPA" userLabel="Block">
+                                            <rect key="frame" x="0.0" y="248" width="320" height="71"/>
+                                            <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Allow Once">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="selected">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="V36-Ne-xPA" firstAttribute="centerX" secondItem="l4t-KC-kZu" secondAttribute="centerX" id="4M3-7o-hVw"/>
+                                        <constraint firstItem="SaT-i7-hZ3" firstAttribute="centerX" secondItem="l4t-KC-kZu" secondAttribute="centerX" id="JYg-RD-vnQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="SaT-i7-hZ3" secondAttribute="trailing" id="N7y-s3-mMP"/>
+                                        <constraint firstAttribute="trailing" secondItem="V36-Ne-xPA" secondAttribute="trailing" id="NwY-Co-Mtx"/>
+                                        <constraint firstAttribute="trailing" secondItem="IWK-SK-4m5" secondAttribute="trailing" id="Ocf-Dv-wNj"/>
+                                        <constraint firstItem="SaT-i7-hZ3" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="Ufa-DR-WOv"/>
+                                        <constraint firstItem="V36-Ne-xPA" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="YDw-0f-RcH"/>
+                                        <constraint firstItem="IWK-SK-4m5" firstAttribute="centerX" secondItem="l4t-KC-kZu" secondAttribute="centerX" id="pif-6a-B8J"/>
+                                        <constraint firstItem="IWK-SK-4m5" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="wXu-I9-BLt"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DAv-il-Hqp" firstAttribute="leading" secondItem="qhp-bj-aZ0" secondAttribute="leading" id="Ikk-Ei-Qg9"/>
+                            <constraint firstItem="DAv-il-Hqp" firstAttribute="top" secondItem="qhp-bj-aZ0" secondAttribute="top" id="ZGN-vg-gph"/>
+                            <constraint firstItem="DAv-il-Hqp" firstAttribute="bottom" secondItem="goA-wo-cBb" secondAttribute="top" id="a3Z-zm-6KJ"/>
+                            <constraint firstAttribute="trailing" secondItem="DAv-il-Hqp" secondAttribute="trailing" id="oU3-H4-tPs"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="blurredBackgroundView" destination="DAv-il-Hqp" id="8ag-6g-u3l"/>
+                        <outlet property="navBar" destination="K6A-wg-Zmp" id="cGR-Bm-3Hw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iDX-Lf-M5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="838" y="1178"/>
+        </scene>
         <!--Settings View Controller-->
         <scene sceneID="b75-Qd-7PJ">
             <objects>
@@ -773,142 +877,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jt7-bj-CB8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-96" y="-396"/>
-        </scene>
-        <!--Friend Prompt View Controller-->
-        <scene sceneID="KFk-Si-wQw">
-            <objects>
-                <tableViewController storyboardIdentifier="friendprompt" modalTransitionStyle="crossDissolve" id="cKx-lW-2JB" customClass="FriendPromptViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="RzC-WM-k0N">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <visualEffectView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" id="j8s-3W-MAu">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="kJz-ej-YYc">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="GHY-6M-ORf">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="70" id="rKz-bt-7Me"/>
-                                        </constraints>
-                                        <items>
-                                            <navigationItem title="A new user has sent to you!" id="dDn-cf-zw6">
-                                                <barButtonItem key="leftBarButtonItem" systemItem="stop" id="ZPZ-qr-PrA">
-                                                    <connections>
-                                                        <action selector="cancelMessage:" destination="cKx-lW-2JB" id="il1-VW-9wL"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                            </navigationItem>
-                                        </items>
-                                    </navigationBar>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="GHY-6M-ORf" firstAttribute="top" secondItem="kJz-ej-YYc" secondAttribute="top" id="1Oi-W1-MXX"/>
-                                    <constraint firstAttribute="trailing" secondItem="GHY-6M-ORf" secondAttribute="trailing" id="1YZ-L9-60G"/>
-                                    <constraint firstItem="GHY-6M-ORf" firstAttribute="leading" secondItem="kJz-ej-YYc" secondAttribute="leading" id="t3w-4u-yor"/>
-                                </constraints>
-                            </view>
-                            <vibrancyEffect>
-                                <blurEffect style="dark"/>
-                            </vibrancyEffect>
-                        </visualEffectView>
-                        <visualEffectView key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="3RY-tJ-oUU">
-                            <rect key="frame" x="0.0" y="115" width="320" height="371"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="jAH-9U-9yc">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="371"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7aJ-3u-ucO">
-                                        <rect key="frame" x="0.0" y="301" width="320" height="70"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="J1H-Ca-KgJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="70" id="7Qq-BS-UCl"/>
-                                        </constraints>
-                                        <vibrancyEffect>
-                                            <blurEffect style="dark"/>
-                                        </vibrancyEffect>
-                                    </visualEffectView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u3j-f9-vyM" userLabel="Block">
-                                        <rect key="frame" x="0.0" y="52" width="320" height="71"/>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" title="Block">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <state key="selected">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelMessage:" destination="cKx-lW-2JB" eventType="touchUpInside" id="JVq-l4-UIh"/>
-                                            <action selector="sendMessage:" destination="cKx-lW-2JB" eventType="touchUpInside" id="clv-pG-4Pf"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D5l-ym-CSq">
-                                        <rect key="frame" x="0.0" y="199" width="320" height="71"/>
-                                        <color key="backgroundColor" red="0.0016079409359999999" green="1" blue="0.5849367177" alpha="0.75" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" title="Add Friend">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <state key="selected">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelMessage:" destination="cKx-lW-2JB" eventType="touchUpInside" id="Rid-xj-McG"/>
-                                            <action selector="sendMessage:" destination="cKx-lW-2JB" eventType="touchUpInside" id="yvN-f0-mgs"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKl-Sv-bbF" userLabel="Block">
-                                        <rect key="frame" x="0.0" y="126" width="320" height="71"/>
-                                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" title="Allow Once">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <state key="selected">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelMessage:" destination="cKx-lW-2JB" eventType="touchUpInside" id="alp-xj-bnd"/>
-                                            <action selector="sendMessage:" destination="cKx-lW-2JB" eventType="touchUpInside" id="Dgz-tS-CAW"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="7aJ-3u-ucO" secondAttribute="trailing" id="LMN-Ix-4Uc"/>
-                                    <constraint firstItem="7aJ-3u-ucO" firstAttribute="leading" secondItem="jAH-9U-9yc" secondAttribute="leading" id="Xe8-pg-fff"/>
-                                    <constraint firstAttribute="bottom" secondItem="7aJ-3u-ucO" secondAttribute="bottom" id="YEV-xH-sK9"/>
-                                </constraints>
-                            </view>
-                            <blurEffect style="dark"/>
-                        </visualEffectView>
-                        <connections>
-                            <outlet property="dataSource" destination="cKx-lW-2JB" id="pWB-2d-r6J"/>
-                            <outlet property="delegate" destination="cKx-lW-2JB" id="SNJ-fB-SoV"/>
-                        </connections>
-                    </tableView>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="blurredBackgroundView" destination="3RY-tJ-oUU" id="rIE-rJ-BcE"/>
-                        <outlet property="navBar" destination="GHY-6M-ORf" id="7bj-Gp-KMc"/>
-                        <outlet property="tableView" destination="RzC-WM-k0N" id="IVO-xc-99a"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8tQ-8I-jKQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1207" y="1263"/>
         </scene>
     </scenes>
     <resources>
