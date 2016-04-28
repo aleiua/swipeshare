@@ -387,7 +387,7 @@
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="7Ch-JD-Caq"/>
                         <barButtonItem enabled="NO" title="Date" style="plain" id="RBP-KX-mex">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="FKY-it-Hh3"/>
                         <barButtonItem systemItem="refresh" id="3mD-hu-cJ8">
@@ -443,15 +443,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5T3-8C-2Vt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5T3-8C-2Vt">
                                 <rect key="frame" x="68" y="71" width="184" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pick an image to swipe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="vhU-Rl-qMn">
-                                <rect key="frame" x="0.0" y="242" width="320" height="84"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -463,7 +457,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="55"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.94330018940000004" green="0.47704654029999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -483,7 +477,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="50"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.94330018940000004" green="0.47704654029999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -495,16 +489,36 @@
                                     <action selector="openPhotos" destination="BYZ-38-t0r" eventType="touchUpInside" id="pvL-pA-NQU"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pick an image to swipe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="vhU-Rl-qMn">
+                                <rect key="frame" x="0.0" y="242" width="320" height="84"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="0.94330018940000004" green="0.47704654029999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="weO-zx-raa">
                                 <rect key="frame" x="127" y="253" width="66" height="62"/>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="50"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.94330018940000004" green="0.47704654029999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t9j-77-0sN"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="l" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqa-Un-dZg">
+                                <rect key="frame" x="157" y="460" width="6" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="JJ1-cC-OdL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="44"/>
+                                <color key="textColor" red="0.94330018940000004" green="0.47704654029999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="JJ1-cC-OdL"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.31341638378628611" green="0.49561332507590039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -516,30 +530,40 @@
                             <constraint firstItem="8M0-qF-a95" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="50" id="J2E-KR-nlz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8M0-qF-a95" secondAttribute="trailing" constant="81" id="MIB-S9-E87"/>
                             <constraint firstItem="b2T-Cs-hHH" firstAttribute="top" secondItem="8M0-qF-a95" secondAttribute="top" id="MK8-SA-ueo"/>
+                            <constraint firstItem="vqa-Un-dZg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ovl-GL-3Vf"/>
+                            <constraint firstItem="8M0-qF-a95" firstAttribute="leading" secondItem="vqa-Un-dZg" secondAttribute="trailing" constant="19" id="POe-lp-9GA"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="b2T-Cs-hHH" secondAttribute="bottom" constant="17" id="Qb6-V7-Fcr"/>
                             <constraint firstItem="weO-zx-raa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Tj7-7e-cj7"/>
                             <constraint firstItem="weO-zx-raa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="U5i-w2-XWB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vqa-Un-dZg" secondAttribute="bottom" constant="13" id="a8w-KB-mvz"/>
                             <constraint firstItem="b2T-Cs-hHH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="69" id="ciA-Y8-hHh"/>
+                            <constraint firstItem="vqa-Un-dZg" firstAttribute="leading" secondItem="b2T-Cs-hHH" secondAttribute="trailing" constant="21" id="eop-jy-UYW"/>
                             <constraint firstItem="b2T-Cs-hHH" firstAttribute="centerY" secondItem="8M0-qF-a95" secondAttribute="centerY" id="fJt-YZ-cSt"/>
+                            <constraint firstItem="vqa-Un-dZg" firstAttribute="centerX" secondItem="5T3-8C-2Vt" secondAttribute="centerX" id="gsm-nl-AnJ"/>
                             <constraint firstItem="8M0-qF-a95" firstAttribute="leading" secondItem="b2T-Cs-hHH" secondAttribute="trailing" constant="32" id="hcP-Ma-RQO"/>
+                            <constraint firstItem="vqa-Un-dZg" firstAttribute="centerY" secondItem="b2T-Cs-hHH" secondAttribute="centerY" id="i2P-BQ-BIh"/>
                             <constraint firstItem="8M0-qF-a95" firstAttribute="top" secondItem="b2T-Cs-hHH" secondAttribute="top" id="yIf-q8-FSg"/>
+                            <constraint firstItem="vqa-Un-dZg" firstAttribute="centerX" secondItem="weO-zx-raa" secondAttribute="centerX" id="yNz-HP-Qol"/>
                             <constraint firstItem="8M0-qF-a95" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zaF-40-72P"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="MK8-SA-ueo"/>
                                 <exclude reference="ciA-Y8-hHh"/>
+                                <exclude reference="eop-jy-UYW"/>
+                                <exclude reference="gsm-nl-AnJ"/>
+                                <exclude reference="yNz-HP-Qol"/>
                                 <exclude reference="MIB-S9-E87"/>
+                                <exclude reference="POe-lp-9GA"/>
                                 <exclude reference="hcP-Ma-RQO"/>
                                 <exclude reference="yIf-q8-FSg"/>
                                 <exclude reference="zaF-40-72P"/>
+                                <exclude reference="a8w-KB-mvz"/>
                             </mask>
                         </variation>
                     </view>
                     <toolbarItems>
-                        <barButtonItem systemItem="camera" id="xCx-Ng-dxR">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
+                        <barButtonItem systemItem="camera" id="xCx-Ng-dxR"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="Nje-XY-VEa">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="Mvc-Ge-1dR">
@@ -548,7 +572,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="30"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.94330018940000004" green="0.47704654029999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="settingsMenuButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4B0-CX-rR8"/>
@@ -560,7 +584,9 @@
                                 <rect key="frame" x="233" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="30"/>
-                                <state key="normal" title=""/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" red="0.94330018940000004" green="0.47704654029999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="31l-X0-ZTx" kind="show" identifier="msgListSegue" id="tCh-CB-i2z"/>
                                 </connections>
@@ -831,5 +857,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="mjG-qp-Buc"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="1" green="0.50572081469999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
