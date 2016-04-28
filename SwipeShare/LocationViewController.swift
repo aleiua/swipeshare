@@ -229,6 +229,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func loadImage(image: UIImageView) {
         
+        if (image.image != nil && image.hidden == true) {
+            image.hidden = false
+        }
+        
         promptLabel.hidden = true
         let screenWidth = UIScreen.mainScreen().bounds.width
         let thirds = screenWidth / 3.0
@@ -321,7 +325,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     @IBAction func reload(sender: AnyObject) {
         
         // stop animation if still animating and remove image
-        if image.center.x != self.view.frame.size.width/2 && image.center.y != self.view.frame.size.height/2 {
+        if (image.center.x != self.view.frame.size.width/2) && (image.center.y != self.view.frame.size.height/2) || (image.hidden == true) {
             if image.isAnimating() {
                 image.stopAnimating()
             }
@@ -640,7 +644,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
     }
-    
+
     
     /****************************RETRIEVE IMAGES*********************************/
      // Check to see if the user is blocked
@@ -931,12 +935,25 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
      */
     func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         print(beacons)
-        for beacon in beacons {
-            if beacon.rssi > -35 {
-                let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
-                sendToUsers(neighbor, bluetooth: true)
-                // remove photo from view
-                // image = nil
+        
+        if image != nil {
+            for beacon in beacons {
+                if (beacon.rssi > -36 && beacon.rssi != 0 && image.hidden == false) {
+                    let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
+                    sendToUsers(neighbor, bluetooth: true)
+                    
+                    image.hidden = true
+
+                    // Fade the refresh image button back in
+                    UIView.animateWithDuration(0.2,
+                        delay: 0,
+                        options: UIViewAnimationOptions.CurveEaseIn,
+                        animations: {
+                            self.sendAnother.alpha = 1
+                        }, completion: { finished in
+                            self.sendAnother.hidden = false
+                    })
+                }
             }
         }
     }

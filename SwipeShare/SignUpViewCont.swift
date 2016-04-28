@@ -21,6 +21,7 @@ class SignUpViewCont: PFSignUpViewController {
         super.viewDidLoad()
         
         
+        
         // Remove the parse Logo
         let logo = UILabel()
         logo.text = "Yaw"

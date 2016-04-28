@@ -97,7 +97,7 @@
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="a5G-hZ-ZEV">
                         <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="za0-y3-G6A"/>
@@ -227,7 +227,7 @@
         <!--Messages-->
         <scene sceneID="Y9w-zi-uw7">
             <objects>
-                <tableViewController title="Messages" id="31l-X0-ZTx" customClass="MessageTableVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="tableVC" title="Messages" id="31l-X0-ZTx" customClass="MessageTableVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="28" sectionFooterHeight="28" id="nqS-FR-2JF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -290,7 +290,7 @@
         <!--Message-->
         <scene sceneID="pag-fj-chS">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" id="UAW-Xy-VNY" customClass="MessageDetailVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailVC" modalTransitionStyle="crossDissolve" id="UAW-Xy-VNY" customClass="MessageDetailVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3bS-BA-daB"/>
                         <viewControllerLayoutGuide type="bottom" id="lyz-2O-kXW"/>
@@ -332,7 +332,7 @@
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="iaR-bu-JpP" firstAttribute="centerX" secondItem="xh2-Ee-Joc" secondAttribute="centerX" id="2G9-yW-RKl"/>
@@ -427,7 +427,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pick an image to swipe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="vhU-Rl-qMn">
                                 <rect key="frame" x="0.0" y="242" width="320" height="84"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2T-Cs-hHH">
@@ -438,7 +438,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="55"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -458,7 +458,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="55"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -474,7 +474,7 @@
                                 <rect key="frame" x="127" y="253" width="66" height="62"/>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="50"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t9j-77-0sN"/>
@@ -488,7 +488,7 @@
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.31341638378628611" green="0.49561332507590039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -522,7 +522,7 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem systemItem="camera" id="xCx-Ng-dxR">
-                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="Nje-XY-VEa">
@@ -532,7 +532,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="30"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="settingsMenuButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4B0-CX-rR8"/>
@@ -698,6 +698,129 @@
             </objects>
             <point key="canvasLocation" x="487" y="1043"/>
         </scene>
+        <!--Friend Prompt View Controller-->
+        <scene sceneID="3Jo-GH-Laf">
+            <objects>
+                <viewController storyboardIdentifier="friendprompt" modalTransitionStyle="crossDissolve" id="fTm-fg-zZN" customClass="FriendPromptViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jDz-HV-hR6"/>
+                        <viewControllerLayoutGuide type="bottom" id="goA-wo-cBb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qhp-bj-aZ0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAv-il-Hqp">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="l4t-KC-kZu">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HLz-P2-sG9">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                            <subviews>
+                                                <navigationBar contentMode="scaleToFill" ambiguous="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="K6A-wg-Zmp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="70" id="9hb-tm-5Br"/>
+                                                    </constraints>
+                                                    <items>
+                                                        <navigationItem id="ff3-Su-lxf">
+                                                            <barButtonItem key="leftBarButtonItem" systemItem="stop" id="6PA-Ld-S7C">
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <connections>
+                                                                    <action selector="cancelMessage:" destination="fTm-fg-zZN" id="2hl-on-Gy3"/>
+                                                                </connections>
+                                                            </barButtonItem>
+                                                        </navigationItem>
+                                                    </items>
+                                                </navigationBar>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWK-SK-4m5" userLabel="Block">
+                                            <rect key="frame" x="0.0" y="169" width="320" height="71"/>
+                                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Block User">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="selected">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="blockUser:" destination="fTm-fg-zZN" eventType="touchUpInside" id="33z-e9-Urr"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V36-Ne-xPA" userLabel="Block">
+                                            <rect key="frame" x="0.0" y="244" width="320" height="71"/>
+                                            <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Allow Once">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="selected">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="allowOnce:" destination="fTm-fg-zZN" eventType="touchUpInside" id="RG1-Pb-Ikv"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaT-i7-hZ3">
+                                            <rect key="frame" x="0.0" y="318" width="320" height="71"/>
+                                            <color key="backgroundColor" red="0.0016079409359999999" green="1" blue="0.5849367177" alpha="0.75" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Add Friend">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="selected">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addFriend:" destination="fTm-fg-zZN" eventType="touchUpInside" id="7zV-Jz-4wu"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="V36-Ne-xPA" firstAttribute="centerX" secondItem="l4t-KC-kZu" secondAttribute="centerX" id="4M3-7o-hVw"/>
+                                        <constraint firstItem="SaT-i7-hZ3" firstAttribute="centerX" secondItem="l4t-KC-kZu" secondAttribute="centerX" id="JYg-RD-vnQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="SaT-i7-hZ3" secondAttribute="trailing" id="N7y-s3-mMP"/>
+                                        <constraint firstAttribute="trailing" secondItem="V36-Ne-xPA" secondAttribute="trailing" id="NwY-Co-Mtx"/>
+                                        <constraint firstAttribute="trailing" secondItem="IWK-SK-4m5" secondAttribute="trailing" id="Ocf-Dv-wNj"/>
+                                        <constraint firstItem="SaT-i7-hZ3" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="Ufa-DR-WOv"/>
+                                        <constraint firstItem="V36-Ne-xPA" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="YDw-0f-RcH"/>
+                                        <constraint firstAttribute="trailing" secondItem="HLz-P2-sG9" secondAttribute="trailing" id="gFY-bs-g8J"/>
+                                        <constraint firstItem="HLz-P2-sG9" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="oKc-oc-dMk"/>
+                                        <constraint firstItem="IWK-SK-4m5" firstAttribute="centerX" secondItem="l4t-KC-kZu" secondAttribute="centerX" id="pif-6a-B8J"/>
+                                        <constraint firstItem="IWK-SK-4m5" firstAttribute="leading" secondItem="l4t-KC-kZu" secondAttribute="leading" id="wXu-I9-BLt"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DAv-il-Hqp" firstAttribute="leading" secondItem="qhp-bj-aZ0" secondAttribute="leading" id="Ikk-Ei-Qg9"/>
+                            <constraint firstItem="DAv-il-Hqp" firstAttribute="top" secondItem="qhp-bj-aZ0" secondAttribute="top" id="ZGN-vg-gph"/>
+                            <constraint firstItem="DAv-il-Hqp" firstAttribute="bottom" secondItem="goA-wo-cBb" secondAttribute="top" id="a3Z-zm-6KJ"/>
+                            <constraint firstAttribute="trailing" secondItem="DAv-il-Hqp" secondAttribute="trailing" id="oU3-H4-tPs"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="blurredBackgroundView" destination="DAv-il-Hqp" id="8ag-6g-u3l"/>
+                        <outlet property="navBar" destination="K6A-wg-Zmp" id="cGR-Bm-3Hw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iDX-Lf-M5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="838" y="1178"/>
+        </scene>
         <!--Settings View Controller-->
         <scene sceneID="b75-Qd-7PJ">
             <objects>
@@ -799,7 +922,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jt7-bj-CB8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-96" y="-390"/>
+            <point key="canvasLocation" x="-96" y="-396"/>
         </scene>
     </scenes>
     <resources>
@@ -810,5 +933,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="za0-y3-G6A"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

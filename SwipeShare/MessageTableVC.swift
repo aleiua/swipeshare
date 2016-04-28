@@ -17,39 +17,12 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     
     let messageCellIdentifier = "MessageCell"
-    let messageManager = MessageManager.sharedMessageManager
-    
-    var fetchedFriends = [Friend]()
-//    var blockedUsers = [BlockedUser]()
-    
-    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    
+    let messageManager = MessageManager.sharedMessageManager  
     
     // ** CREATE MESSAGE MANAGER **
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Fetch list of friends by username from CoreData
-        let friendFetchRequest = NSFetchRequest(entityName: "Friend")
-
-        do {
-            fetchedFriends = try managedContext.executeFetchRequest(friendFetchRequest) as! [Friend]
-            print("going to print friend count")
-            print(fetchedFriends.count)
-        } catch {
-            print("error fetching friend list from CoreData")
-        }
-        
-        // Fetch list of blocked users by username from CoreData (unneeded at present)
-//        let blockedFetchRequest = NSFetchRequest(entityName: "BlockedUser")
-//        
-//        do {
-//            blockedUsers = try managedContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
-//            print(blockedUsers.count)
-//        } catch {
-//            print("error fetching list of blocked users")
-//        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -112,9 +85,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
             print("MORE•ACTION");
         });
         blockAction.backgroundColor = UIColor.lightGrayColor();
-        
-        
-        
         
         
         return [deleteAction, blockAction]
@@ -187,93 +157,17 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         if segue.identifier == "messageDetailSegue" {
             
             let destinationViewController = segue.destinationViewController as! MessageDetailVC
-                
+            destinationViewController.delegate = self
             let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
-            
-            // Prompt user for action if message is from a non-friend user
-            if !isFriend(message.sender.username!) {
-                
-                print("received message from non-friend")
-                saveFriend(message.sender.username!)
-                destinationViewController.message = message
-                
 
-//                // If user decides to "add friend," add them and continue to the message
-//                if (addFriend) {
-//                    saveFriend(message.sender.username!)
-//                    destinationViewController.message = message
-//                }
-                
-//                // If user decides to "add friend later" simply continue to view the message
-//                if (addFriendLater) {
-//                    destinationViewController.message = message
-//                }
-                
-                
-//                //If user decides to "block," block the user and hide the message
-//                if(block) {
-//                  blockUser(message.sender.username)
-//                  //hide message
-//                  self.tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
-//                  messageManager.messages.removeAtIndex(self.tableView.indexPathForSelectedRow!.row)
-//                }
-                
-            }
-            else {
-                print("message was sent from friend")
-                destinationViewController.message = message
-            }
-            
+            destinationViewController.message = message
         }
     }
     
     
-    // Called when a message is received from a new user to save friend to CoreData
-    func saveFriend(username: String) {
-        
-        // Save to CoreData
-        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        let entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: managedObjectContext)
-        let friend = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
-        friend.setValue(username, forKey: "username")
-        
-        do {
-            try managedObjectContext.save()
-            print("successfully saved friend")
-        } catch let error {
-            print("error saving new friend in managedObjectContext: \(error)")
-        }
-    }
-    
-    // Called when user decides to block another user
-    // Saves a corresponding BlockedUser entity to CoreData
-    func blockUser(username: String) {
-        
-        // Save to CoreData
-        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        let entity = NSEntityDescription.entityForName("BlockedUser", inManagedObjectContext: managedObjectContext)
-        let blockedUser = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
-        blockedUser.setValue(username, forKey: "username")
-        
-        do {
-            try managedObjectContext.save()
-            print("successfully blocked user")
-        } catch let error {
-            print("error blocking user in managedObjectContext: \(error)")
-        }
-        
-    }
-    
-    // Check to see if the user is a friend
-    func isFriend(username: String) -> Bool {
-        
-        for friend in fetchedFriends {
-            print(friend.username)
-            if friend.username == username {
-                return true
-            }
-        }
-        return false
+    func deleteMessage() {
+      self.tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
+      messageManager.messages.removeAtIndex(self.tableView.indexPathForSelectedRow!.row)
     }
 }
 
