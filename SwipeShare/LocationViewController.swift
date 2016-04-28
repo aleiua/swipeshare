@@ -893,7 +893,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
                     
                     
-                    let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("checklist") as! BumpValidationViewController
+                    let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("bumpvalidation") as! BumpValidationViewController
                     bumpViewController.modalPresentationStyle = .OverCurrentContext
                     bumpViewController.delegate = self
                     bumpViewController.recipient = neighbor
