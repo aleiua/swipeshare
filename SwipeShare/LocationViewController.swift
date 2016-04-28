@@ -907,7 +907,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         if image != nil {
             for beacon in beacons {
-                if (beacon.rssi > -36 && beacon.rssi != 0 && image.hidden == false) {
+                if (beacon.rssi > -38 && beacon.rssi != 0 && image.hidden == false) {
                     
                     let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
                     
@@ -963,6 +963,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     func findBluetoothNeighbor(identifier : Int) -> Array<PFObject> {
 
+        print("identifier: \(identifier)")
         let query = PFQuery(className:"_User")
         query.whereKey("btIdentifier", equalTo: identifier)
         
