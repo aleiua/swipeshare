@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 class FriendPromptViewController: UIViewController {
-    var delegate: LocationViewController? = nil
+    var delegate: MessageDetailVC? = nil
     
     @IBOutlet weak var blurredBackgroundView: UIVisualEffectView!
     
@@ -23,13 +23,28 @@ class FriendPromptViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setEditing(true, animated: true)
-//        self.backgroundView = blurredBackgroundView
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
-        //        tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurredBackgroundView.effect as! UIBlurEffect)
+
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+    
+    @IBAction func blockUser(sender: AnyObject) {
+//        self.delegate?.blockUser()
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    @IBAction func allowOnce(sender: AnyObject) {
+        self.delegate?.getPhoto()
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    @IBAction func addFriend(sender: AnyObject) {
+        self.delegate?.saveFriend()
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

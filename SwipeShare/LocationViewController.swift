@@ -585,16 +585,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
     }
-    /****************FRIEND STUFF****************/
-     
-    func presentView() {
 
-        let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
-        friendPromptViewController.modalPresentationStyle = .OverCurrentContext
-        friendPromptViewController.delegate = self
-        presentViewController(friendPromptViewController, animated: true, completion: nil)
-
-    }
     
     /****************************RETRIEVE IMAGES*********************************/
      // Check to see if the user is blocked

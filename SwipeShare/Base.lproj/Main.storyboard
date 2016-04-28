@@ -96,7 +96,7 @@
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="a5G-hZ-ZEV">
                         <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="za0-y3-G6A"/>
@@ -226,7 +226,7 @@
         <!--Messages-->
         <scene sceneID="Y9w-zi-uw7">
             <objects>
-                <tableViewController title="Messages" id="31l-X0-ZTx" customClass="MessageTableVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="tableVC" title="Messages" id="31l-X0-ZTx" customClass="MessageTableVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="28" sectionFooterHeight="28" id="nqS-FR-2JF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -236,7 +236,7 @@
                                 <rect key="frame" x="0.0" y="92" width="320" height="67"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="eQX-Of-NUF" id="Ggh-ea-aTs">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="66.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="sender" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="53" translatesAutoresizingMaskIntoConstraints="NO" id="m2p-MJ-xsY">
@@ -289,7 +289,7 @@
         <!--Message-->
         <scene sceneID="pag-fj-chS">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" id="UAW-Xy-VNY" customClass="MessageDetailVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailVC" modalTransitionStyle="crossDissolve" id="UAW-Xy-VNY" customClass="MessageDetailVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3bS-BA-daB"/>
                         <viewControllerLayoutGuide type="bottom" id="lyz-2O-kXW"/>
@@ -331,7 +331,7 @@
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="iaR-bu-JpP" firstAttribute="centerX" secondItem="xh2-Ee-Joc" secondAttribute="centerX" id="2G9-yW-RKl"/>
@@ -420,7 +420,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pick an image to swipe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="vhU-Rl-qMn">
                                 <rect key="frame" x="0.0" y="242" width="320" height="84"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2T-Cs-hHH">
@@ -431,7 +431,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="55"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -451,7 +451,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="55"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -467,7 +467,7 @@
                                 <rect key="frame" x="127" y="253" width="66" height="62"/>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="50"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t9j-77-0sN"/>
@@ -516,7 +516,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="30"/>
                                 <state key="normal" title="">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="settingsMenuButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4B0-CX-rR8"/>
@@ -654,11 +654,11 @@
                                 <rect key="frame" x="0.0" y="143" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BhM-yS-vzd" id="Zyn-2I-z5v">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q2f-Fb-INw">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -726,6 +726,7 @@
                                                     </items>
                                                 </navigationBar>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWK-SK-4m5" userLabel="Block">
                                             <rect key="frame" x="0.0" y="177" width="320" height="71"/>
@@ -738,6 +739,9 @@
                                             <state key="selected">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="blockUser:" destination="fTm-fg-zZN" eventType="touchUpInside" id="33z-e9-Urr"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V36-Ne-xPA" userLabel="Block">
                                             <rect key="frame" x="0.0" y="248" width="320" height="71"/>
@@ -750,6 +754,9 @@
                                             <state key="selected">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="allowOnce:" destination="fTm-fg-zZN" eventType="touchUpInside" id="RG1-Pb-Ikv"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaT-i7-hZ3">
                                             <rect key="frame" x="0.0" y="318" width="320" height="71"/>
@@ -762,8 +769,12 @@
                                             <state key="selected">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="addFriend:" destination="fTm-fg-zZN" eventType="touchUpInside" id="7zV-Jz-4wu"/>
+                                            </connections>
                                         </button>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="V36-Ne-xPA" firstAttribute="centerX" secondItem="l4t-KC-kZu" secondAttribute="centerX" id="4M3-7o-hVw"/>
                                         <constraint firstItem="SaT-i7-hZ3" firstAttribute="centerX" secondItem="l4t-KC-kZu" secondAttribute="centerX" id="JYg-RD-vnQ"/>
@@ -781,6 +792,7 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                         </subviews>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="DAv-il-Hqp" firstAttribute="leading" secondItem="qhp-bj-aZ0" secondAttribute="leading" id="Ikk-Ei-Qg9"/>
                             <constraint firstItem="DAv-il-Hqp" firstAttribute="top" secondItem="qhp-bj-aZ0" secondAttribute="top" id="ZGN-vg-gph"/>
@@ -829,7 +841,7 @@
                                         <rect key="frame" x="0.0" y="276" width="600" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="caR-a7-zYj" id="VA6-3Z-qMY">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="64.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNb-5s-RCd">
@@ -850,7 +862,7 @@
                                         <rect key="frame" x="0.0" y="341" width="600" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EbM-hp-YBG" id="f91-2g-Fmz">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="64.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skD-Fa-Vvx">
@@ -880,7 +892,7 @@
                                         <rect key="frame" x="0.0" y="406" width="600" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dKq-Jy-dyI" id="1so-IP-c2U">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="64.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -910,5 +922,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="mjG-qp-Buc"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
