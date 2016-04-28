@@ -28,9 +28,9 @@ class SettingsViewController: UITableViewController {
                 }
             }
         }
-        userIcon.layer.borderWidth = 4
+        userIcon.layer.borderWidth = 3
         userIcon.layer.masksToBounds = false
-        userIcon.layer.borderColor = UIColor.blackColor().CGColor
+        userIcon.layer.borderColor = UIColor.grayColor().CGColor
         userIcon.layer.cornerRadius = userIcon.frame.height/2
         userIcon.clipsToBounds = true
         
