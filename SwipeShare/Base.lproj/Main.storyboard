@@ -11,6 +11,7 @@
             <string>Ionicons</string>
             <string>Ionicons</string>
             <string>Ionicons</string>
+            <string>Ionicons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -402,6 +403,12 @@
         <!--LocationViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="vw9-8C-Mvb">
+                    <connections>
+                        <action selector="handlePan:" destination="BYZ-38-t0r" id="ahf-6w-5fS"/>
+                    </connections>
+                </panGestureRecognizer>
                 <viewController storyboardIdentifier="LocationViewController" title="LocationViewController" id="BYZ-38-t0r" customClass="LocationViewController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
@@ -473,6 +480,13 @@
                                     <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t9j-77-0sN"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1oG-Kd-SB1">
+                                <rect key="frame" x="138" y="411" width="44" height="44"/>
+                                <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="55"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.31341638378628611" green="0.49561332507590039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -482,12 +496,14 @@
                             <constraint firstItem="vhU-Rl-qMn" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="EkT-aP-GBt"/>
                             <constraint firstItem="vhU-Rl-qMn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fja-1s-SYn"/>
                             <constraint firstItem="8M0-qF-a95" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="50" id="J2E-KR-nlz"/>
+                            <constraint firstItem="8M0-qF-a95" firstAttribute="top" secondItem="1oG-Kd-SB1" secondAttribute="bottom" constant="8" id="MGa-hz-Y26"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8M0-qF-a95" secondAttribute="trailing" constant="81" id="MIB-S9-E87"/>
                             <constraint firstItem="b2T-Cs-hHH" firstAttribute="top" secondItem="8M0-qF-a95" secondAttribute="top" id="MK8-SA-ueo"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="b2T-Cs-hHH" secondAttribute="bottom" constant="17" id="Qb6-V7-Fcr"/>
                             <constraint firstItem="weO-zx-raa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Tj7-7e-cj7"/>
                             <constraint firstItem="weO-zx-raa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="U5i-w2-XWB"/>
                             <constraint firstItem="b2T-Cs-hHH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="69" id="ciA-Y8-hHh"/>
+                            <constraint firstItem="1oG-Kd-SB1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cpk-lf-HYB"/>
                             <constraint firstItem="b2T-Cs-hHH" firstAttribute="centerY" secondItem="8M0-qF-a95" secondAttribute="centerY" id="fJt-YZ-cSt"/>
                             <constraint firstItem="8M0-qF-a95" firstAttribute="leading" secondItem="b2T-Cs-hHH" secondAttribute="trailing" constant="32" id="hcP-Ma-RQO"/>
                             <constraint firstItem="8M0-qF-a95" firstAttribute="top" secondItem="b2T-Cs-hHH" secondAttribute="top" id="yIf-q8-FSg"/>
@@ -541,15 +557,10 @@
                     <connections>
                         <outlet property="nearestLabel" destination="5T3-8C-2Vt" id="rxv-pB-U9Q"/>
                         <outlet property="promptLabel" destination="vhU-Rl-qMn" id="6rw-6k-JFb"/>
+                        <outlet property="removeButton" destination="1oG-Kd-SB1" id="cwH-ac-QxE"/>
                         <outlet property="sendAnother" destination="weO-zx-raa" id="yS3-Oi-v0e"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="vw9-8C-Mvb">
-                    <connections>
-                        <action selector="handlePan:" destination="BYZ-38-t0r" id="ahf-6w-5fS"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="487" y="391"/>
         </scene>
@@ -1022,7 +1033,7 @@
         <image name="userIcon" width="462" height="462"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mjG-qp-Buc"/>
+        <segue reference="za0-y3-G6A"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
