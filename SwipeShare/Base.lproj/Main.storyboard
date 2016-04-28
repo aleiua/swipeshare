@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fE7-WG-u1V">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fE7-WG-u1V">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -226,8 +226,8 @@
         <!--Messages-->
         <scene sceneID="Y9w-zi-uw7">
             <objects>
-                <tableViewController title="Messages" id="31l-X0-ZTx" customClass="MessageTableVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="nqS-FR-2JF">
+                <tableViewController storyboardIdentifier="tableVC" title="Messages" id="31l-X0-ZTx" customClass="MessageTableVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="28" sectionFooterHeight="28" id="nqS-FR-2JF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -236,7 +236,7 @@
                                 <rect key="frame" x="0.0" y="92" width="320" height="85"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eQX-Of-NUF" id="Ggh-ea-aTs">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="84.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="sender" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="m2p-MJ-xsY">
@@ -402,7 +402,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="activityIndicator" destination="iaR-bu-JpP" id="yZY-ha-awZ"/>
-                        <outlet property="dateLabel" destination="RBP-KX-mex" id="UyH-eI-dMC"/>
+                        <outlet property="dateLabel" destination="RBP-KX-mex" id="tEi-3s-Cmf"/>
                         <outlet property="imageView" destination="8zW-MM-INq" id="qrQ-AH-KIR"/>
                         <outlet property="messageImageView" destination="8zW-MM-INq" id="rmp-Jy-sUM"/>
                         <outlet property="messageNavBar" destination="dfa-0j-c5q" id="M7B-rM-T6A"/>
@@ -562,9 +562,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem systemItem="camera" id="xCx-Ng-dxR"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="Nje-XY-VEa">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="Mvc-Ge-1dR">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IvU-Ro-0wE">
@@ -1080,7 +1078,7 @@
         <image name="userIcon" width="462" height="462"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="za0-y3-G6A"/>
+        <segue reference="mjG-qp-Buc"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.50572081469999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

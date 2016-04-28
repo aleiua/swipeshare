@@ -939,17 +939,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
     
     
-//    @IBAction func test(sender: AnyObject) {
-//        let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("bumpvalidation") as! BumpValidationViewController
-//        bumpViewController.modalPresentationStyle = .OverCurrentContext
-//        bumpViewController.delegate = self
-//        checkListViewController.recipient = neighbors
-//
-//        presentViewController(bumpViewController, animated: true, completion: nil)
-//
-//    }
-    
-    
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
         if peripheral.state == .PoweredOn {
             peripheralManager.startAdvertising(beaconPeripheralData as! [String: AnyObject]!)
