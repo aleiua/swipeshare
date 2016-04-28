@@ -14,7 +14,6 @@ import Darwin
 import LocationKit
 import CoreBluetooth
 import CoreData
-import FontAwesomeKit
 
 
 // Protocol written for container
@@ -203,6 +202,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     /***********************IMAGE HANDLING*****************************/
     
+
+    
+    @IBOutlet weak var removeButton: UIButton!
+    
+    @IBAction func removeImage(sender: AnyObject) {
+        self.\
+    }
      
     @IBAction func openCamera(sender: AnyObject) {
         
@@ -225,6 +231,38 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         promptLabel.hidden = true
         let screenWidth = UIScreen.mainScreen().bounds.width
+        let thirds = screenWidth / 3.0
+        let fourths = screenWidth / 4.0
+        
+        // Reposition buttons
+        
+//        let cameraButtonOriginalPosition: CGFloat = thirds
+//        let photozButtonOriginalPosition: CGFloat = 2.0*thirds
+//        let cameraButtonSecondPosition: CGFloat = fourths
+//        let photozButtonSecondPosition: CGFloat = 3.0*fourths
+//        
+//        print(cameraButton.frame.origin)
+//        
+//        cameraButton.frame = CGRectMake(100, 100, 100, 50)
+//        photoz.frame = CGRectMake(100, 100, 100, 50)
+//
+//        let removeButtonPosition: CGFloat = 2.0*fourths
+        
+        cameraButton.frame.origin.x = cameraButtonSecondPosition
+        photoz.frame.origin.x = photozButtonSecondPosition
+//
+        
+        // Make remove button appear 
+        
+        UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut,
+            animations: {
+                self.removeButton.alpha = 1
+                self.view.layoutIfNeeded()
+            },
+            completion: {finished in
+                print("x appears")
+        })
+        
         let maxDimension = round(screenWidth*0.6)
         
         let width = image.image!.size.width
@@ -321,8 +359,29 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
     
     
-    /********************DISTANCE AND BEARING CALCULATIONS********************/
     
+
+
+    
+    func animateBottomButtonsBack() {
+
+        // Move Camera Button
+        UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut,
+            animations: {
+                self.removeButton.alpha = 0
+
+                //self.photoz.center = self.view.bounds.width
+                self.view.layoutIfNeeded()
+            },
+            completion: { (finished: Bool) -> Void in
+        })
+    }
+
+
+
+
+    /********************DISTANCE AND BEARING CALCULATIONS********************/
+ 
     // Calculates distance from point A to B using Haversine formula
     // Currently returns distance in KM
     func Haversine(latA : Double, lonA : Double, latB : Double, lonB : Double) -> Double {
