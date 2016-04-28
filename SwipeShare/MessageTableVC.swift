@@ -11,13 +11,15 @@ import Foundation
 
 import UIKit
 import Parse
+import CoreData
 
 class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
     
     let messageCellIdentifier = "MessageCell"
-    let messageManager = MessageManager.sharedMessageManager
-    // ** CREATE MESSAGE MANAGAER **
+    let messageManager = MessageManager.sharedMessageManager  
+    
+    // ** CREATE MESSAGE MANAGER **
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         tableView.reloadData()
         
     }
@@ -53,8 +54,53 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
     }
     
+    // Swipe left on a message to delete (will only remove from temporary store)
+//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if editingStyle == UITableViewCellEditingStyle.Delete {
+//            
+//            print("COMMIT EDITING")
+////            messageManager.messages.removeAtIndex(indexPath.row)
+////            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+//            
+//            // send to parse that message has been removed!!
+//        }
+//    }
+
+    /*********/
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: " Delete ", handler:{action, indexpath in
+            self.messageManager.messages.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        });
+        deleteAction.backgroundColor = UIColor.redColor()
+        
+        
+        let blockAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "  Block  \n  User", handler:{action, indexpath in
+            print("MORE•ACTION");
+        });
+        blockAction.backgroundColor = UIColor.lightGrayColor();
+        
+        
+        return [deleteAction, blockAction]
+    }
+    
+    //empty implementation
+//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//    }
+
+    /*************/
+    
+    
+    
     func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
+        
         
         let msg = messageManager.messages[indexPath.row] as Message
         cell.senderLabel.text = String(msg.sender["name"])
@@ -105,13 +151,17 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         if segue.identifier == "messageDetailSegue" {
             
             let destinationViewController = segue.destinationViewController as! MessageDetailVC
-            
-        
-                
+            destinationViewController.delegate = self
             let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
+
             destinationViewController.message = message
-            
         }
+    }
+    
+    
+    func deleteMessage() {
+      self.tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
+      messageManager.messages.removeAtIndex(self.tableView.indexPathForSelectedRow!.row)
     }
 }
 

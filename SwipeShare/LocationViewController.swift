@@ -13,7 +13,7 @@ import Foundation
 import Darwin
 import LocationKit
 import CoreBluetooth
-import FontAwesomeKit
+import CoreData
 
 
 // Protocol written for container
@@ -52,6 +52,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
+    var blockedUsers = [BlockedUser]()
+    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+
+    
     var angle: CGFloat!
     var panGesture: UIPanGestureRecognizer!
     var image: UIImageView!
@@ -78,6 +82,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     let msgManager = MessageManager.sharedMessageManager
+    
+
     /*
     Rough Distances:
     .1 = 11km
@@ -196,7 +202,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     /***********************IMAGE HANDLING*****************************/
     
-     
+
+    
+    @IBOutlet weak var removeButton: UIButton!
+    
+
     @IBAction func openCamera(sender: AnyObject) {
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
@@ -216,8 +226,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func loadImage(image: UIImageView) {
         
+        if (image.image != nil && image.hidden == true) {
+            image.hidden = false
+        }
+        
         promptLabel.hidden = true
         let screenWidth = UIScreen.mainScreen().bounds.width
+        
+
+
+        
         let maxDimension = round(screenWidth*0.6)
         
         let width = image.image!.size.width
@@ -276,7 +294,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     @IBAction func reload(sender: AnyObject) {
         
         // stop animation if still animating and remove image
-        if image.center.x != self.view.frame.size.width/2 && image.center.y != self.view.frame.size.height/2 {
+        if (image.center.x != self.view.frame.size.width/2) && (image.center.y != self.view.frame.size.height/2) || (image.hidden == true) {
             if image.isAnimating() {
                 image.stopAnimating()
             }
@@ -314,8 +332,29 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
     
     
-    /********************DISTANCE AND BEARING CALCULATIONS********************/
     
+
+
+    
+    func animateBottomButtonsBack() {
+
+        // Move Camera Button
+        UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut,
+            animations: {
+                self.removeButton.alpha = 0
+
+                //self.photoz.center = self.view.bounds.width
+                self.view.layoutIfNeeded()
+            },
+            completion: { (finished: Bool) -> Void in
+        })
+    }
+
+
+
+
+    /********************DISTANCE AND BEARING CALCULATIONS********************/
+ 
     // Calculates distance from point A to B using Haversine formula
     // Currently returns distance in KM
     func Haversine(latA : Double, lonA : Double, latB : Double, lonB : Double) -> Double {
@@ -381,10 +420,21 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         // Get all close neighbors
         var users = [PFObject]()
+        var isBlocked: Bool
+
         do {
             try users = query.findObjects()
 
             for (i, user) in users.enumerate() {
+                // Filter out blocked users by removing from list returned by query
+                isBlocked = false
+                for blockedUser in blockedUsers {
+                    if (String(user["username"]) == blockedUser.username!) {
+                        users.removeAtIndex(i)
+                        isBlocked = true
+                        break
+                    }
+                }
                 print("Adjacent User: " + String(user["name"]))
             }
         }
@@ -563,10 +613,19 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
     }
-    
+
     
     /****************************RETRIEVE IMAGES*********************************/
-    
+     // Check to see if the user is blocked
+    func isBlocked(username: String) -> Bool {
+        for user in blockedUsers {
+            print(user.username)
+            if user.username == username {
+                return true
+            }
+        }
+        return false
+    }
 
      
     func getPictureObjectsFromParse() -> Array<PFObject> {
@@ -584,14 +643,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             print("Entering for loop")
             print(pictureObjects.endIndex)
             for object in pictureObjects {
-                let msgSender = object["sender"]
+                
+                let msgSender = object["sender"] as? PFObject
                 let msgId = object.objectId
                 let sentDate = object.createdAt! as NSDate
                 
-                let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
-                self.msgManager.addMessage(msg)
-                
-                object.saveInBackground()
+                // Filter messages coming from blocked users
+                if (!isBlocked(msgSender!["username"] as! String)) {
+
+                    let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
+                    self.msgManager.addMessage(msg)
+                }                
             }
         }
         catch {
@@ -599,6 +661,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         return pictureObjects
     }
+    
 
     func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
         
@@ -679,6 +742,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let installation = PFInstallation.currentInstallation()
         installation["user"] = user
         installation.saveInBackground()
+        
+
+        // Fetch list of blocked users by username from CoreData
+        let blockedFetchRequest = NSFetchRequest(entityName: "BlockedUser")
+        
+        do {
+            blockedUsers = try managedContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
+            print(blockedUsers.count)
+        } catch {
+            print("error fetching list of blocked users")
+        }
         
         // Set up iBeacon region
         let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
@@ -830,15 +904,50 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
      */
     func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         print(beacons)
-        for beacon in beacons {
-            if beacon.rssi > -35 {
-                let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
-                sendToUsers(neighbor, bluetooth: true)
-                // remove photo from view
-                // image = nil
+        
+        if image != nil {
+            for beacon in beacons {
+                if (beacon.rssi > -38 && beacon.rssi != 0 && image.hidden == false) {
+                    
+                    let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
+                    
+                    
+                    let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("bumpvalidation") as! BumpValidationViewController
+                    bumpViewController.modalPresentationStyle = .OverCurrentContext
+                    bumpViewController.delegate = self
+                    bumpViewController.recipient = neighbor
+                    presentViewController(bumpViewController, animated: true, completion: nil)
+                                    }
             }
         }
     }
+    
+    func refreshSymbol() {
+        
+        image.hidden = true
+        
+        // Fade the refresh image button back in
+        UIView.animateWithDuration(0.2,
+            delay: 0,
+            options: UIViewAnimationOptions.CurveEaseIn,
+            animations: {
+                self.sendAnother.alpha = 1
+            }, completion: { finished in
+                self.sendAnother.hidden = false
+        })
+
+    }
+    
+    
+//    @IBAction func test(sender: AnyObject) {
+//        let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("bumpvalidation") as! BumpValidationViewController
+//        bumpViewController.modalPresentationStyle = .OverCurrentContext
+//        bumpViewController.delegate = self
+//        checkListViewController.recipient = neighbors
+//
+//        presentViewController(bumpViewController, animated: true, completion: nil)
+//
+//    }
     
     
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
@@ -854,6 +963,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     func findBluetoothNeighbor(identifier : Int) -> Array<PFObject> {
 
+        print("identifier: \(identifier)")
         let query = PFQuery(className:"_User")
         query.whereKey("btIdentifier", equalTo: identifier)
         

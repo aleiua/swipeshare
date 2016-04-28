@@ -10,20 +10,20 @@ import Foundation
 
 import UIKit
 import Parse
+import CoreData
 
 class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     
-    
+    var delegate: MessageTableVC? = nil
     var message: Message!
     
     @IBOutlet weak var dateLabel: UIBarButtonItem!
     
     @IBOutlet weak var messageNavBar: UINavigationItem!
     @IBOutlet weak var messageImageView: UIImageView!
-    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var scrollView: UIScrollView!
+    
     
     @IBAction func savePhoto(sender: AnyObject) {
         UIImageWriteToSavedPhotosAlbum(messageImageView.image!, self, "image:didFinishSavingWithError:contextInfo:", nil)
@@ -40,6 +40,18 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         super.viewDidLoad()
         self.scrollView.minimumZoomScale = 1.0
         self.scrollView.maximumZoomScale = 4.0
+        
+        
+        // Fetch friends for referencing when giving prompt 
+        let friendFetchRequest = NSFetchRequest(entityName: "Friend")
+        
+        do {
+            fetchedFriends = try managedContext.executeFetchRequest(friendFetchRequest) as! [Friend]
+            print("going to print friend count")
+            print(fetchedFriends.count)
+        } catch {
+            print("error fetching friend list from CoreData")
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -53,10 +65,12 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
          getPhoto()
         }
         else {
+            
             self.activityIndicator.stopAnimating()
         }
         messageImageView?.image = message.image
     }
+    
     override func viewWillDisappear(animated: Bool) {
         self.navigationController!.toolbarHidden = true
         self.navigationController!.navigationBarHidden = false
@@ -120,5 +134,68 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
             
         }
     }
+
+
+    // Called when a message is received from a new user to save friend to CoreData
+    func saveFriend() {
+        
+        // Save to CoreData
+        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: managedObjectContext)
+        let friend = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
+        friend.setValue(message.sender.username, forKey: "username")
+        
+        do {
+            try managedObjectContext.save()
+            print("successfully saved friend")
+        } catch let error {
+            print("error saving new friend in managedObjectContext: \(error)")
+        }
+        
+        getPhoto()
+    }
+
+    // Called when user decides to block another user
+    // Saves a corresponding BlockedUser entity to CoreData
+    func blockUser() {
+        
+        blockingUser = true
+        
+        // Save to CoreData
+        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let entity = NSEntityDescription.entityForName("BlockedUser", inManagedObjectContext: managedObjectContext)
+        let blockedUser = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
+        blockedUser.setValue(message.sender.username, forKey: "username")
+        
+        do {
+            try managedObjectContext.save()
+            print("successfully blocked user")
+        } catch let error {
+            print("error blocking user in managedObjectContext: \(error)")
+        }
+        
+//        delegate?.deleteMessage()
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+//        let messageTableVC = storyboard!.instantiateViewControllerWithIdentifier("tableVC") as! MessageTableVC
+//        presentViewController(messageTableVC, animated: true, completion: nil)
+        
+    }
+
+    // Check to see if the user is a friend
+    func isFriend(username: String) -> Bool {
+        
+        for friend in fetchedFriends {
+            print(friend.username)
+            if friend.username == username {
+                return true
+            }
+        }
+        return false
+    }
     
+    func dismiss() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
 }

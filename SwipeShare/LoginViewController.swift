@@ -25,11 +25,14 @@ class LoginViewController: PFLogInViewController {
         // Remove the parse Logo
         let logo = UILabel()
         logo.text = "Yaw"
-        logo.textColor = UIColor.darkGrayColor()
+        logo.textColor = UIColor.whiteColor()
         logo.font = UIFont(name: "HelveticaNeue-UltraLight", size: 80)
 //        logo.shadowColor = UIColor.lightGrayColor()
         logo.shadowOffset = CGSizeMake(2, 2)
         logInView?.logo = logo
+        
+        
+        self.view.backgroundColor = UIColor(red: 0.21, green: 0.27, blue: 0.31, alpha: 1.0)
     
     }
     
