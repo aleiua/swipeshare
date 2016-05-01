@@ -191,12 +191,8 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
             print("error blocking user in managedObjectContext: \(error)")
         }
         
-//        delegate?.deleteMessage()
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
-//        let messageTableVC = storyboard!.instantiateViewControllerWithIdentifier("tableVC") as! MessageTableVC
-//        presentViewController(messageTableVC, animated: true, completion: nil)
-        
+        // Once migration to core data is complete, this method needs to be implemented in MessageTableVC
+//        delegate?.removeBlockedUserMessages()
     }
 
     // Check to see if the user is a friend

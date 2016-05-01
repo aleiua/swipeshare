@@ -17,12 +17,27 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     
     let messageCellIdentifier = "MessageCell"
-    let messageManager = MessageManager.sharedMessageManager  
+    let messageManager = MessageManager.sharedMessageManager
+    
+    var blockedUsers = [BlockedUser]()
+    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+
     
     // ** CREATE MESSAGE MANAGER **
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Fetch blocked users for referencing when giving prompt
+        let blockedUserFetchRequest = NSFetchRequest(entityName: "BlockedUser")
+        
+        do {
+            blockedUsers = try managedContext.executeFetchRequest(blockedUserFetchRequest) as! [BlockedUser]
+            print("going to print blocked users count")
+            print(blockedUsers.count)
+        } catch {
+            print("error fetching blocked user list from CoreData")
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
