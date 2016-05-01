@@ -81,7 +81,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
     
     
-    let msgManager = MessageManager.sharedMessageManager
+    // Core Data Stuff
+    // Retreive the managedObjectContext from AppDelegate
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
 
     /*
@@ -633,6 +635,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Getting parse images")
         let query = PFQuery(className: "sentPicture")
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
+        query.whereKey("hasBeenRead", equalTo: false)
         query.includeKey("sender")
         query.orderByDescending("date")
         
@@ -641,19 +644,33 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             try pictureObjects = query.findObjects()
             
             print("Entering for loop")
-            print(pictureObjects.endIndex)
+            print(pictureObjects.count)
+            
             for object in pictureObjects {
                 
-                let msgSender = object["sender"] as? PFObject
+                let msgSender = object["sender"] as! PFUser
                 let msgId = object.objectId
                 let sentDate = object.createdAt! as NSDate
                 
                 // Filter messages coming from blocked users
-                if (!isBlocked(msgSender!["username"] as! String)) {
+                if (!isBlocked(msgSender["username"] as! String)) {
 
-                    let msg = Message(sender: msgSender! as! PFUser, image: nil, date: sentDate, id: msgId!)
-                    self.msgManager.addMessage(msg)
-                }                
+                    let entityDescripition = NSEntityDescription.entityForName("Message", inManagedObjectContext: managedObjectContext)
+                    
+                    
+                    let message = Message(sender: String(msgSender["name"]), date: sentDate as NSDate, imageData: nil, objectId: msgId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
+                    
+                    // Set object to read.
+                    object["hasBeenRead"] = true
+                    object.saveInBackground()
+                    
+                    // SAVING MANAGED OBJECT CONTEXT - SAVES MESSAGES TO CORE DATA
+                    do {
+                        try managedObjectContext.save()
+                    } catch {
+                        fatalError("Failure to save context: \(error)")
+                    }
+                }
             }
         }
         catch {
@@ -977,7 +994,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "msgListSegue" && msgManager.messages.endIndex == 0 {
+        if segue.identifier == "msgListSegue" {
             getPictureObjectsFromParse()
         }
         // Get the new view controller using segue.destinationViewController.
