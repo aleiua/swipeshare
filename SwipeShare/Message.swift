@@ -7,68 +7,55 @@
 //
 
 import Foundation
-import Foundation
 import UIKit
 import Parse
+import CoreData
 
-class Message {
+
+class Message: NSManagedObject  {
     
-    var sender: PFUser
-    var image: UIImage?
-    var date: NSDate
-    var id: String
+    typealias ObjectId = String
+    typealias SenderId = String
     
-    // Set text and image to default "nil" if they are not part of the message
-    // Could be problematic with unwrapping that comes later ***
-    init(sender: PFUser, image: UIImage? = nil, date: NSDate, id: String) {
+    
+    @NSManaged var sender: SenderId
+    @NSManaged var date: NSDate
+    @NSManaged var imageData: NSData?
+    @NSManaged var objectId: ObjectId
+    @NSManaged var hasBeenOpened: Bool
+    
+    
+    convenience init(sender: String, date: NSDate, imageData: NSData? = nil, objectId: String, entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
+        self.init(entity: entity, insertIntoManagedObjectContext: context)
         self.sender = sender
-        self.image = image
         self.date = date
-        self.id = id
-    }
-    
-    // ID is an entirely optional parameter
-    init(sender: PFUser, image: UIImage? = nil, date: NSDate) {
-        self.sender = sender
-        self.image = image
-        self.date = date
-        self.id = ""
-    }
-    
-    convenience init(dictionary: NSDictionary) {
+        self.objectId = objectId
+        self.hasBeenOpened = false
         
-        let sender = dictionary["sender"]
-        let date = dictionary["date"]
-        
-        // Purposeful application crash/error - only used in debugging
-        assert(sender != nil, "the message must have a sender and receiver")
-        
-        
-        let imageData = dictionary["image-data"] as? NSData
-        var image: UIImage?
         if imageData != nil {
-            image = UIImage(data: imageData!)
+            self.imageData = imageData
         }
-        
-        
-        self.init(sender: sender! as! PFUser, image: image, date: date! as! NSDate)
     }
     
+//   convenience init(dictionary: NSDictionary) {
+//
+//        let sender = dictionary["sender"]
+//        let date = dictionary["date"]
+//        
+//        // Purposeful application crash/error - only used in debugging
+//        assert(sender != nil, "the message must have a sender and receiver")
+//        
+//        
+//        let imageData = dictionary["image-data"] as? NSData
+//        var image: UIImage?
+//        if imageData != nil {
+//            image = UIImage(data: imageData!)
+//        }
+//        
+//        
+//        self.init(sender: sender! as! PFUser, image: image, date: date! as! NSDate)
+//    }
+//    
     
     
-    func toPropertyListObject() -> NSDictionary {
-        
-        let dictionary: NSMutableDictionary = ["sender" : sender]
-        dictionary["date"] = date
-
-        
-        if image != nil {
-            dictionary["image-data"] = UIImageJPEGRepresentation(image!, 0.7)
-            
-        }
-        
-        
-        return dictionary
-        
     }
-}

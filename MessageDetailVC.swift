@@ -18,7 +18,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     var message: Message!
     
     // For handling add/block of users
-    let messageManager = MessageManager.sharedMessageManager
+    //let messageManager = MessageManager.sharedMessageManager
     var fetchedFriends = [Friend]()
     var blockingUser = false
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
@@ -64,13 +64,20 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         super.viewWillAppear(animated)
         self.navigationController!.toolbarHidden = false
         self.navigationController!.hidesBarsOnTap = true
-        messageNavBar.title = String(message.sender["name"])
+        
+        messageNavBar.title = String(message.sender)
         let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
-        dateLabel.title = date
+        messageNavBar.rightBarButtonItem?.title = date
+        if message.imageData == nil{
+            getPhoto()
+        } else {
+            self.activityIndicator.stopAnimating()
+            messageImageView?.image = UIImage(data: message.imageData!)
+        }
         
         
         // Prompt the user for input if the message is from a non-Friend user
-        if !isFriend(message.sender.username!){
+        if !isFriend(message.sender){
             
             let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
             friendPromptViewController.delegate = self
@@ -78,14 +85,6 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
             presentViewController(friendPromptViewController, animated: true, completion: nil)
            
         }
-        else if message.image == nil {
-            getPhoto()
-        }
-        else {
-            
-            self.activityIndicator.stopAnimating()
-        }
-        messageImageView?.image = message.image
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -96,7 +95,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     
     func getPhoto(){
         let query = PFQuery(className: "sentPicture")
-        query.getObjectInBackgroundWithId(self.message.id){
+        query.getObjectInBackgroundWithId(self.message.objectId){
             (object: PFObject?, error: NSError?) -> Void in
             if error == nil {
                 
@@ -105,12 +104,19 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
                     picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
                         if (error == nil) {
                             print("Photo downloaded")
-                            self.message.image = UIImage(data:imageData!)
-                            self.messageImageView.image = self.message.image
+                            self.message.imageData = imageData
+                            self.message.hasBeenOpened = true
+                            self.messageImageView.image = UIImage(data: self.message.imageData!)
                             self.activityIndicator.stopAnimating()
-                            // Set object to read.
-                            object!["hasBeenRead"] = true
-                            object!.saveInBackground()
+                            
+                            do {
+                                try self.managedContext.save()
+                            } catch {
+                                fatalError("Failure to save context: \(error)")
+                            }
+                            
+                            
+                            
                         }
                         else {
                             print("Error getting image data")
@@ -160,7 +166,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         let entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: managedObjectContext)
         let friend = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
-        friend.setValue(message.sender.username, forKey: "username")
+        friend.setValue(message.sender, forKey: "username")
         
         do {
             try managedObjectContext.save()
@@ -182,7 +188,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         let entity = NSEntityDescription.entityForName("BlockedUser", inManagedObjectContext: managedObjectContext)
         let blockedUser = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
-        blockedUser.setValue(message.sender.username, forKey: "username")
+        blockedUser.setValue(message.sender, forKey: "username")
         
         do {
             try managedObjectContext.save()
