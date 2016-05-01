@@ -57,44 +57,12 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
         self.dismissViewControllerAnimated(true, completion: nil)
 
-        if (PFUser.currentUser() != nil && FBSDKAccessToken.currentAccessToken() != nil) {
-            self.storeFacebookData()
-            
-            var currentIdentifier = 0
-            var query = PFQuery(className:"_User")
-            
-            // Determine the highest current identifier in Parse
-            query.orderByDescending("btIdentifier")
-            query.getFirstObjectInBackgroundWithBlock {
-                (object: PFObject?, error: NSError?) -> Void in
-                
-                // Failure
-                if error != nil || object == nil {
-                    print("Failed to retrieve btIdentifier.")
-                }
-                    
-                    // If successful, increment the identifier and reassign with a subsequent query
-                else {
-                    let maxIdentifier = object!["btIdentifier"] as! Int
-                    currentIdentifier = maxIdentifier + 1
-                    
-                    query = PFQuery(className: "_User")
-                    query.whereKey("username", equalTo: user.username!)
-                    do {
-                        let userArray = try query.findObjects()
-                        print(userArray)
-                        userArray[0]["btIdentifier"] = currentIdentifier
-                        userArray[0].saveInBackground()
-                        print("successfully saved \(user.username!) with identifier of value: \(currentIdentifier)")
-                        
-                    } catch {
-                        print("failed to get matching user")
-                    }
-                }
+        if (PFUser.currentUser() != nil) {
+            if (FBSDKAccessToken.currentAccessToken() != nil) {
+                self.storeFacebookData()
             }
+            self.storeBluetoothID(user)
         }
-        
-        
     }
     
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
@@ -107,6 +75,7 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
             user!["name"] = user!["username"]
             user?.saveInBackground()
         }
+        self.storeBluetoothID(user)
     }
     
 
@@ -123,13 +92,49 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
         view.endEditing(true)
     }
     
+    /*************************** Bluetooth Data ******************************/
+     
+    func storeBluetoothID(user : PFUser) {
+        var currentIdentifier = 0
+        var query = PFQuery(className:"_User")
+        
+        // Determine the highest current identifier in Parse
+        query.orderByDescending("btIdentifier")
+        query.getFirstObjectInBackgroundWithBlock {
+            (object: PFObject?, error: NSError?) -> Void in
+            
+            // Failure
+            if (error != nil || object == nil) {
+                print("Failed to retrieve btIdentifier.")
+            }
+                
+                // If successful, increment the identifier and reassign with a subsequent query
+            else {
+                let maxIdentifier = object!["btIdentifier"] as! Int
+                currentIdentifier = maxIdentifier + 1
+                
+                query = PFQuery(className: "_User")
+                query.whereKey("objectId", equalTo: user.objectId)
+                do {
+                    let userArray = try query.findObjects()
+                    print(userArray)
+                    userArray[0]["btIdentifier"] = currentIdentifier
+                    userArray[0].saveInBackground()
+                    print("successfully saved \(user.username!) with identifier of value: \(currentIdentifier)")
+                    
+                } catch {
+                    print("Failed to get matching user")
+                }
+            }
+        }
+    }
+    
     
     /*************************** Facebook Data ******************************/
     
     func storeFacebookData() {
+        print("Storing FB Data")
         
-        print("GRABBING FB DATA FOR NON FACEBOOK USER")
-
         let user = PFUser.currentUser()
         
         let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture"])
@@ -150,8 +155,8 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
                     let image = UIImage(data: data)
                     
                     // Convert to Parse Format
-                    let imageData = UIImagePNGRepresentation(image!)
-                    let imageFile = PFFile(name: "image.png", data:imageData!)
+                    let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
+                    let imageFile = PFFile(name: filename, data: jpgImage!)
                     
                     user!["profilePicture"] = imageFile
                     
