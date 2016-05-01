@@ -33,6 +33,7 @@ class FriendPromptViewController: UIViewController {
     
     @IBAction func blockUser(sender: AnyObject) {
 //        self.delegate?.blockUser()
+        self.performSegueWithIdentifier("unwindToMessages", sender: self)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func allowOnce(sender: AnyObject) {
