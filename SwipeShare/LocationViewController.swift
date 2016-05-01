@@ -634,7 +634,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let query = PFQuery(className: "sentPicture")
         query.whereKey("recipient", equalTo: PFUser.currentUser()!)
         query.includeKey("sender")
-        query.orderByAscending("date")
+        query.orderByDescending("date")
         
         var pictureObjects = [PFObject]()
         do {
