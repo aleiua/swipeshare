@@ -43,11 +43,12 @@ class SettingsViewController: UITableViewController {
         print(PFUser.currentUser())
         PFUser.logOut()
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in            
-            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Login") as! LoginViewController
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
             self.presentViewController(viewController, animated: true, completion: nil)
             
-        })    }
+        })   
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

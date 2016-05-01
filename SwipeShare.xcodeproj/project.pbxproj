@@ -56,7 +56,6 @@
 		93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4222D1C5575B1006DEB7E /* LocationViewController.swift */; };
 		93F422321C5584A8006DEB7E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F422311C5584A8006DEB7E /* CoreLocation.framework */; };
 		93FA3F221C66A8C000BB3791 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FA3F211C66A8C000BB3791 /* LoginViewController.swift */; };
-		93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */; };
 		E09FA7AEC3903240FBB09000 /* Pods_SwipeShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */; };
 /* End PBXBuildFile section */
 
@@ -135,7 +134,6 @@
 		93F4222D1C5575B1006DEB7E /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		93F422311C5584A8006DEB7E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		93FA3F211C66A8C000BB3791 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		FE915271C625A055062ADB56 /* Pods-SwipeShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +184,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7966B50D1CD680070043D64E /* LoginControllers */ = {
+			isa = PBXGroup;
+			children = (
+				937E7F301C55672700057D32 /* ViewController.swift */,
+				93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */,
+				93FA3F211C66A8C000BB3791 /* LoginViewController.swift */,
+			);
+			name = LoginControllers;
+			sourceTree = "<group>";
+		};
+		7966B50E1CD6802C0043D64E /* MessageControllers */ = {
+			isa = PBXGroup;
+			children = (
+				939B82A01C87882400770F79 /* Message.swift */,
+				939B82A21C87D2D800770F79 /* MessageManager.swift */,
+				939B82961C87852300770F79 /* MessageCell.swift */,
+				939B829C1C87859700770F79 /* MessageTableVC.swift */,
+				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
+			);
+			name = MessageControllers;
+			sourceTree = "<group>";
+		};
+		7966B50F1CD6806A0043D64E /* FriendControllers */ = {
+			isa = PBXGroup;
+			children = (
+				05C548DF1CD1BE8900C3B2E9 /* BlockedUser.swift */,
+				05033C1D1CC54889001B7428 /* Friend.swift */,
+				793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */,
+			);
+			name = FriendControllers;
+			sourceTree = "<group>";
+		};
 		79C8FF3A1CB2C81D0037B488 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,23 +283,14 @@
 				5EB8A1131CBB38C4003B575D /* OverlayView.xib */,
 				0520578D1C81089B00009D91 /* yawIcon.png */,
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,
-				937E7F301C55672700057D32 /* ViewController.swift */,
-				939B82A01C87882400770F79 /* Message.swift */,
-				05C548DF1CD1BE8900C3B2E9 /* BlockedUser.swift */,
-				939B82A21C87D2D800770F79 /* MessageManager.swift */,
-				939B82961C87852300770F79 /* MessageCell.swift */,
+				7966B50D1CD680070043D64E /* LoginControllers */,
+				7966B50E1CD6802C0043D64E /* MessageControllers */,
+				7966B50F1CD6806A0043D64E /* FriendControllers */,
 				5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */,
-				93FA3F231C66A8CB00BB3791 /* ResetPasswordViewController.swift */,
-				93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */,
-				93FA3F211C66A8C000BB3791 /* LoginViewController.swift */,
-				05033C1D1CC54889001B7428 /* Friend.swift */,
 				054F0B661C8E04BE00496D38 /* ContainerViewController.swift */,
 				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
-				939B829C1C87859700770F79 /* MessageTableVC.swift */,
-				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
 				5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
-				793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */,
 				793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
@@ -505,7 +526,6 @@
 				937E7F371C55672700057D32 /* SwipeShare.xcdatamodeld in Sources */,
 				937E7F311C55672700057D32 /* ViewController.swift in Sources */,
 				5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */,
-				93FA3F241C66A8CB00BB3791 /* ResetPasswordViewController.swift in Sources */,
 				932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */,
 				93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */,
 				7927EF301CB2CF8A00571161 /* (null) in Sources */,

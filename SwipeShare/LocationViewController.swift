@@ -714,7 +714,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 print("presenting login view")
 
-                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Login") as! LoginViewController
+                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
                 self.presentViewController(viewController, animated: true, completion: nil)
                 
             })
