@@ -57,10 +57,9 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
         self.dismissViewControllerAnimated(true, completion: nil)
 
-        if (PFUser.currentUser() != nil) {
-            if (FBSDKAccessToken.currentAccessToken() != nil) {
-                self.storeFacebookData()
-            }
+        if (PFUser.currentUser() != nil && FBSDKAccessToken.currentAccessToken() != nil && PFUser.currentUser()!.isNew) {
+            print("First time Facebook User")
+            self.storeFacebookData()
             self.storeBluetoothID(user)
         }
     }
@@ -114,7 +113,7 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
                 currentIdentifier = maxIdentifier + 1
                 
                 query = PFQuery(className: "_User")
-                query.whereKey("objectId", equalTo: user.objectId)
+                query.whereKey("objectId", equalTo: user.objectId!)
                 do {
                     let userArray = try query.findObjects()
                     print(userArray)
@@ -155,8 +154,8 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
                     let image = UIImage(data: data)
                     
                     // Convert to Parse Format
-                    let jpgImage = UIImageJPEGRepresentation(image.image!, 1.0)
-                    let imageFile = PFFile(name: filename, data: jpgImage!)
+                    let jpgImage = UIImageJPEGRepresentation(image!, 1.0)
+                    let imageFile = PFFile(name: "image.jpg", data: jpgImage!)
                     
                     user!["profilePicture"] = imageFile
                     
