@@ -157,7 +157,9 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         if msg.hasBeenOpened == false {
             cell.senderLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
         } else {
+            
             cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
+            cell.sentImage.image = UIImage(data : msg.imageData!)
         }
         cell.senderLabel.text = String(msg.sender)
         
