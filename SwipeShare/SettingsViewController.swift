@@ -13,12 +13,35 @@ import Parse
 
 class SettingsViewController: UITableViewController {
 
+   
+    
+    
     @IBOutlet weak var userIcon: UIImageView!
     @IBOutlet weak var usernameField: UILabel!
+    @IBOutlet weak var currentDistance: UILabel!
+    @IBOutlet weak var distanceSlider: UISlider!
+    
+    var delegate: LocationViewController? = nil
+
+    
+
+    
+    @IBAction func movedSlider(sender: UISlider) {
+        let currentValue = Int(sender.value)
+        currentDistance.text = "\(currentValue) ft"
+        
+        delegate?.saveNewRadius(sender.value)
+        print("Saved Radius?")
+    }
+    
+        
     
     override func viewDidLoad() {
-        print("loaded settings view controller")
+        print("Loaded settings view controller")
         super.viewDidLoad()
+        
+        let initialValue = Int(distanceSlider.value)
+        currentDistance.text = "\(initialValue) ft"
         
         // Extract profile picture from parse and resize
         if let profilePicture = PFUser.currentUser()?["profilePicture"] as? PFFile {

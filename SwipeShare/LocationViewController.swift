@@ -76,8 +76,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var delegate: LocationViewControllerDelegate?
     
     @IBAction func settingsMenuButton(sender: AnyObject) {
-        print("settings menu button pressed")
-        delegate?.toggleSettingsPanel?()
+//        print("settings menu button pressed")
+//        delegate?.toggleSettingsPanel?()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            print("Settings page")
+            
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
+            self.presentViewController(viewController, animated: true, completion: nil)
+            
+        })
+
+        
     }
     
     
@@ -86,17 +95,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
 
-    /*
-    Rough Distances:
-    .1 = 11km
-    .01 = 1km = 1000m
-    .001 = .1km = 100m
-    .0001 = .01km = 10m
-    */
-    var searchDistance = 0.001
-    var earthRadius = 6371.0
-    
 
+
+    
     
    /*****************************GESTURE HANDLING********************************/
     
@@ -352,7 +353,22 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         })
     }
 
-
+    /*
+    Rough Distances:
+    .1 = 11km
+    .01 = 1km = 1000m
+    .001 = .1km = 100m
+    .0001 = .01km = 10m
+    */
+    var latSearchDistance = 0.001
+    var longSearchDistance = 0.001
+    var searchDistance = 0.001
+    var earthRadius = 6371.0
+    var ftInMiles = 5280.0
+    
+    var milesToKM = 0.621371
+    var distanceToLat = 110.574
+    var distanceToLong = 111.319
 
 
     /********************DISTANCE AND BEARING CALCULATIONS********************/
@@ -397,8 +413,19 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             angle = angle + 360
         }
         return angle
+    }
+    
+    func saveNewRadius(distance: Float) {
+        print("Updating Radius")
+        let miles = Double(distance) / ftInMiles
+        let km = miles * milesToKM
+        
+        latSearchDistance = (1.0 / distanceToLat) * km
+        longSearchDistance = (1.0 / (distanceToLong * cos(self.userLatitude))) * km
         
     }
+    
+
     
     /*****************************NEIGHBOR SORTING*****************************/
 
@@ -410,13 +437,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Querying for neighbors")
         let query = PFQuery(className:"_User")
         query.whereKey("latitude",
-            greaterThan: (userLatitude - searchDistance))
+            greaterThan: (userLatitude - latSearchDistance))
         query.whereKey("latitude",
-            lessThan: (userLatitude + searchDistance))
+            lessThan: (userLatitude + latSearchDistance))
         query.whereKey("longitude",
-            greaterThan: (userLongitude - searchDistance))
+            greaterThan: (userLongitude - longSearchDistance))
         query.whereKey("longitude",
-            lessThan: (userLongitude + searchDistance))
+            lessThan: (userLongitude + longSearchDistance))
         query.whereKey("objectId", notEqualTo: currentObjectID!)
         
         
@@ -839,13 +866,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 user!["latitude"] = loc.coordinate.latitude
                 user!["longitude"] = loc.coordinate.longitude
                 
+                self.userLatitude = self.currentLocation.coordinate.latitude
+                self.userLongitude = self.currentLocation.coordinate.longitude
+                
                 user!.saveInBackgroundWithBlock { (success, error) -> Void in
                     if success {
                         if (self.DEBUG) {
                             print("Location saved successfully")
                         }
-                        self.userLatitude = self.currentLocation.coordinate.latitude
-                        self.userLongitude = self.currentLocation.coordinate.longitude
                     }
                 }
             }
