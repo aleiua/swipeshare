@@ -53,7 +53,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var userLongitude = Double()
     
     var blockedUsers = [BlockedUser]()
-    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    //let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
     
     var angle: CGFloat!
@@ -648,9 +648,47 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             
             for object in pictureObjects {
                 
-                let msgSender = object["sender"] as! PFUser
+                let messageSender = object["sender"] as! PFUser
+                let sender: User
+
+                // Check if sender exists in local User storage
+                let checkForSenderFetchRequest = NSFetchRequest(entityName: "User")
+                let predicate = NSPredicate(format: "%K == %@", "username", messageSender["username"] as! String)
+                checkForSenderFetchRequest.predicate = predicate
+                
+                // Execute Fetch Request to check if User exists locally
+                do {
+                    let users = try self.managedObjectContext.executeFetchRequest(checkForSenderFetchRequest)
+                    
+                    // If the user does exist locally - set Store User to the local user entity for updating purposes
+                    if users.count != 0 {
+                        let sender = users[0]
+                        
+                    } else {        // Create a new User entity to store
+                        let entity = NSEntityDescription.entityForName("User", inManagedObjectContext: managedObjectContext)
+                        let sender = User(messageSender["username"] as! String, displayName: messageSender["name"] as! String, entity: entity, insertIntoManagedObjectContext: managedObjectContext)
+                    }
+                } catch {   // Catch any errors fetching from Core Data
+                    let fetchError = error as NSError
+                    print(fetchError)
+                }
+                
+                
+                // If sender is a blocked user - do not save or display incoming message
+                if sender.status == "blocked" {
+                    abort()
+                }
+                
+                
                 let msgId = object.objectId
                 let sentDate = object.createdAt! as NSDate
+                
+                let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+                let entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: managedObjectContext)
+                let friend = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
+                friend.setValue(message.sender, forKey: "username")
+                
+                
                 
                 // Filter messages coming from blocked users
                 if (!isBlocked(msgSender["username"] as! String)) {
@@ -658,7 +696,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     let entityDescripition = NSEntityDescription.entityForName("Message", inManagedObjectContext: managedObjectContext)
                     
                     
-                    let message = Message(sender: String(msgSender["name"]), date: sentDate as NSDate, imageData: nil, objectId: msgId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
+                    let message = Message(String(msgSender["name"]), date: sentDate as NSDate, imageData: nil, objectId: msgId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
                     
                     // Set object to read.
                     object["hasBeenRead"] = true

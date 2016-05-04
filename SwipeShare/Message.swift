@@ -36,26 +36,4 @@ class Message: NSManagedObject  {
             self.imageData = imageData
         }
     }
-    
-//   convenience init(dictionary: NSDictionary) {
-//
-//        let sender = dictionary["sender"]
-//        let date = dictionary["date"]
-//        
-//        // Purposeful application crash/error - only used in debugging
-//        assert(sender != nil, "the message must have a sender and receiver")
-//        
-//        
-//        let imageData = dictionary["image-data"] as? NSData
-//        var image: UIImage?
-//        if imageData != nil {
-//            image = UIImage(data: imageData!)
-//        }
-//        
-//        
-//        self.init(sender: sender! as! PFUser, image: image, date: date! as! NSDate)
-//    }
-//    
-    
-    
-    }
+}
