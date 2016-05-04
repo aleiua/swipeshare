@@ -17,13 +17,14 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     
     let messageCellIdentifier = "MessageCell"
-    let messageManager = MessageManager.sharedMessageManager
+    //let messageManager = MessageManager.sharedMessageManager
     
     var blockedUsers = [BlockedUser]()
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
+    //var fetchedMessages: [Message] = []
     
-    // ** CREATE MESSAGE MANAGER **
+    var fetchedMessages: [Message] = [Message]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,27 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
             print(blockedUsers.count)
         } catch {
             print("error fetching blocked user list from CoreData")
+        }
+        
+        // Create a new fetch request using the LogItem entity
+        let messageFetchRequest = NSFetchRequest(entityName: "Message")
+        print("Setting up fetch request")
+        
+        
+        // Create a sort descriptor object that sorts on the "title"
+        // property of the Core Data object
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
+        
+        // Set the list of sort descriptors in the fetch request,
+        // so it includes the sort descriptor
+        messageFetchRequest.sortDescriptors = [sortDescriptor]
+        
+        
+        do {
+            fetchedMessages = try managedContext.executeFetchRequest(messageFetchRequest) as! [Message]
+            
+        } catch {
+            fatalError("Failed to fetch messages: \(error)")
         }
     }
     
@@ -60,7 +82,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messageManager.messages.count
+        return fetchedMessages.count
     }
     
     
@@ -87,10 +109,24 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         return true
     }
     
+    
+    // FIGURE OUT DELETING FROM CORE DATAAAA
+    // FIGURE OUT DELETING FROM CORE DATAAAA
+    // FIGURE OUT DELETING FROM CORE DATAAAA
+    // FIGURE OUT DELETING FROM CORE DATAAAA
+    
+    func deleteMessage() {
+        self.tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
+        //messageManager.messages.removeAtIndex(self.tableView.indexPathForSelectedRow!.row)
+    }
+
+    
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 
+        
+        // FIGURE OUT DELETING FROM CORE DATAAAA
         let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: " Delete ", handler:{action, indexpath in
-            self.messageManager.messages.removeAtIndex(indexPath.row)
+            //self.messageManager.messages.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         });
         deleteAction.backgroundColor = UIColor.redColor()
@@ -114,20 +150,26 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     
     func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
+        let msg = fetchedMessages[indexPath.row] as Message
         
+        if msg.hasBeenOpened == false {
+            cell.senderLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
+        } else {
+            cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
+        }
+        cell.senderLabel.text = String(msg.sender)
         
-        let msg = messageManager.messages[indexPath.row] as Message
-        cell.senderLabel.text = String(msg.sender["name"])
-//        cell.messageImageView?.image = msg.image
-        
-
-        let date = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
-        cell.sentDate.text = date
+        cell.sentDate.text = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         
         return cell
         
+        
     }
+    
+
+
     
 
         
@@ -169,20 +211,17 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
             
             let destinationViewController = segue.destinationViewController as! MessageDetailVC
             destinationViewController.delegate = self
-            let message = messageManager.messages[tableView.indexPathForSelectedRow!.row]
+            let message = fetchedMessages[tableView.indexPathForSelectedRow!.row]
+
 
             destinationViewController.message = message
         }
     }
     
     
-    func deleteMessage() {
-      self.tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
-      messageManager.messages.removeAtIndex(self.tableView.indexPathForSelectedRow!.row)
-    }
-}
 
-    
+
+}
     
 
 
