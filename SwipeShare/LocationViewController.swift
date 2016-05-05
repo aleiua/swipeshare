@@ -662,11 +662,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     
                     // If the user does exist locally - set Store User to the local user entity for updating purposes
                     if users.count != 0 {
-                        let sender = users[0]
+                        sender = users[0] as! User
                         
                     } else {        // Create a new User entity to store
-                        let entity = NSEntityDescription.entityForName("User", inManagedObjectContext: managedObjectContext)
-                        let sender = User(messageSender["username"] as! String, displayName: messageSender["name"] as! String, entity: entity, insertIntoManagedObjectContext: managedObjectContext)
+                        let userEntity = NSEntityDescription.entityForName("User", inManagedObjectContext: self.managedObjectContext)
+                        sender = User(username: messageSender["username"] as! String, displayName: messageSender["name"] as! String, entity: userEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
                     }
                 } catch {   // Catch any errors fetching from Core Data
                     let fetchError = error as NSError
@@ -679,38 +679,38 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     abort()
                 }
                 
-                
-                let msgId = object.objectId
-                let sentDate = object.createdAt! as NSDate
-                
-                let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-                let entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: managedObjectContext)
-                let friend = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
-                friend.setValue(message.sender, forKey: "username")
-                
-                
-                
                 // Filter messages coming from blocked users
-                if (!isBlocked(msgSender["username"] as! String)) {
-
-                    let entityDescripition = NSEntityDescription.entityForName("Message", inManagedObjectContext: managedObjectContext)
+                //if (!isBlocked(msgSender["username"] as! String)) {
+                
+                
+                // Create message object
+                let messageId = object.objectId
+                let sentDate = object.createdAt! as NSDate
+                let entityDescripition = NSEntityDescription.entityForName("Message", inManagedObjectContext: managedObjectContext)
+                let message = Message(sender: sender.displayName, date: sentDate, imageData: nil, objectId: messageId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
+                
+                
+                // Set up relationship between message and sender in core data
+                message.user = sender
+                sender.messages.addObject(message)
+                
+                // update sender most recent communication date
+                sender.mostRecentCommunication = sentDate
+                
+                
+                // Set message object to read on parse - which means it has been downloaded to phone
+                object["hasBeenRead"] = true
+                object.saveInBackground()
                     
-                    
-                    let message = Message(String(msgSender["name"]), date: sentDate as NSDate, imageData: nil, objectId: msgId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
-                    
-                    // Set object to read.
-                    object["hasBeenRead"] = true
-                    object.saveInBackground()
-                    
-                    // SAVING MANAGED OBJECT CONTEXT - SAVES MESSAGES TO CORE DATA
-                    do {
-                        try managedObjectContext.save()
-                    } catch {
-                        fatalError("Failure to save context: \(error)")
-                    }
+                // SAVING MANAGED OBJECT CONTEXT - SAVES MESSAGES TO CORE DATA
+                do {
+                    try managedObjectContext.save()
+                } catch {
+                    fatalError("Failure to save context: \(error)")
                 }
             }
         }
+        // Handle errors in getting pictures from parse
         catch {
             print("Error getting received pictures")
         }

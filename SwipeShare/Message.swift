@@ -24,6 +24,8 @@ class Message: NSManagedObject  {
     @NSManaged var objectId: ObjectId
     @NSManaged var hasBeenOpened: Bool
     
+    @NSManaged var user: User
+    
     
     convenience init(sender: String, date: NSDate, imageData: NSData? = nil, objectId: String, entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
         self.init(entity: entity, insertIntoManagedObjectContext: context)

@@ -19,44 +19,36 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     let messageCellIdentifier = "MessageCell"
     //let messageManager = MessageManager.sharedMessageManager
     
-    var blockedUsers = [BlockedUser]()
+    var blockedUsers = [User]()
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
-    //var fetchedMessages: [Message] = []
-    
+    var users: [User] = [User]()
     var fetchedMessages: [Message] = [Message]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Fetch blocked users for referencing when giving prompt
-        let blockedUserFetchRequest = NSFetchRequest(entityName: "BlockedUser")
+        let blockedUserFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let predicate = NSPredicate(format: "%K == %@", "status", "blocked")
+        blockedUserFetchRequest.predicate = predicate
         
         do {
-            blockedUsers = try managedContext.executeFetchRequest(blockedUserFetchRequest) as! [BlockedUser]
+            blockedUsers = try managedContext.executeFetchRequest(blockedUserFetchRequest) as! [User]
             print("going to print blocked users count")
             print(blockedUsers.count)
         } catch {
             print("error fetching blocked user list from CoreData")
         }
         
-        // Create a new fetch request using the LogItem entity
+        // Fetch messages from core Data, sorted by date
         let messageFetchRequest = NSFetchRequest(entityName: "Message")
-        print("Setting up fetch request")
-        
-        
-        // Create a sort descriptor object that sorts on the "title"
-        // property of the Core Data object
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
-        
-        // Set the list of sort descriptors in the fetch request,
-        // so it includes the sort descriptor
         messageFetchRequest.sortDescriptors = [sortDescriptor]
-        
         
         do {
             fetchedMessages = try managedContext.executeFetchRequest(messageFetchRequest) as! [Message]
-            
         } catch {
             fatalError("Failed to fetch messages: \(error)")
         }
@@ -159,7 +151,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         } else {
             cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
         }
-        cell.senderLabel.text = String(msg.sender)
+        cell.senderLabel.text = msg.user.displayName
         
         cell.sentDate.text = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         

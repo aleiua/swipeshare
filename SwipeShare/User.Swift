@@ -21,6 +21,7 @@ class User: NSManagedObject  {
     @NSManaged var profImageData: NSData?
     @NSManaged var mostRecentCommunication: NSDate
     
+    @NSManaged var messages: NSMutableSet
     
     convenience init(username: String, displayName: String, entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
         self.init(entity: entity, insertIntoManagedObjectContext: context)
