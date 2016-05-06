@@ -29,7 +29,6 @@
 		5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB8A1111CBB38B0003B575D /* OverlayView.swift */; };
 		5EB8A1141CBB38C4003B575D /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB8A1131CBB38C4003B575D /* OverlayView.xib */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
-		7927EF301CB2CF8A00571161 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		793635EB1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EA1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework */; };
 		793635EF1CB2DB8F005CA708 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EC1CB2DB8F005CA708 /* FBSDKCoreKit.framework */; };
 		793635F01CB2DB8F005CA708 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */; };
@@ -37,7 +36,7 @@
 		793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */; };
 		79ED85831CBB30E3000D6E4E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED85821CBB30E3000D6E4E /* ParseUI.framework */; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
-		937D7A4F1CDA68BA008783D1 /* User.Swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D7A4E1CDA68BA008783D1 /* User.Swift */; };
+		937D7A521CDC137C008783D1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D7A511CDC137C008783D1 /* User.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
 		937E7F341C55672700057D32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937E7F321C55672700057D32 /* Main.storyboard */; };
@@ -54,7 +53,6 @@
 		93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F4222D1C5575B1006DEB7E /* LocationViewController.swift */; };
 		93F422321C5584A8006DEB7E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F422311C5584A8006DEB7E /* CoreLocation.framework */; };
 		93FA3F221C66A8C000BB3791 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FA3F211C66A8C000BB3791 /* LoginViewController.swift */; };
-		E09FA7AEC3903240FBB09000 /* Pods_SwipeShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,9 +103,8 @@
 		793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BumpValidationViewController.swift; sourceTree = "<group>"; };
 		79ED85821CBB30E3000D6E4E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
-		929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwipeShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
-		937D7A4E1CDA68BA008783D1 /* User.Swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.Swift; sourceTree = "<group>"; };
+		937D7A511CDC137C008783D1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		937E7F2B1C55672700057D32 /* Yaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F2E1C55672700057D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		937E7F301C55672700057D32 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -159,7 +156,6 @@
 				93F422321C5584A8006DEB7E /* CoreLocation.framework in Frameworks */,
 				93F422281C556B82006DEB7E /* MapKit.framework in Frameworks */,
 				05FA09121C5E8A6C0025A1F6 /* Parse.framework in Frameworks */,
-				E09FA7AEC3903240FBB09000 /* Pods_SwipeShare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +220,6 @@
 				050B634D1C55CA3B0033279B /* UIKit.framework */,
 				93F422311C5584A8006DEB7E /* CoreLocation.framework */,
 				93F422271C556B82006DEB7E /* MapKit.framework */,
-				929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -276,7 +271,7 @@
 				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
 				5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
-				937D7A4E1CDA68BA008783D1 /* User.Swift */,
+				937D7A511CDC137C008783D1 /* User.swift */,
 				793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
@@ -514,16 +509,15 @@
 				5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */,
 				932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */,
 				93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */,
-				7927EF301CB2CF8A00571161 /* (null) in Sources */,
 				939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */,
 				059AC0E91CD1C226006DC600 /* BumpValidationViewController.swift in Sources */,
-				937D7A4F1CDA68BA008783D1 /* User.Swift in Sources */,
 				5E711FCB1CB7365800A3F113 /* CheckListViewController.swift in Sources */,
 				793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */,
 				054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				939B82A11C87882400770F79 /* Message.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
+				937D7A521CDC137C008783D1 /* User.swift in Sources */,
 				054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

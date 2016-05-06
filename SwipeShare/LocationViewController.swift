@@ -52,7 +52,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     
-    var blockedUsers = [BlockedUser]()
+    var blockedUsers = [User]()
     //let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
     
@@ -431,7 +431,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 // Filter out blocked users by removing from list returned by query
                 isBlocked = false
                 for blockedUser in blockedUsers {
-                    if (String(user["username"]) == blockedUser.username!) {
+                    if (String(user["username"]) == blockedUser.username) {
                         users.removeAtIndex(i)
                         isBlocked = true
                         break
@@ -663,44 +663,50 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     // If the user does exist locally - set Store User to the local user entity for updating purposes
                     if users.count != 0 {
                         sender = users[0] as! User
+                        print("sender already stored")
                         
                     } else {        // Create a new User entity to store
+                        print("creating new sender")
                         let userEntity = NSEntityDescription.entityForName("User", inManagedObjectContext: self.managedObjectContext)
                         sender = User(username: messageSender["username"] as! String, displayName: messageSender["name"] as! String, entity: userEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
                     }
+                    
+                    // If sender is a blocked user - do not save or display incoming message
+                    if sender.status == "blocked" {
+                        abort()
+                    }
+                    
+                    // Filter messages coming from blocked users
+                    //if (!isBlocked(msgSender["username"] as! String)) {
+                    
+                    
+                    // Create message object
+                    let messageId = object.objectId
+                    let sentDate = object.createdAt! as NSDate
+                    let entityDescripition = NSEntityDescription.entityForName("Message", inManagedObjectContext: managedObjectContext)
+                    let message = Message(date: sentDate, imageData: nil, objectId: messageId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
+                    
+                    
+                    // Set up relationship between message and sender in core data
+                    message.user = sender
+                    
+                    sender.mutableSetValueForKey("messages").addObject(message)
+                    
+                    // update sender most recent communication date
+                    sender.mostRecentCommunication = sentDate
+                    
+                    
+                    // Set message object to read on parse - which means it has been downloaded to phone
+                    object["hasBeenRead"] = true
+                    object.saveInBackground()
+                    
                 } catch {   // Catch any errors fetching from Core Data
                     let fetchError = error as NSError
                     print(fetchError)
                 }
                 
                 
-                // If sender is a blocked user - do not save or display incoming message
-                if sender.status == "blocked" {
-                    abort()
-                }
-                
-                // Filter messages coming from blocked users
-                //if (!isBlocked(msgSender["username"] as! String)) {
-                
-                
-                // Create message object
-                let messageId = object.objectId
-                let sentDate = object.createdAt! as NSDate
-                let entityDescripition = NSEntityDescription.entityForName("Message", inManagedObjectContext: managedObjectContext)
-                let message = Message(sender: sender.displayName, date: sentDate, imageData: nil, objectId: messageId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
-                
-                
-                // Set up relationship between message and sender in core data
-                message.user = sender
-                sender.messages.addObject(message)
-                
-                // update sender most recent communication date
-                sender.mostRecentCommunication = sentDate
-                
-                
-                // Set message object to read on parse - which means it has been downloaded to phone
-                object["hasBeenRead"] = true
-                object.saveInBackground()
+
                     
                 // SAVING MANAGED OBJECT CONTEXT - SAVES MESSAGES TO CORE DATA
                 do {
@@ -800,10 +806,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
 
         // Fetch list of blocked users by username from CoreData
-        let blockedFetchRequest = NSFetchRequest(entityName: "BlockedUser")
+        let blockedFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let blockedPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
+        blockedFetchRequest.predicate = blockedPredicate
+        
         
         do {
-            blockedUsers = try managedContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
+            blockedUsers = try managedObjectContext.executeFetchRequest(blockedFetchRequest) as! [User]
             print(blockedUsers.count)
         } catch {
             print("error fetching list of blocked users")

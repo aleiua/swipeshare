@@ -14,7 +14,7 @@ import CoreData
 
 class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     
-    var devarate: MessageTableVC? = nil
+    var delegate: MessageTableVC? = nil
     var message: Message!
     
     // For handling add/block of users
@@ -82,7 +82,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         self.navigationController!.toolbarHidden = false
         self.navigationController!.hidesBarsOnTap = true
         
-        messageNavBar.title = String(message.sender)
+        messageNavBar.title = String(message.user.displayName)
         let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         messageNavBar.rightBarButtonItem?.title = date
         if message.imageData == nil{

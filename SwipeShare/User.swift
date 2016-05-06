@@ -1,5 +1,5 @@
 //
-//  User.Swift
+//  User.swift
 //  SwipeShare
 //
 //  Created by A. Lynn on 3/4/16.

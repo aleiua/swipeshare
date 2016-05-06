@@ -18,7 +18,6 @@ class Message: NSManagedObject  {
     typealias SenderId = String
     
     
-    @NSManaged var sender: SenderId
     @NSManaged var date: NSDate
     @NSManaged var imageData: NSData?
     @NSManaged var objectId: ObjectId
@@ -27,9 +26,8 @@ class Message: NSManagedObject  {
     @NSManaged var user: User
     
     
-    convenience init(sender: String, date: NSDate, imageData: NSData? = nil, objectId: String, entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
+    convenience init(date: NSDate, imageData: NSData? = nil, objectId: String, entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
         self.init(entity: entity, insertIntoManagedObjectContext: context)
-        self.sender = sender
         self.date = date
         self.objectId = objectId
         self.hasBeenOpened = false
