@@ -23,6 +23,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
 
     // var users: [User] = [User]()
     var fetchedMessages: [Message] = [Message]()
+    var users: [User] = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,18 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         } catch {
             fatalError("Failed to fetch messages: \(error)")
         }
+        
+        
+        // just counting the users
+        
+        let fetchUsers = NSFetchRequest(entityName: "User")
+        do {
+            users = try managedContext.executeFetchRequest(fetchUsers) as! [User]
+        } catch {
+            fatalError("Failed to fetch messages: \(error)")
+        }
+        print("users stored: ")
+        print(users.count)
     }
     
     override func viewWillAppear(animated: Bool) {
