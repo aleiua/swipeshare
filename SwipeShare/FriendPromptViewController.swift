@@ -23,6 +23,8 @@ class FriendPromptViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setEditing(true, animated: true)
+        
+
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
 
         

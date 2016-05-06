@@ -368,7 +368,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     var milesToKM = 0.621371
     var distanceToLat = 110.574
-    var distanceToLong = 111.319
+    var distanceToLong = 111.320
 
 
     /********************DISTANCE AND BEARING CALCULATIONS********************/
@@ -416,12 +416,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     }
     
     func saveNewRadius(distance: Float) {
-        print("Updating Radius")
-        let miles = Double(distance) / ftInMiles
-        let km = miles * milesToKM
         
-        latSearchDistance = (1.0 / distanceToLat) * km
-        longSearchDistance = (1.0 / (distanceToLong * cos(self.userLatitude))) * km
+        if (self.DEBUG) {
+            print("Saved New Radius")
+        }
+        
+        let miles = Double(distance) / ftInMiles
+        let km = miles / milesToKM
+        
+        latSearchDistance = km / distanceToLat
+        longSearchDistance = km / (distanceToLong * cos(self.userLatitude))
         
     }
     

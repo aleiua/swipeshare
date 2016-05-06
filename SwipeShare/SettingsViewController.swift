@@ -23,22 +23,22 @@ class SettingsViewController: UITableViewController {
     
     var delegate: LocationViewController? = nil
 
-    
 
     
     @IBAction func movedSlider(sender: UISlider) {
         let currentValue = Int(sender.value)
         currentDistance.text = "\(currentValue) ft"
         
-        delegate?.saveNewRadius(sender.value)
-        print("Saved Radius?")
+        LocationViewController().saveNewRadius(sender.value)
     }
     
         
     
     override func viewDidLoad() {
-        print("Loaded settings view controller")
         super.viewDidLoad()
+        
+        print("Loaded settings view controller")
+
         
         let initialValue = Int(distanceSlider.value)
         currentDistance.text = "\(initialValue) ft"
