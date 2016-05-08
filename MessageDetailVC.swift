@@ -94,7 +94,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         
         
         // Prompt the user for input if the message is from a non-Friend user
-        if !isFriend(message.user){
+        if message.user.status != "friend" {
             
             let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
             friendPromptViewController.delegate = self
@@ -187,7 +187,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         
         do {
             try managedObjectContext.save()
-            print("successfully saved friend")
+            print("successfully saved user")
         } catch let error {
                 print("error saving new friend in managedObjectContext: \(error)")
         }
