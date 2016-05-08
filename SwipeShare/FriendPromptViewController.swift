@@ -11,6 +11,7 @@ import Parse
 
 class FriendPromptViewController: UIViewController {
     var delegate: MessageDetailVC? = nil
+    let sender: User? = nil
     
     @IBOutlet weak var blurredBackgroundView: UIVisualEffectView!
     
@@ -28,23 +29,24 @@ class FriendPromptViewController: UIViewController {
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
 
         
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     
     @IBAction func blockUser(sender: AnyObject) {
-        self.delegate?.blockUser()
+        self.delegate?.updateUserStatus("blocked")
         self.performSegueWithIdentifier("unwindToMessages", sender: self)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func allowOnce(sender: AnyObject) {
-        self.delegate?.getPhoto()
+        self.delegate?.updateUserStatus("once")
         self.dismissViewControllerAnimated(true, completion: nil)
         
     }
     @IBAction func addFriend(sender: AnyObject) {
-        self.delegate?.saveFriend()
+        self.delegate?.updateUserStatus("friend")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

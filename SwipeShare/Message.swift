@@ -18,16 +18,16 @@ class Message: NSManagedObject  {
     typealias SenderId = String
     
     
-    @NSManaged var sender: SenderId
     @NSManaged var date: NSDate
     @NSManaged var imageData: NSData?
     @NSManaged var objectId: ObjectId
     @NSManaged var hasBeenOpened: Bool
     
+    @NSManaged var user: User
     
-    convenience init(sender: String, date: NSDate, imageData: NSData? = nil, objectId: String, entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
+    
+    convenience init(date: NSDate, imageData: NSData? = nil, objectId: String, entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
         self.init(entity: entity, insertIntoManagedObjectContext: context)
-        self.sender = sender
         self.date = date
         self.objectId = objectId
         self.hasBeenOpened = false
@@ -36,26 +36,4 @@ class Message: NSManagedObject  {
             self.imageData = imageData
         }
     }
-    
-//   convenience init(dictionary: NSDictionary) {
-//
-//        let sender = dictionary["sender"]
-//        let date = dictionary["date"]
-//        
-//        // Purposeful application crash/error - only used in debugging
-//        assert(sender != nil, "the message must have a sender and receiver")
-//        
-//        
-//        let imageData = dictionary["image-data"] as? NSData
-//        var image: UIImage?
-//        if imageData != nil {
-//            image = UIImage(data: imageData!)
-//        }
-//        
-//        
-//        self.init(sender: sender! as! PFUser, image: image, date: date! as! NSDate)
-//    }
-//    
-    
-    
-    }
+}
