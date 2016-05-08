@@ -390,7 +390,7 @@
                                     <color key="titleColor" red="0.94330018940000004" green="0.47704654029999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="oHC-4A-wJY" kind="custom" customClass="UISegueFromRight" customModule="Yaw" customModuleProvider="target" id="M3J-gT-8ML"/>
+                                    <segue destination="oHC-4A-wJY" kind="custom" identifier="toSettingsSegue" customClass="UISegueFromRight" customModule="Yaw" customModuleProvider="target" id="M3J-gT-8ML"/>
                                 </connections>
                             </button>
                         </barButtonItem>
