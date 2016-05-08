@@ -390,7 +390,7 @@
                                     <color key="titleColor" red="0.94330018940000004" green="0.47704654029999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="settingsMenuButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4B0-CX-rR8"/>
+                                    <segue destination="oHC-4A-wJY" kind="custom" customClass="UISegueFromRight" customModule="Yaw" customModuleProvider="target" id="M3J-gT-8ML"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -424,7 +424,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="487" y="391"/>
+            <point key="canvasLocation" x="552" y="435"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="uUo-6c-KS4">
@@ -576,7 +576,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="13F-gS-ebb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="487" y="1043"/>
+            <point key="canvasLocation" x="479" y="1178"/>
         </scene>
         <!--Friend Prompt View Controller-->
         <scene sceneID="3Jo-GH-Laf">
@@ -703,7 +703,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="you-O4-R1g">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="AfG-Ku-bep">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="280"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -731,11 +731,11 @@
                                     <fontDescription key="fontDescription" name="Ionicons" family="Ionicons" pointSize="24"/>
                                     <state key="normal" title=""/>
                                     <connections>
-                                        <segue destination="IPV-kz-RS6" kind="show" id="Lm7-uK-Coo"/>
+                                        <action selector="exitButtonTapped:" destination="oHC-4A-wJY" eventType="touchUpInside" id="tte-b1-KiC"/>
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="Moa-Np-gLk" firstAttribute="top" secondItem="lvP-Sy-juf" secondAttribute="bottom" constant="14" id="1t5-fp-EJG"/>
                                 <constraint firstItem="lvP-Sy-juf" firstAttribute="centerY" secondItem="AfG-Ku-bep" secondAttribute="centerY" constant="-2" id="8Gd-m5-0x5"/>
@@ -931,9 +931,11 @@
                         <outlet property="distanceSlider" destination="u01-Dj-MCr" id="jxH-SY-adH"/>
                         <outlet property="userIcon" destination="lvP-Sy-juf" id="R6Z-pt-AQb"/>
                         <outlet property="usernameField" destination="Moa-Np-gLk" id="BP1-LF-uiz"/>
+                        <segue destination="TCl-po-Jzq" kind="unwind" identifier="segueHome" customClass="UIStoryboardUnwindSegueFromLeft" customModule="Yaw" customModuleProvider="target" unwindAction="segueHome:" id="m68-Cz-WY8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jt7-bj-CB8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="TCl-po-Jzq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-96" y="-367"/>
         </scene>
@@ -1045,7 +1047,7 @@
         <image name="userIcon" width="462" height="462"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="za0-y3-G6A"/>
+        <segue reference="mjG-qp-Buc"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.50572081469999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

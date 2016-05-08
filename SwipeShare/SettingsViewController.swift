@@ -33,6 +33,9 @@ class SettingsViewController: UITableViewController {
     }
     
         
+    @IBAction func exitButtonTapped(sender: UIButton) {
+        self.performSegueWithIdentifier("segueHome", sender: self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -88,7 +88,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
         
     }
-    
+
     
     // Core Data Stuff
     // Retreive the managedObjectContext from AppDelegate
@@ -945,6 +945,28 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
     }
+    
+    /*************************** Settings Segue *******************************/
+     
+    @IBAction func segueHome(segue: UIStoryboardSegue) {
+        // segue back
+    }
+    
+    override func segueForUnwindingToViewController(toViewController: UIViewController, fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue {
+        
+        if let id = identifier {
+            print(id)
+            if id == "segueHome" {
+                let unwindSegue = UIStoryboardUnwindSegueFromLeft(identifier: id, source: fromViewController, destination: toViewController)
+                return unwindSegue
+            }
+        }
+        
+        return super.segueForUnwindingToViewController(toViewController, fromViewController: fromViewController, identifier: identifier)!
+    }
+    
+    
+    
     
     /****************************iBeacon Region Establishment********************************/
     
