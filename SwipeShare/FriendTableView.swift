@@ -83,8 +83,12 @@ class FriendTableView: UITableViewController {
 
         cell!.textLabel!.text = friend.displayName
         
-        // cell.detailTextLabel
-        
+        if friend.status != nil {
+            
+            cell!.detailTextLabel!.text = friend.status
+        } else {
+            print("no status")
+        }
         return cell!
         
         
