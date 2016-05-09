@@ -27,6 +27,8 @@ class FriendPromptViewController: UIViewController {
         
 
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
+        
+        
 
         
         

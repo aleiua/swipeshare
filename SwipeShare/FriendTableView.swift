@@ -80,6 +80,10 @@ class FriendTableView: UITableViewController {
         let friend = fetchedUsers[indexPath.row] as User
         
         print(friend.displayName)
+        
+        if friend.profImageData != nil {
+            print("we have prof image data1")
+        }
 
         cell!.textLabel!.text = friend.displayName
         
@@ -94,6 +98,23 @@ class FriendTableView: UITableViewController {
         
         
     }
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        
+        if segue.identifier == "friendDetailSegue" {
+            
+            print("segue to friend detail view")
+            
+            let destinationViewController = segue.destinationViewController as! FriendDetailView
+            //destinationViewController.delegate = self
+            let user = fetchedUsers[tableView.indexPathForSelectedRow!.row]
+            
+            
+            destinationViewController.user = user
+        }
+    }
+
     
 
 }

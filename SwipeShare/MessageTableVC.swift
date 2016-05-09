@@ -50,6 +50,10 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         }
         print("users stored: ")
         print(users.count)
+        
+        
+
+
     }
     
     override func viewWillAppear(animated: Bool) {

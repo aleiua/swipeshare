@@ -75,6 +75,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         } catch {
             print("error fetching friend list from CoreData")
         }
+        
     }
     
     override func viewWillAppear(animated: Bool) {

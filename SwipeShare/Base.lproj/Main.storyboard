@@ -134,6 +134,35 @@
             </objects>
             <point key="canvasLocation" x="1154" y="505"/>
         </scene>
+        <!--Friend Detail View-->
+        <scene sceneID="ecy-Y2-PCN">
+            <objects>
+                <viewController id="9Hs-nq-qbq" customClass="FriendDetailView" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2zY-mr-QAE"/>
+                        <viewControllerLayoutGuide type="bottom" id="qZu-wx-icH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="c7U-3p-vQ8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="inl-dx-nL2">
+                                <rect key="frame" x="144" y="79" width="240" height="281"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="inl-dx-nL2" firstAttribute="centerX" secondItem="c7U-3p-vQ8" secondAttribute="centerX" id="uj4-HH-6PV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="userProfPic" destination="inl-dx-nL2" id="oxv-9o-vWK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eZm-CR-XGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1386" y="-862"/>
+        </scene>
         <!--Message-->
         <scene sceneID="pag-fj-chS">
             <objects>
@@ -852,7 +881,7 @@
                                                     <color key="textColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bl7-yf-yFA">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bl7-yf-yFA">
                                                     <rect key="frame" x="458" y="17" width="72" height="30"/>
                                                     <state key="normal" title="Friend List"/>
                                                     <connections>
@@ -864,6 +893,7 @@
                                                 <constraint firstItem="z1Y-PH-iSh" firstAttribute="top" secondItem="ffW-pU-eBh" secondAttribute="topMargin" constant="13" id="3eH-gM-TXz"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="z1Y-PH-iSh" secondAttribute="bottom" constant="13.5" id="eeK-c4-u8r"/>
                                                 <constraint firstItem="z1Y-PH-iSh" firstAttribute="leading" secondItem="ffW-pU-eBh" secondAttribute="leadingMargin" constant="22" id="pEY-K5-Lue"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Bl7-yf-yFA" secondAttribute="trailing" constant="62" id="sba-3e-VT7"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -978,6 +1008,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="9Hs-nq-qbq" kind="show" identifier="friendDetailSegue" id="vJy-Li-Dmm"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
