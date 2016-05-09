@@ -26,8 +26,10 @@
 		05FA09221C5E8D3B0025A1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */; };
 		05FA09241C5E8D440025A1F6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09231C5E8D440025A1F6 /* libz.tbd */; };
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
+		5E2630D41CE0F33500746016 /* QuestionTransparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2630D31CE0F33500746016 /* QuestionTransparent.png */; };
 		5E331D7C1CD06B03007FF047 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E331D7B1CD0699F007FF047 /* ionicons.ttf */; };
 		5E711FCB1CB7365800A3F113 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */; };
+		5E91D1441CDA5E9600935168 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E91D1431CDA5E9600935168 /* QuestionMark.png */; };
 		5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB8A1111CBB38B0003B575D /* OverlayView.swift */; };
 		5EB8A1141CBB38C4003B575D /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB8A1131CBB38C4003B575D /* OverlayView.xib */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
@@ -38,7 +40,6 @@
 		793635F11CB2DB8F005CA708 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */; };
 		793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */; };
 		79ED85831CBB30E3000D6E4E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED85821CBB30E3000D6E4E /* ParseUI.framework */; };
-		79F7808A1CDA5305002800FD /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F780891CDA5305002800FD /* QuestionMark.png */; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
 		937E7F311C55672700057D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F301C55672700057D32 /* ViewController.swift */; };
@@ -96,8 +97,10 @@
 		05FA09211C5E8D3B0025A1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05FA09231C5E8D440025A1F6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		5E2630D31CE0F33500746016 /* QuestionTransparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionTransparent.png; sourceTree = "<group>"; };
 		5E331D7B1CD0699F007FF047 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
+		5E91D1431CDA5E9600935168 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
 		5EB8A1111CBB38B0003B575D /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		5EB8A1131CBB38C4003B575D /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverlayView.xib; path = ../OverlayView.xib; sourceTree = "<group>"; };
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -109,7 +112,6 @@
 		793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendPromptViewController.swift; sourceTree = "<group>"; };
 		793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BumpValidationViewController.swift; sourceTree = "<group>"; };
 		79ED85821CBB30E3000D6E4E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
-		79F780891CDA5305002800FD /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = QuestionMark.png; path = ../../QuestionMark.png; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
 		929FFFC86CC0B064C07D1F4C /* Pods_SwipeShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwipeShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
@@ -296,7 +298,8 @@
 				793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
-				79F780891CDA5305002800FD /* QuestionMark.png */,
+				5E2630D31CE0F33500746016 /* QuestionTransparent.png */,
+				5E91D1431CDA5E9600935168 /* QuestionMark.png */,
 				937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */,
 				937E7F3D1C55672700057D32 /* Info.plist */,
 				937E7F351C55672700057D32 /* SwipeShare.xcdatamodeld */,
@@ -448,10 +451,11 @@
 			files = (
 				5E331D7C1CD06B03007FF047 /* ionicons.ttf in Resources */,
 				0520578E1C81089B00009D91 /* yawIcon.png in Resources */,
-				79F7808A1CDA5305002800FD /* QuestionMark.png in Resources */,
 				937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */,
 				5EB8A1141CBB38C4003B575D /* OverlayView.xib in Resources */,
+				5E2630D41CE0F33500746016 /* QuestionTransparent.png in Resources */,
 				937E7F391C55672700057D32 /* Assets.xcassets in Resources */,
+				5E91D1441CDA5E9600935168 /* QuestionMark.png in Resources */,
 				937E7F341C55672700057D32 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

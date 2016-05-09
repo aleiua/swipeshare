@@ -53,7 +53,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var userLongitude = Double()
     
     var blockedUsers = [BlockedUser]()
-    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+//    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
     
     var angle: CGFloat!
@@ -235,9 +235,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         promptLabel.hidden = true
         let screenWidth = UIScreen.mainScreen().bounds.width
         
-
-
-        
         let maxDimension = round(screenWidth*0.6)
         
         let width = image.image!.size.width
@@ -259,6 +256,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         image.frame = CGRect(x: Double(self.view.frame.size.width/2-CGFloat(scaledWidth/2)), y: Double(self.view.frame.size.height/2-CGFloat(scaledHeight/2)), width: scaledWidth , height: scaledHeight)
         
+        image.layer.cornerRadius = 10
+        image.clipsToBounds = true
         
         view.addSubview(image)
         
@@ -765,7 +764,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let blockedFetchRequest = NSFetchRequest(entityName: "BlockedUser")
         
         do {
-            blockedUsers = try managedContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
+            blockedUsers = try managedObjectContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
             print(blockedUsers.count)
         } catch {
             print("error fetching list of blocked users")

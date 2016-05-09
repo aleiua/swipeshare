@@ -105,10 +105,16 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
                         if (error == nil) {
                             print("Photo downloaded")
                             self.message.imageData = imageData
+                            
+                            let currentInstallation = PFInstallation.currentInstallation()
+                            if currentInstallation.badge != 0 && self.message.hasBeenOpened == false {
+                                currentInstallation.badge -= 1
+                                currentInstallation.saveEventually()
+                            }
+                            
                             self.message.hasBeenOpened = true
                             self.messageImageView.image = UIImage(data: self.message.imageData!)
                             self.activityIndicator.stopAnimating()
-                            
                             do {
                                 try self.managedContext.save()
                             } catch {
