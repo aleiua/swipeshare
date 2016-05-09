@@ -36,6 +36,9 @@
 		793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */; };
 		795384131CDF855F001C25DF /* CustomSegues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795384121CDF855F001C25DF /* CustomSegues.swift */; };
 		79ED85831CBB30E3000D6E4E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED85821CBB30E3000D6E4E /* ParseUI.framework */; };
+		79F16FC11CE0F196007B4674 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F16FC01CE0F196007B4674 /* ShareViewController.swift */; };
+		79F16FC41CE0F196007B4674 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79F16FC21CE0F196007B4674 /* MainInterface.storyboard */; };
+		79F16FC81CE0F196007B4674 /* Yaw.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 79F16FBE1CE0F196007B4674 /* Yaw.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		937D7A521CDC137C008783D1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D7A511CDC137C008783D1 /* User.swift */; };
 		937D7A541CDC1DBC008783D1 /* FriendTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D7A531CDC1DBC008783D1 /* FriendTableView.swift */; };
@@ -59,6 +62,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		79F16FC61CE0F196007B4674 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 937E7F231C55672700057D32 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79F16FBD1CE0F196007B4674;
+			remoteInfo = Yaw;
+		};
 		937E7F431C55672700057D32 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 937E7F231C55672700057D32 /* Project object */;
@@ -74,6 +84,20 @@
 			remoteInfo = SwipeShare;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		79F16FCC1CE0F196007B4674 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				79F16FC81CE0F196007B4674 /* Yaw.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		050B634D1C55CA3B0033279B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -106,6 +130,10 @@
 		793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BumpValidationViewController.swift; sourceTree = "<group>"; };
 		795384121CDF855F001C25DF /* CustomSegues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegues.swift; sourceTree = "<group>"; };
 		79ED85821CBB30E3000D6E4E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		79F16FBE1CE0F196007B4674 /* Yaw.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Yaw.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		79F16FC01CE0F196007B4674 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		79F16FC31CE0F196007B4674 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		79F16FC51CE0F196007B4674 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
 		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
 		937D7A511CDC137C008783D1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -137,6 +165,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		79F16FBB1CE0F196007B4674 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		937E7F281C55672700057D32 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,11 +273,22 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		79F16FBF1CE0F196007B4674 /* Yaw */ = {
+			isa = PBXGroup;
+			children = (
+				79F16FC01CE0F196007B4674 /* ShareViewController.swift */,
+				79F16FC21CE0F196007B4674 /* MainInterface.storyboard */,
+				79F16FC51CE0F196007B4674 /* Info.plist */,
+			);
+			path = Yaw;
+			sourceTree = "<group>";
+		};
 		937E7F221C55672700057D32 = {
 			isa = PBXGroup;
 			children = (
 				937E7F2D1C55672700057D32 /* SwipeShare */,
 				79ED85881CBB3BDE000D6E4E /* Resources */,
+				79F16FBF1CE0F196007B4674 /* Yaw */,
 				79C8FF3A1CB2C81D0037B488 /* Frameworks */,
 				05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */,
 				05FA09231C5E8D440025A1F6 /* libz.tbd */,
@@ -259,6 +305,7 @@
 				937E7F2B1C55672700057D32 /* Yaw.app */,
 				937E7F421C55672700057D32 /* SwipeShareTests.xctest */,
 				937E7F4D1C55672700057D32 /* SwipeShareUITests.xctest */,
+				79F16FBE1CE0F196007B4674 /* Yaw.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -321,6 +368,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		79F16FBD1CE0F196007B4674 /* Yaw */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79F16FCB1CE0F196007B4674 /* Build configuration list for PBXNativeTarget "Yaw" */;
+			buildPhases = (
+				79F16FBA1CE0F196007B4674 /* Sources */,
+				79F16FBB1CE0F196007B4674 /* Frameworks */,
+				79F16FBC1CE0F196007B4674 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Yaw;
+			productName = Yaw;
+			productReference = 79F16FBE1CE0F196007B4674 /* Yaw.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		937E7F2A1C55672700057D32 /* SwipeShare */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 937E7F561C55672700057D32 /* Build configuration list for PBXNativeTarget "SwipeShare" */;
@@ -331,10 +395,12 @@
 				937E7F291C55672700057D32 /* Resources */,
 				D884CFF6695F1E879C65790D /* Embed Pods Frameworks */,
 				93F50C3D31C06A815D6C10AC /* Copy Pods Resources */,
+				79F16FCC1CE0F196007B4674 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				79F16FC71CE0F196007B4674 /* PBXTargetDependency */,
 			);
 			name = SwipeShare;
 			productName = SwipeShare;
@@ -383,9 +449,14 @@
 		937E7F231C55672700057D32 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = yaw;
 				TargetAttributes = {
+					79F16FBD1CE0F196007B4674 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 87SFFAJD8E;
+					};
 					937E7F2A1C55672700057D32 = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = 87SFFAJD8E;
@@ -424,11 +495,20 @@
 				937E7F2A1C55672700057D32 /* SwipeShare */,
 				937E7F411C55672700057D32 /* SwipeShareTests */,
 				937E7F4C1C55672700057D32 /* SwipeShareUITests */,
+				79F16FBD1CE0F196007B4674 /* Yaw */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		79F16FBC1CE0F196007B4674 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79F16FC41CE0F196007B4674 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		937E7F291C55672700057D32 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -508,6 +588,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		79F16FBA1CE0F196007B4674 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79F16FC11CE0F196007B4674 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		937E7F271C55672700057D32 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -553,6 +641,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		79F16FC71CE0F196007B4674 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 79F16FBD1CE0F196007B4674 /* Yaw */;
+			targetProxy = 79F16FC61CE0F196007B4674 /* PBXContainerItemProxy */;
+		};
 		937E7F441C55672700057D32 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 937E7F2A1C55672700057D32 /* SwipeShare */;
@@ -566,6 +659,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		79F16FC21CE0F196007B4674 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79F16FC31CE0F196007B4674 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		937E7F321C55672700057D32 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -585,6 +686,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		79F16FC91CE0F196007B4674 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = Yaw/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.dartmouth.yaw.Yaw;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		79F16FCA1CE0F196007B4674 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = Yaw/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.dartmouth.yaw.Yaw;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		937E7F541C55672700057D32 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -765,6 +896,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		79F16FCB1CE0F196007B4674 /* Build configuration list for PBXNativeTarget "Yaw" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79F16FC91CE0F196007B4674 /* Debug */,
+				79F16FCA1CE0F196007B4674 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		937E7F261C55672700057D32 /* Build configuration list for PBXProject "SwipeShare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
