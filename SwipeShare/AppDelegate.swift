@@ -11,7 +11,6 @@ import CoreData
 import Parse
 import Bolts
 import LocationKit
-
 import FBSDKCoreKit
 import ParseFacebookUtilsV4
 

@@ -19,9 +19,10 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     
     // For handling add/block of users
     //let messageManager = MessageManager.sharedMessageManager
-    var fetchedFriends = [Friend]()
+    var blockedUsers = [User]()
+    var fetchedFriends = [User]()
     var blockingUser = false
-    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     @IBOutlet weak var dateLabel: UIBarButtonItem!
     
@@ -47,12 +48,28 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         self.scrollView.minimumZoomScale = 1.0
         self.scrollView.maximumZoomScale = 4.0
         
-        
-        // Fetch friends for referencing when giving prompt 
-        let friendFetchRequest = NSFetchRequest(entityName: "Friend")
+        // Fetch blocked users for referencing when giving prompt (Previously located in Message Table VC)
+        let blockedUserFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let blockedPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
+        blockedUserFetchRequest.predicate = blockedPredicate
         
         do {
-            fetchedFriends = try managedContext.executeFetchRequest(friendFetchRequest) as! [Friend]
+            blockedUsers = try managedObjectContext.executeFetchRequest(blockedUserFetchRequest) as! [User]
+            print("going to print blocked users count")
+            print(blockedUsers.count)
+        } catch {
+            print("error fetching blocked user list from CoreData")
+        }
+        
+        
+        // Fetch friends for referencing when giving prompt
+        let friendFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let friendPredicate = NSPredicate(format: "%K == %@", "status", "friend")
+        blockedUserFetchRequest.predicate = friendPredicate
+        do {
+            fetchedFriends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
             print("going to print friend count")
             print(fetchedFriends.count)
         } catch {
@@ -65,7 +82,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         self.navigationController!.toolbarHidden = false
         self.navigationController!.hidesBarsOnTap = true
         
-        messageNavBar.title = String(message.sender)
+        messageNavBar.title = String(message.user.displayName)
         let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         messageNavBar.rightBarButtonItem?.title = date
         if message.imageData == nil{
@@ -77,7 +94,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         
         
         // Prompt the user for input if the message is from a non-Friend user
-        if !isFriend(message.sender){
+        if message.user.status != "friend" {
             
             let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
             friendPromptViewController.delegate = self
@@ -116,7 +133,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
                             self.messageImageView.image = UIImage(data: self.message.imageData!)
                             self.activityIndicator.stopAnimating()
                             do {
-                                try self.managedContext.save()
+                                try self.managedObjectContext.save()
                             } catch {
                                 fatalError("Failure to save context: \(error)")
                             }
@@ -164,55 +181,68 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         }
     }
 
-
-    // Called when a message is received from a new user to save friend to CoreData
-    func saveFriend() {
+    
+    // Update user status
+    func updateUserStatus(status: String) {
+        message.user.status = status
         
-        // Save to CoreData
-        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        let entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: managedObjectContext)
-        let friend = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
-        friend.setValue(message.sender, forKey: "username")
+        if status == "blocked" {
+            blockingUser = true
+            // Delete messages from core data
+        }
         
         do {
             try managedObjectContext.save()
-            print("successfully saved friend")
+            print("successfully saved user")
         } catch let error {
-            print("error saving new friend in managedObjectContext: \(error)")
+                print("error saving new friend in managedObjectContext: \(error)")
         }
+
         
-        getPhoto()
     }
 
-    // Called when user decides to block another user
-    // Saves a corresponding BlockedUser entity to CoreData
-    func blockUser() {
-        
-        blockingUser = true
-        
-        // Save to CoreData
-        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        let entity = NSEntityDescription.entityForName("BlockedUser", inManagedObjectContext: managedObjectContext)
-        let blockedUser = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
-        blockedUser.setValue(message.sender, forKey: "username")
-        
-        do {
-            try managedObjectContext.save()
-            print("successfully blocked user")
-        } catch let error {
-            print("error blocking user in managedObjectContext: \(error)")
-        }
-        
-        // Once migration to core data is complete, this method needs to be implemented in MessageTableVC
-//        delegate?.removeBlockedUserMessages()
-    }
+
+//    // Called when a message is received from a new user to save friend to CoreData
+//    func saveFriend() {
+//        
+//        let entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: managedObjectContext)
+//        let friend = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
+//        friend.setValue(message.sender, forKey: "username")
+//        
+//      //
+//        getPhoto()
+//    }
+//    
+//
+//    // Called when user decides to block another user
+//    // Saves a corresponding BlockedUser entity to CoreData
+//    func blockUser() {
+//        
+//        blockingUser = true
+//        
+//        // Save to CoreData
+//        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+//        let entity = NSEntityDescription.entityForName("BlockedUser", inManagedObjectContext: managedObjectContext)
+//        let blockedUser = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
+//        blockedUser.setValue(message.sender, forKey: "username")
+//        
+//        do {
+//            try managedObjectContext.save()
+//            print("successfully blocked user")
+//        } catch let error {
+//            print("error blocking user in managedObjectContext: \(error)")
+//        }
+//        
+//        // Once migration to core data is complete, this method needs to be implemented in MessageTableVC
+////        delegate?.removeBlockedUserMessages()
+//    }
 
     // Check to see if the user is a friend
-    func isFriend(username: String) -> Bool {
+    func isFriend(user: User) -> Bool {
         
         for friend in fetchedFriends {
             print(friend.username)
-            if friend.username == username {
+            if friend.username == user.username {
                 return true
             }
         }

@@ -51,9 +51,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var userObjectId = String()
     var userLatitude = Double()
     var userLongitude = Double()
-    
-    var blockedUsers = [BlockedUser]()
-//    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    var blockedUsers = [User]()
 
     
     var angle: CGFloat!
@@ -76,27 +74,28 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var delegate: LocationViewControllerDelegate?
     
     @IBAction func settingsMenuButton(sender: AnyObject) {
-        print("settings menu button pressed")
-        delegate?.toggleSettingsPanel?()
+//        print("settings menu button pressed")
+//        delegate?.toggleSettingsPanel?()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            print("Settings page")
+            
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
+            self.presentViewController(viewController, animated: true, completion: nil)
+            
+        })
+
+        
     }
-    
+
     
     // Core Data Stuff
     // Retreive the managedObjectContext from AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
 
-    /*
-    Rough Distances:
-    .1 = 11km
-    .01 = 1km = 1000m
-    .001 = .1km = 100m
-    .0001 = .01km = 10m
-    */
-    var searchDistance = 0.001
-    var earthRadius = 6371.0
-    
 
+
+    
     
    /*****************************GESTURE HANDLING********************************/
     
@@ -351,7 +350,22 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         })
     }
 
-
+    /*
+    Rough Distances:
+    .1 = 11km
+    .01 = 1km = 1000m
+    .001 = .1km = 100m
+    .0001 = .01km = 10m
+    */
+    var latSearchDistance = 0.001
+    var longSearchDistance = 0.001
+    var searchDistance = 0.001
+    var earthRadius = 6371.0
+    var ftInMiles = 5280.0
+    
+    var milesToKM = 0.621371
+    var distanceToLat = 110.574
+    var distanceToLong = 111.320
 
 
     /********************DISTANCE AND BEARING CALCULATIONS********************/
@@ -396,8 +410,23 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             angle = angle + 360
         }
         return angle
+    }
+    
+    func saveNewRadius(distance: Float) {
+        
+        if (self.DEBUG) {
+            print("Saved New Radius")
+        }
+        
+        let miles = Double(distance) / ftInMiles
+        let km = miles / milesToKM
+        
+        latSearchDistance = km / distanceToLat
+        longSearchDistance = km / (distanceToLong * cos(self.userLatitude))
         
     }
+    
+
     
     /*****************************NEIGHBOR SORTING*****************************/
 
@@ -409,13 +438,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Querying for neighbors")
         let query = PFQuery(className:"_User")
         query.whereKey("latitude",
-            greaterThan: (userLatitude - searchDistance))
+            greaterThan: (userLatitude - latSearchDistance))
         query.whereKey("latitude",
-            lessThan: (userLatitude + searchDistance))
+            lessThan: (userLatitude + latSearchDistance))
         query.whereKey("longitude",
-            greaterThan: (userLongitude - searchDistance))
+            greaterThan: (userLongitude - longSearchDistance))
         query.whereKey("longitude",
-            lessThan: (userLongitude + searchDistance))
+            lessThan: (userLongitude + longSearchDistance))
         query.whereKey("objectId", notEqualTo: currentObjectID!)
         
         
@@ -430,7 +459,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 // Filter out blocked users by removing from list returned by query
                 isBlocked = false
                 for blockedUser in blockedUsers {
-                    if (String(user["username"]) == blockedUser.username!) {
+                    if (String(user["username"]) == blockedUser.username) {
                         users.removeAtIndex(i)
                         isBlocked = true
                         break
@@ -647,31 +676,75 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             
             for object in pictureObjects {
                 
-                let msgSender = object["sender"] as! PFUser
-                let msgId = object.objectId
-                let sentDate = object.createdAt! as NSDate
-                
-                // Filter messages coming from blocked users
-                if (!isBlocked(msgSender["username"] as! String)) {
+                let messageSender = object["sender"] as! PFUser
+                let sender: User
 
+                // Check if sender exists in local User storage
+                let checkForSenderFetchRequest = NSFetchRequest(entityName: "User")
+                let predicate = NSPredicate(format: "%K == %@", "username", messageSender["username"] as! String)
+                checkForSenderFetchRequest.predicate = predicate
+                
+                // Execute Fetch Request to check if User exists locally
+                do {
+                    let users = try self.managedObjectContext.executeFetchRequest(checkForSenderFetchRequest)
+                    
+                    // If the user does exist locally - set Store User to the local user entity for updating purposes
+                    if users.count != 0 {
+                        sender = users[0] as! User
+                        print("sender already stored")
+                        
+                    } else {        // Create a new User entity to store
+                        print("creating new sender")
+                        let userEntity = NSEntityDescription.entityForName("User", inManagedObjectContext: self.managedObjectContext)
+                        sender = User(username: messageSender["username"] as! String, displayName: messageSender["name"] as! String, entity: userEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
+                    }
+                    
+                    // If sender is a blocked user - do not save or display incoming message
+                    if sender.status == "blocked" {
+                        abort()
+                    }
+                    
+                    // Filter messages coming from blocked users
+                    //if (!isBlocked(msgSender["username"] as! String)) {
+                    
+                    
+                    // Create message object
+                    let messageId = object.objectId
+                    let sentDate = object.createdAt! as NSDate
                     let entityDescripition = NSEntityDescription.entityForName("Message", inManagedObjectContext: managedObjectContext)
+                    let message = Message(date: sentDate, imageData: nil, objectId: messageId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
                     
                     
-                    let message = Message(sender: String(msgSender["name"]), date: sentDate as NSDate, imageData: nil, objectId: msgId!, entity: entityDescripition!, insertIntoManagedObjectContext: managedObjectContext)
+                    // Set up relationship between message and sender in core data
+                    message.user = sender
                     
-                    // Set object to read.
+                    sender.mutableSetValueForKey("messages").addObject(message)
+                    
+                    // update sender most recent communication date
+                    sender.mostRecentCommunication = sentDate
+                    
+                    
+                    // Set message object to read on parse - which means it has been downloaded to phone
                     object["hasBeenRead"] = true
                     object.saveInBackground()
                     
-                    // SAVING MANAGED OBJECT CONTEXT - SAVES MESSAGES TO CORE DATA
-                    do {
-                        try managedObjectContext.save()
-                    } catch {
-                        fatalError("Failure to save context: \(error)")
-                    }
+                } catch {   // Catch any errors fetching from Core Data
+                    let fetchError = error as NSError
+                    print(fetchError)
+                }
+                
+                
+
+                    
+                // SAVING MANAGED OBJECT CONTEXT - SAVES MESSAGES TO CORE DATA
+                do {
+                    try managedObjectContext.save()
+                } catch {
+                    fatalError("Failure to save context: \(error)")
                 }
             }
         }
+        // Handle errors in getting pictures from parse
         catch {
             print("Error getting received pictures")
         }
@@ -761,10 +834,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
 
         // Fetch list of blocked users by username from CoreData
-        let blockedFetchRequest = NSFetchRequest(entityName: "BlockedUser")
+        let blockedFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let blockedPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
+        blockedFetchRequest.predicate = blockedPredicate
+        
         
         do {
-            blockedUsers = try managedObjectContext.executeFetchRequest(blockedFetchRequest) as! [BlockedUser]
+            blockedUsers = try managedObjectContext.executeFetchRequest(blockedFetchRequest) as! [User]
             print(blockedUsers.count)
         } catch {
             print("error fetching list of blocked users")
@@ -838,13 +915,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 user!["latitude"] = loc.coordinate.latitude
                 user!["longitude"] = loc.coordinate.longitude
                 
+                self.userLatitude = self.currentLocation.coordinate.latitude
+                self.userLongitude = self.currentLocation.coordinate.longitude
+                
                 user!.saveInBackgroundWithBlock { (success, error) -> Void in
                     if success {
                         if (self.DEBUG) {
                             print("Location saved successfully")
                         }
-                        self.userLatitude = self.currentLocation.coordinate.latitude
-                        self.userLongitude = self.currentLocation.coordinate.longitude
                     }
                 }
             }
@@ -912,6 +990,28 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
     }
+    
+    /*************************** Settings Segue *******************************/
+     
+    @IBAction func segueHome(segue: UIStoryboardSegue) {
+        // segue back
+    }
+    
+    override func segueForUnwindingToViewController(toViewController: UIViewController, fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue {
+        
+        if let id = identifier {
+            print(id)
+            if id == "segueHome" {
+                let unwindSegue = UIStoryboardUnwindSegueFromLeft(identifier: id, source: fromViewController, destination: toViewController)
+                return unwindSegue
+            }
+        }
+        
+        return super.segueForUnwindingToViewController(toViewController, fromViewController: fromViewController, identifier: identifier)!
+    }
+    
+    
+    
     
     /****************************iBeacon Region Establishment********************************/
     
