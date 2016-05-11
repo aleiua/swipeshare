@@ -37,6 +37,8 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
             loginViewController.delegate = self
             
             loginViewController.fields = [.UsernameAndPassword, .LogInButton, .PasswordForgotten, .SignUpButton, .Facebook]
+            
+            loginViewController.facebookPermissions = ["email", "public_profile", "user_friends"]
 
             loginViewController.emailAsUsername = false
             loginViewController.signUpController?.emailAsUsername = false

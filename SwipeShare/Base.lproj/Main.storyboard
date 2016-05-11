@@ -843,27 +843,30 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="63.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1Y-PH-iSh">
-                                                    <rect key="frame" x="30" y="21" width="89" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="89" id="eUH-iB-IEz"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bl7-yf-yFA">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bl7-yf-yFA">
                                                     <rect key="frame" x="458" y="17" width="72" height="30"/>
                                                     <state key="normal" title="Friend List"/>
                                                     <connections>
                                                         <segue destination="nL3-Iv-6Lj" kind="show" id="Qfe-Dl-gie"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zfD-eY-ZdN">
+                                                    <rect key="frame" x="28" y="17" width="127" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="127" id="0y8-Hv-fun"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                    <state key="normal" title="View Friends"/>
+                                                    <connections>
+                                                        <action selector="getFacebookFriends:" destination="oHC-4A-wJY" eventType="touchUpInside" id="77t-f2-cWd"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="z1Y-PH-iSh" firstAttribute="top" secondItem="ffW-pU-eBh" secondAttribute="topMargin" constant="13" id="3eH-gM-TXz"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="z1Y-PH-iSh" secondAttribute="bottom" constant="13.5" id="eeK-c4-u8r"/>
-                                                <constraint firstItem="z1Y-PH-iSh" firstAttribute="leading" secondItem="ffW-pU-eBh" secondAttribute="leadingMargin" constant="22" id="pEY-K5-Lue"/>
+                                                <constraint firstItem="zfD-eY-ZdN" firstAttribute="top" secondItem="Bl7-yf-yFA" secondAttribute="top" id="3G3-M7-yLP"/>
+                                                <constraint firstItem="zfD-eY-ZdN" firstAttribute="top" secondItem="ffW-pU-eBh" secondAttribute="topMargin" constant="9" id="A02-tL-IkO"/>
+                                                <constraint firstItem="zfD-eY-ZdN" firstAttribute="leading" secondItem="ffW-pU-eBh" secondAttribute="leadingMargin" constant="20" id="KxG-Cy-7xe"/>
+                                                <constraint firstItem="zfD-eY-ZdN" firstAttribute="centerY" secondItem="ffW-pU-eBh" secondAttribute="centerY" id="aVQ-7m-GpZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

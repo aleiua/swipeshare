@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 import Parse
 
+import FBSDKCoreKit
+import ParseFacebookUtilsV4
+
 
 class SettingsViewController: UITableViewController {
 
@@ -36,6 +39,37 @@ class SettingsViewController: UITableViewController {
     @IBAction func exitButtonTapped(sender: UIButton) {
         self.performSegueWithIdentifier("segueHome", sender: self)
     }
+    
+    @IBAction func getFacebookFriends(sender: AnyObject) {
+        
+        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "friends, picture"])
+        
+        graphRequest.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
+            if(error == nil)
+            {
+                let resultDict = result as! NSDictionary
+                print("result \(resultDict)")
+                
+//                let data : NSArray = resultDict.objectForKey("data") as! NSArray
+//
+//                for i in data {
+//                    let valueDict : NSDictionary = i as! NSDictionary
+//                    print("valueDict = \(valueDict)")
+//                    
+//                    let id = valueDict.objectForKey("id") as! String
+//                    print("the id value is \(id)")
+//                }
+                
+            }
+            else
+            {
+                print("error \(error)")
+            }
+        })
+        return
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
