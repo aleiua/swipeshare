@@ -48,8 +48,8 @@ class ContainerViewController: UIViewController, UINavigationControllerDelegate 
         
         locationNavigationController.didMoveToParentViewController(self)
         
-        let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
-        locationNavigationController.view.addGestureRecognizer(swipeGestureRecognizer)
+//        let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
+//        locationNavigationController.view.addGestureRecognizer(swipeGestureRecognizer)
                 
     }
     
@@ -120,55 +120,55 @@ extension ContainerViewController: LocationViewControllerDelegate {
     }
 }
 
-
-extension ContainerViewController: UIGestureRecognizerDelegate {
-    // MARK: Gesture recognizer
-    
-    func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        
-        let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
-        
-        switch(recognizer.state) {
-        case .Began:
-            if (currentState == .SettingsPanelCollapsed) {
-                if (gestureIsDraggingFromLeftToRight) {
-                    addSettingsViewController()
-                }
-                
-                showShadowForCenterViewController(true)
-            }
-            
-        case .Changed:
-            
-            if (currentState == .SettingsPanelCollapsed) {
-                if recognizer.translationInView(view).x > 0 {
-                    recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
-                    recognizer.setTranslation(CGPointZero, inView: view)
-                }
-            }
-            else {
-                if recognizer.translationInView(view).x < 0 {
-                    recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
-                    recognizer.setTranslation(CGPointZero, inView: view)
-                }
-                
-            }
-
-            
-        case .Ended:
-            
-            if (settingsViewController != nil) {
-                // animate the side panel open or closed based on whether the view has moved more or less than halfway
-                let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
-                animateSettingsPanel(shouldExpand: hasMovedGreaterThanHalfway)
-            }
-            
-        default:
-            break
-        }
-    }
-    
-}
+//
+//extension ContainerViewController: UIGestureRecognizerDelegate {
+//    // MARK: Gesture recognizer
+//    
+//    func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+//        
+//        let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
+//        
+//        switch(recognizer.state) {
+//        case .Began:
+//            if (currentState == .SettingsPanelCollapsed) {
+//                if (gestureIsDraggingFromLeftToRight) {
+//                    addSettingsViewController()
+//                }
+//                
+//                showShadowForCenterViewController(true)
+//            }
+//            
+//        case .Changed:
+//            
+//            if (currentState == .SettingsPanelCollapsed) {
+//                if recognizer.translationInView(view).x > 0 {
+//                    recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
+//                    recognizer.setTranslation(CGPointZero, inView: view)
+//                }
+//            }
+//            else {
+//                if recognizer.translationInView(view).x < 0 {
+//                    recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
+//                    recognizer.setTranslation(CGPointZero, inView: view)
+//                }
+//                
+//            }
+//
+//            
+//        case .Ended:
+//            
+//            if (settingsViewController != nil) {
+//                // animate the side panel open or closed based on whether the view has moved more or less than halfway
+//                let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
+//                animateSettingsPanel(shouldExpand: hasMovedGreaterThanHalfway)
+//            }
+//            
+//        default:
+//            break
+//        }
+//    }
+//    
+//}
 
 private extension UIStoryboard {
     
