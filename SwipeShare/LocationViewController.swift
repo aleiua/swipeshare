@@ -594,12 +594,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             toSend.saveInBackgroundWithBlock { (success, error) -> Void in
                 if success {
                     print("Saved toSend object.")
+                    self.pushToUser(PFUser.currentUser()!, recipient: user as! PFUser, photo: toSend)
                 }
                 else {
                     print("Failed saving toSend object")
                 }
             }
-            pushToUser(PFUser.currentUser()!, recipient: user as! PFUser, photo: toSend)
         }
         
         if (!bluetooth && STORE_DATA && users.count == 1) {
@@ -970,7 +970,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             "badge" : "Increment",
             "p" : "\(photo.objectId)"
         ]
-
         let query = PFInstallation.query()
         query!.whereKey("user", equalTo: recipient)
         

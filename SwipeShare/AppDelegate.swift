@@ -47,6 +47,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         locationManager.debug = false
         locationManager.apiToken = "76f847c677f70038"
         locationManager.startUpdatingLocation()
+        // if there's a notification with a photo
+        if let notificationPayload = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            
+            // Create a pointer to the Photo object
+            let photoId = notificationPayload["p"] as? String
+            getMessage(photoId!)
+            let detailViewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("detailVC") as! MessageDetailVC
+//            detailViewController.message = 
+            
+            // Fetch messages from core Data, sorted by date
+            let messageFetchRequest = NSFetchRequest(entityName: "Message")
+            let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
+            messageFetchRequest.sortDescriptors = [sortDescriptor]
+            
+            do {
+                fetchedMessage = try managedContext.executeFetchRequest(messageFetchRequest) as! [Message]
+            } catch {
+                fatalError("Failed to fetch messages: \(error)")
+            }
+
+            let navController = window?.rootViewController?.navigationController
+                navController!.pushViewController(detailViewController, animated: true)
+        }
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
@@ -55,6 +78,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func getMessage(id: String) -> Message? {
+        let query = PFQuery(className:"sentPicture")
+        query.getObjectInBackgroundWithId(id) {
+            (object: PFObject?, error: NSError?) -> Void in
+            if error == nil && object != nil {
+                
+                let messageSender = object!["sender"] as! PFUser
+                let sender: User
+                
+                // Check if sender exists in local User storage
+                let checkForSenderFetchRequest = NSFetchRequest(entityName: "User")
+                let predicate = NSPredicate(format: "%K == %@", "username", messageSender["username"] as! String)
+                checkForSenderFetchRequest.predicate = predicate
+                
+                // Execute Fetch Request to check if User exists locally
+                do {
+                    let users = try self.managedObjectContext.executeFetchRequest(checkForSenderFetchRequest)
+                    
+                    // If the user does exist locally - set Store User to the local user entity for updating purposes
+                    if users.count != 0 {
+                        sender = users[0] as! User
+                        print("sender already stored")
+                        
+                    } else {        // Create a new User entity to store
+                        print("creating new sender")
+                        let userEntity = NSEntityDescription.entityForName("User", inManagedObjectContext: self.managedObjectContext)
+                        sender = User(username: messageSender["username"] as! String, displayName: messageSender["name"] as! String, entity: userEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
+                    }
+                    
+                    // If sender is a blocked user - do not save or display incoming message
+                    if sender.status == "blocked" {
+                        abort()
+                    }
+                    
+                    // Create message object
+                    let messageId = object!.objectId
+                    let sentDate = object!.createdAt! as NSDate
+                    let entityDescripition = NSEntityDescription.entityForName("Message", inManagedObjectContext: self.managedObjectContext)
+                    let message = Message(date: sentDate, imageData: nil, objectId: messageId!, entity: entityDescripition!, insertIntoManagedObjectContext: self.managedObjectContext)
+                    
+                    // Set up relationship between message and sender in core data
+                    message.user = sender
+                    
+                    sender.mutableSetValueForKey("messages").addObject(message)
+                    
+                    // update sender most recent communication date
+                    sender.mostRecentCommunication = sentDate
+                    
+                    // Set message object to read on parse - which means it has been downloaded to phone
+                    object!["hasBeenRead"] = true
+                    object!.saveInBackground()
+                    
+                } catch {   // Catch any errors fetching from Core Data
+                    let fetchError = error as NSError
+                    print(fetchError)
+                }
+                
+                // SAVING MANAGED OBJECT CONTEXT - SAVES MESSAGES TO CORE DATA
+                do {
+                    try self.managedObjectContext.save()
+                } catch {
+                    fatalError("Failure to save context: \(error)")
+                }
+            } else {
+                print(error)
+            }
+        }
+    }
+
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }

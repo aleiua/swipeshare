@@ -27,7 +27,6 @@ class LoginViewController: PFLogInViewController {
         logo.text = "Yaw"
         logo.textColor = UIColor.whiteColor()
         logo.font = UIFont(name: "HelveticaNeue-UltraLight", size: 80)
-//        logo.shadowColor = UIColor.lightGrayColor()
         logo.shadowOffset = CGSizeMake(2, 2)
         logInView?.logo = logo
         

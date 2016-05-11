@@ -27,7 +27,6 @@ class SignUpViewCont: PFSignUpViewController {
         logo.text = "Yaw"
         logo.textColor = UIColor.darkGrayColor()
         logo.font = UIFont(name: "HelveticaNeue-UltraLight", size: 80)
-        //        logo.shadowColor = UIColor.lightGrayColor()
         logo.shadowOffset = CGSizeMake(2, 2)
         signUpView?.logo = logo
     }
