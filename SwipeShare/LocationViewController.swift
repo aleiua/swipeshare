@@ -452,6 +452,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         // Get all close neighbors
         var users = [PFObject]()
         var isBlocked: Bool
+        var isFriend: Bool
 
         do {
             try users = query.findObjects()
@@ -466,6 +467,20 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                         break
                     }
                 }
+                
+                // Filter out non-Friend users if sharing with friends only
+                isFriend = false
+                if (sharingWithFriends) {
+                    for friend in friendUsers {
+                        if (String(user["username"]) == friend.username) {
+                            isFriend = true
+                        }
+                    }
+                    if !(isFriend) {
+                        users.removeAtIndex(i)
+                    }
+                }
+                
                 print("Adjacent User: " + String(user["name"]))
             }
         }
