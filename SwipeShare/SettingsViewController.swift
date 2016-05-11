@@ -32,6 +32,9 @@ class SettingsViewController: UITableViewController {
         LocationViewController().saveNewRadius(sender.value)
     }
     
+    @IBAction func shareWithFriendsSwitch(sender: AnyObject) {
+        delegate?.switchSharingWithFriends()
+    }
         
     @IBAction func exitButtonTapped(sender: UIButton) {
         self.performSegueWithIdentifier("segueHome", sender: self)
