@@ -1098,18 +1098,21 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         // If bluetooth sharing with friends only, filter out non-friend users
         if (sharingWithFriends) {
+            var friendNeighbor = [PFObject]()
             for user in neighbor {
-                //if the user isn't a friend, remove it from the list
                 for friend in friendUsers {
+                    
+                    // If the user is found within friends, then add them to the confirmed users list
                     if (String(user["username"]) == friend.username) {
-                        
+                        friendNeighbor.append(user)
                     }
                 }
-                
             }
+            return friendNeighbor
         }
-        
-        return neighbor
+        else{
+            return neighbor
+        }
 
     }
     
