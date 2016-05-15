@@ -42,11 +42,14 @@ class FriendPromptViewController: UIViewController {
     }
     @IBAction func allowOnce(sender: AnyObject) {
         self.delegate?.updateUserStatus("once")
+        self.delegate?.updateAllowOnce()
+        self.delegate?.photoAppear()
         self.dismissViewControllerAnimated(true, completion: nil)
         
     }
     @IBAction func addFriend(sender: AnyObject) {
         self.delegate?.updateUserStatus("friend")
+        self.delegate?.photoAppear()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

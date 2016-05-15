@@ -85,23 +85,34 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         messageNavBar.title = String(message.user.displayName)
         let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         messageNavBar.rightBarButtonItem?.title = date
+        
+        // Prompt the user for input if the message is from a non-Friend user
+        if (message.user.status != "friend" && message.allowedOnce == false) {
+            
+            let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
+            friendPromptViewController.delegate = self
+            friendPromptViewController.modalPresentationStyle = .OverCurrentContext
+            presentViewController(friendPromptViewController, animated: true, completion: nil)
+            
+        }
+        else {
+            photoAppear()
+        }
+        
+        
+    }
+    
+    func photoAppear() {
         if message.imageData == nil{
             getPhoto()
         } else {
             self.activityIndicator.stopAnimating()
             messageImageView?.image = UIImage(data: message.imageData!)
         }
-        
-        
-        // Prompt the user for input if the message is from a non-Friend user
-        if message.user.status != "friend" {
-            
-            let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
-            friendPromptViewController.delegate = self
-            friendPromptViewController.modalPresentationStyle = .OverCurrentContext
-            presentViewController(friendPromptViewController, animated: true, completion: nil)
-           
-        }
+    }
+    
+    func updateAllowOnce() {
+        self.message.allowedOnce = true
     }
     
     override func viewWillDisappear(animated: Bool) {

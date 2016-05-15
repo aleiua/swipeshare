@@ -207,7 +207,10 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
 
 
             destinationViewController.message = message
+            
         }
+        
+        
     }
     
     
