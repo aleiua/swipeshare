@@ -88,6 +88,12 @@ class SettingsViewController: UITableViewController {
                 }
             }
         }
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped:"))
+        userIcon.userInteractionEnabled = true
+        userIcon.addGestureRecognizer(tapGestureRecognizer)
+        
+        
         userIcon.layer.borderWidth = 3
         userIcon.layer.masksToBounds = false
         userIcon.layer.borderColor = UIColor.grayColor().CGColor
@@ -99,15 +105,8 @@ class SettingsViewController: UITableViewController {
         
     }
     
-    @IBAction func logout() {
-        print(PFUser.currentUser())
-        PFUser.logOut()
+    func imageTapped(img: AnyObject) {
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
-            self.presentViewController(viewController, animated: true, completion: nil)
-            
-        })   
     }
 
     override func didReceiveMemoryWarning() {
@@ -115,6 +114,37 @@ class SettingsViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("Row: \(indexPath.row)")
+        print("Section: \(indexPath.section)")
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+        
+        if (indexPath.section == 0) {
+            // Friends and Distance
+        }
+        else if (indexPath.section == 1) {
+            // Will be segues to friend functionality
+        }
+        else if (indexPath.section == 2) {
+            logout()
+        }
+        
+    }
+    
+    func logout() {
+        print(PFUser.currentUser())
+        PFUser.logOut()
+        print("Logout")
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
+            self.presentViewController(viewController, animated: true, completion: nil)
+            
+        })
+    }
     
     
     func cropImageToSquare(image originalImage: UIImage) -> UIImage {

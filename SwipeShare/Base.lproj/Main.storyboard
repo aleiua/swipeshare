@@ -837,7 +837,7 @@
                             <tableViewSection headerTitle="Friends Settings" id="Nch-DB-8xd">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="64" id="kOv-Et-5VW">
-                                        <rect key="frame" x="0.0" y="548" width="600" height="64"/>
+                                        <rect key="frame" x="0.0" y="547.5" width="600" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kOv-Et-5VW" id="ffW-pU-eBh">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="63.5"/>
@@ -891,16 +891,16 @@
                             <tableViewSection id="7Xd-R3-log">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="64" id="6Zw-hO-Ybj">
-                                        <rect key="frame" x="0.0" y="711.5" width="600" height="64"/>
+                                        <rect key="frame" x="0.0" y="712" width="600" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Zw-hO-Ybj" id="kmv-qq-tQ6">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QjI-gm-HND">
-                                                    <rect key="frame" x="271" y="21" width="58" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohg-hm-rOd">
+                                                    <rect key="frame" x="273" y="21" width="54" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="58" id="Z3e-oS-Unn"/>
+                                                        <constraint firstAttribute="width" constant="54" id="gPo-vr-qId"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -908,14 +908,16 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="QjI-gm-HND" firstAttribute="centerX" secondItem="kmv-qq-tQ6" secondAttribute="centerX" id="5Bm-nC-eJB"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="QjI-gm-HND" secondAttribute="bottom" constant="13.5" id="cJO-hY-ppf"/>
-                                                <constraint firstItem="QjI-gm-HND" firstAttribute="top" secondItem="kmv-qq-tQ6" secondAttribute="topMargin" constant="13" id="dwA-e8-yyc"/>
-                                                <constraint firstItem="QjI-gm-HND" firstAttribute="leading" secondItem="kmv-qq-tQ6" secondAttribute="leadingMargin" constant="263" id="xY9-ht-Tvz"/>
+                                                <constraint firstItem="ohg-hm-rOd" firstAttribute="leading" secondItem="kmv-qq-tQ6" secondAttribute="leading" constant="267" id="0pN-PW-jrj"/>
+                                                <constraint firstItem="ohg-hm-rOd" firstAttribute="centerX" secondItem="kmv-qq-tQ6" secondAttribute="centerX" id="5YV-Nt-5xJ"/>
+                                                <constraint firstItem="ohg-hm-rOd" firstAttribute="leading" secondItem="kmv-qq-tQ6" secondAttribute="leading" constant="267" id="9tl-yX-8tl"/>
+                                                <constraint firstItem="ohg-hm-rOd" firstAttribute="top" secondItem="kmv-qq-tQ6" secondAttribute="topMargin" constant="13" id="Io7-8K-ait"/>
+                                                <constraint firstItem="ohg-hm-rOd" firstAttribute="centerY" secondItem="kmv-qq-tQ6" secondAttribute="centerY" id="Tar-mi-k7l"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="xY9-ht-Tvz"/>
+                                                    <exclude reference="0pN-PW-jrj"/>
+                                                    <exclude reference="9tl-yX-8tl"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
