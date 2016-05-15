@@ -28,6 +28,19 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     override func viewDidLoad() {
         super.viewDidLoad()
         
+   
+        var items = [UIBarButtonItem]()
+        items.append(
+            UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        )
+        items.append(
+            UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: nil)
+        )
+        self.navigationController?.toolbar.items = items
+    
+        self.navigationController?.setToolbarHidden(false, animated: true)
+
+        
         // Fetch messages from core Data, sorted by date
         let messageFetchRequest = NSFetchRequest(entityName: "Message")
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top

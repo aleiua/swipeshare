@@ -696,91 +696,19 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                         sender = users[0] as! User
                         print("sender already stored")
                         if sender.profImageData == nil {
-                            
-                            let profPicQuery = PFQuery(className: "_User")
-                            profPicQuery.whereKey("username", equalTo: messageSender["username"])
-                            profPicQuery.getObjectInBackgroundWithId(messageSender.objectId!){
-                                (object: PFObject?, error: NSError?) -> Void in
-                                if error == nil {
-                                    print("ya prof pic bitches")
-                                    
-                                    if let picture = object!["profilePicture"] as? PFFile {
-                                        print("we out here")
-                                        
-                                        picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-                                            if (error == nil) {
-                                                print("Photo downloaded lalalala")
-                                                sender.profImageData = imageData
-                                                
-                                                do {
-                                                    try self.managedObjectContext.save()
-                                                } catch {
-                                                    fatalError("Failure to save context: \(error)")
-                                                }
-                                                
-                                                
-                                                
-                                            }
-                                            else {
-                                                print("Error getting profile picture data")
-                                            }
-                                        }
-                                    }
-                                    
-                                }
-                                else {
-                                    print(error)
-                                }
-                            }
-                            
+                            // Fetch profile picture from parse and store in core data
+                            getProfilePicture(messageSender, storedSender: sender)
                             
                         }
                         
                     } else {        // Create a new User entity to store
-                        print("creating new sender")
+                        print("creating new user entity to store")
                         let userEntity = NSEntityDescription.entityForName("User", inManagedObjectContext: self.managedObjectContext)
                         sender = User(username: messageSender["username"] as! String, displayName: messageSender["name"] as! String, entity: userEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
                         
-                        let profPicQuery = PFQuery(className: "_User")
-                        profPicQuery.whereKey("username", equalTo: messageSender["username"])
-                        profPicQuery.getObjectInBackgroundWithId(messageSender.objectId!){
-                            (object: PFObject?, error: NSError?) -> Void in
-                            if error == nil {
-                                print("ya prof pic bitches")
-                                
-                                if let picture = object!["profilePicture"] as? PFFile {
-                                    
-                                    picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-                                        if (error == nil) {
-                                            print("Photo downloaded lalalala")
-                                            sender.profImageData = imageData
-                                            
-                                            do {
-                                                try self.managedObjectContext.save()
-                                            } catch {
-                                                fatalError("Failure to save context: \(error)")
-                                            }
-                                            
-                                            
-                                            
-                                        }
-                                        else {
-                                            print("Error getting profile picture data")
-                                        }
-                                    }
-                                }
-                                
-                            }
-                            else {
-                                print(error)
-                            }
-                        }
-
+                        // Fetch profile picture from parse and store in core data
+                        getProfilePicture(messageSender, storedSender: sender)
                         
-                        
-                                               
-
-
                     }
                     
                     // If sender is a blocked user - do not save or display incoming message
@@ -835,6 +763,47 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         return pictureObjects
     }
     
+    
+    func getProfilePicture(messageSender: PFUser, storedSender: User) {
+        let profPicQuery = PFQuery(className: "_User")
+        profPicQuery.whereKey("username", equalTo: messageSender["username"])
+        profPicQuery.getObjectInBackgroundWithId(messageSender.objectId!){
+            (object: PFObject?, error: NSError?) -> Void in
+            if error == nil {
+                print("ya prof pic bitches")
+                
+                if let picture = object!["profilePicture"] as? PFFile {
+                    print("we out here")
+                    
+                    picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                        if (error == nil) {
+                            print("Photo downloaded lalalala")
+                            storedSender.profImageData = imageData
+                            
+                            do {
+                                try self.managedObjectContext.save()
+                            } catch {
+                                fatalError("Failure to save context: \(error)")
+                            }
+                            
+                            
+                            
+                        }
+                        else {
+                            print("Error getting profile picture data")
+                        }
+                    }
+                }
+            }
+            else {
+                print(error)
+            }
+
+        
+        }
+    }
+    
+    
 
     func extractPicturesFromObjects(objects : Array<PFObject>) -> Array<UIImage> {
         
@@ -855,6 +824,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         return pictures
     }
+    
     
      
      

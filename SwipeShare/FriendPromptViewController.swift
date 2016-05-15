@@ -13,6 +13,11 @@ class FriendPromptViewController: UIViewController {
     var delegate: MessageDetailVC? = nil
     let sender: User? = nil
     
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+
+    
+    @IBOutlet weak var userProfPic: UIImageView!
+    
     @IBOutlet weak var blurredBackgroundView: UIVisualEffectView!
     
     @IBOutlet weak var navBar: UINavigationBar!
@@ -28,13 +33,56 @@ class FriendPromptViewController: UIViewController {
 
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
         
+        navBar.topItem?.title = sender?.displayName
         
+        if sender?.profImageData != nil {
+            userProfPic.image = UIImage(data: (sender?.profImageData)!)
+            print("yay!")
 
-        
+        } else {
+//            let profPicQuery = PFQuery(className: "_User")
+//            profPicQuery.whereKey("username", equalTo: (sender?.username)!)
+//            profPicQuery.getFirstObjectInBackgroundWithBlock { (object: PFObject?, error: NSError?) -> Void in
+//                if error == nil {
+//                    print("ya prof pic bitches")
+//                    
+//                    if let picture = object!["profilePicture"] as? PFFile {
+//                        print("we out here")
+//                        
+//                        picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+//                            if (error == nil) {
+//                                print("Photo downloaded lalalala")
+//                                self.sender!.profImageData = imageData
+//                                self.userProfPic.image = UIImage(data: (self.sender?.profImageData)!)
+//                                
+//                                do {
+//                                    try self.managedObjectContext.save()
+//                                } catch {
+//                                    fatalError("Failure to save context: \(error)")
+//                                }
+//                                
+//                                
+//                                
+//                            }
+//                            else {
+//                                print("Error getting profile picture data")
+//                            }
+//                        }
+//                    }
+//                }
+//                else {
+//                    print(error)
+//                }
+            
+                
+//            }
+
+            
+          }
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
+      }
     
     
     @IBAction func blockUser(sender: AnyObject) {
