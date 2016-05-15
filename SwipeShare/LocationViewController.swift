@@ -26,6 +26,8 @@ protocol LocationViewControllerDelegate {
 class LocationViewController: ViewController, LKLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CBPeripheralManagerDelegate {
 
     // MARK: Properties
+
+    let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     
     // Button for accessing photos
     @IBOutlet weak var photoz: UIButton!
@@ -42,7 +44,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var beaconRegion: CLBeaconRegion!
     var peripheralManager: CBPeripheralManager!
     var beaconPeripheralData: NSDictionary!
-    var sharingWithFriends = true
+    var sharingWithFriends: Bool!
     
     var currentLocation: CLLocation!
     var currentHeading = Float()
@@ -456,12 +458,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
         do {
             try users = query.findObjects()
+            print("Current user array: \(users)")
 
-            for (i, user) in users.enumerate() {
+            for (i, user) in users.enumerate().reverse() {
                 // Filter out blocked users by removing from list returned by query
+                print("Current i: \(i)")
+                print("Current user: \(user)")
+                
                 isBlocked = false
                 for blockedUser in blockedUsers {
                     if (String(user["username"]) == blockedUser.username) {
+                        print("removed user from index \(i) with array \(users)")
                         users.removeAtIndex(i)
                         isBlocked = true
                         break
@@ -470,13 +477,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 
                 // Filter out non-Friend users if sharing with friends only
                 isFriend = false
-                if (sharingWithFriends) {
+                if (sharingWithFriends && !isBlocked) {
                     for friend in friendUsers {
                         if (String(user["username"]) == friend.username) {
                             isFriend = true
                         }
                     }
                     if !(isFriend) {
+                        print("attempting to remove non-friend from \(users) at index \(i)")
                         users.removeAtIndex(i)
                     }
                 }
@@ -810,6 +818,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         // For touch detection on an image
         self.initializeGestureRecognizer()
         
+        self.sharingWithFriends = appDel.sharingWithFriends
+        
         let user = PFUser.currentUser()
         if user == nil {
             if (DEBUG) {
@@ -1078,17 +1088,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
     }
     
-    /*
-    * Toggle between sharing with all users and just friends when the switch in settings is flipped
-    *
-    * (called through the delegate in SettingsViewController)
-    */
-    func switchSharingWithFriends() {
-        sharingWithFriends = !sharingWithFriends
-        if (sharingWithFriends) {
-            print("switched to sharing with friends!")
-        }
-    }
+
 
     
     /*
@@ -1112,7 +1112,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         
         // If bluetooth sharing with friends only, filter out non-friend users
-        if (sharingWithFriends) {
+        if ((sharingWithFriends) != nil) {
             var friendNeighbor = [PFObject]()
             for user in neighbor {
                 for friend in friendUsers {

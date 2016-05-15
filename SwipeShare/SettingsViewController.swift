@@ -22,6 +22,7 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var distanceSlider: UISlider!
     
     var delegate: LocationViewController? = nil
+    let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
 
 
     
@@ -32,14 +33,25 @@ class SettingsViewController: UITableViewController {
         LocationViewController().saveNewRadius(sender.value)
     }
     
+    @IBOutlet weak var shareWithFriendsSwitch: UISwitch!
+    
     @IBAction func shareWithFriendsSwitch(sender: AnyObject) {
-        delegate?.switchSharingWithFriends()
+        print("pressed switch")
+        appDel.switchSharingWithFriends()
     }
         
     @IBAction func exitButtonTapped(sender: UIButton) {
         self.performSegueWithIdentifier("segueHome", sender: self)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        // ensure switch is set to the correct setting
+        print("trying to switch")
+        shareWithFriendsSwitch.on = appDel.sharingWithFriends
+        
+    }
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
