@@ -12,6 +12,8 @@ import UIKit
 class FriendTableView: UITableViewController {
     
     
+    @IBOutlet var navBar: UINavigationItem!
+    
     let cellIdentifier = "cell"
     //let messageManager = MessageManager.sharedMessageManager
     
@@ -23,6 +25,8 @@ class FriendTableView: UITableViewController {
     override func viewDidLoad() {
         print("yayfriendview")
         super.viewDidLoad()
+        
+        
         
         // Fetch messages from core Data, sorted by date
         let friendFetchRequest = NSFetchRequest(entityName: "User")

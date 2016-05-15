@@ -138,7 +138,7 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
         
         let user = PFUser.currentUser()
         
-        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture"])
+        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name"])
         
         graphRequest.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
             if(error == nil)
