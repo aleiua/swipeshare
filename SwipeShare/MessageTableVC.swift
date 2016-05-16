@@ -28,6 +28,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         // Fetch messages from core Data, sorted by date
         let messageFetchRequest = NSFetchRequest(entityName: "Message")
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
@@ -51,6 +52,15 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         print("users stored: ")
         print(users.count)
     }
+    
+    // Makes sure tab bar navbar doesn't overlap.
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake( y, 0, 0, 0)
+        }
+    }
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
