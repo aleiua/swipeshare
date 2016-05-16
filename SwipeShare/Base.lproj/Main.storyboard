@@ -816,10 +816,10 @@
                                                         <action selector="shareWithFriendsSwitch:" destination="oHC-4A-wJY" eventType="valueChanged" id="sl0-Np-czc"/>
                                                     </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Share With Everyone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XV2-qk-P9e">
-                                                    <rect key="frame" x="29" y="32" width="160" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Share With Friends Only" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XV2-qk-P9e">
+                                                    <rect key="frame" x="29" y="32" width="183" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="160" id="Rwx-x9-R3w"/>
+                                                        <constraint firstAttribute="width" constant="180" id="Rwx-x9-R3w"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

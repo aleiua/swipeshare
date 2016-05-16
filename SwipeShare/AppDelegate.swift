@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    var sharingWithFriends = false
+    var sharingWithFriends = true
     
     var latSearchDistance = 0.001
     var longSearchDistance = 0.001
