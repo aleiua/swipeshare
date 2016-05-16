@@ -36,7 +36,6 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var shareWithFriendsSwitch: UISwitch!
     
     @IBAction func shareWithFriendsSwitch(sender: AnyObject) {
-        print("pressed switch")
         appDel.switchSharingWithFriends()
     }
         
@@ -44,19 +43,17 @@ class SettingsViewController: UITableViewController {
         self.performSegueWithIdentifier("segueHome", sender: self)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        // ensure switch is set to the correct setting
-        print("trying to switch")
-        shareWithFriendsSwitch.on = appDel.sharingWithFriends
-        
-    }
+//    override func viewWillAppear(animated: Bool) {
+//        // ensure switch is set to the correct setting
+//  
+//        
+//    }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Loaded settings view controller")
-
+        shareWithFriendsSwitch.on = !appDel.sharingWithFriends
         
         let initialValue = Int(distanceSlider.value)
         currentDistance.text = "\(initialValue) ft"

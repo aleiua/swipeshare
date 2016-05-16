@@ -44,7 +44,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var beaconRegion: CLBeaconRegion!
     var peripheralManager: CBPeripheralManager!
     var beaconPeripheralData: NSDictionary!
-    var sharingWithFriends: Bool!
     
     var currentLocation: CLLocation!
     var currentHeading = Float()
@@ -477,7 +476,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 
                 // Filter out non-Friend users if sharing with friends only
                 isFriend = false
-                if (sharingWithFriends && !isBlocked) {
+                if (appDel.sharingWithFriends && !isBlocked) {
                     for friend in friendUsers {
                         if (String(user["username"]) == friend.username) {
                             isFriend = true
@@ -804,21 +803,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     override func viewDidLoad()  {
         super.viewDidLoad()
-        locationManager = LKLocationManager()
-        locationManager.apiToken = "76f847c677f70038"
-        locationManager.requestAlwaysAuthorization()
-        locationManager.advancedDelegate = self
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        
+        initializeLocationManager()
+
         
         self.sendAnother.hidden = true
         self.sendAnother.alpha = 0
         
         // For touch detection on an image
         self.initializeGestureRecognizer()
-        
-        self.sharingWithFriends = appDel.sharingWithFriends
         
         let user = PFUser.currentUser()
         if user == nil {
@@ -860,7 +853,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
         getBlockedUsers()
         getFriendList()
-        
         setUpiBeacon(user!)
         
     }
@@ -869,6 +861,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         super.viewDidAppear(true)
     }
     
+    func initializeLocationManager() {
+        locationManager = LKLocationManager()
+        locationManager.apiToken = "76f847c677f70038"
+        locationManager.requestAlwaysAuthorization()
+        locationManager.advancedDelegate = self
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+    }
 
     // Test comment
     func locationManager(manager: LKLocationManager, didFailWithError error: NSError) {
@@ -1041,7 +1042,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
      *  Print out detected beacons
      */
     func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-        print(beacons)
+//        print(beacons)
         
         if image != nil {
             for beacon in beacons {
@@ -1096,7 +1097,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func findBluetoothNeighbor(identifier : Int) -> Array<PFObject> {
 
-        print("identifier: \(identifier)")
+//        print("identifier: \(identifier)")
         let query = PFQuery(className:"_User")
         query.whereKey("btIdentifier", equalTo: identifier)
         
@@ -1110,9 +1111,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         catch {
             print("Error getting neighbors!")
         }
-        
+
         // If bluetooth sharing with friends only, filter out non-friend users
-        if ((sharingWithFriends) != nil) {
+        if (appDel.sharingWithFriends) {
             var friendNeighbor = [PFObject]()
             for user in neighbor {
                 for friend in friendUsers {

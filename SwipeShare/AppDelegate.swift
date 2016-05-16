@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    var sharingWithFriends = true
+    var sharingWithFriends = false
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -73,10 +73,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func switchSharingWithFriends() {
         sharingWithFriends = !sharingWithFriends
-        print("switching in AppDelegate")
-        if (sharingWithFriends) {
-            print("switched to sharing with friends!")
-        }
     }
     
     

@@ -759,7 +759,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="84" id="FFT-Cc-Vvg">
                                         <rect key="frame" x="0.0" y="330" width="600" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FFT-Cc-Vvg" id="fPo-pI-lrW">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="FFT-Cc-Vvg" id="fPo-pI-lrW">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -809,7 +809,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2vg-gc-mTq">
-                                                    <rect key="frame" x="276" y="37" width="51" height="31"/>
+                                                    <rect key="frame" x="520" y="27" width="51" height="31"/>
                                                     <color key="tintColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="onTintColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
@@ -817,9 +817,9 @@
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Share With Everyone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XV2-qk-P9e">
-                                                    <rect key="frame" x="30" y="15" width="160" height="21"/>
+                                                    <rect key="frame" x="29" y="32" width="160" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="104" id="Rwx-x9-R3w"/>
+                                                        <constraint firstAttribute="width" constant="160" id="Rwx-x9-R3w"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -827,12 +827,19 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="XV2-qk-P9e" secondAttribute="bottom" constant="46.5" id="AOe-k9-DBN"/>
-                                                <constraint firstItem="2vg-gc-mTq" firstAttribute="top" secondItem="gHO-Af-hly" secondAttribute="topMargin" constant="29" id="P3r-Wb-l4E"/>
-                                                <constraint firstItem="XV2-qk-P9e" firstAttribute="top" secondItem="gHO-Af-hly" secondAttribute="topMargin" constant="7" id="QlW-sP-axJ"/>
-                                                <constraint firstItem="2vg-gc-mTq" firstAttribute="centerX" secondItem="gHO-Af-hly" secondAttribute="centerX" id="T4g-G5-XNn"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="XV2-qk-P9e" secondAttribute="bottom" constant="46" id="AOe-k9-DBN"/>
+                                                <constraint firstItem="2vg-gc-mTq" firstAttribute="top" secondItem="gHO-Af-hly" secondAttribute="topMargin" constant="19" id="P3r-Wb-l4E"/>
+                                                <constraint firstItem="XV2-qk-P9e" firstAttribute="top" secondItem="gHO-Af-hly" secondAttribute="topMargin" constant="24" id="QlW-sP-axJ"/>
+                                                <constraint firstItem="2vg-gc-mTq" firstAttribute="centerX" secondItem="gHO-Af-hly" secondAttribute="centerX" constant="244" id="T4g-G5-XNn"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2vg-gc-mTq" secondAttribute="trailing" constant="23" id="fP8-W2-gWW"/>
                                                 <constraint firstItem="XV2-qk-P9e" firstAttribute="leading" secondItem="gHO-Af-hly" secondAttribute="leadingMargin" constant="22" id="j2t-dF-Xvd"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="AOe-k9-DBN"/>
+                                                    <exclude reference="T4g-G5-XNn"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
