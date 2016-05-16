@@ -39,6 +39,9 @@
 		795384131CDF855F001C25DF /* CustomSegues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795384121CDF855F001C25DF /* CustomSegues.swift */; };
 		79ED85831CBB30E3000D6E4E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED85821CBB30E3000D6E4E /* ParseUI.framework */; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
+		936AEB601CE903DA00F6094F /* ConversationMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936AEB5F1CE903DA00F6094F /* ConversationMessageTVC.swift */; };
+		936AEB641CE90DF100F6094F /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936AEB631CE90DF100F6094F /* ImageCell.swift */; };
+		936AEB661CE911BB00F6094F /* MessageCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936AEB651CE911BB00F6094F /* MessageCollectionVC.swift */; };
 		937D7A521CDC137C008783D1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D7A511CDC137C008783D1 /* User.swift */; };
 		937D7A541CDC1DBC008783D1 /* FriendTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937D7A531CDC1DBC008783D1 /* FriendTableView.swift */; };
 		937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F2E1C55672700057D32 /* AppDelegate.swift */; };
@@ -49,7 +52,6 @@
 		937E7F3C1C55672700057D32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */; };
 		937E7F471C55672700057D32 /* SwipeShareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F461C55672700057D32 /* SwipeShareTests.swift */; };
 		937E7F521C55672700057D32 /* SwipeShareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E7F511C55672700057D32 /* SwipeShareUITests.swift */; };
-		938F569D1CDFAFBC00CD2AA1 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 938F569C1CDFAFBC00CD2AA1 /* QuestionMark.png */; };
 		939B82971C87852300770F79 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82961C87852300770F79 /* MessageCell.swift */; };
 		939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B829C1C87859700770F79 /* MessageTableVC.swift */; };
 		939B82A11C87882400770F79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B82A01C87882400770F79 /* Message.swift */; };
@@ -112,6 +114,9 @@
 		79ED85821CBB30E3000D6E4E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
 		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
+		936AEB5F1CE903DA00F6094F /* ConversationMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationMessageTVC.swift; sourceTree = "<group>"; };
+		936AEB631CE90DF100F6094F /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		936AEB651CE911BB00F6094F /* MessageCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCollectionVC.swift; sourceTree = "<group>"; };
 		937D7A511CDC137C008783D1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		937D7A531CDC1DBC008783D1 /* FriendTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableView.swift; sourceTree = "<group>"; };
 		937E7F2B1C55672700057D32 /* Yaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,7 +133,6 @@
 		937E7F4D1C55672700057D32 /* SwipeShareUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwipeShareUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F511C55672700057D32 /* SwipeShareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeShareUITests.swift; sourceTree = "<group>"; };
 		937E7F531C55672700057D32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		938F569C1CDFAFBC00CD2AA1 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
 		939B82961C87852300770F79 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		939B829C1C87859700770F79 /* MessageTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableVC.swift; sourceTree = "<group>"; };
 		939B82A01C87882400770F79 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -201,8 +205,11 @@
 			children = (
 				939B82A01C87882400770F79 /* Message.swift */,
 				939B82961C87852300770F79 /* MessageCell.swift */,
+				936AEB631CE90DF100F6094F /* ImageCell.swift */,
 				939B829C1C87859700770F79 /* MessageTableVC.swift */,
 				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
+				936AEB5F1CE903DA00F6094F /* ConversationMessageTVC.swift */,
+				936AEB651CE911BB00F6094F /* MessageCollectionVC.swift */,
 				793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */,
 			);
 			name = MessageControllers;
@@ -287,8 +294,8 @@
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937D7A531CDC1DBC008783D1 /* FriendTableView.swift */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
-				5E2630D31CE0F33500746016 /* QuestionTransparent.png */,
 				5E91D1431CDA5E9600935168 /* QuestionMark.png */,
+				5E2630D31CE0F33500746016 /* QuestionTransparent.png */,
 				937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */,
 				937E7F3D1C55672700057D32 /* Info.plist */,
 				937E7F351C55672700057D32 /* SwipeShare.xcdatamodeld */,
@@ -522,6 +529,7 @@
 				937D7A541CDC1DBC008783D1 /* FriendTableView.swift in Sources */,
 				939B82971C87852300770F79 /* MessageCell.swift in Sources */,
 				937E7F371C55672700057D32 /* SwipeShare.xcdatamodeld in Sources */,
+				936AEB601CE903DA00F6094F /* ConversationMessageTVC.swift in Sources */,
 				937E7F311C55672700057D32 /* ViewController.swift in Sources */,
 				5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */,
 				932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */,
@@ -529,11 +537,13 @@
 				93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */,
 				939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */,
 				059AC0E91CD1C226006DC600 /* BumpValidationViewController.swift in Sources */,
+				936AEB641CE90DF100F6094F /* ImageCell.swift in Sources */,
 				5E711FCB1CB7365800A3F113 /* CheckListViewController.swift in Sources */,
 				793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */,
 				054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				939B82A11C87882400770F79 /* Message.swift in Sources */,
+				936AEB661CE911BB00F6094F /* MessageCollectionVC.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				937D7A521CDC137C008783D1 /* User.swift in Sources */,
 				054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */,
