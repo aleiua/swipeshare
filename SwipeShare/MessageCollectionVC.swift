@@ -55,7 +55,9 @@ class MessageCollectionVC: UICollectionViewController, UISearchBarDelegate, UISe
 
     //Use for size
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let size = CGSize(width: 300, height: 100)
+        
+
+        let size = CGSize(width: 100, height: 100)
         return size
     }
     
@@ -140,14 +142,13 @@ class MessageCollectionVC: UICollectionViewController, UISearchBarDelegate, UISe
     
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
-            selectedCell = indexPath as NSIndexPath
-     
-            passingMessage = fetchedMessages[indexPath.row]
-            performSegueWithIdentifier("convoMessageDetailSegue", sender: cell)
-        } else {
-            // Error indexPath is not on screen: this should never happen.
-        }
+//        if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
+//            selectedCell = indexPath as NSIndexPath
+//     
+//            performSegueWithIdentifier("convoMessageDetailSegue", sender: cell)
+//        } else {
+//            // Error indexPath is not on screen: this should never happen.
+//        }
     }
     
     // MARK: - Navigation
@@ -159,10 +160,16 @@ class MessageCollectionVC: UICollectionViewController, UISearchBarDelegate, UISe
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
         if segue.identifier == "convoMessageDetailSegue" {
+            
+            
             let destinationViewController = segue.destinationViewController as! MessageDetailVC
+            let cell = sender as! ImageCell
+            let indexPath = self.collectionView!.indexPathForCell(cell)
+            
+            passingMessage = self.fetchedMessages[indexPath!.row] as Message
 
-         
             destinationViewController.message = passingMessage
+            destinationViewController.comingFrom = "MessageCollectionVC"
             
         }
     }
