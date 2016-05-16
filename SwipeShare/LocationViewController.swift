@@ -26,6 +26,8 @@ protocol LocationViewControllerDelegate {
 class LocationViewController: ViewController, LKLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CBPeripheralManagerDelegate {
 
     // MARK: Properties
+
+    let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     
     // Button for accessing photos
     @IBOutlet weak var photoz: UIButton!
@@ -43,7 +45,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var peripheralManager: CBPeripheralManager!
     var beaconPeripheralData: NSDictionary!
     
-    
     var currentLocation: CLLocation!
     var currentHeading = Float()
     var headingBias = Float()
@@ -52,6 +53,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     var blockedUsers = [User]()
+    var friendUsers = [User]()
 
     
     var angle: CGFloat!
@@ -451,20 +453,41 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         // Get all close neighbors
         var users = [PFObject]()
         var isBlocked: Bool
+        var isFriend: Bool
 
         do {
             try users = query.findObjects()
+            print("Current user array: \(users)")
 
-            for (i, user) in users.enumerate() {
+            for (i, user) in users.enumerate().reverse() {
                 // Filter out blocked users by removing from list returned by query
+                print("Current i: \(i)")
+                print("Current user: \(user)")
+                
                 isBlocked = false
                 for blockedUser in blockedUsers {
                     if (String(user["username"]) == blockedUser.username) {
+                        print("removed user from index \(i) with array \(users)")
                         users.removeAtIndex(i)
                         isBlocked = true
                         break
                     }
                 }
+                
+                // Filter out non-Friend users if sharing with friends only
+                isFriend = false
+                if (appDel.sharingWithFriends && !isBlocked) {
+                    for friend in friendUsers {
+                        if (String(user["username"]) == friend.username) {
+                            isFriend = true
+                        }
+                    }
+                    if !(isFriend) {
+                        print("attempting to remove non-friend from \(users) at index \(i)")
+                        users.removeAtIndex(i)
+                    }
+                }
+                
                 print("Adjacent User: " + String(user["name"]))
             }
         }
@@ -780,13 +803,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     override func viewDidLoad()  {
         super.viewDidLoad()
-        locationManager = LKLocationManager()
-        locationManager.apiToken = "76f847c677f70038"
-        locationManager.requestAlwaysAuthorization()
-        locationManager.advancedDelegate = self
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        
+        initializeLocationManager()
+
         
         self.sendAnother.hidden = true
         self.sendAnother.alpha = 0
@@ -831,50 +850,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let installation = PFInstallation.currentInstallation()
         installation["user"] = user
         installation.saveInBackground()
-        
 
-        // Fetch list of blocked users by username from CoreData
-        let blockedFetchRequest = NSFetchRequest(entityName: "User")
-        // Create Predicate
-        let blockedPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
-        blockedFetchRequest.predicate = blockedPredicate
-        
-        
-        do {
-            blockedUsers = try managedObjectContext.executeFetchRequest(blockedFetchRequest) as! [User]
-            print(blockedUsers.count)
-        } catch {
-            print("error fetching list of blocked users")
-        }
-        
-        // Set up iBeacon region
-        let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
-        let beaconID = "yaw_iBeacon_region"
-        
-        //convert user ID to major and minor values to broadcast
-        var major: CLBeaconMajorValue!
-        var minor: CLBeaconMinorValue!
-        let identifier = user!["btIdentifier"] as? NSNumber
-        if (Int(identifier!) > 65535) {
-            major = 65535
-            minor = CLBeaconMinorValue(Int(identifier!) - 65535)
-        }
-        else {
-            major = CLBeaconMajorValue(Int(identifier!))
-            minor = 0
-        }
-        
-        let beaconRegionBroadcast = CLBeaconRegion(proximityUUID: uuid, major: major, minor: minor, identifier: beaconID)
-        
-        let beaconRegionFind = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
-        
-        locationManager.pausesLocationUpdatesAutomatically = false
-        locationManager.startMonitoringForRegion(beaconRegionBroadcast)
-        locationManager.startRangingBeaconsInRegion(beaconRegionFind)
-        beaconPeripheralData = beaconRegionBroadcast.peripheralDataWithMeasuredPower(nil)
-        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
-        //print("successfully initialized beacon region")
-        
+        getBlockedUsers()
+        getFriendList()
+        setUpiBeacon(user!)
         
     }
     
@@ -882,6 +861,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         super.viewDidAppear(true)
     }
     
+    func initializeLocationManager() {
+        locationManager = LKLocationManager()
+        locationManager.apiToken = "76f847c677f70038"
+        locationManager.requestAlwaysAuthorization()
+        locationManager.advancedDelegate = self
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+    }
 
     // Test comment
     func locationManager(manager: LKLocationManager, didFailWithError error: NSError) {
@@ -1015,11 +1003,46 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     /****************************iBeacon Region Establishment********************************/
     
+    
+    /*
+    * Set up the iBeacon region for the current user by creating the appropriate identifier and beginning to broadcast
+    */
+    func setUpiBeacon(user: PFUser) {
+        
+        // Set up iBeacon region
+        let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
+        let beaconID = "yaw_iBeacon_region"
+        
+        //convert user ID to major and minor values to broadcast
+        var major: CLBeaconMajorValue!
+        var minor: CLBeaconMinorValue!
+        let identifier = user["btIdentifier"] as? NSNumber
+        if (Int(identifier!) > 65535) {
+            major = 65535
+            minor = CLBeaconMinorValue(Int(identifier!) - 65535)
+        }
+        else {
+            major = CLBeaconMajorValue(Int(identifier!))
+            minor = 0
+        }
+        
+        let beaconRegionBroadcast = CLBeaconRegion(proximityUUID: uuid, major: major, minor: minor, identifier: beaconID)
+        
+        let beaconRegionFind = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
+        
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.startMonitoringForRegion(beaconRegionBroadcast)
+        locationManager.startRangingBeaconsInRegion(beaconRegionFind)
+        beaconPeripheralData = beaconRegionBroadcast.peripheralDataWithMeasuredPower(nil)
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+    }
+    
+    
      /*
      *  Print out detected beacons
      */
     func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-        print(beacons)
+//        print(beacons)
         
         if image != nil {
             for beacon in beacons {
@@ -1027,13 +1050,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     
                     let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
                     
-                    
-                    let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("bumpvalidation") as! BumpValidationViewController
-                    bumpViewController.modalPresentationStyle = .OverCurrentContext
-                    bumpViewController.delegate = self
-                    bumpViewController.recipient = neighbor
-                    presentViewController(bumpViewController, animated: true, completion: nil)
-                                    }
+                    if !(neighbor.isEmpty) {
+                        let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("bumpvalidation") as! BumpValidationViewController
+                        bumpViewController.modalPresentationStyle = .OverCurrentContext
+                        bumpViewController.delegate = self
+                        bumpViewController.recipient = neighbor
+                        presentViewController(bumpViewController, animated: true, completion: nil)
+                    }
+                }
             }
         }
     }
@@ -1064,11 +1088,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 peripheralManager.stopAdvertising()
         }
     }
+    
+
 
     
+    /*
+    * Determine the user corresponding to the given identifier by checking in Parse
+    */
     func findBluetoothNeighbor(identifier : Int) -> Array<PFObject> {
 
-        print("identifier: \(identifier)")
+//        print("identifier: \(identifier)")
         let query = PFQuery(className:"_User")
         query.whereKey("btIdentifier", equalTo: identifier)
         
@@ -1082,9 +1111,60 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         catch {
             print("Error getting neighbors!")
         }
-        
-        return neighbor
 
+        // If bluetooth sharing with friends only, filter out non-friend users
+        if (appDel.sharingWithFriends) {
+            var friendNeighbor = [PFObject]()
+            for user in neighbor {
+                for friend in friendUsers {
+                    
+                    // If the user is found within friends, then add them to the confirmed users list
+                    if (String(user["username"]) == friend.username) {
+                        friendNeighbor.append(user)
+                    }
+                }
+            }
+            return friendNeighbor
+        }
+        else{
+            return neighbor
+        }
+
+    }
+    
+    
+    /*************************** Friend Operations *******************************/
+     
+    func getBlockedUsers() {
+        
+        // Fetch list of blocked users by username from CoreData
+        let blockedFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let blockedPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
+        blockedFetchRequest.predicate = blockedPredicate
+        do {
+            blockedUsers = try managedObjectContext.executeFetchRequest(blockedFetchRequest) as! [User]
+            print(blockedUsers.count)
+        } catch {
+            print("error fetching list of blocked users")
+        }
+    }
+    
+    
+    func getFriendList() {
+        
+        // Fetch list of blocked users by username from CoreData
+        let friendFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let friendPredicate = NSPredicate(format: "%K == %@", "status", "friend")
+        friendFetchRequest.predicate = friendPredicate
+        do {
+            friendUsers = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
+            print(friendUsers.count)
+        } catch {
+            print("error fetching list of blocked users")
+        }
+        
     }
     
 

@@ -25,6 +25,7 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var distanceSlider: UISlider!
     
     var delegate: LocationViewController? = nil
+    let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
 
 
     
@@ -35,6 +36,11 @@ class SettingsViewController: UITableViewController {
         LocationViewController().saveNewRadius(sender.value)
     }
     
+    @IBOutlet weak var shareWithFriendsSwitch: UISwitch!
+    
+    @IBAction func shareWithFriendsSwitch(sender: AnyObject) {
+        appDel.switchSharingWithFriends()
+    }
         
     @IBAction func exitButtonTapped(sender: UIButton) {
         self.performSegueWithIdentifier("segueHome", sender: self)
@@ -74,8 +80,7 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Loaded settings view controller")
-
+        shareWithFriendsSwitch.on = !appDel.sharingWithFriends
         
         let initialValue = Int(distanceSlider.value)
         currentDistance.text = "\(initialValue) ft"

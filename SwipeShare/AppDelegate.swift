@@ -18,6 +18,8 @@ import ParseFacebookUtilsV4
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var sharingWithFriends = false
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -63,6 +65,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKAppEvents.activateApp()
     }
 
+    
+    /*
+     * Toggle between sharing with all users and just friends when the switch in settings is flipped
+     *
+     * (called through the delegate in SettingsViewController)
+     */
+    func switchSharingWithFriends() {
+        sharingWithFriends = !sharingWithFriends
+    }
     
     
     
