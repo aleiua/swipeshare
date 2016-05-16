@@ -457,17 +457,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
         do {
             try users = query.findObjects()
-            print("Current user array: \(users)")
 
             for (i, user) in users.enumerate().reverse() {
                 // Filter out blocked users by removing from list returned by query
-                print("Current i: \(i)")
-                print("Current user: \(user)")
-                
                 isBlocked = false
                 for blockedUser in blockedUsers {
                     if (String(user["username"]) == blockedUser.username) {
-                        print("removed user from index \(i) with array \(users)")
                         users.removeAtIndex(i)
                         isBlocked = true
                         break
