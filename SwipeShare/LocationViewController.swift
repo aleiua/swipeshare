@@ -344,8 +344,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
      .001 = .1km = 100m
      .0001 = .01km = 10m
      */
-    var latSearchDistance = 0.001
-    var longSearchDistance = 0.001
+    
     var searchDistance = 0.001
     var earthRadius = 6371.0
     var ftInMiles = 5280.0
@@ -354,22 +353,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var distanceToLat = 110.574
     var distanceToLong = 111.320
     
-    
     func saveNewRadius(distance: Float) {
-        
-        if (self.DEBUG) {
-            print("Saved New Radius")
-        }
         
         let miles = Double(distance) / ftInMiles
         let km = miles / milesToKM
         
-        latSearchDistance = km / distanceToLat
-        longSearchDistance = km / (distanceToLong * cos(self.userLatitude))
+        appDel.latSearchDistance = km / distanceToLat
+        appDel.longSearchDistance = km / (distanceToLong * cos(userLatitude))
         
     }
-    
-
     
     /*****************************NEIGHBOR SORTING*****************************/
 
@@ -381,13 +373,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Querying for neighbors")
         let query = PFQuery(className:"_User")
         query.whereKey("latitude",
-            greaterThan: (userLatitude - latSearchDistance))
+            greaterThan: (userLatitude - appDel.latSearchDistance))
         query.whereKey("latitude",
-            lessThan: (userLatitude + latSearchDistance))
+            lessThan: (userLatitude + appDel.latSearchDistance))
         query.whereKey("longitude",
-            greaterThan: (userLongitude - longSearchDistance))
+            greaterThan: (userLongitude - appDel.longSearchDistance))
         query.whereKey("longitude",
-            lessThan: (userLongitude + longSearchDistance))
+            lessThan: (userLongitude + appDel.longSearchDistance))
         query.whereKey("objectId", notEqualTo: currentObjectID!)
         
         

@@ -32,7 +32,7 @@ class SettingsViewController: UITableViewController {
     @IBAction func movedSlider(sender: UISlider) {
         let currentValue = Int(sender.value)
         currentDistance.text = "\(currentValue) ft"
-        
+        appDel.distanceSliderValue = currentValue
         LocationViewController().saveNewRadius(sender.value)
     }
     
@@ -82,6 +82,7 @@ class SettingsViewController: UITableViewController {
         
         shareWithFriendsSwitch.on = !appDel.sharingWithFriends
         
+        distanceSlider.value = Float(appDel.distanceSliderValue)
         let initialValue = Int(distanceSlider.value)
         currentDistance.text = "\(initialValue) ft"
         
