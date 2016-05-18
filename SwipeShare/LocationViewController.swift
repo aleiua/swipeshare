@@ -29,6 +29,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     let locationUtils = LocationUtilities()
+    let userDefaults = NSUserDefaults.standardUserDefaults()
     
     @IBOutlet weak var inboxButton: UIBarButtonItem!
     @IBOutlet weak var promptLabel: UILabel!
@@ -404,7 +405,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 
                 // Filter out non-Friend users if sharing with friends only
                 isFriend = false
-                if (appDel.sharingWithFriends && !isBlocked) {
+                if (userDefaults.boolForKey("sharingWithFriends") && !isBlocked) {
                     for friend in friendUsers {
                         if (String(user["username"]) == friend.username) {
                             isFriend = true
@@ -1045,7 +1046,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
 
         // If bluetooth sharing with friends only, filter out non-friend users
-        if (appDel.sharingWithFriends) {
+        if (userDefaults.boolForKey("sharingWithFriends")) {
             var friendNeighbor = [PFObject]()
             for user in neighbor {
                 for friend in friendUsers {
