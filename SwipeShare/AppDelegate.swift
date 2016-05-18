@@ -18,6 +18,12 @@ import ParseFacebookUtilsV4
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var sharingWithFriends = true
+    
+    var latSearchDistance = 0.001
+    var longSearchDistance = 0.001
+    var distanceSliderValue = 100
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -62,6 +68,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         FBSDKAppEvents.activateApp()
     }
+
+    
+    /*
+     * Toggle between sharing with all users and just friends when the switch in settings is flipped
+     *
+     * (called through the delegate in SettingsViewController)
+     */
+    func switchSharingWithFriends() {
+        sharingWithFriends = !sharingWithFriends
+    }
+    
+
 
     
     

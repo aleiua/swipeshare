@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 import Parse
 
+import FBSDKCoreKit
+import ParseFacebookUtilsV4
+
 
 class SettingsViewController: UITableViewController {
 
@@ -22,27 +25,64 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var distanceSlider: UISlider!
     
     var delegate: LocationViewController? = nil
+    let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
 
 
     
     @IBAction func movedSlider(sender: UISlider) {
         let currentValue = Int(sender.value)
         currentDistance.text = "\(currentValue) ft"
-        
+        appDel.distanceSliderValue = currentValue
         LocationViewController().saveNewRadius(sender.value)
     }
     
+    @IBOutlet weak var shareWithFriendsSwitch: UISwitch!
+    
+    @IBAction func shareWithFriendsSwitch(sender: AnyObject) {
+        appDel.switchSharingWithFriends()
+    }
         
     @IBAction func exitButtonTapped(sender: UIButton) {
         self.performSegueWithIdentifier("segueHome", sender: self)
     }
     
+    @IBAction func getFacebookFriends(sender: AnyObject) {
+        
+        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "friends, picture"])
+        
+        graphRequest.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
+            if(error == nil)
+            {
+                let resultDict = result as! NSDictionary
+                print("result \(resultDict)")
+                
+//                let data : NSArray = resultDict.objectForKey("data") as! NSArray
+//
+//                for i in data {
+//                    let valueDict : NSDictionary = i as! NSDictionary
+//                    print("valueDict = \(valueDict)")
+//                    
+//                    let id = valueDict.objectForKey("id") as! String
+//                    print("the id value is \(id)")
+//                }
+                
+            }
+            else
+            {
+                print("error \(error)")
+            }
+        })
+        return
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Loaded settings view controller")
-
+        shareWithFriendsSwitch.on = !appDel.sharingWithFriends
         
+        distanceSlider.value = Float(appDel.distanceSliderValue)
         let initialValue = Int(distanceSlider.value)
         currentDistance.text = "\(initialValue) ft"
         
@@ -54,6 +94,12 @@ class SettingsViewController: UITableViewController {
                 }
             }
         }
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped:"))
+        userIcon.userInteractionEnabled = true
+        userIcon.addGestureRecognizer(tapGestureRecognizer)
+        
+        
         userIcon.layer.borderWidth = 3
         userIcon.layer.masksToBounds = false
         userIcon.layer.borderColor = UIColor.grayColor().CGColor
@@ -65,15 +111,8 @@ class SettingsViewController: UITableViewController {
         
     }
     
-    @IBAction func logout() {
-        print(PFUser.currentUser())
-        PFUser.logOut()
+    func imageTapped(img: AnyObject) {
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
-            self.presentViewController(viewController, animated: true, completion: nil)
-            
-        })   
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,6 +120,37 @@ class SettingsViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("Row: \(indexPath.row)")
+        print("Section: \(indexPath.section)")
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+        
+        if (indexPath.section == 0) {
+            // Friends and Distance
+        }
+        else if (indexPath.section == 1) {
+            // Will be segues to friend functionality
+        }
+        else if (indexPath.section == 2) {
+            logout()
+        }
+        
+    }
+    
+    func logout() {
+        print(PFUser.currentUser())
+        PFUser.logOut()
+        print("Logout")
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
+            self.presentViewController(viewController, animated: true, completion: nil)
+            
+        })
+    }
     
     
     func cropImageToSquare(image originalImage: UIImage) -> UIImage {

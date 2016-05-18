@@ -810,14 +810,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2vg-gc-mTq">
-                                                    <rect key="frame" x="276" y="37" width="51" height="31"/>
+                                                    <rect key="frame" x="520" y="27" width="51" height="31"/>
                                                     <color key="tintColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="onTintColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <action selector="shareWithFriendsSwitch:" destination="oHC-4A-wJY" eventType="valueChanged" id="sl0-Np-czc"/>
+                                                    </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Bluetooth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XV2-qk-P9e">
-                                                    <rect key="frame" x="30" y="15" width="104" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Share With Friends Only" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XV2-qk-P9e">
+                                                    <rect key="frame" x="29" y="32" width="183" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="104" id="Rwx-x9-R3w"/>
+                                                        <constraint firstAttribute="width" constant="180" id="Rwx-x9-R3w"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -825,12 +828,19 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="XV2-qk-P9e" secondAttribute="bottom" constant="46.5" id="AOe-k9-DBN"/>
-                                                <constraint firstItem="2vg-gc-mTq" firstAttribute="top" secondItem="gHO-Af-hly" secondAttribute="topMargin" constant="29" id="P3r-Wb-l4E"/>
-                                                <constraint firstItem="XV2-qk-P9e" firstAttribute="top" secondItem="gHO-Af-hly" secondAttribute="topMargin" constant="7" id="QlW-sP-axJ"/>
-                                                <constraint firstItem="2vg-gc-mTq" firstAttribute="centerX" secondItem="gHO-Af-hly" secondAttribute="centerX" id="T4g-G5-XNn"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="XV2-qk-P9e" secondAttribute="bottom" constant="46" id="AOe-k9-DBN"/>
+                                                <constraint firstItem="2vg-gc-mTq" firstAttribute="top" secondItem="gHO-Af-hly" secondAttribute="topMargin" constant="19" id="P3r-Wb-l4E"/>
+                                                <constraint firstItem="XV2-qk-P9e" firstAttribute="top" secondItem="gHO-Af-hly" secondAttribute="topMargin" constant="24" id="QlW-sP-axJ"/>
+                                                <constraint firstItem="2vg-gc-mTq" firstAttribute="centerX" secondItem="gHO-Af-hly" secondAttribute="centerX" constant="244" id="T4g-G5-XNn"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2vg-gc-mTq" secondAttribute="trailing" constant="23" id="fP8-W2-gWW"/>
                                                 <constraint firstItem="XV2-qk-P9e" firstAttribute="leading" secondItem="gHO-Af-hly" secondAttribute="leadingMargin" constant="22" id="j2t-dF-Xvd"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="AOe-k9-DBN"/>
+                                                    <exclude reference="T4g-G5-XNn"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -844,27 +854,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1Y-PH-iSh">
-                                                    <rect key="frame" x="30" y="21" width="89" height="21"/>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bl7-yf-yFA">
+                                                    <rect key="frame" x="28" y="15" width="122" height="33"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="89" id="eUH-iB-IEz"/>
+                                                        <constraint firstAttribute="width" constant="122" id="5W6-GN-Ra5"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bl7-yf-yFA">
-                                                    <rect key="frame" x="458" y="17" width="72" height="30"/>
-                                                    <state key="normal" title="Friend List"/>
+                                                    <state key="normal" title="Edit Friends"/>
                                                     <connections>
                                                         <segue destination="nL3-Iv-6Lj" kind="show" id="Qfe-Dl-gie"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="z1Y-PH-iSh" firstAttribute="top" secondItem="ffW-pU-eBh" secondAttribute="topMargin" constant="13" id="3eH-gM-TXz"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="z1Y-PH-iSh" secondAttribute="bottom" constant="13.5" id="eeK-c4-u8r"/>
-                                                <constraint firstItem="z1Y-PH-iSh" firstAttribute="leading" secondItem="ffW-pU-eBh" secondAttribute="leadingMargin" constant="22" id="pEY-K5-Lue"/>
+                                                <constraint firstItem="Bl7-yf-yFA" firstAttribute="centerY" secondItem="ffW-pU-eBh" secondAttribute="centerY" id="Ckg-Eo-y08"/>
+                                                <constraint firstItem="Bl7-yf-yFA" firstAttribute="top" secondItem="ffW-pU-eBh" secondAttribute="topMargin" constant="9" id="Fx1-dW-BZw"/>
+                                                <constraint firstItem="Bl7-yf-yFA" firstAttribute="leading" secondItem="ffW-pU-eBh" secondAttribute="leadingMargin" constant="20" id="gf1-SL-9ba"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -875,7 +880,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Block Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fk7-cv-1t0">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fk7-cv-1t0">
                                                     <rect key="frame" x="28" y="21" width="128" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="128" id="3dJ-rj-O8w"/>
@@ -903,10 +908,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QjI-gm-HND">
-                                                    <rect key="frame" x="271" y="21" width="58" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohg-hm-rOd">
+                                                    <rect key="frame" x="273" y="21" width="54" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="58" id="Z3e-oS-Unn"/>
+                                                        <constraint firstAttribute="width" constant="54" id="gPo-vr-qId"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -914,14 +919,16 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="QjI-gm-HND" firstAttribute="centerX" secondItem="kmv-qq-tQ6" secondAttribute="centerX" id="5Bm-nC-eJB"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="QjI-gm-HND" secondAttribute="bottom" constant="13.5" id="cJO-hY-ppf"/>
-                                                <constraint firstItem="QjI-gm-HND" firstAttribute="top" secondItem="kmv-qq-tQ6" secondAttribute="topMargin" constant="13" id="dwA-e8-yyc"/>
-                                                <constraint firstItem="QjI-gm-HND" firstAttribute="leading" secondItem="kmv-qq-tQ6" secondAttribute="leadingMargin" constant="263" id="xY9-ht-Tvz"/>
+                                                <constraint firstItem="ohg-hm-rOd" firstAttribute="leading" secondItem="kmv-qq-tQ6" secondAttribute="leading" constant="267" id="0pN-PW-jrj"/>
+                                                <constraint firstItem="ohg-hm-rOd" firstAttribute="centerX" secondItem="kmv-qq-tQ6" secondAttribute="centerX" id="5YV-Nt-5xJ"/>
+                                                <constraint firstItem="ohg-hm-rOd" firstAttribute="leading" secondItem="kmv-qq-tQ6" secondAttribute="leading" constant="267" id="9tl-yX-8tl"/>
+                                                <constraint firstItem="ohg-hm-rOd" firstAttribute="top" secondItem="kmv-qq-tQ6" secondAttribute="topMargin" constant="13" id="Io7-8K-ait"/>
+                                                <constraint firstItem="ohg-hm-rOd" firstAttribute="centerY" secondItem="kmv-qq-tQ6" secondAttribute="centerY" id="Tar-mi-k7l"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="xY9-ht-Tvz"/>
+                                                    <exclude reference="0pN-PW-jrj"/>
+                                                    <exclude reference="9tl-yX-8tl"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -937,6 +944,7 @@
                     <connections>
                         <outlet property="currentDistance" destination="bYR-hE-Cox" id="Uja-FH-XFB"/>
                         <outlet property="distanceSlider" destination="u01-Dj-MCr" id="jxH-SY-adH"/>
+                        <outlet property="shareWithFriendsSwitch" destination="2vg-gc-mTq" id="azG-hm-ezl"/>
                         <outlet property="userIcon" destination="lvP-Sy-juf" id="R6Z-pt-AQb"/>
                         <outlet property="usernameField" destination="Moa-Np-gLk" id="BP1-LF-uiz"/>
                         <segue destination="TCl-po-Jzq" kind="unwind" identifier="segueHome" customClass="UIStoryboardUnwindSegueFromLeft" customModule="Yaw" customModuleProvider="target" unwindAction="segueHome:" id="m68-Cz-WY8"/>

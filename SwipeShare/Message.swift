@@ -22,6 +22,7 @@ class Message: NSManagedObject  {
     @NSManaged var imageData: NSData?
     @NSManaged var objectId: ObjectId
     @NSManaged var hasBeenOpened: Bool
+    @NSManaged var allowedOnce: Bool
     
     @NSManaged var user: User
     
@@ -31,6 +32,7 @@ class Message: NSManagedObject  {
         self.date = date
         self.objectId = objectId
         self.hasBeenOpened = false
+        self.allowedOnce = false
         
         if imageData != nil {
             self.imageData = imageData
