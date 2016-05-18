@@ -153,11 +153,27 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         
         cell.sentDate.text = NSDateFormatter.localizedStringFromDate(convo.mostRecentCommunication, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         
+        if convo.profImageData != nil {
+            cell.sentImage.image = UIImage(data: convo.profImageData!)
+        } else {
+//            let query = PFQuery(className: "_User")
+//            query.getObjectInBackgroundWithId(convo.username) {
+//                (object: PFObject?, error: NSError?) -> Void in
+//                if error == nil {
+//                    if let picture = object!["profilePicture"]
+//                }
+//            }
+            print("no prof pic")
+        }
+        
+        
         return cell
         
         
     }
     
+    
+
     
     
     
