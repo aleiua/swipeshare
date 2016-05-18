@@ -1106,7 +1106,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="MessageCollection" id="dMN-fg-a7n" customClass="MessageCollectionVC" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="tRx-NE-4IC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="g0y-Br-tWM">
@@ -1117,7 +1117,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCell" id="Ait-vV-79t" customClass="ImageCell" customModule="Yaw" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="147" height="125"/>
+                                <rect key="frame" x="0.0" y="64" width="147" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="147" height="125"/>
@@ -1249,6 +1249,7 @@
                                     <outlet property="senderLabel" destination="fbR-e1-m1u" id="xeL-vN-dsz"/>
                                     <outlet property="sentDate" destination="Oxs-sd-yGx" id="XmK-AI-TM3"/>
                                     <outlet property="sentImage" destination="Fch-Zq-Kna" id="Usp-cL-mnt"/>
+                                    <segue destination="dMN-fg-a7n" kind="show" identifier="convoDetailSegue" id="cFk-gH-n5L"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
