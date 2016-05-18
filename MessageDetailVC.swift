@@ -104,7 +104,6 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         }
             
         
-        
         // Prompt the user for input if the message is from a non-Friend user
         if (message.user.status != "friend" && message.allowedOnce == false) {
             
