@@ -15,7 +15,6 @@ import ParseFacebookUtilsV4
 
 
 class SettingsViewController: UITableViewController {
-
    
     
     
@@ -25,16 +24,25 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var distanceSlider: UISlider!
     
     var delegate: LocationViewController? = nil
+    let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    let userDefaults = NSUserDefaults.standardUserDefaults()
 
 
     
     @IBAction func movedSlider(sender: UISlider) {
         let currentValue = Int(sender.value)
         currentDistance.text = "\(currentValue) ft"
-        
+        userDefaults.setInteger(currentValue, forKey: "distanceSlider")
         LocationViewController().saveNewRadius(sender.value)
     }
     
+    @IBOutlet weak var shareWithFriendsSwitch: UISwitch!
+    
+    @IBAction func shareWithFriendsSwitch(sender: AnyObject) {
+        let sharingWithFriends = userDefaults.boolForKey("sharingWithFriends")
+        userDefaults.setBool(!sharingWithFriends, forKey: "sharingWithFriends")
+    }
         
     @IBAction func exitButtonTapped(sender: UIButton) {
         self.performSegueWithIdentifier("segueHome", sender: self)
@@ -74,8 +82,9 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Loaded settings view controller")
-
+        shareWithFriendsSwitch.on = userDefaults.boolForKey("sharingWithFriends")
+        
+        distanceSlider.value = Float(userDefaults.integerForKey("distanceSlider"))
         
         let initialValue = Int(distanceSlider.value)
         currentDistance.text = "\(initialValue) ft"

@@ -26,9 +26,11 @@ protocol LocationViewControllerDelegate {
 class LocationViewController: ViewController, LKLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CBPeripheralManagerDelegate {
 
     // MARK: Properties
+
+    let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+    let locationUtils = LocationUtilities()
+    let userDefaults = NSUserDefaults.standardUserDefaults()
     
-    // Button for accessing photos
-    @IBOutlet weak var photoz: UIButton!
     @IBOutlet weak var inboxButton: UIBarButtonItem!
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
@@ -43,7 +45,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var peripheralManager: CBPeripheralManager!
     var beaconPeripheralData: NSDictionary!
     
-    
     var currentLocation: CLLocation!
     var currentHeading = Float()
     var headingBias = Float()
@@ -52,6 +53,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var userLatitude = Double()
     var userLongitude = Double()
     var blockedUsers = [User]()
+    var friendUsers = [User]()
 
     
     var angle: CGFloat!
@@ -67,6 +69,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var STORE_DATA = true
     var userToSpacialError = [PFObject : Double]()
     var intendedRecipient: PFObject?
+    
+    
+    // Core Data Stuff
+    // Retreive the managedObjectContext from AppDelegate
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
    
     
@@ -86,17 +93,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
         
     }
-
-    
-    // Core Data Stuff
-    // Retreive the managedObjectContext from AppDelegate
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
 
-
-
-    
-    
    /*****************************GESTURE HANDLING********************************/
     
     /*
@@ -274,19 +272,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         })
         
     }
-    
-    
-    /*
-    * Add shadow beneath a UIImageView
-    */
-    func applyPlainShadow(view: UIImageView) {
-        let layer = view.layer
-        layer.shadowColor = UIColor.blackColor().CGColor
-        layer.shadowOffset = CGSize(width: 0, height: 10)
-        layer.shadowOpacity = 0.4
-        layer.shadowRadius = 5
-    }
-    
+
     
     /*
     * Resend the previously swiped image
@@ -333,9 +319,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     
     
-
-
-    
     func animateBottomButtonsBack() {
 
         // Move Camera Button
@@ -343,22 +326,26 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             animations: {
                 self.removeButton.alpha = 0
 
-                //self.photoz.center = self.view.bounds.width
                 self.view.layoutIfNeeded()
             },
             completion: { (finished: Bool) -> Void in
         })
     }
 
+
+
+
+    /********************DISTANCE AND BEARING CALCULATIONS********************/
+    // Relocated to LocationUtilities
+    
     /*
-    Rough Distances:
-    .1 = 11km
-    .01 = 1km = 1000m
-    .001 = .1km = 100m
-    .0001 = .01km = 10m
-    */
-    var latSearchDistance = 0.001
-    var longSearchDistance = 0.001
+     Rough Distances:
+     .1 = 11km
+     .01 = 1km = 1000m
+     .001 = .1km = 100m
+     .0001 = .01km = 10m
+     */
+    
     var searchDistance = 0.001
     var earthRadius = 6371.0
     var ftInMiles = 5280.0
@@ -366,67 +353,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var milesToKM = 0.621371
     var distanceToLat = 110.574
     var distanceToLong = 111.320
-
-
-    /********************DISTANCE AND BEARING CALCULATIONS********************/
- 
-    // Calculates distance from point A to B using Haversine formula
-    // Currently returns distance in KM
-    func Haversine(latA : Double, lonA : Double, latB : Double, lonB : Double) -> Double {
-        // Convert to radians
-        let conversionFactor = M_PI / 180
-        let phiA = latA * conversionFactor
-        let phiB = latB * conversionFactor
-        
-        let deltaPhi = (latB - latA) * conversionFactor
-        let deltaLamba = (lonB - lonA) * conversionFactor
-        
-        let a = sin(deltaPhi / 2) * sin(deltaPhi / 2) + cos(phiA) * cos(phiB)
-            * sin(deltaLamba / 2) * sin(deltaLamba / 2)
-        
-        let c = 2 * atan2(sqrt(a), sqrt(1-a))
-        let d = earthRadius * c
-        
-        return d
-        
-    }
-    
-    // Calculates bearing from point A to point B.
-    // Currently returns in degrees.
-    func Bearing(latA : Double, lonA : Double, latB : Double, lonB : Double) -> Double {
-        let conversionFactor = M_PI / 180
-        let phiA = latA * conversionFactor
-        let phiB = latB * conversionFactor
-        
-        let deltaLamba = (lonB - lonA) * conversionFactor
-        
-        let y = sin(deltaLamba) * cos(phiB)
-        let x = cos(phiA) * sin(phiB) - sin(phiA) * cos(phiB) * cos(deltaLamba)
-        
-        let b = atan2(y, x)
-        
-        var angle = b * (180 / M_PI)
-        if (b < 0) {
-            angle = angle + 360
-        }
-        return angle
-    }
     
     func saveNewRadius(distance: Float) {
-        
-        if (self.DEBUG) {
-            print("Saved New Radius")
-        }
         
         let miles = Double(distance) / ftInMiles
         let km = miles / milesToKM
         
-        latSearchDistance = km / distanceToLat
-        longSearchDistance = km / (distanceToLong * cos(self.userLatitude))
+        appDel.latSearchDistance = km / distanceToLat
+        appDel.longSearchDistance = km / (distanceToLong * cos(userLatitude))
         
     }
-    
-
     
     /*****************************NEIGHBOR SORTING*****************************/
 
@@ -438,24 +374,25 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         print("Querying for neighbors")
         let query = PFQuery(className:"_User")
         query.whereKey("latitude",
-            greaterThan: (userLatitude - latSearchDistance))
+            greaterThan: (userLatitude - appDel.latSearchDistance))
         query.whereKey("latitude",
-            lessThan: (userLatitude + latSearchDistance))
+            lessThan: (userLatitude + appDel.latSearchDistance))
         query.whereKey("longitude",
-            greaterThan: (userLongitude - longSearchDistance))
+            greaterThan: (userLongitude - appDel.longSearchDistance))
         query.whereKey("longitude",
-            lessThan: (userLongitude + longSearchDistance))
+            lessThan: (userLongitude + appDel.longSearchDistance))
         query.whereKey("objectId", notEqualTo: currentObjectID!)
         
         
         // Get all close neighbors
         var users = [PFObject]()
         var isBlocked: Bool
+        var isFriend: Bool
 
         do {
             try users = query.findObjects()
 
-            for (i, user) in users.enumerate() {
+            for (i, user) in users.enumerate().reverse() {
                 // Filter out blocked users by removing from list returned by query
                 isBlocked = false
                 for blockedUser in blockedUsers {
@@ -465,6 +402,21 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                         break
                     }
                 }
+                
+                // Filter out non-Friend users if sharing with friends only
+                isFriend = false
+                if (userDefaults.boolForKey("sharingWithFriends") && !isBlocked) {
+                    for friend in friendUsers {
+                        if (String(user["username"]) == friend.username) {
+                            isFriend = true
+                        }
+                    }
+                    if !(isFriend) {
+                        print("attempting to remove non-friend from \(users) at index \(i)")
+                        users.removeAtIndex(i)
+                    }
+                }
+                
                 print("Adjacent User: " + String(user["name"]))
             }
         }
@@ -486,12 +438,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             var distance = 0.0
             // Sort by distance
             if sortBy == 1 {
-                distance = Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                distance = locationUtils.Haversine(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
                     latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
             }
             // Sort by bearing
             else {
-                let direction = Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
+                let direction = locationUtils.Bearing(sender["latitude"] as! Double, lonA: sender["longitude"] as! Double,
                     latB : n["latitude"] as! Double, lonB : n["longitude"] as! Double)
               
                 let a = abs(Double(swipedHeading) - direction)
@@ -780,13 +732,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     override func viewDidLoad()  {
         super.viewDidLoad()
-        locationManager = LKLocationManager()
-        locationManager.apiToken = "76f847c677f70038"
-        locationManager.requestAlwaysAuthorization()
-        locationManager.advancedDelegate = self
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        
+        initializeLocationManager()
+
         
         self.sendAnother.hidden = true
         self.sendAnother.alpha = 0
@@ -831,50 +779,10 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let installation = PFInstallation.currentInstallation()
         installation["user"] = user
         installation.saveInBackground()
-        
 
-        // Fetch list of blocked users by username from CoreData
-        let blockedFetchRequest = NSFetchRequest(entityName: "User")
-        // Create Predicate
-        let blockedPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
-        blockedFetchRequest.predicate = blockedPredicate
-        
-        
-        do {
-            blockedUsers = try managedObjectContext.executeFetchRequest(blockedFetchRequest) as! [User]
-            print(blockedUsers.count)
-        } catch {
-            print("error fetching list of blocked users")
-        }
-        
-        // Set up iBeacon region
-        let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
-        let beaconID = "yaw_iBeacon_region"
-        
-        //convert user ID to major and minor values to broadcast
-        var major: CLBeaconMajorValue!
-        var minor: CLBeaconMinorValue!
-        let identifier = user!["btIdentifier"] as? NSNumber
-        if (Int(identifier!) > 65535) {
-            major = 65535
-            minor = CLBeaconMinorValue(Int(identifier!) - 65535)
-        }
-        else {
-            major = CLBeaconMajorValue(Int(identifier!))
-            minor = 0
-        }
-        
-        let beaconRegionBroadcast = CLBeaconRegion(proximityUUID: uuid, major: major, minor: minor, identifier: beaconID)
-        
-        let beaconRegionFind = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
-        
-        locationManager.pausesLocationUpdatesAutomatically = false
-        locationManager.startMonitoringForRegion(beaconRegionBroadcast)
-        locationManager.startRangingBeaconsInRegion(beaconRegionFind)
-        beaconPeripheralData = beaconRegionBroadcast.peripheralDataWithMeasuredPower(nil)
-        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
-        //print("successfully initialized beacon region")
-        
+        getBlockedUsers()
+        getFriendList()
+        setUpiBeacon(user!)
         
     }
     
@@ -882,6 +790,19 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         super.viewDidAppear(true)
     }
     
+    
+    /*************************** Location Manager Functionalities *******************************/
+    
+    
+    func initializeLocationManager() {
+        locationManager = LKLocationManager()
+        locationManager.apiToken = "76f847c677f70038"
+        locationManager.requestAlwaysAuthorization()
+        locationManager.advancedDelegate = self
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+    }
 
     // Test comment
     func locationManager(manager: LKLocationManager, didFailWithError error: NSError) {
@@ -1015,11 +936,46 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     /****************************iBeacon Region Establishment********************************/
     
+    
+    /*
+    * Set up the iBeacon region for the current user by creating the appropriate identifier and beginning to broadcast
+    */
+    func setUpiBeacon(user: PFUser) {
+        
+        // Set up iBeacon region
+        let uuid = NSUUID(UUIDString: "10e00516-fa71-11e5-86aa-5e5517507c66")! // arbitrary constant UUID
+        let beaconID = "yaw_iBeacon_region"
+        
+        //convert user ID to major and minor values to broadcast
+        var major: CLBeaconMajorValue!
+        var minor: CLBeaconMinorValue!
+        let identifier = user["btIdentifier"] as? NSNumber
+        if (Int(identifier!) > 65535) {
+            major = 65535
+            minor = CLBeaconMinorValue(Int(identifier!) - 65535)
+        }
+        else {
+            major = CLBeaconMajorValue(Int(identifier!))
+            minor = 0
+        }
+        
+        let beaconRegionBroadcast = CLBeaconRegion(proximityUUID: uuid, major: major, minor: minor, identifier: beaconID)
+        
+        let beaconRegionFind = CLBeaconRegion(proximityUUID: uuid, identifier: beaconID)
+        
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.startMonitoringForRegion(beaconRegionBroadcast)
+        locationManager.startRangingBeaconsInRegion(beaconRegionFind)
+        beaconPeripheralData = beaconRegionBroadcast.peripheralDataWithMeasuredPower(nil)
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+    }
+    
+    
      /*
      *  Print out detected beacons
      */
     func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-        print(beacons)
+//        print(beacons)
         
         if image != nil {
             for beacon in beacons {
@@ -1027,13 +983,14 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     
                     let neighbor = findBluetoothNeighbor((Int(beacon.major) + Int(beacon.minor)))
                     
-                    
-                    let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("bumpvalidation") as! BumpValidationViewController
-                    bumpViewController.modalPresentationStyle = .OverCurrentContext
-                    bumpViewController.delegate = self
-                    bumpViewController.recipient = neighbor
-                    presentViewController(bumpViewController, animated: true, completion: nil)
-                                    }
+                    if !(neighbor.isEmpty) {
+                        let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("bumpvalidation") as! BumpValidationViewController
+                        bumpViewController.modalPresentationStyle = .OverCurrentContext
+                        bumpViewController.delegate = self
+                        bumpViewController.recipient = neighbor
+                        presentViewController(bumpViewController, animated: true, completion: nil)
+                    }
+                }
             }
         }
     }
@@ -1064,11 +1021,16 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 peripheralManager.stopAdvertising()
         }
     }
+    
+
 
     
+    /*
+    * Determine the user corresponding to the given identifier by checking in Parse
+    */
     func findBluetoothNeighbor(identifier : Int) -> Array<PFObject> {
 
-        print("identifier: \(identifier)")
+//        print("identifier: \(identifier)")
         let query = PFQuery(className:"_User")
         query.whereKey("btIdentifier", equalTo: identifier)
         
@@ -1082,9 +1044,60 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         catch {
             print("Error getting neighbors!")
         }
-        
-        return neighbor
 
+        // If bluetooth sharing with friends only, filter out non-friend users
+        if (userDefaults.boolForKey("sharingWithFriends")) {
+            var friendNeighbor = [PFObject]()
+            for user in neighbor {
+                for friend in friendUsers {
+                    
+                    // If the user is found within friends, then add them to the confirmed users list
+                    if (String(user["username"]) == friend.username) {
+                        friendNeighbor.append(user)
+                    }
+                }
+            }
+            return friendNeighbor
+        }
+        else{
+            return neighbor
+        }
+
+    }
+    
+    
+    /*************************** Friend Operations *******************************/
+     
+    func getBlockedUsers() {
+        
+        // Fetch list of blocked users by username from CoreData
+        let blockedFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let blockedPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
+        blockedFetchRequest.predicate = blockedPredicate
+        do {
+            blockedUsers = try managedObjectContext.executeFetchRequest(blockedFetchRequest) as! [User]
+            print(blockedUsers.count)
+        } catch {
+            print("error fetching list of blocked users")
+        }
+    }
+    
+    
+    func getFriendList() {
+        
+        // Fetch list of blocked users by username from CoreData
+        let friendFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let friendPredicate = NSPredicate(format: "%K == %@", "status", "friend")
+        friendFetchRequest.predicate = friendPredicate
+        do {
+            friendUsers = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
+            print(friendUsers.count)
+        } catch {
+            print("error fetching list of blocked users")
+        }
+        
     }
     
 
@@ -1098,6 +1111,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "conversationsSegue" {
+            getPictureObjectsFromParse()
+        }
     }
 
 
