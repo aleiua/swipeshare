@@ -41,9 +41,6 @@ class SettingsViewController: UITableViewController {
     
     @IBAction func shareWithFriendsSwitch(sender: AnyObject) {
         let sharingWithFriends = userDefaults.boolForKey("sharingWithFriends")
-        if (sharingWithFriends) {
-            print("not sharing with friends anymore")
-        }
         userDefaults.setBool(!sharingWithFriends, forKey: "sharingWithFriends")
     }
         
