@@ -16,7 +16,7 @@ import CoreData
 class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
     
-    let messageCellIdentifier = "MessageCell"
+    let cellIdentifier = "UserCell"
     //let messageManager = MessageManager.sharedMessageManager
     
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
@@ -80,7 +80,7 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return messageCellAtIndexPath(indexPath)
+        return userCellAtIndexPath(indexPath)
         
     }
     
@@ -142,19 +142,19 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
     
     
     
-    func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
+    func userCellAtIndexPath(indexPath: NSIndexPath) -> UserCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! UserCell
         let convo = fetchedConversations[indexPath.row] as User
         
-        cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
+        cell.usernameLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
         
-        cell.senderLabel.text = convo.displayName
+        cell.usernameLabel.text = convo.displayName
         
         cell.sentDate.text = NSDateFormatter.localizedStringFromDate(convo.mostRecentCommunication, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         
         if convo.profImageData != nil {
-            cell.sentImage.image = UIImage(data : convo.profImageData!)
+            cell.profilePictureThumbnail.image = UIImage(data : convo.profImageData!)
         } else {
 //            let query = PFQuery(className: "_User")
 //            query.getObjectInBackgroundWithId(convo.username) {
