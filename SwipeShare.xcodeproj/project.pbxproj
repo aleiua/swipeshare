@@ -40,6 +40,7 @@
 		793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */; };
 		795384131CDF855F001C25DF /* CustomSegues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795384121CDF855F001C25DF /* CustomSegues.swift */; };
 		79ED85831CBB30E3000D6E4E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED85821CBB30E3000D6E4E /* ParseUI.framework */; };
+		931A83991CF24E3400BEE042 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931A83981CF24E3400BEE042 /* UserCell.swift */; };
 		932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932139311C8CE972008A69D9 /* MessageDetailVC.swift */; };
 		936AEB601CE903DA00F6094F /* ConversationMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936AEB5F1CE903DA00F6094F /* ConversationMessageTVC.swift */; };
 		936AEB641CE90DF100F6094F /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936AEB631CE90DF100F6094F /* ImageCell.swift */; };
@@ -117,6 +118,7 @@
 		795384121CDF855F001C25DF /* CustomSegues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegues.swift; sourceTree = "<group>"; };
 		79ED85821CBB30E3000D6E4E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
+		931A83981CF24E3400BEE042 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		932139311C8CE972008A69D9 /* MessageDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDetailVC.swift; path = ../MessageDetailVC.swift; sourceTree = "<group>"; };
 		936AEB5F1CE903DA00F6094F /* ConversationMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationMessageTVC.swift; sourceTree = "<group>"; };
 		936AEB631CE90DF100F6094F /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			children = (
 				939B82A01C87882400770F79 /* Message.swift */,
 				939B82961C87852300770F79 /* MessageCell.swift */,
+				931A83981CF24E3400BEE042 /* UserCell.swift */,
 				936AEB631CE90DF100F6094F /* ImageCell.swift */,
 				939B829C1C87859700770F79 /* MessageTableVC.swift */,
 				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
@@ -561,6 +564,7 @@
 				93A8CCB11C67E56C00BB9C03 /* SignUpViewCont.swift in Sources */,
 				939B829D1C87859700770F79 /* MessageTableVC.swift in Sources */,
 				059AC0E91CD1C226006DC600 /* BumpValidationViewController.swift in Sources */,
+				931A83991CF24E3400BEE042 /* UserCell.swift in Sources */,
 				936AEB641CE90DF100F6094F /* ImageCell.swift in Sources */,
 				5E711FCB1CB7365800A3F113 /* CheckListViewController.swift in Sources */,
 				793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */,
