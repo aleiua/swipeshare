@@ -13,7 +13,7 @@
 		054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B661C8E04BE00496D38 /* ContainerViewController.swift */; };
 		054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B681C8E04D900496D38 /* SettingsViewController.swift */; };
 		059AC0E91CD1C226006DC600 /* BumpValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */; };
-		05C3D55F1CEA3E1D0064820A /* LocationUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C3D55E1CEA3E1C0064820A /* LocationUtilities.swift */; };
+		05C3D55F1CEA3E1D0064820A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C3D55E1CEA3E1C0064820A /* Utilities.swift */; };
 		05FA09121C5E8A6C0025A1F6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09111C5E8A6C0025A1F6 /* Parse.framework */; };
 		05FA09141C5E8AAF0025A1F6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09131C5E8AAF0025A1F6 /* Bolts.framework */; };
 		05FA09161C5E8D070025A1F6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09151C5E8D070025A1F6 /* AudioToolbox.framework */; };
@@ -89,7 +89,7 @@
 		0520578D1C81089B00009D91 /* yawIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yawIcon.png; sourceTree = "<group>"; };
 		054F0B661C8E04BE00496D38 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		054F0B681C8E04D900496D38 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		05C3D55E1CEA3E1C0064820A /* LocationUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationUtilities.swift; path = SwipeShare/LocationUtilities.swift; sourceTree = "<group>"; };
+		05C3D55E1CEA3E1C0064820A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = SwipeShare/Utilities.swift; sourceTree = "<group>"; };
 		05FA09111C5E8A6C0025A1F6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		05FA09131C5E8AAF0025A1F6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		05FA09151C5E8D070025A1F6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -201,7 +201,7 @@
 		05C3D5601CEA464C0064820A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				05C3D55E1CEA3E1C0064820A /* LocationUtilities.swift */,
+				05C3D55E1CEA3E1C0064820A /* Utilities.swift */,
 			);
 			name = Utilities;
 			path = ..;
@@ -213,8 +213,6 @@
 				793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */,
 				5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */,
 				793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */,
-				5EB8A1111CBB38B0003B575D /* OverlayView.swift */,
-				5EB8A1131CBB38C4003B575D /* OverlayView.xib */,
 			);
 			name = OverlayControllers;
 			sourceTree = "<group>";
@@ -321,7 +319,6 @@
 				937D7A511CDC137C008783D1 /* User.swift */,
 				795384121CDF855F001C25DF /* CustomSegues.swift */,
 				79098CF61CEA307400923D3A /* TabBarController.swift */,
-				937E7F321C55672700057D32 /* Main.storyboard */,
 				937D7A531CDC1DBC008783D1 /* FriendTableView.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
@@ -582,7 +579,7 @@
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				937D7A521CDC137C008783D1 /* User.swift in Sources */,
 				054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */,
-				05C3D55F1CEA3E1D0064820A /* LocationUtilities.swift in Sources */,
+				05C3D55F1CEA3E1D0064820A /* Utilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

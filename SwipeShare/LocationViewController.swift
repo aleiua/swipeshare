@@ -28,7 +28,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     // MARK: Properties
 
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
-    let locationUtils = LocationUtilities()
+    let locationUtils = Utilities()
     let userDefaults = NSUserDefaults.standardUserDefaults()
     
     @IBOutlet weak var inboxButton: UIBarButtonItem!
