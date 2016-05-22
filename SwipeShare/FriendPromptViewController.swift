@@ -32,8 +32,8 @@ class FriendPromptViewController: UIViewController {
         if sender?.profImageData != nil {
             let imageRepresenation = UIImage(data : sender!.profImageData!)
             
-            let settingsController = SettingsViewController()
-            let squareImage = settingsController.cropImageToSquare(image: imageRepresenation!)
+            let photoUtils = Utilities()
+            let squareImage = photoUtils.cropImageToSquare(image: imageRepresenation!)
 
             newUserPicture.image = squareImage
         }

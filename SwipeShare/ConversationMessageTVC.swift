@@ -15,6 +15,7 @@ import CoreData
 
 class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
+    let photoUtils = Utilities()
     
     let cellIdentifier = "UserCell"
     //let messageManager = MessageManager.sharedMessageManager
@@ -154,7 +155,7 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         cell.sentDate.text = NSDateFormatter.localizedStringFromDate(convo.mostRecentCommunication, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         
         if convo.profImageData != nil {
-            cell.profilePictureThumbnail.image = UIImage(data : convo.profImageData!)
+            cell.profilePictureThumbnail.image = self.photoUtils.cropImageToSquare(image: UIImage(data : convo.profImageData!)!)
         } else {
 //            let query = PFQuery(className: "_User")
 //            query.getObjectInBackgroundWithId(convo.username) {
@@ -163,6 +164,7 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
 //                    if let picture = object!["profilePicture"]
 //                }
 //            }
+            cell.profilePictureThumbnail.image
             print("no prof pic")
         }
         
