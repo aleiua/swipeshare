@@ -16,6 +16,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     
     var delegate: MessageTableVC? = nil
     var message: Message!
+    var comingFrom: String!
     
     // For handling add/block of users
     //let messageManager = MessageManager.sharedMessageManager
@@ -82,15 +83,26 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         self.navigationController!.toolbarHidden = false
         self.navigationController!.hidesBarsOnTap = true
         
-        messageNavBar.title = String(message.user.displayName)
         let date = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
-        messageNavBar.rightBarButtonItem?.title = date
+
         
+        if comingFrom == "MessageTableVC" {
+        
+            messageNavBar.title = String(message.user.displayName)
+            
+        } else {
+    
+            messageNavBar.title = date
+            
+        }
+            
+            
         // Prompt the user for input if the message is from a non-Friend user
         if (message.user.status != "friend" && message.allowedOnce == false) {
             
             let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
             friendPromptViewController.delegate = self
+            friendPromptViewController.sender = message.user
             friendPromptViewController.modalPresentationStyle = .OverCurrentContext
             presentViewController(friendPromptViewController, animated: true, completion: nil)
             
@@ -98,8 +110,6 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         else {
             photoAppear()
         }
-        
-        
     }
     
     func photoAppear() {

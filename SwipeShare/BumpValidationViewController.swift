@@ -17,7 +17,9 @@ class BumpValidationViewController: UIViewController {
     
     @IBOutlet weak var navBar: UINavigationBar!
     
+    @IBOutlet weak var yesButton: UIButton!
 
+    @IBOutlet weak var noButton: UIButton!
     
     @IBAction func sendMessage(sender: AnyObject) {
         delegate?.sendToUsers(recipient, bluetooth: true)
@@ -35,6 +37,8 @@ class BumpValidationViewController: UIViewController {
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
         let name = recipient[0]["name"]
         navBar.topItem!.title = "Send photo to \(name)?"
+        
+        
         
         //        tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurredBackgroundView.effect as! UIBlurEffect)
         

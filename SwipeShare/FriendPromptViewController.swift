@@ -11,11 +11,15 @@ import Parse
 
 class FriendPromptViewController: UIViewController {
     var delegate: MessageDetailVC? = nil
-    let sender: User? = nil
+    var sender: User? = nil
     
     @IBOutlet weak var blurredBackgroundView: UIVisualEffectView!
     
     @IBOutlet weak var navBar: UINavigationBar!
+    @IBOutlet weak var addFriendButton: UIButton!
+    @IBOutlet weak var allowOnceButton: UIButton!
+    @IBOutlet weak var blockUserButton: UIButton!
+    @IBOutlet weak var newUserPicture: UIImageView!
     
     @IBAction func cancelMessage(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -25,7 +29,45 @@ class FriendPromptViewController: UIViewController {
         super.viewDidLoad()
         self.setEditing(true, animated: true)
         
+        if sender?.profImageData != nil {
+            let imageRepresenation = UIImage(data : sender!.profImageData!)
+            
+            let settingsController = SettingsViewController()
+            let squareImage = settingsController.cropImageToSquare(image: imageRepresenation!)
 
+            newUserPicture.image = squareImage
+        }
+        
+        
+
+        
+        newUserPicture.layer.borderWidth = 2
+        newUserPicture.layer.masksToBounds = false
+        newUserPicture.layer.borderColor = UIColor.grayColor().CGColor
+        newUserPicture.layer.cornerRadius = newUserPicture.frame.height/2
+        newUserPicture.clipsToBounds = true
+        
+        
+
+        
+        addFriendButton.layer.borderWidth = 2
+        addFriendButton.backgroundColor = UIColor.clearColor()
+        addFriendButton.layer.cornerRadius = 4
+        addFriendButton.layer.borderColor = UIColor(red: 0.0/255.0, green: 255.0/255.0, blue: 149.0/255.0, alpha: 1.0).CGColor
+        
+        allowOnceButton.layer.borderWidth = 2
+        allowOnceButton.backgroundColor = UIColor.clearColor()
+        allowOnceButton.layer.cornerRadius = 4
+        allowOnceButton.layer.borderColor = UIColor(red: 0.0/255.0, green: 128.0/255.0, blue: 255.0/255.0, alpha: 1.0).CGColor
+        
+        blockUserButton.layer.borderWidth = 2
+        blockUserButton.backgroundColor = UIColor.clearColor()
+        blockUserButton.layer.cornerRadius = 4
+        blockUserButton.layer.borderColor = UIColor(red: 255.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0).CGColor
+        
+
+        
+        
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
 
         

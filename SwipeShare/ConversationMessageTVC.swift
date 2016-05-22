@@ -1,8 +1,8 @@
 //
-//  MessageTableVC.swift
+//  ConversationMessageTVC.swift
 //  SwipeShare
 //
-//  Created by A. Lynn on 3/2/16.
+//  Created by A. Lynn on 5/15/16.
 //  Copyright © 2016 yaw. All rights reserved.
 //
 
@@ -13,53 +13,46 @@ import UIKit
 import Parse
 import CoreData
 
-class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
+class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
     
     let messageCellIdentifier = "MessageCell"
     //let messageManager = MessageManager.sharedMessageManager
     
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-
+    
     // var users: [User] = [User]()
-    var fetchedMessages: [Message] = [Message]()
-    var users: [User] = [User]()
+    var fetchedConversations: [User] = [User]()
+
+    let locView = LocationViewController()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Conversations"
         
         // Fetch messages from core Data, sorted by date
-        let messageFetchRequest = NSFetchRequest(entityName: "Message")
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
-        messageFetchRequest.sortDescriptors = [sortDescriptor]
+        let conversationFetchRequest = NSFetchRequest(entityName: "User")
+        let sortDescriptor = NSSortDescriptor(key: "mostRecentCommunication", ascending: false) // Puts newest messages on top
+        conversationFetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
-            fetchedMessages = try managedContext.executeFetchRequest(messageFetchRequest) as! [Message]
+            fetchedConversations = try managedContext.executeFetchRequest(conversationFetchRequest) as! [User]
         } catch {
-            fatalError("Failed to fetch messages: \(error)")
+            fatalError("Failed to fetch conversations: \(error)")
         }
         
-        
-        // just counting the users
-        
-        let fetchUsers = NSFetchRequest(entityName: "User")
-        do {
-            users = try managedContext.executeFetchRequest(fetchUsers) as! [User]
-        } catch {
-            fatalError("Failed to fetch messages: \(error)")
-        }
-        print("users stored: ")
-        print(users.count)
     }
     
     // Makes sure tab bar navbar doesn't overlap.
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake( y, 0, self.bottomLayoutGuide.length, 0)
+            self.tableView.contentInset = UIEdgeInsetsMake( y, 0, 0, 0)
         }
     }
+    
     
     
     override func viewWillAppear(animated: Bool) {
@@ -82,7 +75,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedMessages.count
+        return fetchedConversations.count
     }
     
     
@@ -92,17 +85,17 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     }
     
     // Swipe left on a message to delete (will only remove from temporary store)
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == UITableViewCellEditingStyle.Delete {
-//            
-//            print("COMMIT EDITING")
-////            messageManager.messages.removeAtIndex(indexPath.row)
-////            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-//            
-//            // send to parse that message has been removed!!
-//        }
-//    }
-
+    //    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    //        if editingStyle == UITableViewCellEditingStyle.Delete {
+    //
+    //            print("COMMIT EDITING")
+    ////            messageManager.messages.removeAtIndex(indexPath.row)
+    ////            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+    //
+    //            // send to parse that message has been removed!!
+    //        }
+    //    }
+    
     /*********/
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -119,10 +112,10 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         self.tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
         //messageManager.messages.removeAtIndex(self.tableView.indexPathForSelectedRow!.row)
     }
-
+    
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-
+        
         
         // FIGURE OUT DELETING FROM CORE DATAAAA
         let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: " Delete ", handler:{action, indexpath in
@@ -142,9 +135,9 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     }
     
     //empty implementation
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//    }
-
+    //    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    //    }
+    
     /*************/
     
     
@@ -152,51 +145,62 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
-        let msg = fetchedMessages[indexPath.row] as Message
+        let convo = fetchedConversations[indexPath.row] as User
         
-        if msg.hasBeenOpened == false {
-            cell.senderLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
+        cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
+        
+        cell.senderLabel.text = convo.displayName
+        
+        cell.sentDate.text = NSDateFormatter.localizedStringFromDate(convo.mostRecentCommunication, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+        
+        if convo.profImageData != nil {
+            cell.sentImage.image = UIImage(data : convo.profImageData!)
         } else {
-            
-            cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
-            cell.sentImage.image = UIImage(data : msg.imageData!)
+//            let query = PFQuery(className: "_User")
+//            query.getObjectInBackgroundWithId(convo.username) {
+//                (object: PFObject?, error: NSError?) -> Void in
+//                if error == nil {
+//                    if let picture = object!["profilePicture"]
+//                }
+//            }
+            print("no prof pic")
         }
-        cell.senderLabel.text = msg.user.displayName
         
-        cell.sentDate.text = NSDateFormatter.localizedStringFromDate(msg.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         
         return cell
         
         
     }
     
-
-
     
 
-        
-//        let cell = self.tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as! MessageCell
-//        
-//        
-//        var message: Message
-//        
-//        let messageManager = MessageManager.sharedMessageManager
-//        print("MessageManager Count:")
-//        print(messageManager.messages.count)
-//        
-//        message = messageManager.messages[indexPath.row]
-//        
-//        cell.senderLabel?.text = String(message.sender["name"])
-//        cell.messageImageView?.image = message.image
-//        
-//        
-//        return cell
+    
+    
+    
+    
+    
+    //        let cell = self.tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as! MessageCell
+    //
+    //
+    //        var message: Message
+    //
+    //        let messageManager = MessageManager.sharedMessageManager
+    //        print("MessageManager Count:")
+    //        print(messageManager.messages.count)
+    //
+    //        message = messageManager.messages[indexPath.row]
+    //
+    //        cell.senderLabel?.text = String(message.sender["name"])
+    //        cell.messageImageView?.image = message.image
+    //
+    //
+    //        return cell
     
     @IBAction func unwindToMessages(segue: UIStoryboardSegue) {
         
     }
     
-
+    
     
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -209,25 +213,28 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
-        if segue.identifier == "messageDetailSegue" {
+        if segue.identifier == "convoDetailSegue" {
             
-            let destinationViewController = segue.destinationViewController as! MessageDetailVC
+            locView.getPictureObjectsFromParse()
+            
+            let destinationViewController = segue.destinationViewController as! MessageCollectionVC
             destinationViewController.delegate = self
-            let message = fetchedMessages[tableView.indexPathForSelectedRow!.row]
 
-
-            destinationViewController.message = message
-            destinationViewController.comingFrom = "MessageTableVC"
+            let user = fetchedConversations[tableView.indexPathForSelectedRow!.row]
+            print(user.displayName)
+            
+            destinationViewController.user = user
+            
+            print(destinationViewController.user?.displayName)
+            
         }
-        
-        
     }
     
     
-
-
-}
     
+    
+}
+
 
 
 
