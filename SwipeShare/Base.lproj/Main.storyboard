@@ -124,7 +124,7 @@
                             <outlet property="delegate" destination="31l-X0-ZTx" id="2Qy-dJ-pZ3"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="List" id="RdK-TG-iFw"/>
+                    <tabBarItem key="tabBarItem" title="History" image="historyIcon" id="RdK-TG-iFw"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Messages" id="yKr-az-Vm7"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -1243,7 +1243,7 @@
                             <outlet property="delegate" destination="f1y-M4-94D" id="oQJ-ut-MYC"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Conversations" id="t7S-bn-j3H"/>
+                    <tabBarItem key="tabBarItem" title="Conversations" image="conversationsIcon" id="t7S-bn-j3H"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Conversations" id="XYw-xm-lJH"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -1257,6 +1257,8 @@
     </scenes>
     <resources>
         <image name="QuestionTransparent.png" width="360" height="360"/>
+        <image name="conversationsIcon" width="30" height="30"/>
+        <image name="historyIcon" width="25" height="25"/>
         <image name="userIcon" width="462" height="462"/>
     </resources>
     <inferredMetricsTieBreakers>
