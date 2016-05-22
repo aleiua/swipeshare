@@ -17,6 +17,7 @@ import ParseFacebookUtilsV4
 
 class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
     
+    var delegate: LocationViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()

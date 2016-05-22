@@ -40,7 +40,7 @@ class ContainerViewController: UIViewController, UINavigationControllerDelegate 
         print("container view loaded")
         
         locationViewController = UIStoryboard.locationViewController()
-        locationViewController.delegate = self
+        locationViewController.containerDelegate = self
 
         locationNavigationController = UINavigationController(rootViewController: locationViewController)
         view.addSubview(locationNavigationController.view)

@@ -40,6 +40,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     @IBOutlet weak var intendedUserField: UITextField!
     
     var locationManager: LKLocationManager!
+    
+    var setupComplete = false
 
     var beaconRegion: CLBeaconRegion!
     var peripheralManager: CBPeripheralManager!
@@ -78,7 +80,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
    
     
     // New things for container
-    var delegate: LocationViewControllerDelegate?
+    var containerDelegate: ContainerViewController?
     
     @IBAction func settingsMenuButton(sender: AnyObject) {
 //        print("settings menu button pressed")
@@ -784,6 +786,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         getFriendList()
         setUpiBeacon(user!)
         
+        setupComplete = true
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -816,6 +820,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func locationManager(manager:LKLocationManager, var didUpdateLocations locations: Array <CLLocation>) {
         
+        if !(setupComplete) && PFUser.currentUser() != nil {
+            setupProtocols(PFUser.currentUser()!)
+        }
 
         if (LKLocationManager.locationServicesEnabled()) {
             
@@ -1100,6 +1107,35 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
     }
     
+    
+    func setupProtocols(user: PFUser) {
+        
+        user["latitude"] = Double()
+        user["longitude"] = Double()
+        
+        user.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                self.userObjectId = user.objectId!
+                if (self.DEBUG) {
+                    print(self.userObjectId)
+                }
+            }
+            else {
+                if (self.DEBUG) {
+                    print("Error saving user in viewDidLoad")
+                }
+            }
+        }
+        
+        let installation = PFInstallation.currentInstallation()
+        installation["user"] = user
+        installation.saveInBackground()
+        
+        getBlockedUsers()
+        getFriendList()
+        setUpiBeacon(user)
+        setupComplete = true
+    }
 
     // MARK: - Navigation
 

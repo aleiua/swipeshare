@@ -14,7 +14,7 @@ import FBSDKCoreKit
 import ParseFacebookUtilsV4
 
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
    
     
     
@@ -28,6 +28,9 @@ class SettingsViewController: UITableViewController {
     
     let userDefaults = NSUserDefaults.standardUserDefaults()
 
+    var imagePicker: UIImagePickerController? = UIImagePickerController()
+//    unowned(unsafe) var delegate: protocol<UIImagePickerControllerDelegate, UINavigationControllerDelegate>?
+    
 
     
     @IBAction func movedSlider(sender: UISlider) {
@@ -116,6 +119,24 @@ class SettingsViewController: UITableViewController {
     
     func imageTapped(img: AnyObject) {
         
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
+            print("Button capture")
+            
+            imagePicker!.delegate = self
+            imagePicker!.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
+            imagePicker!.allowsEditing = false
+            
+            self.presentViewController(imagePicker!, animated: true, completion: nil)
+        }
+        
+        
+    }
+    
+    func imagePickerController(imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        imagePicker .dismissViewControllerAnimated(true, completion: nil)
+        let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+
+        userIcon.image = selectedImage
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,7 +145,7 @@ class SettingsViewController: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView2(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("Row: \(indexPath.row)")
         print("Section: \(indexPath.section)")
         
