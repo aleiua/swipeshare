@@ -651,8 +651,23 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                         print("creating new sender")
                         let userEntity = NSEntityDescription.entityForName("User", inManagedObjectContext: self.managedObjectContext)
                         sender = User(username: messageSender["username"] as! String, displayName: messageSender["name"] as! String, entity: userEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
+                        
+                        if let picture = messageSender["profilePicture"] as? PFFile {
+                            
+                            picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                                if (error == nil) {
+                                    
+                                    sender.profImageData = imageData
+                                    
+                                }
+                            }
+                        }
+                        else {
+                            print("Error getting image data")
+                        }
+                        
                     }
-                    
+
                     // If sender is a blocked user - do not save or display incoming message
                     if sender.status == "blocked" {
                         abort()
@@ -1147,6 +1162,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "conversationsSegue" {
+            getPictureObjectsFromParse()
+        }
     }
 
 
