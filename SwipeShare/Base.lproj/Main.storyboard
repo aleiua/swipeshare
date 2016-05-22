@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fE7-WG-u1V">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -615,9 +614,9 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V36-Ne-xPA" userLabel="Block">
-                                            <rect key="frame" x="0.0" y="351" width="320" height="71"/>
+                                            <rect key="frame" x="0.0" y="350" width="320" height="71"/>
                                             <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="Allow Once">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -632,7 +631,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaT-i7-hZ3">
                                             <rect key="frame" x="0.0" y="276" width="320" height="71"/>
                                             <color key="backgroundColor" red="0.0" green="1" blue="0.58431372549019611" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="Add Friend">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -645,9 +644,9 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWK-SK-4m5" userLabel="Block">
-                                            <rect key="frame" x="0.0" y="426" width="320" height="71"/>
+                                            <rect key="frame" x="0.0" y="424" width="320" height="71"/>
                                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="Block User">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1025,10 +1024,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-fE-eIO">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-fE-eIO">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                             <subviews>
-                                                <navigationBar contentMode="scaleToFill" ambiguous="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="QsL-cH-MQc">
+                                                <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="QsL-cH-MQc">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -1047,10 +1046,10 @@
                                                 </navigationBar>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r3Y-h8-Qjx">
-                                            <rect key="frame" x="0.0" y="200" width="320" height="71"/>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r3Y-h8-Qjx">
+                                            <rect key="frame" x="0.0" y="275" width="320" height="71"/>
                                             <color key="backgroundColor" red="0.0016079409359999999" green="1" blue="0.5849367177" alpha="0.75" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="Yes!">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1063,9 +1062,9 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDX-aj-Q1q" userLabel="Block">
-                                            <rect key="frame" x="0.0" y="275" width="320" height="71"/>
+                                            <rect key="frame" x="0.0" y="349" width="320" height="71"/>
                                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="No">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1077,16 +1076,27 @@
                                                 <action selector="cancelMessage:" destination="IIq-kb-Dai" eventType="touchUpInside" id="opE-G9-t5f"/>
                                             </connections>
                                         </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QuestionMark" translatesAutoresizingMaskIntoConstraints="NO" id="Kti-6G-M4q">
+                                            <rect key="frame" x="86" y="97" width="148" height="148"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="148" id="FMV-jr-Y6b"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="r3Y-h8-Qjx" firstAttribute="centerX" secondItem="Sdg-ue-hsp" secondAttribute="centerX" id="8Z9-JB-9JF"/>
+                                        <constraint firstItem="Kti-6G-M4q" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" constant="86" id="8g9-b8-r7u"/>
                                         <constraint firstItem="CDX-aj-Q1q" firstAttribute="centerX" secondItem="Sdg-ue-hsp" secondAttribute="centerX" id="Ce0-rj-kQU"/>
                                         <constraint firstItem="iC8-fE-eIO" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" id="GVc-ae-mAR"/>
                                         <constraint firstAttribute="trailing" secondItem="iC8-fE-eIO" secondAttribute="trailing" id="TxN-qx-fbu"/>
+                                        <constraint firstItem="Kti-6G-M4q" firstAttribute="centerX" secondItem="r3Y-h8-Qjx" secondAttribute="centerX" id="ZnQ-RW-fhu"/>
                                         <constraint firstItem="r3Y-h8-Qjx" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" id="bb9-N3-5E4"/>
+                                        <constraint firstItem="Kti-6G-M4q" firstAttribute="top" secondItem="Sdg-ue-hsp" secondAttribute="top" constant="97" id="dKU-WK-7kP"/>
                                         <constraint firstAttribute="trailing" secondItem="r3Y-h8-Qjx" secondAttribute="trailing" id="hcL-r2-CFJ"/>
                                         <constraint firstItem="CDX-aj-Q1q" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" id="oDI-ax-8bD"/>
+                                        <constraint firstItem="r3Y-h8-Qjx" firstAttribute="top" secondItem="Kti-6G-M4q" secondAttribute="bottom" constant="30" id="uKt-wk-UuE"/>
                                         <constraint firstAttribute="trailing" secondItem="CDX-aj-Q1q" secondAttribute="trailing" id="ujr-sA-d3j"/>
+                                        <constraint firstItem="Kti-6G-M4q" firstAttribute="top" secondItem="iC8-fE-eIO" secondAttribute="bottom" constant="27" id="zmo-Lt-iNl"/>
                                     </constraints>
                                 </view>
                                 <blurEffect style="dark"/>
@@ -1104,6 +1114,7 @@
                         <outlet property="blurredBackgroundView" destination="NFK-hj-6GC" id="t70-NP-1h0"/>
                         <outlet property="navBar" destination="QsL-cH-MQc" id="AnP-sm-eCC"/>
                         <outlet property="noButton" destination="CDX-aj-Q1q" id="m5R-bX-nRN"/>
+                        <outlet property="userProfilePicture" destination="Kti-6G-M4q" id="o0Q-hj-hKs"/>
                         <outlet property="yesButton" destination="r3Y-h8-Qjx" id="rvr-bw-gcv"/>
                     </connections>
                 </viewController>
@@ -1118,7 +1129,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="tRx-NE-4IC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="g0y-Br-tWM">
                             <size key="itemSize" width="147" height="125"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1139,7 +1150,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nX2-Ru-QOf">
                                             <rect key="frame" x="52" y="96" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -1257,6 +1268,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="QuestionMark" width="618" height="606"/>
         <image name="QuestionTransparent.png" width="360" height="360"/>
         <image name="conversationsIcon" width="30" height="30"/>
         <image name="historyIcon" width="25" height="25"/>
