@@ -90,12 +90,8 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         
             messageNavBar.title = String(message.user.displayName)
             
-        } else {
-    
-            messageNavBar.title = date
-            
         }
-            
+            dateLabel.title = date
             
         // Prompt the user for input if the message is from a non-Friend user
         if (message.user.status != "friend" && message.allowedOnce == false) {
