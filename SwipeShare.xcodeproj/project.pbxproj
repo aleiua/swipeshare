@@ -28,6 +28,7 @@
 		5E2630D41CE0F33500746016 /* QuestionTransparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2630D31CE0F33500746016 /* QuestionTransparent.png */; };
 		5E331D7C1CD06B03007FF047 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E331D7B1CD0699F007FF047 /* ionicons.ttf */; };
 		5E711FCB1CB7365800A3F113 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */; };
+		5E8B668E1CF2514D00695720 /* Ionicons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8B668D1CF2514D00695720 /* Ionicons.swift */; };
 		5E91D1441CDA5E9600935168 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E91D1431CDA5E9600935168 /* QuestionMark.png */; };
 		5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB8A1111CBB38B0003B575D /* OverlayView.swift */; };
 		5EB8A1141CBB38C4003B575D /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB8A1131CBB38C4003B575D /* OverlayView.xib */; };
@@ -98,6 +99,7 @@
 		5E2630D31CE0F33500746016 /* QuestionTransparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionTransparent.png; sourceTree = "<group>"; };
 		5E331D7B1CD0699F007FF047 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
+		5E8B668D1CF2514D00695720 /* Ionicons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ionicons.swift; sourceTree = "<group>"; };
 		5E91D1431CDA5E9600935168 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
 		5EB8A1111CBB38B0003B575D /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		5EB8A1131CBB38C4003B575D /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverlayView.xib; path = ../OverlayView.xib; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 		937E7F2D1C55672700057D32 /* SwipeShare */ = {
 			isa = PBXGroup;
 			children = (
+				5E8B668D1CF2514D00695720 /* Ionicons.swift */,
 				5EB8A1111CBB38B0003B575D /* OverlayView.swift */,
 				5EB8A1131CBB38C4003B575D /* OverlayView.xib */,
 				0520578D1C81089B00009D91 /* yawIcon.png */,
@@ -293,8 +296,8 @@
 				937D7A511CDC137C008783D1 /* User.swift */,
 				793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */,
 				795384121CDF855F001C25DF /* CustomSegues.swift */,
-				937E7F321C55672700057D32 /* Main.storyboard */,
 				937D7A531CDC1DBC008783D1 /* FriendTableView.swift */,
+				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
 				5E2630D31CE0F33500746016 /* QuestionTransparent.png */,
 				5E91D1431CDA5E9600935168 /* QuestionMark.png */,
@@ -529,6 +532,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93FA3F221C66A8C000BB3791 /* LoginViewController.swift in Sources */,
+				5E8B668E1CF2514D00695720 /* Ionicons.swift in Sources */,
 				937D7A541CDC1DBC008783D1 /* FriendTableView.swift in Sources */,
 				939B82971C87852300770F79 /* MessageCell.swift in Sources */,
 				937E7F371C55672700057D32 /* SwipeShare.xcdatamodeld in Sources */,
