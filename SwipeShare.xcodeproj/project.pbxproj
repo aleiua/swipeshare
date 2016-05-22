@@ -203,6 +203,18 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		79144C521CF239F300DA3349 /* OverlayControllers */ = {
+			isa = PBXGroup;
+			children = (
+				793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */,
+				5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */,
+				793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */,
+				5EB8A1111CBB38B0003B575D /* OverlayView.swift */,
+				5EB8A1131CBB38C4003B575D /* OverlayView.xib */,
+			);
+			name = OverlayControllers;
+			sourceTree = "<group>";
+		};
 		7966B50D1CD680070043D64E /* LoginControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,7 +235,6 @@
 				932139311C8CE972008A69D9 /* MessageDetailVC.swift */,
 				936AEB5F1CE903DA00F6094F /* ConversationMessageTVC.swift */,
 				936AEB651CE911BB00F6094F /* MessageCollectionVC.swift */,
-				793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */,
 			);
 			name = MessageControllers;
 			sourceTree = "<group>";
@@ -290,8 +301,7 @@
 		937E7F2D1C55672700057D32 /* SwipeShare */ = {
 			isa = PBXGroup;
 			children = (
-				5EB8A1111CBB38B0003B575D /* OverlayView.swift */,
-				5EB8A1131CBB38C4003B575D /* OverlayView.xib */,
+				79144C521CF239F300DA3349 /* OverlayControllers */,
 				0520578D1C81089B00009D91 /* yawIcon.png */,
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,
 				7966B50D1CD680070043D64E /* LoginControllers */,
@@ -299,10 +309,8 @@
 				5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */,
 				054F0B661C8E04BE00496D38 /* ContainerViewController.swift */,
 				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
-				5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
 				937D7A511CDC137C008783D1 /* User.swift */,
-				793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */,
 				795384121CDF855F001C25DF /* CustomSegues.swift */,
 				79098CF61CEA307400923D3A /* TabBarController.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,

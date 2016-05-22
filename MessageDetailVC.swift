@@ -96,19 +96,13 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
             
         }
             
-        if message.imageData == nil{
-            getPhoto()
-        } else {
-            self.activityIndicator.stopAnimating()
-            messageImageView?.image = UIImage(data: message.imageData!)
-        }
             
-        
         // Prompt the user for input if the message is from a non-Friend user
         if (message.user.status != "friend" && message.allowedOnce == false) {
             
             let friendPromptViewController = storyboard!.instantiateViewControllerWithIdentifier("friendprompt") as! FriendPromptViewController
             friendPromptViewController.delegate = self
+            friendPromptViewController.sender = message.user
             friendPromptViewController.modalPresentationStyle = .OverCurrentContext
             presentViewController(friendPromptViewController, animated: true, completion: nil)
             
@@ -116,8 +110,6 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         else {
             photoAppear()
         }
-        
-        
     }
     
     func photoAppear() {

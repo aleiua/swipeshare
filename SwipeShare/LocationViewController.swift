@@ -660,9 +660,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                                 }
                             }
                         }
-                            else {
-                                print("Error getting image data")
-                            }
+                        else {
+                            print("Error getting image data")
+                        }
                         
                     }
 
