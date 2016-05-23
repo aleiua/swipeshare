@@ -765,7 +765,7 @@
                             <tableViewSection headerTitle="Discovery Settings" id="AMs-SD-5tT">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="84" id="FFT-Cc-Vvg">
-                                        <rect key="frame" x="0.0" y="329.5" width="600" height="84"/>
+                                        <rect key="frame" x="0.0" y="330" width="600" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FFT-Cc-Vvg" id="fPo-pI-lrW">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
@@ -810,7 +810,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="84" id="5XA-8Y-odY">
-                                        <rect key="frame" x="0.0" y="413.5" width="600" height="84"/>
+                                        <rect key="frame" x="0.0" y="414" width="600" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5XA-8Y-odY" id="gHO-Af-hly">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>

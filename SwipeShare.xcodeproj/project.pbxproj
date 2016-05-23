@@ -11,8 +11,8 @@
 		050B63501C55D7D70033279B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634F1C55D7D70033279B /* CoreMotion.framework */; };
 		0520578E1C81089B00009D91 /* yawIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0520578D1C81089B00009D91 /* yawIcon.png */; };
 		054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B661C8E04BE00496D38 /* ContainerViewController.swift */; };
-		054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B681C8E04D900496D38 /* SettingsViewController.swift */; };
 		059AC0E91CD1C226006DC600 /* BumpValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */; };
+		05B348481CF2891800395E36 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B681C8E04D900496D38 /* SettingsViewController.swift */; };
 		05C3D55F1CEA3E1D0064820A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C3D55E1CEA3E1C0064820A /* Utilities.swift */; };
 		05FA09121C5E8A6C0025A1F6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09111C5E8A6C0025A1F6 /* Parse.framework */; };
 		05FA09141C5E8AAF0025A1F6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09131C5E8AAF0025A1F6 /* Bolts.framework */; };
@@ -578,8 +578,8 @@
 				936AEB661CE911BB00F6094F /* MessageCollectionVC.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				937D7A521CDC137C008783D1 /* User.swift in Sources */,
-				054F0B691C8E04D900496D38 /* SettingsViewController.swift in Sources */,
 				05C3D55F1CEA3E1D0064820A /* Utilities.swift in Sources */,
+				05B348481CF2891800395E36 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,32 +9,32 @@
 import Foundation
 import UIKit
 import Parse
-
+import CoreData
 import FBSDKCoreKit
 import ParseFacebookUtilsV4
 
 
 class SettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-   
-    
     
     @IBOutlet weak var userIcon: UIImageView!
     @IBOutlet weak var usernameField: UILabel!
     @IBOutlet weak var currentDistance: UILabel!
     @IBOutlet weak var distanceSlider: UISlider!
     
+    // Delegate & Utilities
     let photoUtils = Utilities()
-    
     var delegate: LocationViewController? = nil
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+    var imagePicker: UIImagePickerController? = UIImagePickerController()
     
+    // CoreData & Plist
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    var currentUser: [User] = [User]()
+    let user = PFUser.currentUser()
     let userDefaults = NSUserDefaults.standardUserDefaults()
 
-    var imagePicker: UIImagePickerController? = UIImagePickerController()
-//    unowned(unsafe) var delegate: protocol<UIImagePickerControllerDelegate, UINavigationControllerDelegate>?
-    
 
-    
+    // Handle changes to range slider
     @IBAction func movedSlider(sender: UISlider) {
         let currentValue = Int(sender.value)
         currentDistance.text = "\(currentValue) ft"
@@ -42,8 +42,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         LocationViewController().saveNewRadius(sender.value)
     }
     
+    // Handle switching between sharing settings (with friends vs. all)
     @IBOutlet weak var shareWithFriendsSwitch: UISwitch!
-    
     @IBAction func shareWithFriendsSwitch(sender: AnyObject) {
         let sharingWithFriends = userDefaults.boolForKey("sharingWithFriends")
         userDefaults.setBool(!sharingWithFriends, forKey: "sharingWithFriends")
@@ -85,32 +85,63 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
+        // Load defaults for settings
         shareWithFriendsSwitch.on = userDefaults.boolForKey("sharingWithFriends")
-        
         distanceSlider.value = Float(userDefaults.integerForKey("distanceSlider"))
-        
         let initialValue = Int(distanceSlider.value)
         currentDistance.text = "\(initialValue) ft"
         
-        // Extract profile picture from parse and resize
-        if let profilePicture = PFUser.currentUser()?["profilePicture"] as? PFFile {
-            profilePicture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-                if (error == nil) {
-                    self.userIcon.image = self.photoUtils.cropImageToSquare(image: UIImage(data: imageData!)!)
+        
+        // Fetch the current user from CoreData, if the entity has been made
+        let profilePictureFetch = NSFetchRequest(entityName: "User")
+        let username = PFUser.currentUser()?["name"] as? String
+        profilePictureFetch.predicate = NSPredicate(format: "%K == %@", "username", "currentUser")
+        do {
+            currentUser = try managedObjectContext.executeFetchRequest(profilePictureFetch) as! [User]
+        } catch {
+            fatalError("Failed to fetch current user: \(error)")
+        }
+        
+        
+        // Extract profile picture from parse, resize, and save to CoreData
+        if (currentUser.isEmpty) {
+            if let profilePicture = PFUser.currentUser()?["profilePicture"] as? PFFile {
+                profilePicture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                    if (error == nil) {
+                        
+                        // Resize and update view
+                        self.userIcon.image = self.photoUtils.cropImageToSquare(image: UIImage(data: imageData!)!)
+                        
+                        // Create new CoreData User entity for current user
+                        let userEntity = NSEntityDescription.entityForName("User", inManagedObjectContext: self.managedObjectContext)
+                        let currentUserObject = User(username: "currentUser", displayName: username!, entity: userEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
+                        self.currentUser.append(currentUserObject)
+                        
+                        // Save image under current user
+                        self.currentUser[0].profImageData = UIImageJPEGRepresentation(self.userIcon.image!, 1);
+                    }
                 }
             }
         }
+        else {
+            
+            // Load the previous image from core data
+            self.userIcon.image = UIImage(data: self.currentUser[0].profImageData!, scale: 1.0)
+        }
+
         
+        // Initialize gesture recognizer for changing profile pictures
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped:"))
         userIcon.userInteractionEnabled = true
         userIcon.addGestureRecognizer(tapGestureRecognizer)
         
-        
-        userIcon.layer.borderWidth = 3
+        // Aesthetics for userIcon
+        userIcon.layer.borderWidth = 2
         userIcon.layer.masksToBounds = false
-        userIcon.layer.borderColor = UIColor.grayColor().CGColor
+        userIcon.layer.borderColor = UIColor.lightGrayColor().CGColor
         userIcon.layer.cornerRadius = userIcon.frame.height/2
         userIcon.clipsToBounds = true
         
@@ -119,10 +150,13 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
     }
     
+    
+    /*
+    * Called when the profile picture is tapped; presents the image picker view controller
+    */
     func imageTapped(img: AnyObject) {
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
-            print("Button capture")
             
             imagePicker!.delegate = self
             imagePicker!.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
@@ -134,16 +168,40 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
     }
     
+    /*
+    *  Updates the profile picture in the view with the selected image and updates CoreData and Parse
+    */
     func imagePickerController(imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        imagePicker .dismissViewControllerAnimated(true, completion: nil)
-        let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         
+        // Get image from image picker and update view
+        imagePicker.dismissViewControllerAnimated(true, completion: nil)
+        let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         userIcon.image = self.photoUtils.cropImageToSquare(image: selectedImage!)
+        
+        // Update image in CoreData and Parse
+        self.currentUser[0].profImageData = UIImageJPEGRepresentation(self.userIcon.image!, 1)
+        saveProfPicToParse(userIcon.image!)
+        
     }
+    
+    
+    /*
+     * Update the profile picture of the current user (global) with the given UIImage
+     */
+    func saveProfPicToParse(image: UIImage) {
+        
+        let filename = "image.jpg"
+        let jpgImage = UIImageJPEGRepresentation(image, 0.5)
+        let imageFile = PFFile(name: filename, data: jpgImage!)
+        
+        user!["profilePicture"] = imageFile
+        user?.saveInBackground()
+        
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -166,6 +224,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
     }
     
+    
     func logout() {
         print(PFUser.currentUser())
         PFUser.logOut()
@@ -178,3 +237,4 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         })
     }
 }
+

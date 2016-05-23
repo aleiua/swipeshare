@@ -35,6 +35,7 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         
         // Fetch messages from core Data, sorted by date
         let conversationFetchRequest = NSFetchRequest(entityName: "User")
+        conversationFetchRequest.predicate = NSPredicate(format: "%K != %@", "username", "currentUser")
         let sortDescriptor = NSSortDescriptor(key: "mostRecentCommunication", ascending: false) // Puts newest messages on top
         conversationFetchRequest.sortDescriptors = [sortDescriptor]
         
@@ -43,7 +44,6 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         } catch {
             fatalError("Failed to fetch conversations: \(error)")
         }
-        
     }
     
     // Makes sure tab bar navbar doesn't overlap.
@@ -157,29 +157,12 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         if convo.profImageData != nil {
             cell.profilePictureThumbnail.image = self.photoUtils.cropImageToSquare(image: UIImage(data : convo.profImageData!)!)
         } else {
-//            let query = PFQuery(className: "_User")
-//            query.getObjectInBackgroundWithId(convo.username) {
-//                (object: PFObject?, error: NSError?) -> Void in
-//                if error == nil {
-//                    if let picture = object!["profilePicture"]
-//                }
-//            }
-            cell.profilePictureThumbnail.image
+            // Needs to be updated with default
             print("no prof pic")
         }
-        
-        
         return cell
-        
-        
     }
-    
-    
 
-    
-    
-    
-    
     
     //        let cell = self.tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as! MessageCell
     //
