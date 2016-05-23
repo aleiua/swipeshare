@@ -18,10 +18,6 @@ import ParseFacebookUtilsV4
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-    var latSearchDistance = 0.001
-    var longSearchDistance = 0.001
-    var distanceSliderValue = 100
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -56,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Assign default values
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        let defaultValues = ["sharingWithFriends" : true, "distanceSlider": 100]
+        let defaultValues = ["sharingWithFriends" : false, "distanceSlider": 100]
         userDefaults.registerDefaults(defaultValues)
         
         return true
