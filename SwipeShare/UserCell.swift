@@ -24,9 +24,9 @@ class UserCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        profilePictureThumbnail.layer.borderWidth = 2
+        profilePictureThumbnail.layer.borderWidth = 1
         profilePictureThumbnail.layer.masksToBounds = false
-        profilePictureThumbnail.layer.borderColor = UIColor.grayColor().CGColor
+        profilePictureThumbnail.layer.borderColor = UIColor.lightGrayColor().CGColor
         profilePictureThumbnail.layer.cornerRadius = profilePictureThumbnail.frame.height/2
         profilePictureThumbnail.clipsToBounds = true
 
