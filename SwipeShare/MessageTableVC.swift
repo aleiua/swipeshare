@@ -19,6 +19,8 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     let messageCellIdentifier = "MessageCell"
     //let messageManager = MessageManager.sharedMessageManager
     
+    let photoUtils = Utilities()
+    
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
     // var users: [User] = [User]()
@@ -160,7 +162,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         } else {
             
             cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
-            cell.sentImage.image = UIImage(data : msg.imageData!)
+            cell.sentImage.image = photoUtils.cropImageToSquare(image: UIImage(data : msg.imageData!)!)
         }
         cell.senderLabel.text = msg.user.displayName
         
