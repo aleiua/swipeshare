@@ -48,10 +48,6 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         let sharingWithFriends = userDefaults.boolForKey("sharingWithFriends")
         userDefaults.setBool(!sharingWithFriends, forKey: "sharingWithFriends")
     }
-        
-    @IBAction func exitButtonTapped(sender: UIButton) {
-        self.performSegueWithIdentifier("segueHome", sender: self)
-    }
     
     @IBAction func getFacebookFriends(sender: AnyObject) {
         
