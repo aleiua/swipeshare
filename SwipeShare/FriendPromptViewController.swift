@@ -46,28 +46,26 @@ class FriendPromptViewController: UIViewController {
         newUserPicture.layer.borderColor = UIColor.grayColor().CGColor
         newUserPicture.layer.cornerRadius = newUserPicture.frame.height/2
         newUserPicture.clipsToBounds = true
+
         
+//        addFriendButton.layer.borderWidth = 2
+//        addFriendButton.backgroundColor = UIColor.clearColor()
+//        addFriendButton.layer.cornerRadius = 4
+//        addFriendButton.layer.borderColor = UIColor(red: 0.0/255.0, green: 255.0/255.0, blue: 149.0/255.0, alpha: 1.0).CGColor
+//        
+//        allowOnceButton.layer.borderWidth = 2
+//        allowOnceButton.backgroundColor = UIColor.clearColor()
+//        allowOnceButton.layer.cornerRadius = 4
+//        allowOnceButton.layer.borderColor = UIColor(red: 0.0/255.0, green: 128.0/255.0, blue: 255.0/255.0, alpha: 1.0).CGColor
+//        
+//        blockUserButton.layer.borderWidth = 2
+//        blockUserButton.backgroundColor = UIColor.clearColor()
+//        blockUserButton.layer.cornerRadius = 4
+//        blockUserButton.layer.borderColor = UIColor(red: 255.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0).CGColor
         
 
         
-        addFriendButton.layer.borderWidth = 2
-        addFriendButton.backgroundColor = UIColor.clearColor()
-        addFriendButton.layer.cornerRadius = 4
-        addFriendButton.layer.borderColor = UIColor(red: 0.0/255.0, green: 255.0/255.0, blue: 149.0/255.0, alpha: 1.0).CGColor
-        
-        allowOnceButton.layer.borderWidth = 2
-        allowOnceButton.backgroundColor = UIColor.clearColor()
-        allowOnceButton.layer.cornerRadius = 4
-        allowOnceButton.layer.borderColor = UIColor(red: 0.0/255.0, green: 128.0/255.0, blue: 255.0/255.0, alpha: 1.0).CGColor
-        
-        blockUserButton.layer.borderWidth = 2
-        blockUserButton.backgroundColor = UIColor.clearColor()
-        blockUserButton.layer.cornerRadius = 4
-        blockUserButton.layer.borderColor = UIColor(red: 255.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0).CGColor
-        
-
-        
-        
+        navBar.topItem!.title = sender?.displayName
         navBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
 
         
