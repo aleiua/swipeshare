@@ -56,7 +56,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     // Makes sure tab bar navbar doesn't overlap.
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
             self.tableView.contentInset = UIEdgeInsetsMake( 0, 0, self.bottomLayoutGuide.length, 0)
         }
     }
@@ -109,43 +108,45 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         return true
     }
     
-    
-    // FIGURE OUT DELETING FROM CORE DATAAAA
-    // FIGURE OUT DELETING FROM CORE DATAAAA
-    // FIGURE OUT DELETING FROM CORE DATAAAA
-    // FIGURE OUT DELETING FROM CORE DATAAAA
-    
     func deleteMessage() {
         self.tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
         //messageManager.messages.removeAtIndex(self.tableView.indexPathForSelectedRow!.row)
     }
-
     
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-
-        
-        // FIGURE OUT DELETING FROM CORE DATAAAA
-        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: " Delete ", handler:{action, indexpath in
-            //self.messageManager.messages.removeAtIndex(indexPath.row)
+    
+    // Simple delete functionality for rows
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let itemToDelete = fetchedMessages[indexPath.row]
+            managedContext.deleteObject(itemToDelete)
+            fetchedMessages.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-        });
-        deleteAction.backgroundColor = UIColor.redColor()
-        
-        
-        let blockAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "  Block  \n  User", handler:{action, indexpath in
-            print("MORE•ACTION");
-        });
-        blockAction.backgroundColor = UIColor.lightGrayColor();
-        
-        
-        return [deleteAction, blockAction]
+        }
     }
-    
-    //empty implementation
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//    }
 
-    /*************/
+//    // Enables more functionality.
+//    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+//
+//        
+//        // FIGURE OUT DELETING FROM CORE DATAAAA
+//        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: " Delete ", handler:{action, indexpath in
+//            //self.messageManager.messages.removeAtIndex(indexPath.row)
+//            self.fetchedMessages.removeAtIndex(indexPath.row)
+//
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+//        });
+//        deleteAction.backgroundColor = UIColor.redColor()
+//        
+//        
+//        let blockAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "  Block  \n  User", handler:{action, indexpath in
+//        });
+//        blockAction.backgroundColor = UIColor.lightGrayColor();
+//        
+//        
+//        return [deleteAction, blockAction]
+//    }
+    
+
     
     
     
