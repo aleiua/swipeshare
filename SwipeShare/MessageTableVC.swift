@@ -57,7 +57,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake( y, 0, self.bottomLayoutGuide.length, 0)
+            self.tableView.contentInset = UIEdgeInsetsMake( 0, 0, self.bottomLayoutGuide.length, 0)
         }
     }
     

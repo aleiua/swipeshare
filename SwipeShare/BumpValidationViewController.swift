@@ -13,6 +13,9 @@ import CoreData
 class BumpValidationViewController: UIViewController {
     var recipient = [PFObject]()
     var delegate: LocationViewController? = nil
+    let photoUtils = Utilities()
+
+    
     
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
@@ -64,8 +67,7 @@ class BumpValidationViewController: UIViewController {
                 if firstUser.profImageData != nil {
                     let imageRepresenation = UIImage(data : firstUser.profImageData!)
                     
-                    let settingsController = SettingsViewController()
-                    let squareImage = settingsController.cropImageToSquare(image: imageRepresenation!)
+                    let squareImage = photoUtils.cropImageToSquare(image: imageRepresenation!)
                     
                     userProfilePicture.image = squareImage
                 }

@@ -13,6 +13,8 @@ class FriendPromptViewController: UIViewController {
     var delegate: MessageDetailVC? = nil
     var sender: User? = nil
     
+    
+    
     @IBOutlet weak var blurredBackgroundView: UIVisualEffectView!
     
     @IBOutlet weak var navBar: UINavigationBar!

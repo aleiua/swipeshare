@@ -205,7 +205,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     }
     
     
-    func tableView2(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("Row: \(indexPath.row)")
         print("Section: \(indexPath.section)")
         
@@ -217,6 +217,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         }
         else if (indexPath.section == 1) {
             // Will be segues to friend functionality
+
         }
         else if (indexPath.section == 2) {
             logout()
@@ -229,6 +230,9 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         print(PFUser.currentUser())
         PFUser.logOut()
         print("Logout")
+        
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController

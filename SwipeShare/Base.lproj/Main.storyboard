@@ -1180,7 +1180,7 @@
         <scene sceneID="vHZ-sS-Z76">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ZAc-QZ-wMH" customClass="TabBarController" customModule="Yaw" customModuleProvider="target" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="oWf-lA-OXC">
                         <autoresizingMask key="autoresizingMask"/>
