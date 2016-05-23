@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Assign default values
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        let defaultValues = ["sharingWithFriends" : true, "distanceSlider": 100]
+        let defaultValues = ["sharingWithFriends" : false, "distanceSlider": 100]
         userDefaults.registerDefaults(defaultValues)
         
         return true
