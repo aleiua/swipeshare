@@ -18,6 +18,10 @@ import ParseFacebookUtilsV4
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var latSearchDistance = 0.001
+    var longSearchDistance = 0.001
+    var distanceSliderValue = 100
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
