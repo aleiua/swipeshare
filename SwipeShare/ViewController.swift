@@ -65,6 +65,9 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
             self.storeFacebookData()
             self.storeBluetoothID(user)
         }
+        else if (FBSDKAccessToken.currentAccessToken() != nil) {
+            
+        }
     }
     
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
@@ -172,6 +175,41 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
             }
         })
         return
+    }
+    
+    func storeProfilePicture() {
+        let user = PFUser.currentUser()
+        
+        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name"])
+        
+        graphRequest.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
+            if(error == nil)
+            {
+                
+                // Get Profile Picture
+                let userID: NSString = (result.valueForKey("id") as? NSString)!
+                let facebookProfileUrl = NSURL(string: "http://graph.facebook.com/\(userID)/picture?type=large")
+                
+                if let data = NSData(contentsOfURL: facebookProfileUrl!) {
+                    let image = UIImage(data: data)
+                    
+                    // Convert to Parse Format
+                    let jpgImage = UIImageJPEGRepresentation(image!, 1.0)
+                    let imageFile = PFFile(name: "image.jpg", data: jpgImage!)
+                    
+                    user!["profilePicture"] = imageFile
+                    
+                }
+                
+                user?.saveInBackground()
+            }
+            else
+            {
+                print("error \(error)")
+            }
+        })
+        return
+
     }
     
 

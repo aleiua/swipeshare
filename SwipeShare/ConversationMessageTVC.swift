@@ -49,6 +49,7 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
     // Makes sure tab bar navbar doesn't overlap.
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {
+
             self.tableView.contentInset = UIEdgeInsetsMake( 0, 0, self.bottomLayoutGuide.length, 0)
         }
     }
