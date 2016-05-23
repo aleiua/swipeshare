@@ -614,9 +614,9 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V36-Ne-xPA" userLabel="Block">
-                                            <rect key="frame" x="0.0" y="351" width="320" height="71"/>
+                                            <rect key="frame" x="0.0" y="350" width="320" height="71"/>
                                             <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="Allow Once">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -631,7 +631,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaT-i7-hZ3">
                                             <rect key="frame" x="0.0" y="276" width="320" height="71"/>
                                             <color key="backgroundColor" red="0.0" green="1" blue="0.58431372549019611" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="Add Friend">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -644,9 +644,9 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWK-SK-4m5" userLabel="Block">
-                                            <rect key="frame" x="0.0" y="426" width="320" height="71"/>
+                                            <rect key="frame" x="0.0" y="424" width="320" height="71"/>
                                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="Block User">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1024,10 +1024,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-fE-eIO">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-fE-eIO">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                             <subviews>
-                                                <navigationBar contentMode="scaleToFill" ambiguous="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="QsL-cH-MQc">
+                                                <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="QsL-cH-MQc">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -1046,10 +1046,13 @@
                                                 </navigationBar>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r3Y-h8-Qjx">
-                                            <rect key="frame" x="0.0" y="200" width="320" height="71"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r3Y-h8-Qjx">
+                                            <rect key="frame" x="0.0" y="289" width="320" height="71"/>
                                             <color key="backgroundColor" red="0.0016079409359999999" green="1" blue="0.5849367177" alpha="0.75" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="71" id="cAK-9a-Vd6"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="Yes!">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1061,10 +1064,16 @@
                                                 <action selector="sendMessage:" destination="IIq-kb-Dai" eventType="touchUpInside" id="97g-I7-Rpe"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDX-aj-Q1q" userLabel="Block">
-                                            <rect key="frame" x="0.0" y="275" width="320" height="71"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QuestionMark" translatesAutoresizingMaskIntoConstraints="NO" id="Kti-6G-M4q">
+                                            <rect key="frame" x="86" y="97" width="148" height="148"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="148" id="FMV-jr-Y6b"/>
+                                            </constraints>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDX-aj-Q1q" userLabel="Block">
+                                            <rect key="frame" x="0.0" y="363" width="320" height="71"/>
                                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.79000000000000004" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="No">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1078,14 +1087,19 @@
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="r3Y-h8-Qjx" firstAttribute="centerX" secondItem="Sdg-ue-hsp" secondAttribute="centerX" id="8Z9-JB-9JF"/>
-                                        <constraint firstItem="CDX-aj-Q1q" firstAttribute="centerX" secondItem="Sdg-ue-hsp" secondAttribute="centerX" id="Ce0-rj-kQU"/>
+                                        <constraint firstItem="CDX-aj-Q1q" firstAttribute="trailing" secondItem="r3Y-h8-Qjx" secondAttribute="trailing" id="6Er-nI-FLd"/>
+                                        <constraint firstItem="CDX-aj-Q1q" firstAttribute="leading" secondItem="iC8-fE-eIO" secondAttribute="leading" id="8KQ-mN-PF7"/>
+                                        <constraint firstItem="Kti-6G-M4q" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" constant="86" id="8g9-b8-r7u"/>
+                                        <constraint firstItem="CDX-aj-Q1q" firstAttribute="trailing" secondItem="iC8-fE-eIO" secondAttribute="trailing" id="9V5-i4-Avj"/>
+                                        <constraint firstItem="r3Y-h8-Qjx" firstAttribute="centerX" secondItem="Kti-6G-M4q" secondAttribute="centerX" id="GAv-Le-VHh"/>
                                         <constraint firstItem="iC8-fE-eIO" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" id="GVc-ae-mAR"/>
+                                        <constraint firstItem="r3Y-h8-Qjx" firstAttribute="top" secondItem="Kti-6G-M4q" secondAttribute="bottom" constant="44" id="NRY-vn-DX4"/>
                                         <constraint firstAttribute="trailing" secondItem="iC8-fE-eIO" secondAttribute="trailing" id="TxN-qx-fbu"/>
-                                        <constraint firstItem="r3Y-h8-Qjx" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" id="bb9-N3-5E4"/>
-                                        <constraint firstAttribute="trailing" secondItem="r3Y-h8-Qjx" secondAttribute="trailing" id="hcL-r2-CFJ"/>
-                                        <constraint firstItem="CDX-aj-Q1q" firstAttribute="leading" secondItem="Sdg-ue-hsp" secondAttribute="leading" id="oDI-ax-8bD"/>
-                                        <constraint firstAttribute="trailing" secondItem="CDX-aj-Q1q" secondAttribute="trailing" id="ujr-sA-d3j"/>
+                                        <constraint firstItem="Kti-6G-M4q" firstAttribute="top" secondItem="Sdg-ue-hsp" secondAttribute="top" constant="97" id="dKU-WK-7kP"/>
+                                        <constraint firstItem="CDX-aj-Q1q" firstAttribute="leading" secondItem="r3Y-h8-Qjx" secondAttribute="leading" id="mUe-i4-RJS"/>
+                                        <constraint firstAttribute="bottom" secondItem="CDX-aj-Q1q" secondAttribute="bottom" constant="134" id="xsH-IE-vVm"/>
+                                        <constraint firstItem="CDX-aj-Q1q" firstAttribute="top" secondItem="r3Y-h8-Qjx" secondAttribute="bottom" constant="3" id="yRC-Rf-ecq"/>
+                                        <constraint firstItem="Kti-6G-M4q" firstAttribute="top" secondItem="iC8-fE-eIO" secondAttribute="bottom" constant="27" id="zmo-Lt-iNl"/>
                                     </constraints>
                                 </view>
                                 <blurEffect style="dark"/>
@@ -1103,6 +1117,7 @@
                         <outlet property="blurredBackgroundView" destination="NFK-hj-6GC" id="t70-NP-1h0"/>
                         <outlet property="navBar" destination="QsL-cH-MQc" id="AnP-sm-eCC"/>
                         <outlet property="noButton" destination="CDX-aj-Q1q" id="m5R-bX-nRN"/>
+                        <outlet property="userProfilePicture" destination="Kti-6G-M4q" id="o0Q-hj-hKs"/>
                         <outlet property="yesButton" destination="r3Y-h8-Qjx" id="rvr-bw-gcv"/>
                     </connections>
                 </viewController>
@@ -1255,6 +1270,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="QuestionMark" width="618" height="606"/>
         <image name="QuestionTransparent.png" width="360" height="360"/>
         <image name="userIcon" width="462" height="462"/>
     </resources>

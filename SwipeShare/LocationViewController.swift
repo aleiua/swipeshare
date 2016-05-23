@@ -999,7 +999,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
 //        print(beacons)
         
-        if image != nil {
+        if (image != nil && image.hidden == false) {
             for beacon in beacons {
                 if (beacon.rssi > -38 && beacon.rssi != 0 && image.hidden == false) {
                     
