@@ -11,7 +11,6 @@
 		050B63501C55D7D70033279B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634F1C55D7D70033279B /* CoreMotion.framework */; };
 		051D87F31CF37BDA004E7A7C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051D87F21CF37BDA004E7A7C /* NavigationController.swift */; };
 		0520578E1C81089B00009D91 /* yawIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0520578D1C81089B00009D91 /* yawIcon.png */; };
-		054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B661C8E04BE00496D38 /* ContainerViewController.swift */; };
 		059AC0E91CD1C226006DC600 /* BumpValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */; };
 		05B348481CF2891800395E36 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F0B681C8E04D900496D38 /* SettingsViewController.swift */; };
 		05C3D55F1CEA3E1D0064820A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C3D55E1CEA3E1C0064820A /* Utilities.swift */; };
@@ -89,7 +88,6 @@
 		050B634F1C55D7D70033279B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		051D87F21CF37BDA004E7A7C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		0520578D1C81089B00009D91 /* yawIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yawIcon.png; sourceTree = "<group>"; };
-		054F0B661C8E04BE00496D38 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		054F0B681C8E04D900496D38 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		05C3D55E1CEA3E1C0064820A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = SwipeShare/Utilities.swift; sourceTree = "<group>"; };
 		05FA09111C5E8A6C0025A1F6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 				7966B50D1CD680070043D64E /* LoginControllers */,
 				7966B50E1CD6802C0043D64E /* MessageControllers */,
 				5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */,
-				054F0B661C8E04BE00496D38 /* ContainerViewController.swift */,
 				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
 				937D7A511CDC137C008783D1 /* User.swift */,
@@ -576,7 +573,6 @@
 				936AEB641CE90DF100F6094F /* ImageCell.swift in Sources */,
 				5E711FCB1CB7365800A3F113 /* CheckListViewController.swift in Sources */,
 				793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */,
-				054F0B671C8E04BE00496D38 /* ContainerViewController.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				939B82A11C87882400770F79 /* Message.swift in Sources */,
 				936AEB661CE911BB00F6094F /* MessageCollectionVC.swift in Sources */,

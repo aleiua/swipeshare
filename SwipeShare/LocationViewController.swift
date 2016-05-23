@@ -76,15 +76,11 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     // Core Data Stuff
     // Retreive the managedObjectContext from AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-
-   
     
-    // New things for container
-    var containerDelegate: ContainerViewController?
+    
     
     @IBAction func settingsMenuButton(sender: AnyObject) {
-//        print("settings menu button pressed")
-//        delegate?.toggleSettingsPanel?()
+        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             print("Settings page")
             
@@ -92,8 +88,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             self.presentViewController(viewController, animated: true, completion: nil)
             
         })
-
-        
     }
     
 
