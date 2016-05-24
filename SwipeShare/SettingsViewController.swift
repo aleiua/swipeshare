@@ -134,7 +134,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
 
         
         // Initialize gesture recognizer for changing profile pictures
-        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(SettingsViewController.imageTapped(_:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped:"))
         userIcon.userInteractionEnabled = true
         userIcon.addGestureRecognizer(tapGestureRecognizer)
         
