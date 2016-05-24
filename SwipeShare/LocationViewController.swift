@@ -98,7 +98,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func initializeGestureRecognizer() {
         //For PanGesture Recoginzation
-        panGesture = UIPanGestureRecognizer(target: self, action: Selector("recognizePanGesture:"))
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(LocationViewController.recognizePanGesture(_:)))
         panGesture.minimumNumberOfTouches = 1
         panGesture.maximumNumberOfTouches = 1
     }

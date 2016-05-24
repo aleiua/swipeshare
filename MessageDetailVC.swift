@@ -34,7 +34,7 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     
     
     @IBAction func savePhoto(sender: AnyObject) {
-        UIImageWriteToSavedPhotosAlbum(messageImageView.image!, self, "image:didFinishSavingWithError:contextInfo:", nil)
+        UIImageWriteToSavedPhotosAlbum(messageImageView.image!, self, #selector(MessageDetailVC.image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
     @IBOutlet weak var imageView: UIImageView!
