@@ -15,7 +15,7 @@ import FBSDKCoreKit
 import ParseFacebookUtilsV4
 
 
-class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UINavigationControllerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
     
     var delegate: LocationViewController?
     
@@ -31,6 +31,8 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        print("What up, in view controller")
         if (PFUser.currentUser() == nil) {
             
             
@@ -52,7 +54,9 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
         }
             
         else {
-//            presentLoggedInAlert()
+            let locationViewController = UIStoryboard.locationViewController()
+
+            self.presentViewController(locationViewController!, animated: true, completion: nil)
         }
     }
     
@@ -223,3 +227,21 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     
     
 }
+
+
+private extension UIStoryboard {
+    
+    class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()) }
+    
+    
+    
+    class func locationViewController() -> LocationViewController? {
+        return mainStoryboard().instantiateViewControllerWithIdentifier("LocationViewController") as? LocationViewController
+        
+    }
+
+    
+}
+
+
+

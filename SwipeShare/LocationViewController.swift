@@ -23,7 +23,7 @@ protocol LocationViewControllerDelegate {
 }
 
 
-class LocationViewController: ViewController, LKLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CBPeripheralManagerDelegate {
+class LocationViewController: ViewController, LKLocationManagerDelegate, UIImagePickerControllerDelegate, CBPeripheralManagerDelegate {
 
     // MARK: Properties
 

@@ -13,6 +13,9 @@ class NavigationController: UINavigationController {
     var locationNavigationController: UINavigationController!
     var locationViewController: LocationViewController!
     
+    var viewNavigationController: UINavigationController!
+    var viewController: ViewController!
+    
     var containerNavigationController: UINavigationController!
     
     var settingsViewController: SettingsViewController?
@@ -23,13 +26,13 @@ class NavigationController: UINavigationController {
         
         print("navigation view loaded")
         
-        locationViewController = UIStoryboard.locationViewController()
+        viewController = UIStoryboard.viewController()
         
-        locationNavigationController = UINavigationController(rootViewController: locationViewController)
-        view.addSubview(locationNavigationController.view)
-        addChildViewController(locationNavigationController)
+        viewNavigationController = UINavigationController(rootViewController: viewController)
+        view.addSubview(viewController.view)
+        addChildViewController(viewController)
         
-        locationNavigationController.didMoveToParentViewController(self)
+        viewController.didMoveToParentViewController(self)
 
     }
     
@@ -51,6 +54,11 @@ private extension UIStoryboard {
     
     class func locationViewController() -> LocationViewController? {
         return mainStoryboard().instantiateViewControllerWithIdentifier("LocationViewController") as? LocationViewController
+        
+    }
+    
+    class func viewController() -> ViewController? {
+        return mainStoryboard().instantiateViewControllerWithIdentifier("ViewController") as? ViewController
         
     }
     
