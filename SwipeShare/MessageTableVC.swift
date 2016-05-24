@@ -57,8 +57,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     // Makes sure tab bar navbar doesn't overlap.
     override func viewDidLayoutSubviews() {
-        if (self.navigationController?.navigationBar.frame) != nil {
-//            let y = rect.size.height + rect.origin.y
+        if let rect = self.navigationController?.navigationBar.frame {
             self.tableView.contentInset = UIEdgeInsetsMake( 0, 0, self.bottomLayoutGuide.length, 0)
         }
     }

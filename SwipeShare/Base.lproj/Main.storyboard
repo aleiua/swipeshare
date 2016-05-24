@@ -1241,7 +1241,7 @@
         <image name="userIcon" width="462" height="462"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RwD-Tw-4z4"/>
+        <segue reference="za0-y3-G6A"/>
         <segue reference="sDJ-Df-ru8"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.49803921568627452" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
