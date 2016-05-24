@@ -101,13 +101,15 @@ class MessageCollectionVC: UICollectionViewController, UISearchBarDelegate, UISe
         if message.hasBeenOpened {
             cell.sentImage.image = UIImage(data : message.imageData!)
         } else {
-            cell.sentImage.image = UIImage(named : "QuestionMark")
+            cell.sentImage.contentMode = .ScaleAspectFit
             
+            cell.sentImage.image = UIImage(named : "QuestionMark")
+
         }
         
         
         
-        cell.sentDate.text = NSDateFormatter.localizedStringFromDate(message.date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+
         
         return cell
         

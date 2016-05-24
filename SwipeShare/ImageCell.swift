@@ -17,7 +17,6 @@ class ImageCell: UICollectionViewCell {
 
     
     @IBOutlet weak var sentImage: UIImageView!
-    @IBOutlet weak var sentDate: UILabel!
     
     
     override func awakeFromNib() {
