@@ -21,6 +21,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     @IBOutlet weak var currentDistance: UILabel!
     @IBOutlet weak var distanceSlider: UISlider!
     
+    @IBOutlet weak var navBar: UINavigationItem!
+    
     // Delegate & Utilities
     let photoUtils = Utilities()
     var delegate: LocationViewController? = nil
@@ -83,6 +85,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        navBar.title = "Settings"
         
         // Load defaults for settings
         shareWithFriendsSwitch.on = userDefaults.boolForKey("sharingWithFriends")
@@ -226,15 +230,14 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         print(PFUser.currentUser())
         PFUser.logOut()
         print("Logout")
-        
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
+    
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
+            self.navigationController!.popViewControllerAnimated(true)
             self.presentViewController(viewController, animated: true, completion: nil)
             
         })
+        
     }
 }
 

@@ -80,6 +80,37 @@ class UISegueFromLeft: UIStoryboardSegue {
     }
 }
 
+class PushNavigationFadeSegue: UIStoryboardSegue {
+    
+    override func perform() {
+        let src: UIViewController = self.sourceViewController
+        let dst: UIViewController = self.destinationViewController
+        let transition: CATransition = CATransition()
+        let timeFunc : CAMediaTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.duration = 0.4
+        transition.timingFunction = timeFunc
+        transition.type = kCATransitionFade
+        transition.subtype = kCATransitionFromLeft
+        src.navigationController!.view.layer.addAnimation(transition, forKey: kCATransition)
+        src.navigationController!.pushViewController(dst, animated: false)
+    }
+    
+}
+
+class PopNavigationFadeSegue: UIStoryboardSegue {
+    
+    override func perform() {
+        let src: UIViewController = self.sourceViewController
+        let transition: CATransition = CATransition()
+        let timeFunc : CAMediaTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.duration = 0.4
+        transition.timingFunction = timeFunc
+        transition.type = kCATransitionFade
+        src.navigationController!.view.layer.addAnimation(transition, forKey: kCATransition)
+        src.navigationController!.popViewControllerAnimated(false)
+    }
+    
+}
 
 class UIStoryboardUnwindSegueFromRight: UIStoryboardSegue {
     
@@ -103,5 +134,3 @@ class UIStoryboardUnwindSegueFromRight: UIStoryboardSegue {
         )
     }
 }
-
-
