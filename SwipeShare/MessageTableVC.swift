@@ -68,8 +68,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     
     @IBAction func refresh(sender: AnyObject) {
-        print("trying to refresh")
-        
         self.getDataFromParse()
         
         self.getMessagesFromCore()

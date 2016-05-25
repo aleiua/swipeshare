@@ -33,6 +33,17 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         
         self.title = "Conversations"
         
+        getMessagesFromCore()
+        
+        
+        refreshControl = UIRefreshControl()
+        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl!.addTarget(self, action: #selector(MessageTableVC.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        
+ 
+    }
+    
+    func getMessagesFromCore() {
         // Fetch messages from core Data, sorted by date
         let conversationFetchRequest = NSFetchRequest(entityName: "User")
         conversationFetchRequest.predicate = NSPredicate(format: "%K != %@", "username", "currentUser")
@@ -46,6 +57,30 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         }
     }
     
+    
+    func getDataFromParse() {
+        let locationViewCont = LocationViewController()
+        
+        locationViewCont.getPictureObjectsFromParse()
+        print("trying to get data from Parse")
+        
+        
+    }
+
+    
+    @IBAction func refresh(sender: AnyObject) {
+        
+        self.getDataFromParse()
+        
+        self.getMessagesFromCore()
+        
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
+        
+    }
+
+    
+    
     // Makes sure tab bar navbar doesn't overlap.
     override func viewDidLayoutSubviews() {
         if (self.navigationController?.navigationBar.frame) != nil {
@@ -53,6 +88,7 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
             self.tableView.contentInset = UIEdgeInsetsMake( 0, 0, self.bottomLayoutGuide.length, 0)
         }
     }
+    
     
     
     
@@ -158,6 +194,7 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
             cell.profilePictureThumbnail.image = self.photoUtils.cropImageToSquare(image: UIImage(data : convo.profImageData!)!)
         } else {
             // Needs to be updated with default
+            cell.profilePictureThumbnail.image = photoUtils.cropImageToSquare(image: UIImage(named: "QuestionMark")!)
             print("no prof pic")
         }
         return cell
