@@ -24,31 +24,29 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     @IBOutlet weak var navBar: UINavigationItem!
     
     // Delegate & Utilities
-    let photoUtils = Utilities()
+    let utils = Utilities()
     var delegate: LocationViewController? = nil
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     var imagePicker: UIImagePickerController? = UIImagePickerController()
     
-    // CoreData & Plist
+    // Current user profile for settings & profile picture
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var currentUser: [User] = [User]()
+    var currentUserProfileArray: [CurrentUserProfile] = [CurrentUserProfile]()
     let user = PFUser.currentUser()
-    let userDefaults = NSUserDefaults.standardUserDefaults()
 
 
     // Handle changes to range slider
     @IBAction func movedSlider(sender: UISlider) {
         let currentValue = Int(sender.value)
         currentDistance.text = "\(currentValue) ft"
-        userDefaults.setInteger(currentValue, forKey: "distanceSlider")
+        currentUserProfileArray[0].maxDistanceSetting = Float(currentValue)
         LocationViewController().saveNewRadius(sender.value)
     }
     
     // Handle switching between sharing settings (with friends vs. all)
     @IBOutlet weak var shareWithFriendsSwitch: UISwitch!
     @IBAction func shareWithFriendsSwitch(sender: AnyObject) {
-        let sharingWithFriends = userDefaults.boolForKey("sharingWithFriends")
-        userDefaults.setBool(!sharingWithFriends, forKey: "sharingWithFriends")
+        currentUserProfileArray[0].shareWithFriendsSetting = !currentUserProfileArray[0].shareWithFriendsSetting
     }
     
     @IBAction func getFacebookFriends(sender: AnyObject) {
@@ -86,55 +84,55 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
         super.viewDidLoad()
         
-        navBar.title = "Settings"
-        
-        // Load defaults for settings
-        shareWithFriendsSwitch.on = userDefaults.boolForKey("sharingWithFriends")
-        distanceSlider.value = Float(userDefaults.integerForKey("distanceSlider"))
-        let initialValue = Int(distanceSlider.value)
-        currentDistance.text = "\(initialValue) ft"
-        
-        
         // Fetch the current user from CoreData, if the entity has been made
-        let profilePictureFetch = NSFetchRequest(entityName: "User")
-        let username = PFUser.currentUser()?["name"] as? String
-        profilePictureFetch.predicate = NSPredicate(format: "%K == %@", "username", "currentUser")
+        let userProfileFetch = NSFetchRequest(entityName: "CurrentUserProfile")
+        userProfileFetch.predicate = NSPredicate(format: "%K == %@", "username", PFUser.currentUser()!.username!)
         do {
-            currentUser = try managedObjectContext.executeFetchRequest(profilePictureFetch) as! [User]
+            currentUserProfileArray = try managedObjectContext.executeFetchRequest(userProfileFetch) as! [CurrentUserProfile]
         } catch {
             fatalError("Failed to fetch current user: \(error)")
         }
+        if (self.currentUserProfileArray.endIndex > 1 || self.currentUserProfileArray.isEmpty) {
+            fatalError("failed to load user profile")
+        }
         
         
-        // Extract profile picture from parse, resize, and save to CoreData
-        if (currentUser.isEmpty) {
+        // Extract profile picture from parse, resize, and save to CoreData if the local one isnt set already
+        if (self.currentUserProfileArray[0].profImageData == nil) {
             if let profilePicture = PFUser.currentUser()?["profilePicture"] as? PFFile {
                 profilePicture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
                     if (error == nil) {
                         
                         // Resize and update view
-                        self.userIcon.image = self.photoUtils.cropImageToSquare(image: UIImage(data: imageData!)!)
+                        self.userIcon.image = self.utils.cropImageToSquare(image: UIImage(data: imageData!)!)
                         
-                        // Create new CoreData User entity for current user
-                        let userEntity = NSEntityDescription.entityForName("User", inManagedObjectContext: self.managedObjectContext)
-                        let currentUserObject = User(username: "currentUser", displayName: username!, entity: userEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
-                        self.currentUser.append(currentUserObject)
-                        
-                        // Save image under current user
-                        self.currentUser[0].profImageData = UIImageJPEGRepresentation(self.userIcon.image!, 1);
+                        // Update the user profile with the image
+                        self.currentUserProfileArray[0].profImageData = UIImageJPEGRepresentation(self.userIcon.image!, 1);
+
                     }
                 }
             }
+            // If the user doesn't have one in parse, use a default image
+            else {
+                print("need to assign default profile picture")
+            }
         }
+        // If there already is a local image, load it
         else {
-            
-            // Load the previous image from core data
-            self.userIcon.image = UIImage(data: self.currentUser[0].profImageData!, scale: 1.0)
+            self.userIcon.image = UIImage(data: self.currentUserProfileArray[0].profImageData!, scale: 1.0)
         }
 
         
+        
+        // Load defaults for settings
+        navBar.title = "Settings"
+        shareWithFriendsSwitch.on = currentUserProfileArray[0].shareWithFriendsSetting
+        distanceSlider.value = Float(currentUserProfileArray[0].maxDistanceSetting)
+        let initialValue = Int(distanceSlider.value)
+        currentDistance.text = "\(initialValue) ft"
+        
         // Initialize gesture recognizer for changing profile pictures
-        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(SettingsViewController.imageTapped(_:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped:"))
         userIcon.userInteractionEnabled = true
         userIcon.addGestureRecognizer(tapGestureRecognizer)
         
@@ -147,7 +145,6 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
         // Update name field with Facebook username taken from Parse
         usernameField.text = PFUser.currentUser()?["name"] as? String
-        
     }
     
     
@@ -176,12 +173,11 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         // Get image from image picker and update view
         imagePicker.dismissViewControllerAnimated(true, completion: nil)
         let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-        userIcon.image = self.photoUtils.cropImageToSquare(image: selectedImage!)
+        userIcon.image = self.utils.cropImageToSquare(image: selectedImage!)
         
         // Update image in CoreData and Parse
-        self.currentUser[0].profImageData = UIImageJPEGRepresentation(self.userIcon.image!, 1)
+        self.currentUserProfileArray[0].profImageData = UIImageJPEGRepresentation(self.userIcon.image!, 1)
         saveProfPicToParse(userIcon.image!)
-        
     }
     
     
@@ -224,6 +220,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         }
         
     }
+    
     
     
     func logout() {

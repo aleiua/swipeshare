@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		050B634E1C55CA3B0033279B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634D1C55CA3B0033279B /* UIKit.framework */; };
 		050B63501C55D7D70033279B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634F1C55D7D70033279B /* CoreMotion.framework */; };
+		05111A541CF4F05B0030090D /* CurrentUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05111A531CF4F05B0030090D /* CurrentUserProfile.swift */; };
 		051D87F31CF37BDA004E7A7C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051D87F21CF37BDA004E7A7C /* NavigationController.swift */; };
 		0520578E1C81089B00009D91 /* yawIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0520578D1C81089B00009D91 /* yawIcon.png */; };
 		059AC0E91CD1C226006DC600 /* BumpValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */; };
@@ -86,6 +87,7 @@
 /* Begin PBXFileReference section */
 		050B634D1C55CA3B0033279B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		050B634F1C55D7D70033279B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		05111A531CF4F05B0030090D /* CurrentUserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrentUserProfile.swift; path = SwipeShare/CurrentUserProfile.swift; sourceTree = "<group>"; };
 		051D87F21CF37BDA004E7A7C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		0520578D1C81089B00009D91 /* yawIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yawIcon.png; sourceTree = "<group>"; };
 		054F0B681C8E04D900496D38 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -117,7 +119,7 @@
 		793635EE1CB2DB8F005CA708 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendPromptViewController.swift; sourceTree = "<group>"; };
 		793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BumpValidationViewController.swift; sourceTree = "<group>"; };
-		795384121CDF855F001C25DF /* CustomSegues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegues.swift; sourceTree = "<group>"; };
+		795384121CDF855F001C25DF /* CustomSegues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomSegues.swift; path = SwipeShare/CustomSegues.swift; sourceTree = "<group>"; };
 		79ED85821CBB30E3000D6E4E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		82E9FE079B35757E9551772A /* Pods-SwipeShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipeShare/Pods-SwipeShare.release.xcconfig"; sourceTree = "<group>"; };
 		931A83981CF24E3400BEE042 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
@@ -125,7 +127,7 @@
 		936AEB5F1CE903DA00F6094F /* ConversationMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationMessageTVC.swift; sourceTree = "<group>"; };
 		936AEB631CE90DF100F6094F /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		936AEB651CE911BB00F6094F /* MessageCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCollectionVC.swift; sourceTree = "<group>"; };
-		937D7A511CDC137C008783D1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		937D7A511CDC137C008783D1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = SwipeShare/User.swift; sourceTree = "<group>"; };
 		937D7A531CDC1DBC008783D1 /* FriendTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableView.swift; sourceTree = "<group>"; };
 		937E7F2B1C55672700057D32 /* Yaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937E7F2E1C55672700057D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -143,7 +145,7 @@
 		937E7F531C55672700057D32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		939B82961C87852300770F79 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		939B829C1C87859700770F79 /* MessageTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableVC.swift; sourceTree = "<group>"; };
-		939B82A01C87882400770F79 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		939B82A01C87882400770F79 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = SwipeShare/Message.swift; sourceTree = "<group>"; };
 		93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewCont.swift; sourceTree = "<group>"; };
 		93F422271C556B82006DEB7E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		93F4222D1C5575B1006DEB7E /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
@@ -198,39 +200,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		053A1E541CF54751002307B6 /* CoreData Entities */ = {
+			isa = PBXGroup;
+			children = (
+				939B82A01C87882400770F79 /* Message.swift */,
+				05111A531CF4F05B0030090D /* CurrentUserProfile.swift */,
+				937D7A511CDC137C008783D1 /* User.swift */,
+			);
+			name = "CoreData Entities";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		053A1E551CF547F1002307B6 /* Settings Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
+				937D7A531CDC1DBC008783D1 /* FriendTableView.swift */,
+			);
+			name = "Settings Controllers";
+			sourceTree = "<group>";
+		};
 		05C3D5601CEA464C0064820A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				795384121CDF855F001C25DF /* CustomSegues.swift */,
 				05C3D55E1CEA3E1C0064820A /* Utilities.swift */,
 			);
 			name = Utilities;
 			path = ..;
 			sourceTree = "<group>";
 		};
-		79144C521CF239F300DA3349 /* OverlayControllers */ = {
+		79144C521CF239F300DA3349 /* Overlay Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */,
 				5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */,
 				793FE09D1CD111AE0009DEB4 /* FriendPromptViewController.swift */,
 			);
-			name = OverlayControllers;
+			name = "Overlay Controllers";
 			sourceTree = "<group>";
 		};
-		7966B50D1CD680070043D64E /* LoginControllers */ = {
+		7966B50D1CD680070043D64E /* Login Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				051D87F21CF37BDA004E7A7C /* NavigationController.swift */,
 				937E7F301C55672700057D32 /* ViewController.swift */,
 				93A8CCB01C67E56C00BB9C03 /* SignUpViewCont.swift */,
 				93FA3F211C66A8C000BB3791 /* LoginViewController.swift */,
 			);
-			name = LoginControllers;
+			name = "Login Controllers";
 			sourceTree = "<group>";
 		};
-		7966B50E1CD6802C0043D64E /* MessageControllers */ = {
+		7966B50E1CD6802C0043D64E /* Message Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				939B82A01C87882400770F79 /* Message.swift */,
 				939B82961C87852300770F79 /* MessageCell.swift */,
 				931A83981CF24E3400BEE042 /* UserCell.swift */,
 				936AEB631CE90DF100F6094F /* ImageCell.swift */,
@@ -239,7 +262,7 @@
 				936AEB5F1CE903DA00F6094F /* ConversationMessageTVC.swift */,
 				936AEB651CE911BB00F6094F /* MessageCollectionVC.swift */,
 			);
-			name = MessageControllers;
+			name = "Message Controllers";
 			sourceTree = "<group>";
 		};
 		79C8FF3A1CB2C81D0037B488 /* Frameworks */ = {
@@ -304,30 +327,27 @@
 		937E7F2D1C55672700057D32 /* SwipeShare */ = {
 			isa = PBXGroup;
 			children = (
+				5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */,
 				5E8B668D1CF2514D00695720 /* Ionicons.swift */,
 				5EB8A1111CBB38B0003B575D /* OverlayView.swift */,
 				5EB8A1131CBB38C4003B575D /* OverlayView.xib */,
-				79144C521CF239F300DA3349 /* OverlayControllers */,
 				0520578D1C81089B00009D91 /* yawIcon.png */,
 				937E7F2E1C55672700057D32 /* AppDelegate.swift */,
-				7966B50D1CD680070043D64E /* LoginControllers */,
-				7966B50E1CD6802C0043D64E /* MessageControllers */,
-				5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */,
-				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
+				79144C521CF239F300DA3349 /* Overlay Controllers */,
+				7966B50D1CD680070043D64E /* Login Controllers */,
+				7966B50E1CD6802C0043D64E /* Message Controllers */,
+				05C3D5601CEA464C0064820A /* Utilities */,
+				053A1E541CF54751002307B6 /* CoreData Entities */,
+				053A1E551CF547F1002307B6 /* Settings Controllers */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
-				937D7A511CDC137C008783D1 /* User.swift */,
-				795384121CDF855F001C25DF /* CustomSegues.swift */,
 				79098CF61CEA307400923D3A /* TabBarController.swift */,
-				937D7A531CDC1DBC008783D1 /* FriendTableView.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
-				051D87F21CF37BDA004E7A7C /* NavigationController.swift */,
+				937E7F351C55672700057D32 /* SwipeShare.xcdatamodeld */,
+				937E7F3D1C55672700057D32 /* Info.plist */,
 				937E7F381C55672700057D32 /* Assets.xcassets */,
 				5E91D1431CDA5E9600935168 /* QuestionMark.png */,
 				5E2630D31CE0F33500746016 /* QuestionTransparent.png */,
 				937E7F3A1C55672700057D32 /* LaunchScreen.storyboard */,
-				937E7F3D1C55672700057D32 /* Info.plist */,
-				937E7F351C55672700057D32 /* SwipeShare.xcdatamodeld */,
-				05C3D5601CEA464C0064820A /* Utilities */,
 			);
 			path = SwipeShare;
 			sourceTree = "<group>";
@@ -575,6 +595,7 @@
 				793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				939B82A11C87882400770F79 /* Message.swift in Sources */,
+				05111A541CF4F05B0030090D /* CurrentUserProfile.swift in Sources */,
 				936AEB661CE911BB00F6094F /* MessageCollectionVC.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				937D7A521CDC137C008783D1 /* User.swift in Sources */,

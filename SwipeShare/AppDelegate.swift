@@ -54,11 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
-        // Assign default values
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        let defaultValues = ["sharingWithFriends" : false, "distanceSlider": 100]
-        userDefaults.registerDefaults(defaultValues)
-        
         return true
     }
     
