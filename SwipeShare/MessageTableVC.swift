@@ -15,6 +15,7 @@ import CoreData
 
 class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
+
     
     let messageCellIdentifier = "MessageCell"
     //let messageManager = MessageManager.sharedMessageManager
@@ -30,18 +31,12 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getMessagesFromCore()
         
-        // Fetch messages from core Data, sorted by date
-        let messageFetchRequest = NSFetchRequest(entityName: "Message")
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
-        messageFetchRequest.sortDescriptors = [sortDescriptor]
         
-        do {
-            fetchedMessages = try managedContext.executeFetchRequest(messageFetchRequest) as! [Message]
-        } catch {
-            fatalError("Failed to fetch messages: \(error)")
-        }
-        
+        refreshControl = UIRefreshControl()
+        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl!.addTarget(self, action: #selector(MessageTableVC.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
         // just counting the users
         
@@ -54,6 +49,49 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         print("users stored: ")
         print(users.count)
     }
+    
+    
+    func getMessagesFromCore() {
+        
+        
+        // Fetch messages from core Data, sorted by date
+        let messageFetchRequest = NSFetchRequest(entityName: "Message")
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
+        messageFetchRequest.sortDescriptors = [sortDescriptor]
+        
+        do {
+            fetchedMessages = try managedContext.executeFetchRequest(messageFetchRequest) as! [Message]
+        } catch {
+            fatalError("Failed to fetch messages: \(error)")
+        }
+        
+
+        
+    }
+    
+    
+    @IBAction func refresh(sender: AnyObject) {
+        print("trying to refresh")
+        
+        self.getDataFromParse()
+        
+        self.getMessagesFromCore()
+        
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
+        
+    }
+    
+    func getDataFromParse() {
+        let locationViewCont = LocationViewController()
+        
+        locationViewCont.getPictureObjectsFromParse()
+        print("trying to get data from Parse")
+        
+        
+    }
+    
+    
     
     // Makes sure tab bar navbar doesn't overlap.
     override func viewDidLayoutSubviews() {
