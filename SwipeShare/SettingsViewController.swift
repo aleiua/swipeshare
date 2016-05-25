@@ -236,7 +236,12 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
         if segue.identifier == "unwindToLogin" {
             print("Setting up lDelegate")
             print(delegate)
