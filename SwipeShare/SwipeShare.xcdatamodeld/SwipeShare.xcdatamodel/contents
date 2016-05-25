@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15C50" minimumToolsVersion="Automatic">
+    <entity name="CurrentUserProfile" representedClassName=".CurrentUserProfile" syncable="YES">
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="maxDistanceSetting" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="profImageData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="shareWithFriendsSetting" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Message" representedClassName=".Message" syncable="YES">
         <attribute name="allowedOnce" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -20,8 +27,9 @@
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="user" inverseEntity="Message" syncable="YES"/>
     </entity>
     <elements>
+        <element name="CurrentUserProfile" positionX="99" positionY="72" width="128" height="120"/>
         <element name="Message" positionX="-54" positionY="0" width="128" height="135"/>
-        <element name="User" positionX="-54" positionY="36" width="128" height="135"/>
         <element name="ProfilePicture" positionX="243" positionY="20" width="128" height="58"/>
+        <element name="User" positionX="-54" positionY="36" width="128" height="135"/>
     </elements>
 </model>

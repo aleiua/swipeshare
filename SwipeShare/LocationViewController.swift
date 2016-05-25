@@ -29,7 +29,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     let locationUtils = Utilities()
-    let userDefaults = NSUserDefaults.standardUserDefaults()
     
     @IBOutlet weak var inboxButton: UIBarButtonItem!
     @IBOutlet weak var promptLabel: UILabel!
@@ -76,6 +75,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     // Core Data Stuff
     // Retreive the managedObjectContext from AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    var currentUserProfile: CurrentUserProfile?
     
     
     
@@ -97,7 +97,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     * Initialize panGestureRecognizer
     */
     func initializeGestureRecognizer() {
-        //For PanGesture Recoginzation
+        //For PanGesture Recognition
         panGesture = UIPanGestureRecognizer(target: self, action: Selector("recognizePanGesture:"))
         panGesture.minimumNumberOfTouches = 1
         panGesture.maximumNumberOfTouches = 1
@@ -401,7 +401,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 
                 // Filter out non-Friend users if sharing with friends only
                 isFriend = false
-                if (userDefaults.boolForKey("sharingWithFriends") && !isBlocked) {
+                if (currentUserProfile!.shareWithFriendsSetting && !isBlocked) {
                     for friend in friendUsers {
                         if (String(user["username"]) == friend.username) {
                             isFriend = true
@@ -790,7 +790,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let installation = PFInstallation.currentInstallation()
         installation["user"] = user
         installation.saveInBackground()
+        
 
+        loadUserProfile(user!)
         getBlockedUsers()
         getFriendList()
         setUpiBeacon(user!)
@@ -1062,7 +1064,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         }
 
         // If bluetooth sharing with friends only, filter out non-friend users
-        if (userDefaults.boolForKey("sharingWithFriends")) {
+        if (currentUserProfile!.shareWithFriendsSetting) {
             var friendNeighbor = [PFObject]()
             for user in neighbor {
                 for friend in friendUsers {
@@ -1116,6 +1118,35 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
     }
     
+    func loadUserProfile(user: PFUser) {
+        // Update the current user entity
+        let userProfileFetchRequest = NSFetchRequest(entityName: "CurrentUserProfile")
+        let userProfilePredicate = NSPredicate(format: "%K == %@", "displayName", user["name"] as! String)
+        var possibleUserProfile: [CurrentUserProfile] = [CurrentUserProfile]()
+        userProfileFetchRequest.predicate = userProfilePredicate
+        do {
+            possibleUserProfile = try managedObjectContext.executeFetchRequest(userProfileFetchRequest) as! [CurrentUserProfile]
+        } catch {
+            print("error fetching current user profile")
+        }
+        
+        if (possibleUserProfile.isEmpty) {
+            
+            print("making a new user settings profile")
+            
+            let userProfileEntity = NSEntityDescription.entityForName("CurrentUserProfile", inManagedObjectContext: self.managedObjectContext)
+            currentUserProfile = CurrentUserProfile(username: PFUser.currentUser()!.username!, displayName: user["name"] as! String, entity: userProfileEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
+        }
+        else {
+            
+            // Use the existing one
+            print("opening an existing user profile")
+            currentUserProfile = possibleUserProfile[0]
+        }
+    }
+    
+    
+    
     
     func setupProtocols(user: PFUser) {
         
@@ -1140,6 +1171,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         installation["user"] = user
         installation.saveInBackground()
         
+        loadUserProfile(user)
         getBlockedUsers()
         getFriendList()
         setUpiBeacon(user)

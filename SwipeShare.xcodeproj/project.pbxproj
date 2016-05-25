@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		050B634E1C55CA3B0033279B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634D1C55CA3B0033279B /* UIKit.framework */; };
 		050B63501C55D7D70033279B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050B634F1C55D7D70033279B /* CoreMotion.framework */; };
+		05111A541CF4F05B0030090D /* CurrentUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05111A531CF4F05B0030090D /* CurrentUserProfile.swift */; };
 		051D87F31CF37BDA004E7A7C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051D87F21CF37BDA004E7A7C /* NavigationController.swift */; };
 		0520578E1C81089B00009D91 /* yawIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0520578D1C81089B00009D91 /* yawIcon.png */; };
 		059AC0E91CD1C226006DC600 /* BumpValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FE09F1CD165300009DEB4 /* BumpValidationViewController.swift */; };
@@ -86,6 +87,7 @@
 /* Begin PBXFileReference section */
 		050B634D1C55CA3B0033279B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		050B634F1C55D7D70033279B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		05111A531CF4F05B0030090D /* CurrentUserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserProfile.swift; sourceTree = "<group>"; };
 		051D87F21CF37BDA004E7A7C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		0520578D1C81089B00009D91 /* yawIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yawIcon.png; sourceTree = "<group>"; };
 		054F0B681C8E04D900496D38 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */,
 				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
+				05111A531CF4F05B0030090D /* CurrentUserProfile.swift */,
 				937D7A511CDC137C008783D1 /* User.swift */,
 				795384121CDF855F001C25DF /* CustomSegues.swift */,
 				79098CF61CEA307400923D3A /* TabBarController.swift */,
@@ -575,6 +578,7 @@
 				793FE09E1CD111AE0009DEB4 /* FriendPromptViewController.swift in Sources */,
 				937E7F2F1C55672700057D32 /* AppDelegate.swift in Sources */,
 				939B82A11C87882400770F79 /* Message.swift in Sources */,
+				05111A541CF4F05B0030090D /* CurrentUserProfile.swift in Sources */,
 				936AEB661CE911BB00F6094F /* MessageCollectionVC.swift in Sources */,
 				93F4222E1C5575B1006DEB7E /* LocationViewController.swift in Sources */,
 				937D7A521CDC137C008783D1 /* User.swift in Sources */,
