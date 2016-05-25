@@ -15,9 +15,6 @@
         <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="messages" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="ProfilePicture" syncable="YES">
-        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-    </entity>
     <entity name="User" representedClassName=".User" syncable="YES">
         <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mostRecentCommunication" optional="YES" attributeType="Date" syncable="YES"/>
@@ -29,7 +26,6 @@
     <elements>
         <element name="CurrentUserProfile" positionX="99" positionY="72" width="128" height="120"/>
         <element name="Message" positionX="-54" positionY="0" width="128" height="135"/>
-        <element name="ProfilePicture" positionX="243" positionY="20" width="128" height="58"/>
         <element name="User" positionX="-54" positionY="36" width="128" height="135"/>
     </elements>
 </model>
