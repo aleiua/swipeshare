@@ -786,6 +786,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 print("presenting login view")
 
                 let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
+                viewController.delegate = self
                 self.presentViewController(viewController, animated: true, completion: nil)
                 
             })
