@@ -17,7 +17,7 @@ import ParseFacebookUtilsV4
 
 class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
     
-    var delegate: LocationViewController?
+    var delegate: LocationViewController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +58,9 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     
     
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
+        delegate?.initializeDisplay()
         self.dismissViewControllerAnimated(true, completion: nil)
+        
 
         if (PFUser.currentUser() != nil && FBSDKAccessToken.currentAccessToken() != nil && PFUser.currentUser()!.isNew) {
             print("First time Facebook User")
@@ -66,11 +68,12 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
             self.storeBluetoothID(user)
         }
         else if (FBSDKAccessToken.currentAccessToken() != nil) {
-            
+            // Another login but not first time
         }
     }
     
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
+        delegate?.initializeDisplay()
         self.dismissViewControllerAnimated(true, completion: nil)
         
         
@@ -96,6 +99,10 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
     func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    @IBAction func unwindToLogin(segue: UIStoryboardSegue) {}
+
+    
     
     /*************************** Bluetooth Data ******************************/
      

@@ -42,6 +42,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     var locationManager: LKLocationManager!
     
     var setupComplete = false
+    var initialViewDidLoad = true
 
     var beaconRegion: CLBeaconRegion!
     var peripheralManager: CBPeripheralManager!
@@ -740,6 +741,20 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     /****************************LOCATION UPDATES********************************/
     
+    func initializeDisplay() {
+        
+        print("Initializing Display")
+        
+        self.promptLabel.hidden = false
+        self.sendAnother.hidden = true
+        self.sendAnother.alpha = 0
+        
+        self.image.image = nil
+        self.image.hidden = true
+        
+    }
+    
+    
     
     override func viewDidLoad()  {
         super.viewDidLoad()
@@ -753,16 +768,24 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         // For touch detection on an image
         self.initializeGestureRecognizer()
         
+        if (initialViewDidLoad == true) {
+
+        }
+        
+        
         let user = PFUser.currentUser()
         if user == nil {
             if (DEBUG) {
                 print("ViewDidLoad: Could not get current User")
             }
             
+//            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
+//            self.presentViewController(viewController, animated: true, completion: nil)
+            
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 print("presenting login view")
 
-                let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
+                let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
                 self.presentViewController(viewController, animated: true, completion: nil)
                 
             })
@@ -1159,6 +1182,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         if segue.identifier == "conversationsSegue" {
             getPictureObjectsFromParse()
         }
+        
+        if segue.identifier == "settingsSegue" {
+            let destination = segue.destinationViewController as! SettingsViewController
+            destination.delegate = self
+        }
+
+        
     }
 
 

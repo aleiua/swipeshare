@@ -231,13 +231,23 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         PFUser.logOut()
         print("Logout")
     
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
-            self.navigationController!.popViewControllerAnimated(true)
-            self.presentViewController(viewController, animated: true, completion: nil)
-            
-        })
+
+        self.performSegueWithIdentifier("unwindToLogin", sender: self)
+
         
     }
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+        if segue.identifier == "unwindToLogin" {
+            print("Setting up lDelegate")
+            print(delegate)
+            let destination = segue.destinationViewController as! ViewController
+            destination.delegate = delegate
+        }
+        
+    }
+
 }
 
