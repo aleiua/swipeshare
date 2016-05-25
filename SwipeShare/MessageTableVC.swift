@@ -53,7 +53,6 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     func getMessagesFromCore() {
         
-        
         // Fetch messages from core Data, sorted by date
         let messageFetchRequest = NSFetchRequest(entityName: "Message")
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
@@ -64,9 +63,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         } catch {
             fatalError("Failed to fetch messages: \(error)")
         }
-        
 
-        
     }
     
     
@@ -197,6 +194,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
         if msg.hasBeenOpened == false {
             cell.senderLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
+            cell.sentImage.image = photoUtils.cropImageToSquare(image: UIImage(named: "QuestionMark")!)
         } else {
             
             cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
