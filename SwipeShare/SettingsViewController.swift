@@ -126,6 +126,10 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
         // Load defaults for settings
         navBar.title = "Settings"
+        let attributes = [NSFontAttributeName: UIFont.ioniconOfSize(30)] as Dictionary!
+        navBar.leftBarButtonItem!.setTitleTextAttributes(attributes, forState: .Normal)
+        navBar.leftBarButtonItem!.title = String.ioniconWithName(.Home)
+        
         shareWithFriendsSwitch.on = currentUserProfileArray[0].shareWithFriendsSetting
         distanceSlider.value = Float(currentUserProfileArray[0].maxDistanceSetting)
         let initialValue = Int(distanceSlider.value)
@@ -145,6 +149,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
         // Update name field with Facebook username taken from Parse
         usernameField.text = PFUser.currentUser()?["name"] as? String
+        
     }
     
     

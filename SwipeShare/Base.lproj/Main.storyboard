@@ -765,7 +765,7 @@
                                                         <constraint firstAttribute="width" constant="165" id="2gS-lB-mla"/>
                                                         <constraint firstAttribute="height" constant="21" id="sJm-ER-1Qa"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1254,8 +1254,8 @@
         <image name="userIcon" width="462" height="462"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="za0-y3-G6A"/>
-        <segue reference="sDJ-Df-ru8"/>
+        <segue reference="RwD-Tw-4z4"/>
+        <segue reference="Hj3-kd-pb1"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.49803921568627452" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
