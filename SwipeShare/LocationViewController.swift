@@ -184,7 +184,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                                 self.sendAnother.hidden = false
                         })
                         
-                        self.swipedHeading = self.currentHeading + Float(self.angle) % 360
+                        self.swipedHeading = (self.currentHeading + Float(self.angle)) % 360
                         print("currentHeading is: \(self.currentHeading)")
                         print("Swiped Heading iself.s: \(self.swipedHeading)")
                         self.passNeighborsToChecklist(0);
@@ -745,12 +745,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         
         print("Initializing Display")
         
-        self.promptLabel.hidden = false
-        self.sendAnother.hidden = true
-        self.sendAnother.alpha = 0
+        self.promptLabel?.hidden = false
+        self.sendAnother?.hidden = true
+        self.sendAnother?.alpha = 0
         
-        self.image.image = nil
-        self.image.hidden = true
+
+        self.image?.image = nil
+        self.image?.hidden = true
         
     }
     
@@ -768,10 +769,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         // For touch detection on an image
         self.initializeGestureRecognizer()
         
-        if (initialViewDidLoad == true) {
-
-        }
-        
         
         let user = PFUser.currentUser()
         if user == nil {
@@ -779,7 +776,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                 print("ViewDidLoad: Could not get current User")
             }
             
-//            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
+//            let viewController  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Initial") as! ViewController
+//            viewController.delegate = self
 //            self.presentViewController(viewController, animated: true, completion: nil)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in

@@ -67,7 +67,7 @@ class ViewController: UIViewController, UITableViewDelegate, PFLogInViewControll
             self.storeFacebookData()
             self.storeBluetoothID(user)
         }
-        else if (FBSDKAccessToken.currentAccessToken() != nil) {
+        else if (PFUser.currentUser() != nil && FBSDKAccessToken.currentAccessToken() != nil) {
             // Another login but not first time
         }
     }

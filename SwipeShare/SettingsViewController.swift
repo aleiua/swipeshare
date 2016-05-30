@@ -248,8 +248,6 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             let destination = segue.destinationViewController as! ViewController
             destination.delegate = delegate
         }
-        
     }
-
 }
 
