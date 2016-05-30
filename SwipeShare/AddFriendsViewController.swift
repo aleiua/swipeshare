@@ -50,6 +50,7 @@ class AddFriendsViewController: UITableViewController {
         
         if (indexPath.section == 0) {
             // Friends and Distance
+            performSegueWithIdentifier("toSearchFriends", sender: nil)
         }
         else if (indexPath.section == 1) {
             let cell = self.tableView.cellForRowAtIndexPath(indexPath)
