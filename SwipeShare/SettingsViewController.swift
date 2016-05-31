@@ -227,7 +227,10 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     }
     
     func findFacebookFriends() {
+        
 
+        facebookFriends.removeAll()
+        yawFriendSet.removeAll()
         let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"friends"])
         
         graphRequest.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
@@ -259,7 +262,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     }
     
     func getFriendList() {
-        
+
+        yawFriends.removeAll()
         // Fetch list of blocked users by username from CoreData
         let friendFetchRequest = NSFetchRequest(entityName: "User")
         // Create Predicate
@@ -278,6 +282,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     }
     
     func getBlockedList() {
+        
+        blockedUsers.removeAll()
         // Fetch list of blocked users by username from CoreData
         let friendFetchRequest = NSFetchRequest(entityName: "User")
         // Create Predicate

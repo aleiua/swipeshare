@@ -49,6 +49,16 @@ class AddFriendsViewController: UITableViewController {
         
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if (self.isBeingDismissed() || self.isMovingFromParentViewController()) {
+            delegate?.setupFriends()
+            delegate?.getBlockedList()
+        }
+    }
+
+    
     func getUserInfoFromParse(displayName: String) -> [PFObject] {
         print("getting user info from parse")
         let query = PFQuery(className:"_User")
@@ -61,6 +71,7 @@ class AddFriendsViewController: UITableViewController {
             try users = query.findObjects()
             
         }
+            
             // Handle errors in getting pictures from parse
         catch {
             print("Error getting received users")
