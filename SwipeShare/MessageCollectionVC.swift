@@ -108,7 +108,7 @@ class MessageCollectionVC: UICollectionViewController, UISearchBarDelegate, UISe
         } else {
             cell.sentImage.contentMode = .ScaleAspectFit
             
-            cell.sentImage.image = UIImage(named : "QuestionMark")
+            cell.sentImage.image = UIImage(named : "QuestionTransparent.png")
 
         }
         

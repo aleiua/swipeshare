@@ -224,7 +224,7 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
             cell.profilePictureThumbnail.image = self.photoUtils.cropImageToSquare(image: UIImage(data : convo.profImageData!)!)
         } else {
             // Needs to be updated with default
-            cell.profilePictureThumbnail.image = photoUtils.cropImageToSquare(image: UIImage(named: "QuestionMark")!)
+            cell.profilePictureThumbnail.image = photoUtils.cropImageToSquare(image: UIImage(named: "QuestionTransparent.png")!)
             print("no prof pic")
         }
         return cell

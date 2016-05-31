@@ -71,6 +71,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
         let p1 = NSPredicate(format: "user.status = nil")
         let p2 = NSPredicate(format: "user.status != %@", "blocked")
+//        let p3 = NSPredicate(format: "msg.hasBeenOpened == false")
         let fetchPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [p1, p2])
 
         messageFetchRequest.predicate = fetchPredicate
@@ -86,12 +87,17 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
 //            print(fetchedMessages2.count)
 //            
 //            
-//            
+            var badge = 0
             for message in fetchedMessages {
                 print(message.user.displayName)
                 print(message.user.status)
+                if(message.hasBeenOpened == false){
+                    badge++
+                }
             }
-            
+            let currentInstallation = PFInstallation.currentInstallation()
+            currentInstallation.badge = badge
+            currentInstallation.saveEventually()
         } catch {
             fatalError("Failed to fetch messages: \(error)")
         }
@@ -262,7 +268,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         
         if msg.hasBeenOpened == false {
             cell.senderLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
-            cell.sentImage.image = photoUtils.cropImageToSquare(image: UIImage(named: "QuestionMark")!)
+//            cell.sentImage.image = photoUtils.cropImageToSquare(image: UIImage(named: "QuestionMark")!)
         } else {
             
             cell.senderLabel.font = UIFont(name:"HelveticaNeue", size: 20.0)
