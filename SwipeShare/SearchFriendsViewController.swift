@@ -139,6 +139,8 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
         
         cell.detailTextLabel!.font = UIFont.ioniconOfSize(20)
         cell.detailTextLabel!.text = String.ioniconWithCode("ion-ios-plus-empty")
+        cell.detailTextLabel!.textColor = UIColor(red: 0.0/255.0, green: 200.0/255.0, blue: 80.0/255.0, alpha: 1.0)
+
 
         
         return cell
