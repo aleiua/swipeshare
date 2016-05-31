@@ -26,6 +26,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
 
     // var users: [User] = [User]()
     var fetchedMessages: [Message] = [Message]()
+
     var users: [User] = [User]()
     
     override func viewDidLoad() {
@@ -57,12 +58,46 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         let messageFetchRequest = NSFetchRequest(entityName: "Message")
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
         messageFetchRequest.sortDescriptors = [sortDescriptor]
+    
+        
+        
+        // Fetch messages from core Data, sorted by date
+//        let messageFetchRequest2 = NSFetchRequest(entityName: "Message")
+//        let sortDescriptor2 = NSSortDescriptor(key: "date", ascending: false) // Puts newest messages on top
+//        messageFetchRequest2.sortDescriptors = [sortDescriptor2]
+        
+        //let fetchPredicate = NSPredicate(format: "%user.status == %@ OR user.status != %@", "nil", "blocked")
+        //let fetchPredicate = NSPredicate(format: "%user.status == %@ OR user.status != %@", "nil", "blocked")
+        
+        let p1 = NSPredicate(format: "user.status = nil")
+        let p2 = NSPredicate(format: "user.status != %@", "blocked")
+        let fetchPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [p1, p2])
+
+        messageFetchRequest.predicate = fetchPredicate
         
         do {
             fetchedMessages = try managedContext.executeFetchRequest(messageFetchRequest) as! [Message]
+            print("message count:")
+            print(fetchedMessages.count)
+            
+//            
+//            fetchedMessages2 = try managedContext.executeFetchRequest(messageFetchRequest2) as! [Message]
+//            print("message count with predicate:")
+//            print(fetchedMessages2.count)
+//            
+//            
+//            
+            for message in fetchedMessages {
+                print(message.user.displayName)
+                print(message.user.status)
+            }
+            
         } catch {
             fatalError("Failed to fetch messages: \(error)")
         }
+        
+        
+        
 
     }
     
@@ -145,8 +180,14 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     func deleteMessage() {
         self.tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
-        //messageManager.messages.removeAtIndex(self.tableView.indexPathForSelectedRow!.row)
+        let indexPath = (self.tableView.indexPathForSelectedRow?.row)!
+        let itemToDelete = fetchedMessages[indexPath]
+        managedContext.deleteObject(itemToDelete)
+        fetchedMessages.removeAtIndex(indexPath)
+        tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
     }
+    
+    
     
     
     // Simple delete functionality for rows
@@ -159,6 +200,20 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         }
     }
 
+    
+    // Update table view for after blocking user user
+    func updateToBlock() {
+        self.getMessagesFromCore()
+        
+        self.tableView.reloadData()
+        
+        print("reloading table view after blocking")
+    }
+    
+    
+    
+    
+    
 //    // Enables more functionality.
 //    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 //
@@ -188,7 +243,15 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     func messageCellAtIndexPath(indexPath: NSIndexPath) -> MessageCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier) as! MessageCell
+    
         let msg = fetchedMessages[indexPath.row] as Message
+        
+//        if msg.user.status == "blocked" {
+//            fetchedMessages.removeAtIndex(indexPath.row)
+//            print("removed message at array index")
+//            print(indexPath.row)
+//            tableView.numberOfRowsInSection(fetchedMessages.count)
+//        }
         
         if msg.hasBeenOpened == false {
             cell.senderLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)

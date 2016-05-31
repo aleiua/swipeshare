@@ -665,7 +665,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
                     // If sender is a blocked user - do not save or display incoming message
                     if sender.status == "blocked" {
-                        abort()
+                        //abort()
                     }
                     
                     // Filter messages coming from blocked users
