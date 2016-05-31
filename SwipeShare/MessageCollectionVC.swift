@@ -20,6 +20,8 @@ class MessageCollectionVC: UICollectionViewController, UISearchBarDelegate, UISe
 
     let imageCellIdentifier = "imageCell"
     let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let photoUtils = Utilities()
+
     
     // var users: [User] = [User]()
     var fetchedMessages: [Message] = [Message]()
@@ -48,6 +50,7 @@ class MessageCollectionVC: UICollectionViewController, UISearchBarDelegate, UISe
         fetchedMessages = user!.messages.allObjects as! [Message]
         
         self.title = String(user!.displayName)
+
         collectionView!.reloadData()
         
     }
@@ -99,7 +102,9 @@ class MessageCollectionVC: UICollectionViewController, UISearchBarDelegate, UISe
         let message = fetchedMessages[indexPath.row] as Message
         
         if message.hasBeenOpened {
-            cell.sentImage.image = UIImage(data : message.imageData!)
+            let image = UIImage(data : message.imageData!)
+            let croppedImage = photoUtils.cropImageToSquare(image: image!)
+            cell.sentImage.image = croppedImage
         } else {
             cell.sentImage.contentMode = .ScaleAspectFit
             
