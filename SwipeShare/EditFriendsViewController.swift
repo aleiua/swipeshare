@@ -44,7 +44,6 @@ class EditFriendsViewController: UITableViewController {
         
         if (self.isBeingDismissed() || self.isMovingFromParentViewController()) {
             delegate?.setupFriends()
-            delegate?.getBlockedList()
 
         }
     }
