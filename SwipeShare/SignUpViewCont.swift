@@ -25,12 +25,22 @@ class SignUpViewCont: PFSignUpViewController {
         // Remove the parse Logo
         let logo = UILabel()
         logo.text = "Yaw"
-        logo.textColor = UIColor.darkGrayColor()
+        logo.textColor = UIColor.orangeColor()
         logo.font = UIFont(name: "HelveticaNeue-UltraLight", size: 80)
-        //        logo.shadowColor = UIColor.lightGrayColor()
         logo.shadowOffset = CGSizeMake(2, 2)
         signUpView?.logo = logo
+        customizeButton(signUpView?.signUpButton!)
+
     }
+    
+    func customizeButton(button: UIButton!) {
+        button.setBackgroundImage(nil, forState: .Normal)
+        button.backgroundColor = UIColor.clearColor()
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.orangeColor().CGColor
+        button.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
+    }
+
     
     
     override func viewDidLayoutSubviews() {
