@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 
 class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
-    
+    var delegate: AddFriendsViewController? = nil
     
     @IBOutlet var navBar: UINavigationItem!
     
@@ -40,6 +40,14 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
         searchBar.delegate = self
         search()
         
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if (self.isBeingDismissed() || self.isMovingFromParentViewController()) {
+            delegate?.delegate?.findFacebookFriends()
+        }
     }
     
     
@@ -198,6 +206,7 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         
+        
         if (indexPath.section == 0) {
 
             let cell = self.tableView.cellForRowAtIndexPath(indexPath)
@@ -208,6 +217,12 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
             overlayView.displayView(view)
             
             self.yawFriendSet.insert(cell!.textLabel!.text!)
+            
+//            for (var i = 0; i < (self.delegate?.facebookFriends)!.count; i += 1) {
+//                if (self.delegate?.facebookFriends)![i] == cell!.textLabel!.text! {
+//                    (self.delegate?.facebookFriends)!.removeAtIndex(i)
+//                }
+//            }
             
             self.filteredUsers.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
