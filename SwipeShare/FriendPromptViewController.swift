@@ -24,6 +24,7 @@ class FriendPromptViewController: UIViewController {
     @IBOutlet weak var newUserPicture: UIImageView!
     
     @IBAction func cancelMessage(sender: AnyObject) {
+        self.delegate?.navigationController?.popViewControllerAnimated(false)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

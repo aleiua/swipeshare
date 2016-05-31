@@ -28,6 +28,7 @@
 		05FA09261C5E8D4D0025A1F6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */; };
 		5E2630D41CE0F33500746016 /* QuestionTransparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2630D31CE0F33500746016 /* QuestionTransparent.png */; };
 		5E331D7C1CD06B03007FF047 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E331D7B1CD0699F007FF047 /* ionicons.ttf */; };
+		5E63C2F11CFE1A5D00E2919C /* userIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E63C2F01CFE1A5D00E2919C /* userIcon.png */; };
 		5E711FCB1CB7365800A3F113 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */; };
 		5E8B668E1CF2514D00695720 /* Ionicons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8B668D1CF2514D00695720 /* Ionicons.swift */; };
 		5E91D1441CDA5E9600935168 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E91D1431CDA5E9600935168 /* QuestionMark.png */; };
@@ -107,6 +108,7 @@
 		05FA09251C5E8D4D0025A1F6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		5E2630D31CE0F33500746016 /* QuestionTransparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionTransparent.png; sourceTree = "<group>"; };
 		5E331D7B1CD0699F007FF047 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
+		5E63C2F01CFE1A5D00E2919C /* userIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userIcon.png; sourceTree = "<group>"; };
 		5E711FCA1CB7365800A3F113 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
 		5E8B668D1CF2514D00695720 /* Ionicons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ionicons.swift; sourceTree = "<group>"; };
 		5E91D1431CDA5E9600935168 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				053A1E541CF54751002307B6 /* CoreData Entities */,
 				053A1E551CF547F1002307B6 /* Settings Controllers */,
 				93F4222D1C5575B1006DEB7E /* LocationViewController.swift */,
+				5E63C2F01CFE1A5D00E2919C /* userIcon.png */,
 				79098CF61CEA307400923D3A /* TabBarController.swift */,
 				937E7F321C55672700057D32 /* Main.storyboard */,
 				937E7F351C55672700057D32 /* SwipeShare.xcdatamodeld */,
@@ -506,6 +509,7 @@
 				5EB8A1141CBB38C4003B575D /* OverlayView.xib in Resources */,
 				5E2630D41CE0F33500746016 /* QuestionTransparent.png in Resources */,
 				937E7F391C55672700057D32 /* Assets.xcassets in Resources */,
+				5E63C2F11CFE1A5D00E2919C /* userIcon.png in Resources */,
 				5E91D1441CDA5E9600935168 /* QuestionMark.png in Resources */,
 				937E7F341C55672700057D32 /* Main.storyboard in Resources */,
 			);
