@@ -29,6 +29,13 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     var imagePicker: UIImagePickerController? = UIImagePickerController()
     
+    var yawFriends = Set<String>()
+    var blockedUsers = [String]()
+    var facebookFriends = [String]()
+    
+
+    
+    
     // Current user profile for settings & profile picture
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var currentUserProfileArray: [CurrentUserProfile] = [CurrentUserProfile]()
@@ -49,40 +56,14 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         currentUserProfileArray[0].shareWithFriendsSetting = !currentUserProfileArray[0].shareWithFriendsSetting
     }
     
-    @IBAction func getFacebookFriends(sender: AnyObject) {
-        
-        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "friends, picture"])
-        
-        graphRequest.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
-            if(error == nil)
-            {
-                let resultDict = result as! NSDictionary
-                print("result \(resultDict)")
-                
-//                let data : NSArray = resultDict.objectForKey("data") as! NSArray
-//
-//                for i in data {
-//                    let valueDict : NSDictionary = i as! NSDictionary
-//                    print("valueDict = \(valueDict)")
-//                    
-//                    let id = valueDict.objectForKey("id") as! String
-//                    print("the id value is \(id)")
-//                }
-                
-            }
-            else
-            {
-                print("error \(error)")
-            }
-        })
-        return
-        
-    }
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        setupFriends()
+        getBlockedList()
         
         // Fetch the current user from CoreData, if the entity has been made
         let userProfileFetch = NSFetchRequest(entityName: "CurrentUserProfile")
@@ -126,6 +107,10 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
         // Load defaults for settings
         navBar.title = "Settings"
+        let attributes = [NSFontAttributeName: UIFont.ioniconOfSize(30)] as Dictionary!
+        navBar.leftBarButtonItem!.setTitleTextAttributes(attributes, forState: .Normal)
+        navBar.leftBarButtonItem!.title = String.ioniconWithName(.Home)
+        
         shareWithFriendsSwitch.on = currentUserProfileArray[0].shareWithFriendsSetting
         distanceSlider.value = Float(currentUserProfileArray[0].maxDistanceSetting)
         let initialValue = Int(distanceSlider.value)
@@ -145,6 +130,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
         // Update name field with Facebook username taken from Parse
         usernameField.text = PFUser.currentUser()?["name"] as? String
+        
     }
     
     
@@ -213,6 +199,13 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         }
         else if (indexPath.section == 1) {
             // Will be segues to friend functionality
+            if (indexPath.row == 0) {
+                performSegueWithIdentifier("toEditFriends", sender: nil)
+            }
+            else if (indexPath.row == 1) {
+                
+                performSegueWithIdentifier("toAddFriends", sender: nil)
+            }
 
         }
         else if (indexPath.section == 2) {
@@ -223,6 +216,83 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
     
     
+    
+    
+    func setupFriends() {
+        getFriendList()
+        findFacebookFriends()
+    }
+    
+    func findFacebookFriends() {
+
+        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"friends"])
+        
+        graphRequest.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
+            if(error == nil)
+            {
+                
+                let resultDictionary = result as! NSDictionary
+                let friendDictionary = resultDictionary.objectForKey("friends") as! NSDictionary
+                let data = friendDictionary.objectForKey("data") as! NSArray
+                
+                
+                for item in data {
+                    let itemDict = item as! NSDictionary
+                    let friendName = itemDict.objectForKey("name") as! String
+                    // Check to make sure aren't already friends.
+                    if (!self.yawFriends.contains(friendName)) {
+                        self.facebookFriends.append(friendName)
+                    }
+                }
+                print("FacebookFriends:")
+                print(self.facebookFriends)
+                
+            }
+            else
+            {
+                print("error \(error)")
+            }
+        })
+    }
+    
+    func getFriendList() {
+        
+        // Fetch list of blocked users by username from CoreData
+        let friendFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let friendPredicate = NSPredicate(format: "%K == %@", "status", "friend")
+        friendFetchRequest.predicate = friendPredicate
+        do {
+            let friends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
+            for friend in friends {
+                self.yawFriends.insert(friend.displayName)
+            }
+        } catch {
+            print("error fetching list of blocked users")
+        }
+        
+        
+    }
+    
+    func getBlockedList() {
+        // Fetch list of blocked users by username from CoreData
+        let friendFetchRequest = NSFetchRequest(entityName: "User")
+        // Create Predicate
+        let friendPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
+        friendFetchRequest.predicate = friendPredicate
+        do {
+            let friends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
+            for friend in friends {
+                self.blockedUsers.append(friend.displayName)
+            }
+        } catch {
+            print("error fetching list of blocked users")
+        }
+        
+
+    }
+
+    
     func logout() {
         print(PFUser.currentUser())
         PFUser.logOut()
@@ -230,7 +300,6 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
 
         self.performSegueWithIdentifier("unwindToLogin", sender: self)
-
         
     }
     
@@ -243,10 +312,19 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         }
         
         if segue.identifier == "unwindToLogin" {
-            print("Setting up lDelegate")
             print(delegate)
             let destination = segue.destinationViewController as! ViewController
             destination.delegate = delegate
+        }
+        else if segue.identifier == "toAddFriends" {
+            let destination = segue.destinationViewController as! AddFriendsViewController
+            destination.facebookFriends = self.facebookFriends
+            destination.yawFriends = self.yawFriends
+        }
+        else if segue.identifier == "toEditFriends" {
+            let destination = segue.destinationViewController as! EditFriendsViewController
+            destination.yawFriends = Array(self.yawFriends)
+            destination.blockedUsers = self.blockedUsers
         }
     }
 }

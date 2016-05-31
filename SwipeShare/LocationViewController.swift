@@ -427,6 +427,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
     func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
+        
         userToSpacialError.removeAll()
         var spacialErrors = [Double : Array<PFObject>]()
         var distances = [Double]()
@@ -510,7 +511,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             }
             // if it finds users, display the checklist
             let checkListViewController = storyboard!.instantiateViewControllerWithIdentifier("checklist") as! CheckListViewController
-            checkListViewController.modalPresentationStyle = .OverCurrentContext
+            checkListViewController.modalPresentationStyle = .OverFullScreen
             checkListViewController.delegate = self
             checkListViewController.items = neighbors
             presentViewController(checkListViewController, animated: true, completion: nil)
@@ -1025,7 +1026,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                     
                     if !(neighbor.isEmpty) {
                         let bumpViewController = storyboard!.instantiateViewControllerWithIdentifier("bumpvalidation") as! BumpValidationViewController
-                        bumpViewController.modalPresentationStyle = .OverCurrentContext
+                        bumpViewController.modalPresentationStyle = .OverFullScreen
                         bumpViewController.delegate = self
                         bumpViewController.recipient = neighbor
                         presentViewController(bumpViewController, animated: true, completion: nil)
