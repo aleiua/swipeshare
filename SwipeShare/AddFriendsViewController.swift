@@ -25,7 +25,8 @@ class AddFriendsViewController: UITableViewController {
     var fetchedUsers: [User] = [User]()
     
     var facebookFriends = [String]()
-    var yawFriends = Set<String>()
+    var yawFriendSet = Set<String>()
+
 
 
     
@@ -33,6 +34,8 @@ class AddFriendsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.tableView.rowHeight = 55.0
 
     }
     
@@ -62,7 +65,7 @@ class AddFriendsViewController: UITableViewController {
             overlayView.displayView(view)
 
             
-            self.yawFriends.insert(cell!.textLabel!.text!)
+            self.yawFriendSet.insert(cell!.textLabel!.text!)
             self.facebookFriends.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
@@ -119,6 +122,7 @@ class AddFriendsViewController: UITableViewController {
             
             cell!.detailTextLabel!.font = UIFont.ioniconOfSize(20)
             cell!.detailTextLabel!.text = String.ioniconWithCode("ion-ios-arrow-right")
+            cell!.detailTextLabel!.textColor = UIColor(red: 255.0/255.0, green: 127.0/255.0, blue: 0.0/255.0, alpha: 0.75)
             
         }
         else {
@@ -128,6 +132,7 @@ class AddFriendsViewController: UITableViewController {
             
             cell!.detailTextLabel!.font = UIFont.ioniconOfSize(20)
             cell!.detailTextLabel!.text = String.ioniconWithCode("ion-ios-plus-empty")
+            cell!.detailTextLabel!.textColor = UIColor(red: 0.0/255.0, green: 255.0/255.0, blue: 80.0/255.0, alpha: 1.0)
         }
         
         return cell!
@@ -145,7 +150,7 @@ class AddFriendsViewController: UITableViewController {
         if segue.identifier == "toSearchFriends" {
             
             let destination = segue.destinationViewController as! SearchFriendsViewController
-            destination.yawFriends = self.yawFriends
+            destination.yawFriendSet = self.yawFriendSet
             
         }
     }

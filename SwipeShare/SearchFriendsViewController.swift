@@ -16,7 +16,7 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var yawFriends = Set<String>()
+    var yawFriendSet = Set<String>()
     
     
     let cellIdentifier = "cell"
@@ -53,7 +53,7 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
             
             for item in data {
                 let name = item["name"] as! String
-                if (!self.yawFriends.contains(name)) {
+                if (!self.yawFriendSet.contains(name)) {
                     self.users.append(name)
                 }
             }

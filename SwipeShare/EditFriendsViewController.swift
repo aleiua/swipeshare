@@ -20,21 +20,13 @@ class EditFriendsViewController: UITableViewController {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     // var users: [User] = [User]()
-    var yawFriends = [String]()
-    var blockedUsers = [String]()
+    var yawFriends = [User]()
+    var blockedUsers = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        let friendFetchRequest = NSFetchRequest(entityName: "User")
-        //Creat Sort Descriptor
-        let sortDescriptor = NSSortDescriptor(key: "mostRecentCommunication", ascending: false) // Puts newest messages on top
-        friendFetchRequest.sortDescriptors = [sortDescriptor]
-        // Create Predicate
-//        let friendPredicate = NSPredicate(format: "%K == %@", "status", "friend")
-//        friendFetchRequest.predicate = friendPredicate
+        self.tableView.rowHeight = 55.0
         
     }
     
@@ -93,12 +85,12 @@ class EditFriendsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
 
         if (indexPath.section == 0) {
-            cell!.textLabel!.text = yawFriends[indexPath.row]
+            cell!.textLabel!.text = yawFriends[indexPath.row].displayName
             cell!.detailTextLabel!.text = "Remove Friend"
             cell!.detailTextLabel!.textColor = UIColor.redColor()
         }
         else if (indexPath.section == 1) {
-            cell!.textLabel!.text = blockedUsers[indexPath.row]
+            cell!.textLabel!.text = blockedUsers[indexPath.row].displayName
             cell!.detailTextLabel!.text = "Unblock"
             cell!.detailTextLabel!.textColor = UIColor.blueColor()
         }

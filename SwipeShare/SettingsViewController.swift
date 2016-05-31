@@ -29,8 +29,9 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     var imagePicker: UIImagePickerController? = UIImagePickerController()
     
-    var yawFriends = Set<String>()
-    var blockedUsers = [String]()
+    var yawFriendSet = Set<String>()
+    var yawFriends = [User]()
+    var blockedUsers = [User]()
     var facebookFriends = [String]()
     
 
@@ -240,7 +241,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
                     let itemDict = item as! NSDictionary
                     let friendName = itemDict.objectForKey("name") as! String
                     // Check to make sure aren't already friends.
-                    if (!self.yawFriends.contains(friendName)) {
+                    if (!self.yawFriendSet.contains(friendName)) {
                         self.facebookFriends.append(friendName)
                     }
                 }
@@ -263,9 +264,9 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         let friendPredicate = NSPredicate(format: "%K == %@", "status", "friend")
         friendFetchRequest.predicate = friendPredicate
         do {
-            let friends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
-            for friend in friends {
-                self.yawFriends.insert(friend.displayName)
+            yawFriends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
+            for friend in yawFriends {
+                self.yawFriendSet.insert(friend.displayName)
             }
         } catch {
             print("error fetching list of blocked users")
@@ -281,10 +282,10 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         let friendPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
         friendFetchRequest.predicate = friendPredicate
         do {
-            let friends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
-            for friend in friends {
-                self.blockedUsers.append(friend.displayName)
-            }
+            blockedUsers = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
+//            for friend in friends {
+//                self.blockedUsers.append(friend.displayName)
+//            }
         } catch {
             print("error fetching list of blocked users")
         }
@@ -319,11 +320,11 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         else if segue.identifier == "toAddFriends" {
             let destination = segue.destinationViewController as! AddFriendsViewController
             destination.facebookFriends = self.facebookFriends
-            destination.yawFriends = self.yawFriends
+            destination.yawFriendSet = yawFriendSet
         }
         else if segue.identifier == "toEditFriends" {
             let destination = segue.destinationViewController as! EditFriendsViewController
-            destination.yawFriends = Array(self.yawFriends)
+            destination.yawFriends = yawFriends
             destination.blockedUsers = self.blockedUsers
         }
     }
