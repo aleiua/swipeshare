@@ -154,7 +154,6 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
          
             let cell = self.tableView.cellForRowAtIndexPath(indexPath)
             
-            // otherwise, show the error overlay
             let overlayView = OverlayView()
             overlayView.message.text = "Added \(cell!.textLabel!.text!)!"
             overlayView.displayView(view)

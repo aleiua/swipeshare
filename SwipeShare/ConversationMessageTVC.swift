@@ -121,29 +121,14 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         
     }
     
-    // Swipe left on a message to delete (will only remove from temporary store)
-    //    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    //        if editingStyle == UITableViewCellEditingStyle.Delete {
-    //
-    //            print("COMMIT EDITING")
-    ////            messageManager.messages.removeAtIndex(indexPath.row)
-    ////            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-    //
-    //            // send to parse that message has been removed!!
-    //        }
-    //    }
-    
-    /*********/
+
+
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
-    
-    // FIGURE OUT DELETING FROM CORE DATAAAA
-    // FIGURE OUT DELETING FROM CORE DATAAAA
-    // FIGURE OUT DELETING FROM CORE DATAAAA
-    // FIGURE OUT DELETING FROM CORE DATAAAA
+
     
     func deleteMessage() {
         self.tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForSelectedRow!], withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -153,22 +138,26 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
+        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! UserCell
+
         
-        // FIGURE OUT DELETING FROM CORE DATAAAA
-        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: " Delete ", handler:{action, indexpath in
+        
+        let blockAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: " Block User ", handler:{action, indexpath in
             //self.messageManager.messages.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            let overlayView = OverlayView()
+            overlayView.message.text = "You blocked \(cell.usernameLabel!.text!)"
+            overlayView.displayView(self.view)
+            
+            
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         });
-        deleteAction.backgroundColor = UIColor.redColor()
+        blockAction.backgroundColor = UIColor.init(red: 240.0/255.0, green: 0/255.0, blue: 20/255.0, alpha: 1.0)
         
         
-        let blockAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "  Block  \n  User", handler:{action, indexpath in
-            print("MORE•ACTION");
-        });
-        blockAction.backgroundColor = UIColor.lightGrayColor();
+
         
         
-        return [deleteAction, blockAction]
+        return [blockAction]
     }
     
     //empty implementation
