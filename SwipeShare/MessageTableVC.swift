@@ -105,7 +105,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     @IBAction func refresh(sender: AnyObject) {
         self.getDataFromParse()
         
-        self.getMessagesFromCore()
+        //self.getMessagesFromCore()
         
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
@@ -135,6 +135,12 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
         super.viewWillAppear(animated)
         tableView.reloadData()
         
+        super.viewDidLoad()
+        
+
+
+        
+                
     }
     
     override func didReceiveMemoryWarning() {
