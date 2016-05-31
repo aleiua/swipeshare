@@ -102,4 +102,32 @@ class Utilities {
         return image
         
     }
+    
+    func scaleImage(image: UIImageView) -> UIImageView {
+        
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        
+        let maxDimension = round(screenWidth*0.6)
+        
+        let width = image.image!.size.width
+        let height = image.image!.size.height
+        
+        let scaledHeight: Double
+        let scaledWidth: Double
+        
+        if width > height {
+            scaledWidth = Double(maxDimension)
+            scaledHeight = (Double(height) * scaledWidth)/(Double(width))
+        }
+            
+        else {
+            
+            scaledHeight = Double(maxDimension)
+            scaledWidth = (Double(width) * scaledHeight)/(Double(height))
+        }
+        
+        image.frame = CGRect(x: Double(UIScreen.mainScreen().bounds.width/2-CGFloat(scaledWidth/2)), y: Double(UIScreen.mainScreen().bounds.height/2-CGFloat(scaledHeight/2)), width: scaledWidth , height: scaledHeight)
+        
+        return image
+    }
 }

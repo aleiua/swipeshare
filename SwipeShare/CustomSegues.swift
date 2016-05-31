@@ -112,6 +112,25 @@ class PopNavigationFadeSegue: UIStoryboardSegue {
     
 }
 
+class PopToRootNavigationFadeSegue: UIStoryboardSegue {
+    
+    
+    override func perform() {
+        
+        
+        let src: UIViewController = self.sourceViewController
+        let transition: CATransition = CATransition()
+        let timeFunc : CAMediaTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.duration = 0.4
+        transition.timingFunction = timeFunc
+        transition.type = kCATransitionFade
+        src.navigationController!.view.layer.addAnimation(transition, forKey: kCATransition)
+        src.navigationController!.popToRootViewControllerAnimated(false)
+    }
+    
+}
+
+
 class UIStoryboardUnwindSegueFromRight: UIStoryboardSegue {
     
     override func perform()

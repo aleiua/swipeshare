@@ -18,6 +18,9 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     var message: Message!
     var comingFrom: String!
     
+    
+    let utils = Utilities()
+    
     // For handling add/block of users
     //let messageManager = MessageManager.sharedMessageManager
     var blockedUsers = [User]()
@@ -188,16 +191,35 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
+
         if segue.identifier == "sendAgainSegue" {
             
-            let destinationViewController = segue.destinationViewController as! LocationViewController
+            print("preparing for segue")
             
-            destinationViewController.image = messageImageView
-            
-            
+//            let destinationViewController = segue.destinationViewController as! LocationViewController
+//            
+//            destinationViewController.image = messageImageView
+
         }
     }
 
+    
+    @IBAction func useImageToSwipe(sender: AnyObject) {
+        
+        let rootController = self.navigationController?.viewControllers[0] as! LocationViewController
+        let imageForSwiping = utils.scaleImage(messageImageView)
+        
+        // Other things I've tried working with
+        
+//        rootController.loadViewIfNeeded()
+//        rootController.image = imageForSwiping
+//        (self.navigationController?.viewControllers[0] as! LocationViewController).loadImage(imageForSwiping)
+        
+        rootController.loadImage(imageForSwiping)
+        self.navigationController?.popToViewController(rootController, animated: false)
+
+//        self.navigationController?.popToRootViewControllerAnimated(false)
+    }
     
     // Update user status
     func updateUserStatus(status: String) {
@@ -269,5 +291,4 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     func dismiss() {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-
 }

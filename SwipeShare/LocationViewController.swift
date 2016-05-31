@@ -49,7 +49,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     var currentLocation: CLLocation!
     var currentHeading = Float()
-    var headingBias = Float()
+    
+    var headingBias: Float = 0
+    var biasCoefficient: Float = 0.5
     
     var userObjectId = String()
     var userLatitude = Double()
@@ -69,7 +71,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     // Errors in swiping or distance to other user.
     var STORE_DATA = true
-    var userToSpacialError = [PFObject : Double]()
+    var userToSpatialError = [PFObject : Double]()
     var intendedRecipient: PFObject?
     
     
@@ -184,7 +186,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
                                 self.sendAnother.hidden = false
                         })
                         
-                        self.swipedHeading = self.currentHeading + Float(self.angle) % 360
+                        self.swipedHeading = (self.currentHeading + Float(self.angle)) % 360
                         print("currentHeading is: \(self.currentHeading)")
                         print("Swiped Heading iself.s: \(self.swipedHeading)")
                         self.passNeighborsToChecklist(0);
@@ -222,11 +224,13 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func loadImage(image: UIImageView) {
         
+        self.image = image
+        
         if (image.image != nil && image.hidden == true) {
             image.hidden = false
         }
         
-        promptLabel.hidden = true
+        promptLabel?.hidden = true
         let screenWidth = UIScreen.mainScreen().bounds.width
         
         let maxDimension = round(screenWidth*0.6)
@@ -427,8 +431,9 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
     func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
-        userToSpacialError.removeAll()
-        var spacialErrors = [Double : Array<PFObject>]()
+        
+        userToSpatialError.removeAll()
+        var spatialErrors = [Double : Array<PFObject>]()
         var distances = [Double]()
         
         for n in neighbors {
@@ -454,33 +459,32 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             }
             
             // Data retrieval
-            userToSpacialError[n] = distance
+            userToSpatialError[n] = distance
             
             
             // Old entry in dictionary
-            var previousEntry = spacialErrors[distance]
+            var previousEntry = spatialErrors[distance]
             // Check if someone else has same distance
             if previousEntry == nil {
                 var newArray = [PFObject]()
                 newArray.append(n)
 
-                spacialErrors[distance] = newArray
+                spatialErrors[distance] = newArray
                 distances.append(distance)
 
             }
             else {
                 previousEntry!.append(n)
-                spacialErrors[distance] = previousEntry
+                spatialErrors[distance] = previousEntry
             }
         }
         
         distances.sortInPlace() // Is this less efficient than regular sort?
         var orderedNeighbors = [PFObject]()
         
-        
         // Convert sorted distances into sorted objects.
         for d in distances {
-            let arr = spacialErrors[d]
+            let arr = spatialErrors[d]
             for obj in arr! {
                 orderedNeighbors.append(obj)
             }
@@ -502,17 +506,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
     func passNeighborsToChecklist(sort: Int) {
         
-        var neighbors = getNeighbors(0)
+        var sortedNeighbors = getNeighbors(0)
         
-        if (neighbors.count != 0) {
+        if (sortedNeighbors.count != 0) {
             if (STORE_DATA) {
-                intendedRecipient = neighbors[0]
+                intendedRecipient = sortedNeighbors[0]
             }
             // if it finds users, display the checklist
             let checkListViewController = storyboard!.instantiateViewControllerWithIdentifier("checklist") as! CheckListViewController
             checkListViewController.modalPresentationStyle = .OverCurrentContext
             checkListViewController.delegate = self
-            checkListViewController.items = neighbors
+            checkListViewController.items = sortedNeighbors
             presentViewController(checkListViewController, animated: true, completion: nil)
         }
         else {
@@ -524,7 +528,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     
 
     
-    func sendToUsers(users: [PFObject], bluetooth: Bool) {
+    func sendToUsers(recipients: [PFObject], bluetooth: Bool) {
         if (DEBUG) {
             print("Sending to users")
         }
@@ -533,7 +537,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         let jpgImage = UIImageJPEGRepresentation(image.image!, 0.5)
         let imageFile = PFFile(name: filename, data: jpgImage!)
         
-        for user in users {
+        for user in recipients {
             let toSend = PFObject(className: "sentPicture")
             toSend["date"] = NSDate()
             toSend["sender"] = PFUser.currentUser()
@@ -551,8 +555,17 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             pushToUser(PFUser.currentUser()!, recipient: user as! PFUser, photo: toSend)
         }
         
-        if (!bluetooth && STORE_DATA && users.count == 1) {
-            storeActionData(users[0])
+        // Update error if there is a single recipient
+        if (recipients.count == 1) {
+            for user in userToSpatialError {
+                if (String(user.0["username"]) == String(recipients[0]["username"])) {
+                    updateHeadingBias(userToSpatialError[user.0]!)
+                }
+            }
+        }
+        
+        if (!bluetooth && STORE_DATA && recipients.count == 1) {
+            storeActionData(recipients[0])
         }
         
     }
@@ -573,12 +586,12 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         data["currentLongitude"] = currUser!["longitude"]
         
         data["intendedRecipient"] = intendedRecipient!["name"]
-        data["intendedBearingAccuracy"] = userToSpacialError[intendedRecipient!]
+        data["intendedBearingAccuracy"] = userToSpatialError[intendedRecipient!]
         data["intendedLatitude"] = intendedRecipient!["latitude"]
         data["intendedLongitude"] = intendedRecipient!["longitude"]
         
         data["actualRecipient"] = actualRecipient["name"]
-        data["actualBearingAccuracy"] = userToSpacialError[actualRecipient]
+        data["actualBearingAccuracy"] = userToSpatialError[actualRecipient]
         data["actualLatitude"] = actualRecipient["latitude"]
         data["actualLongitude"] = actualRecipient["longitude"]
         
@@ -749,8 +762,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         self.sendAnother.hidden = true
         self.sendAnother.alpha = 0
         
-        self.image.image = nil
-        self.image.hidden = true
+        self.image?.image = nil
+        self.image?.hidden = true
         
     }
     
@@ -898,7 +911,6 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     */
     func locationManager(manager: LKLocationManager, didUpdateHeading newHeading: CLHeading) {
         
-        headingBias = 0
         currentHeading = Float(locationManager.heading!.trueHeading) + headingBias
     }
     
@@ -1105,6 +1117,15 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
             return neighbor
         }
 
+    }
+
+    /****************************Calculating Heading Bias********************************/
+    
+    func updateHeadingBias(error: Double) {
+    
+        headingBias = headingBias + (Float(error) * biasCoefficient)
+        biasCoefficient = biasCoefficient * 0.85
+        
     }
     
     
