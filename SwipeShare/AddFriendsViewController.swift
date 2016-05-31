@@ -14,6 +14,9 @@ class AddFriendsViewController: UITableViewController {
     
     @IBOutlet var navBar: UINavigationItem!
     
+    var delegate: SettingsViewController? = nil
+
+    
     let maxFriends = 10
     
     let cellIdentifier = "cell"
@@ -215,6 +218,8 @@ class AddFriendsViewController: UITableViewController {
     }
     
     
+    
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return cellAtIndexPath(indexPath)
         
@@ -228,7 +233,7 @@ class AddFriendsViewController: UITableViewController {
             cell!.textLabel!.text = "Add Friends by Name"
             
             cell!.detailTextLabel!.font = UIFont.ioniconOfSize(20)
-            cell!.detailTextLabel!.text = String.ioniconWithCode("ion-ios-arrow-right")
+            cell!.detailTextLabel!.text = String.ioniconWithCode("ion-ios-arrow-forward")
             cell!.detailTextLabel!.textColor = UIColor(red: 255.0/255.0, green: 127.0/255.0, blue: 0.0/255.0, alpha: 0.75)
             
         }
@@ -239,7 +244,7 @@ class AddFriendsViewController: UITableViewController {
             
             cell!.detailTextLabel!.font = UIFont.ioniconOfSize(20)
             cell!.detailTextLabel!.text = String.ioniconWithCode("ion-ios-plus-empty")
-            cell!.detailTextLabel!.textColor = UIColor(red: 0.0/255.0, green: 255.0/255.0, blue: 80.0/255.0, alpha: 1.0)
+            cell!.detailTextLabel!.textColor = UIColor(red: 0.0/255.0, green: 200.0/255.0, blue: 80.0/255.0, alpha: 1.0)
         }
         
         return cell!

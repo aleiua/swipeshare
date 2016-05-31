@@ -192,6 +192,7 @@ class MessageTableVC: UITableViewController, UISearchBarDelegate, UISearchDispla
     
     // Simple delete functionality for rows
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         if editingStyle == UITableViewCellEditingStyle.Delete {
             let itemToDelete = fetchedMessages[indexPath.row]
             managedContext.deleteObject(itemToDelete)

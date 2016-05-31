@@ -13,6 +13,8 @@ class EditFriendsViewController: UITableViewController {
     
     
     @IBOutlet var navBar: UINavigationItem!
+    var delegate: SettingsViewController? = nil
+
     
     let cellIdentifier = "cell"
     //let messageManager = MessageManager.sharedMessageManager
@@ -35,6 +37,14 @@ class EditFriendsViewController: UITableViewController {
         super.viewWillAppear(animated)
         tableView.reloadData()
         
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if (self.isBeingDismissed() || self.isMovingFromParentViewController()) {
+            delegate?.setupFriends()
+        }
     }
     
     override func didReceiveMemoryWarning() {

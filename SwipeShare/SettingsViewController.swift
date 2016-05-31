@@ -63,6 +63,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
         super.viewDidLoad()
         
+        print("Settings viewDidLoad")
+        
         setupFriends()
         getBlockedList()
         
@@ -321,11 +323,13 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             let destination = segue.destinationViewController as! AddFriendsViewController
             destination.facebookFriends = self.facebookFriends
             destination.yawFriendSet = yawFriendSet
+            destination.delegate = self
         }
         else if segue.identifier == "toEditFriends" {
             let destination = segue.destinationViewController as! EditFriendsViewController
             destination.yawFriends = yawFriends
             destination.blockedUsers = self.blockedUsers
+            destination.delegate = self
         }
     }
 }
