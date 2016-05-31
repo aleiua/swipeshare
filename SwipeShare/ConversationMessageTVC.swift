@@ -27,7 +27,7 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
 
     let locView = LocationViewController()
     
-    let didBlock = false
+    var didBlock = false
 
     
     override func viewDidLoad() {
@@ -181,6 +181,7 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
             overlayView.message.text = "You blocked \(cell.usernameLabel!.text!)"
             overlayView.displayView(self.view)
             
+            self.didBlock = true
             
             self.fetchedConversations[indexPath.row].status = "blocked"
             self.updateToBlock()
