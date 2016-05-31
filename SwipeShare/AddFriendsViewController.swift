@@ -46,6 +46,51 @@ class AddFriendsViewController: UITableViewController {
         
     }
     
+    func getUserInfoFromParse(displayName: String) -> [PFObject] {
+        print("getting user info from parse")
+        let query = PFQuery(className:"_User")
+        query.whereKey("name", containsString: displayName)
+        
+        print(displayName)
+        
+        var users = [PFObject]()
+        do {
+            try users = query.findObjects()
+            
+        }
+            // Handle errors in getting pictures from parse
+        catch {
+            print("Error getting received users")
+        }
+        
+        print("number found in parse")
+        print(users.count)
+        return users
+        
+        
+    }
+    
+    func getProfPic(currUser: PFUser, sender: User) {
+        if let picture = currUser["profilePicture"] as? PFFile {
+            
+            picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                if (error == nil) {
+                    
+                    sender.profImageData = imageData
+                    
+                }
+            }
+        }
+        // SAVING MANAGED OBJECT CONTEXT - SAVES USER TO CORE DATA
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+
+    }
+
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         
@@ -63,15 +108,77 @@ class AddFriendsViewController: UITableViewController {
             let overlayView = OverlayView()
             overlayView.message.text = "Added \(cell!.textLabel!.text!)!"
             overlayView.displayView(view)
+            
+            var existingUser = [User]()
+            
+            let checkForUserFetchRequest = NSFetchRequest(entityName: "User")
+            // Create Predicate
+            let checkPredicate = NSPredicate(format: "%K == %@", "displayName", cell!.textLabel!.text!)
+            checkForUserFetchRequest.predicate = checkPredicate
+            do {
+                existingUser = try managedObjectContext.executeFetchRequest(checkForUserFetchRequest) as! [User]
+                print("going to print friend count")
+                print(existingUser.count)
+            } catch {
+                print("error fetching friend list from CoreData")
+            }
 
+            if existingUser.count == 0 {
+                print("creating new sender")
+                let user = getUserInfoFromParse(cell!.textLabel!.text!)
+                    
+                    print("hello")
+                
+                    let currUser = user[0] as! PFUser
+                    let userEntity = NSEntityDescription.entityForName("User", inManagedObjectContext: self.managedObjectContext)
+
+                    let sender = User(username: currUser["username"] as! String, displayName: currUser["name"] as! String, entity: userEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
+
+                    
+                    sender.status = "friend"
+                    
+
+                    
+
+                
+                
+            } else {
+                existingUser[0].status = "friend"
+            }
+            
+            // SAVING MANAGED OBJECT CONTEXT - SAVES USER TO CORE DATA
+            do {
+                try managedObjectContext.save()
+                print("saving new friend")
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
+            
             
             self.yawFriendSet.insert(cell!.textLabel!.text!)
             self.facebookFriends.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        }
+            
         
+        var existingUser2 = [User]()
+        
+        let checkForUserFetchRequest2 = NSFetchRequest(entityName: "User")
+    
+        
+            
+            do {
+                existingUser2 = try managedObjectContext.executeFetchRequest(checkForUserFetchRequest2) as! [User]
+                print("going to print friend count2")
+                print(existingUser2.count)
+                
+            } catch {
+                print("error fetching friend list from CoreData")
+            }
+
+        }
     }
 
+    
     
     
 //    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

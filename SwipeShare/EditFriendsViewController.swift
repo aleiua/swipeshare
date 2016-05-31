@@ -113,6 +113,7 @@ class EditFriendsViewController: UITableViewController {
             overlayView.message.text = "Removed \(cell!.textLabel!.text!) from friends"
             overlayView.displayView(view)
             
+            yawFriends[indexPath.row].status = nil
             self.yawFriends.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             
@@ -125,9 +126,16 @@ class EditFriendsViewController: UITableViewController {
             overlayView.message.text = "Unblocked \(cell!.textLabel!.text!)"
             overlayView.displayView(view)
             
-            
+            blockedUsers[indexPath.row].status = nil
             self.blockedUsers.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+        
+        // SAVING MANAGED OBJECT CONTEXT - SAVES USER TO CORE DATA
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
         }
         
     }

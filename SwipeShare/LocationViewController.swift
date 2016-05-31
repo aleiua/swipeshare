@@ -607,6 +607,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         return false
     }
 
+    
+    
      
     func getPictureObjectsFromParse() -> Array<PFObject> {
         
