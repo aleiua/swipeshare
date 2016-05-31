@@ -607,6 +607,8 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
         return false
     }
 
+    
+    
      
     func getPictureObjectsFromParse() -> Array<PFObject> {
         
@@ -666,7 +668,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
 
                     // If sender is a blocked user - do not save or display incoming message
                     if sender.status == "blocked" {
-                        abort()
+                        //abort()
                     }
                     
                     // Filter messages coming from blocked users
@@ -1018,7 +1020,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     func locationManager(manager: LKLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
 //        print(beacons)
         
-        if (image != nil && image.hidden == false) {
+        if (image != nil && sendAnother.hidden == true) {
             for beacon in beacons {
                 if (beacon.rssi > -38 && beacon.rssi != 0 && image.hidden == false) {
                     

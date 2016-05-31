@@ -49,26 +49,26 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         self.scrollView.minimumZoomScale = 1.0
         self.scrollView.maximumZoomScale = 4.0
         
-        // Fetch blocked users for referencing when giving prompt (Previously located in Message Table VC)
-        let blockedUserFetchRequest = NSFetchRequest(entityName: "User")
-        // Create Predicate
-        let blockedPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
-        blockedUserFetchRequest.predicate = blockedPredicate
-        
-        do {
-            blockedUsers = try managedObjectContext.executeFetchRequest(blockedUserFetchRequest) as! [User]
-            print("going to print blocked users count")
-            print(blockedUsers.count)
-        } catch {
-            print("error fetching blocked user list from CoreData")
-        }
+//        // Fetch blocked users for referencing when giving prompt (Previously located in Message Table VC)
+//        let blockedUserFetchRequest = NSFetchRequest(entityName: "User")
+//        // Create Predicate
+//        let blockedPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
+//        blockedUserFetchRequest.predicate = blockedPredicate
+//        
+//        do {
+//            blockedUsers = try managedObjectContext.executeFetchRequest(blockedUserFetchRequest) as! [User]
+//            print("going to print blocked users count")
+//            print(blockedUsers.count)
+//        } catch {
+//            print("error fetching blocked user list from CoreData")
+//        }
         
         
         // Fetch friends for referencing when giving prompt
         let friendFetchRequest = NSFetchRequest(entityName: "User")
         // Create Predicate
         let friendPredicate = NSPredicate(format: "%K == %@", "status", "friend")
-        blockedUserFetchRequest.predicate = friendPredicate
+        friendFetchRequest.predicate = friendPredicate
         do {
             fetchedFriends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
             print("going to print friend count")
@@ -205,7 +205,6 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
         
         if status == "blocked" {
             blockingUser = true
-            // Delete messages from core data
         }
         
         do {
@@ -219,40 +218,6 @@ class MessageDetailVC: UIViewController, UIScrollViewDelegate{
     }
 
 
-//    // Called when a message is received from a new user to save friend to CoreData
-//    func saveFriend() {
-//        
-//        let entity = NSEntityDescription.entityForName("Friend", inManagedObjectContext: managedObjectContext)
-//        let friend = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
-//        friend.setValue(message.sender, forKey: "username")
-//        
-//      //
-//        getPhoto()
-//    }
-//    
-//
-//    // Called when user decides to block another user
-//    // Saves a corresponding BlockedUser entity to CoreData
-//    func blockUser() {
-//        
-//        blockingUser = true
-//        
-//        // Save to CoreData
-//        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-//        let entity = NSEntityDescription.entityForName("BlockedUser", inManagedObjectContext: managedObjectContext)
-//        let blockedUser = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:  managedObjectContext)
-//        blockedUser.setValue(message.sender, forKey: "username")
-//        
-//        do {
-//            try managedObjectContext.save()
-//            print("successfully blocked user")
-//        } catch let error {
-//            print("error blocking user in managedObjectContext: \(error)")
-//        }
-//        
-//        // Once migration to core data is complete, this method needs to be implemented in MessageTableVC
-////        delegate?.removeBlockedUserMessages()
-//    }
 
     // Check to see if the user is a friend
     func isFriend(user: User) -> Bool {

@@ -29,8 +29,10 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     var imagePicker: UIImagePickerController? = UIImagePickerController()
     
-    var yawFriends = Set<String>()
-    var blockedUsers = [String]()
+    var yawFriendSet = Set<String>()
+    var yawFriends = [User]()
+    var blockedUsers = [User]()
+    var blockedUserSet = Set<String>()
     var facebookFriends = [String]()
     
 
@@ -62,8 +64,9 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
         super.viewDidLoad()
         
+        print("Settings viewDidLoad")
+        
         setupFriends()
-        getBlockedList()
         
         // Fetch the current user from CoreData, if the entity has been made
         let userProfileFetch = NSFetchRequest(entityName: "CurrentUserProfile")
@@ -103,13 +106,23 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             self.userIcon.image = UIImage(data: self.currentUserProfileArray[0].profImageData!, scale: 1.0)
         }
 
-        
+    
         
         // Load defaults for settings
         navBar.title = "Settings"
-        let attributes = [NSFontAttributeName: UIFont.ioniconOfSize(30)] as Dictionary!
-        navBar.leftBarButtonItem!.setTitleTextAttributes(attributes, forState: .Normal)
-        navBar.leftBarButtonItem!.title = String.ioniconWithName(.Home)
+        
+        // Uncomment for Home lettering 
+        navBar.leftBarButtonItem!.title = " Home"
+        navBar.leftBarButtonItem!.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!], forState: .Normal)
+        
+        // Uncomment for Home Icon
+//        let attributes = [NSFontAttributeName: UIFont.ioniconOfSize(30)] as Dictionary!
+//        navBar.leftBarButtonItem!.setTitleTextAttributes(attributes, forState: .Normal)
+//        navBar.leftBarButtonItem!.title = String.ioniconWithCode("ion-ios-home-outline")
+        
+
+        
+        
         
         shareWithFriendsSwitch.on = currentUserProfileArray[0].shareWithFriendsSetting
         distanceSlider.value = Float(currentUserProfileArray[0].maxDistanceSetting)
@@ -213,18 +226,18 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         }
         
     }
-    
-    
-    
-    
+
     
     func setupFriends() {
+        getBlockedList()
         getFriendList()
         findFacebookFriends()
     }
     
     func findFacebookFriends() {
+        
 
+        facebookFriends.removeAll()
         let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"friends"])
         
         graphRequest.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
@@ -240,7 +253,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
                     let itemDict = item as! NSDictionary
                     let friendName = itemDict.objectForKey("name") as! String
                     // Check to make sure aren't already friends.
-                    if (!self.yawFriends.contains(friendName)) {
+                    if (!self.yawFriendSet.contains(friendName) && !self.blockedUserSet.contains(friendName)) {
+
                         self.facebookFriends.append(friendName)
                     }
                 }
@@ -256,34 +270,41 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     }
     
     func getFriendList() {
-        
+
+        yawFriends.removeAll()
+        yawFriendSet.removeAll()
         // Fetch list of blocked users by username from CoreData
         let friendFetchRequest = NSFetchRequest(entityName: "User")
         // Create Predicate
         let friendPredicate = NSPredicate(format: "%K == %@", "status", "friend")
         friendFetchRequest.predicate = friendPredicate
         do {
-            let friends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
-            for friend in friends {
-                self.yawFriends.insert(friend.displayName)
+            yawFriends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
+            for friend in yawFriends {
+                self.yawFriendSet.insert(friend.displayName)
             }
         } catch {
             print("error fetching list of blocked users")
         }
         
+        print("FriendSet: \(yawFriendSet)")
+        
         
     }
     
     func getBlockedList() {
+        
+        blockedUsers.removeAll()
+        blockedUserSet.removeAll()
         // Fetch list of blocked users by username from CoreData
         let friendFetchRequest = NSFetchRequest(entityName: "User")
         // Create Predicate
         let friendPredicate = NSPredicate(format: "%K == %@", "status", "blocked")
         friendFetchRequest.predicate = friendPredicate
         do {
-            let friends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
-            for friend in friends {
-                self.blockedUsers.append(friend.displayName)
+            blockedUsers = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
+            for user in blockedUsers {
+                self.blockedUserSet.insert(user.displayName)
             }
         } catch {
             print("error fetching list of blocked users")
@@ -319,12 +340,14 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         else if segue.identifier == "toAddFriends" {
             let destination = segue.destinationViewController as! AddFriendsViewController
             destination.facebookFriends = self.facebookFriends
-            destination.yawFriends = self.yawFriends
+            destination.yawFriendSet = yawFriendSet
+            destination.delegate = self
         }
         else if segue.identifier == "toEditFriends" {
             let destination = segue.destinationViewController as! EditFriendsViewController
-            destination.yawFriends = Array(self.yawFriends)
+            destination.yawFriends = yawFriends
             destination.blockedUsers = self.blockedUsers
+            destination.delegate = self
         }
     }
 }

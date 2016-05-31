@@ -13,6 +13,8 @@ class EditFriendsViewController: UITableViewController {
     
     
     @IBOutlet var navBar: UINavigationItem!
+    var delegate: SettingsViewController? = nil
+
     
     let cellIdentifier = "cell"
     //let messageManager = MessageManager.sharedMessageManager
@@ -20,21 +22,13 @@ class EditFriendsViewController: UITableViewController {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     // var users: [User] = [User]()
-    var yawFriends = [String]()
-    var blockedUsers = [String]()
+    var yawFriends = [User]()
+    var blockedUsers = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        let friendFetchRequest = NSFetchRequest(entityName: "User")
-        //Creat Sort Descriptor
-        let sortDescriptor = NSSortDescriptor(key: "mostRecentCommunication", ascending: false) // Puts newest messages on top
-        friendFetchRequest.sortDescriptors = [sortDescriptor]
-        // Create Predicate
-//        let friendPredicate = NSPredicate(format: "%K == %@", "status", "friend")
-//        friendFetchRequest.predicate = friendPredicate
+        self.tableView.rowHeight = 55.0
         
     }
     
@@ -43,6 +37,15 @@ class EditFriendsViewController: UITableViewController {
         super.viewWillAppear(animated)
         tableView.reloadData()
         
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if (self.isBeingDismissed() || self.isMovingFromParentViewController()) {
+            delegate?.setupFriends()
+
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -93,12 +96,12 @@ class EditFriendsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
 
         if (indexPath.section == 0) {
-            cell!.textLabel!.text = yawFriends[indexPath.row]
+            cell!.textLabel!.text = yawFriends[indexPath.row].displayName
             cell!.detailTextLabel!.text = "Remove Friend"
             cell!.detailTextLabel!.textColor = UIColor.redColor()
         }
         else if (indexPath.section == 1) {
-            cell!.textLabel!.text = blockedUsers[indexPath.row]
+            cell!.textLabel!.text = blockedUsers[indexPath.row].displayName
             cell!.detailTextLabel!.text = "Unblock"
             cell!.detailTextLabel!.textColor = UIColor.blueColor()
         }
@@ -121,6 +124,7 @@ class EditFriendsViewController: UITableViewController {
             overlayView.message.text = "Removed \(cell!.textLabel!.text!) from friends"
             overlayView.displayView(view)
             
+            yawFriends[indexPath.row].status = nil
             self.yawFriends.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             
@@ -133,9 +137,16 @@ class EditFriendsViewController: UITableViewController {
             overlayView.message.text = "Unblocked \(cell!.textLabel!.text!)"
             overlayView.displayView(view)
             
-            
+            blockedUsers[indexPath.row].status = nil
             self.blockedUsers.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+        
+        // SAVING MANAGED OBJECT CONTEXT - SAVES USER TO CORE DATA
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
         }
         
     }

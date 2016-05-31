@@ -16,7 +16,7 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var yawFriends = Set<String>()
+    var yawFriendSet = Set<String>()
     
     
     let cellIdentifier = "cell"
@@ -53,7 +53,7 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
             
             for item in data {
                 let name = item["name"] as! String
-                if (!self.yawFriends.contains(name)) {
+                if (!self.yawFriendSet.contains(name)) {
                     self.users.append(name)
                 }
             }
@@ -139,6 +139,8 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
         
         cell.detailTextLabel!.font = UIFont.ioniconOfSize(20)
         cell.detailTextLabel!.text = String.ioniconWithCode("ion-ios-plus-empty")
+        cell.detailTextLabel!.textColor = UIColor(red: 0.0/255.0, green: 200.0/255.0, blue: 80.0/255.0, alpha: 1.0)
+
 
         
         return cell

@@ -14,6 +14,9 @@ class AddFriendsViewController: UITableViewController {
     
     @IBOutlet var navBar: UINavigationItem!
     
+    var delegate: SettingsViewController? = nil
+
+    
     let maxFriends = 10
     
     let cellIdentifier = "cell"
@@ -25,7 +28,8 @@ class AddFriendsViewController: UITableViewController {
     var fetchedUsers: [User] = [User]()
     
     var facebookFriends = [String]()
-    var yawFriends = Set<String>()
+    var yawFriendSet = Set<String>()
+
 
 
     
@@ -33,6 +37,8 @@ class AddFriendsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.tableView.rowHeight = 55.0
 
     }
     
@@ -42,6 +48,61 @@ class AddFriendsViewController: UITableViewController {
         tableView.reloadData()
         
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if (self.isBeingDismissed() || self.isMovingFromParentViewController()) {
+            delegate?.setupFriends()
+        }
+    }
+
+    
+    func getUserInfoFromParse(displayName: String) -> [PFObject] {
+        print("getting user info from parse")
+        let query = PFQuery(className:"_User")
+        query.whereKey("name", containsString: displayName)
+        
+        print(displayName)
+        
+        var users = [PFObject]()
+        do {
+            try users = query.findObjects()
+            
+        }
+            
+            // Handle errors in getting pictures from parse
+        catch {
+            print("Error getting received users")
+        }
+        
+        print("number found in parse")
+        print(users.count)
+        return users
+        
+        
+    }
+    
+    func getProfPic(currUser: PFUser, sender: User) {
+        if let picture = currUser["profilePicture"] as? PFFile {
+            
+            picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                if (error == nil) {
+                    
+                    sender.profImageData = imageData
+                    
+                }
+            }
+        }
+        // SAVING MANAGED OBJECT CONTEXT - SAVES USER TO CORE DATA
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+
+    }
+
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
@@ -60,15 +121,77 @@ class AddFriendsViewController: UITableViewController {
             let overlayView = OverlayView()
             overlayView.message.text = "Added \(cell!.textLabel!.text!)!"
             overlayView.displayView(view)
-
             
-            self.yawFriends.insert(cell!.textLabel!.text!)
+            var existingUser = [User]()
+            
+            let checkForUserFetchRequest = NSFetchRequest(entityName: "User")
+            // Create Predicate
+            let checkPredicate = NSPredicate(format: "%K == %@", "displayName", cell!.textLabel!.text!)
+            checkForUserFetchRequest.predicate = checkPredicate
+            do {
+                existingUser = try managedObjectContext.executeFetchRequest(checkForUserFetchRequest) as! [User]
+                print("going to print friend count")
+                print(existingUser.count)
+            } catch {
+                print("error fetching friend list from CoreData")
+            }
+
+            if existingUser.count == 0 {
+                print("creating new sender")
+                let user = getUserInfoFromParse(cell!.textLabel!.text!)
+                    
+                    print("hello")
+                
+                    let currUser = user[0] as! PFUser
+                    let userEntity = NSEntityDescription.entityForName("User", inManagedObjectContext: self.managedObjectContext)
+
+                    let sender = User(username: currUser["username"] as! String, displayName: currUser["name"] as! String, entity: userEntity!, insertIntoManagedObjectContext: self.managedObjectContext)
+
+                    
+                    sender.status = "friend"
+                    
+
+                    
+
+                
+                
+            } else {
+                existingUser[0].status = "friend"
+            }
+            
+            // SAVING MANAGED OBJECT CONTEXT - SAVES USER TO CORE DATA
+            do {
+                try managedObjectContext.save()
+                print("saving new friend")
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
+            
+            
+            self.yawFriendSet.insert(cell!.textLabel!.text!)
             self.facebookFriends.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        }
+            
         
+        var existingUser2 = [User]()
+        
+        let checkForUserFetchRequest2 = NSFetchRequest(entityName: "User")
+    
+        
+            
+            do {
+                existingUser2 = try managedObjectContext.executeFetchRequest(checkForUserFetchRequest2) as! [User]
+                print("going to print friend count2")
+                print(existingUser2.count)
+                
+            } catch {
+                print("error fetching friend list from CoreData")
+            }
+
+        }
     }
 
+    
     
     
 //    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -105,6 +228,8 @@ class AddFriendsViewController: UITableViewController {
     }
     
     
+    
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return cellAtIndexPath(indexPath)
         
@@ -118,7 +243,8 @@ class AddFriendsViewController: UITableViewController {
             cell!.textLabel!.text = "Add Friends by Name"
             
             cell!.detailTextLabel!.font = UIFont.ioniconOfSize(20)
-            cell!.detailTextLabel!.text = String.ioniconWithCode("ion-ios-arrow-right")
+            cell!.detailTextLabel!.text = String.ioniconWithCode("ion-ios-arrow-forward")
+            cell!.detailTextLabel!.textColor = UIColor(red: 255.0/255.0, green: 127.0/255.0, blue: 0.0/255.0, alpha: 0.75)
             
         }
         else {
@@ -128,6 +254,7 @@ class AddFriendsViewController: UITableViewController {
             
             cell!.detailTextLabel!.font = UIFont.ioniconOfSize(20)
             cell!.detailTextLabel!.text = String.ioniconWithCode("ion-ios-plus-empty")
+            cell!.detailTextLabel!.textColor = UIColor(red: 0.0/255.0, green: 200.0/255.0, blue: 80.0/255.0, alpha: 1.0)
         }
         
         return cell!
@@ -145,7 +272,7 @@ class AddFriendsViewController: UITableViewController {
         if segue.identifier == "toSearchFriends" {
             
             let destination = segue.destinationViewController as! SearchFriendsViewController
-            destination.yawFriends = self.yawFriends
+            destination.yawFriendSet = self.yawFriendSet
             
         }
     }
