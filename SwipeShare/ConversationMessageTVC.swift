@@ -153,10 +153,6 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         });
         blockAction.backgroundColor = UIColor.init(red: 240.0/255.0, green: 0/255.0, blue: 20/255.0, alpha: 1.0)
         
-        
-
-        
-        
         return [blockAction]
     }
     
