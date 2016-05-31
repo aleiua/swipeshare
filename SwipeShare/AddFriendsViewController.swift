@@ -154,9 +154,23 @@ class AddFriendsViewController: UITableViewController {
 
                     
                     sender.status = "friend"
-                    
+                
+                    if let picture = currUser["profilePicture"] as? PFFile {
+                        
+                        picture.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                            if (error == nil) {
+                                
+                                sender.profImageData = imageData
+                                
+                            }
+                        }
+                    }
+                    else {
+                        print("Error getting image data")
+                    }
 
-                    
+
+                
 
                 
                 
