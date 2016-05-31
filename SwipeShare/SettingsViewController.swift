@@ -32,6 +32,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     var yawFriendSet = Set<String>()
     var yawFriends = [User]()
     var blockedUsers = [User]()
+    var blockedUserSet = Set<String>()
     var facebookFriends = [String]()
     
 
@@ -66,7 +67,6 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         print("Settings viewDidLoad")
         
         setupFriends()
-        getBlockedList()
         
         // Fetch the current user from CoreData, if the entity has been made
         let userProfileFetch = NSFetchRequest(entityName: "CurrentUserProfile")
@@ -226,12 +226,10 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         }
         
     }
-    
-    
-    
-    
+
     
     func setupFriends() {
+        getBlockedList()
         getFriendList()
         findFacebookFriends()
     }
@@ -255,7 +253,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
                     let itemDict = item as! NSDictionary
                     let friendName = itemDict.objectForKey("name") as! String
                     // Check to make sure aren't already friends.
-                    if (!self.yawFriendSet.contains(friendName)) {
+                    if (!self.yawFriendSet.contains(friendName) && !self.blockedUserSet.contains(friendName)) {
 
                         self.facebookFriends.append(friendName)
                     }
@@ -297,6 +295,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     func getBlockedList() {
         
         blockedUsers.removeAll()
+        blockedUserSet.removeAll()
         // Fetch list of blocked users by username from CoreData
         let friendFetchRequest = NSFetchRequest(entityName: "User")
         // Create Predicate
@@ -304,9 +303,9 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         friendFetchRequest.predicate = friendPredicate
         do {
             blockedUsers = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
-//            for friend in friends {
-//                self.blockedUsers.append(friend.displayName)
-//            }
+            for user in blockedUsers {
+                self.blockedUserSet.insert(user.displayName)
+            }
         } catch {
             print("error fetching list of blocked users")
         }
