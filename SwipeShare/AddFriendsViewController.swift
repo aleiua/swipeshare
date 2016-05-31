@@ -123,6 +123,11 @@ class AddFriendsViewController: UITableViewController {
             overlayView.message.text = "Added \(cell!.textLabel!.text!)!"
             overlayView.displayView(view)
             
+            self.yawFriendSet.insert(cell!.textLabel!.text!)
+            self.facebookFriends.removeAtIndex(indexPath.row)
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            
+            
             var existingUser = [User]()
             
             let checkForUserFetchRequest = NSFetchRequest(entityName: "User")
@@ -158,6 +163,8 @@ class AddFriendsViewController: UITableViewController {
                 
             } else {
                 existingUser[0].status = "friend"
+                
+                
             }
             
             // SAVING MANAGED OBJECT CONTEXT - SAVES USER TO CORE DATA
@@ -167,19 +174,11 @@ class AddFriendsViewController: UITableViewController {
             } catch {
                 fatalError("Failure to save context: \(error)")
             }
-            
-            
-            self.yawFriendSet.insert(cell!.textLabel!.text!)
-            self.facebookFriends.removeAtIndex(indexPath.row)
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            
-        
-        var existingUser2 = [User]()
-        
-        let checkForUserFetchRequest2 = NSFetchRequest(entityName: "User")
+
+            var existingUser2 = [User]()
+            let checkForUserFetchRequest2 = NSFetchRequest(entityName: "User")
     
-        
-            
+      
             do {
                 existingUser2 = try managedObjectContext.executeFetchRequest(checkForUserFetchRequest2) as! [User]
                 print("going to print friend count2")
