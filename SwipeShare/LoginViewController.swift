@@ -25,16 +25,25 @@ class LoginViewController: PFLogInViewController {
         // Remove the parse Logo
         let logo = UILabel()
         logo.text = "Yaw"
-        logo.textColor = UIColor.whiteColor()
+        logo.textColor = UIColor.orangeColor()
         logo.font = UIFont(name: "HelveticaNeue-UltraLight", size: 80)
-//        logo.shadowColor = UIColor.lightGrayColor()
         logo.shadowOffset = CGSizeMake(2, 2)
         logInView?.logo = logo
         
+        customizeButton(logInView?.logInButton!)
         
-        self.view.backgroundColor = UIColor(red: 0.21, green: 0.27, blue: 0.31, alpha: 1.0)
-    
+        logInView?.passwordForgottenButton?.setTitleColor(UIColor.orangeColor(), forState: .Normal)
+
     }
+    
+    func customizeButton(button: UIButton!) {
+        button.setBackgroundImage(nil, forState: .Normal)
+        button.backgroundColor = UIColor.clearColor()
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.orangeColor().CGColor
+        button.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
+    }
+
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
