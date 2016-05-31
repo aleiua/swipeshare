@@ -52,6 +52,12 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         let sortDescriptor = NSSortDescriptor(key: "mostRecentCommunication", ascending: false) // Puts newest messages on top
         conversationFetchRequest.sortDescriptors = [sortDescriptor]
         
+        
+        let p1 = NSPredicate(format: "status = nil")
+        let p2 = NSPredicate(format: "status != %@", "blocked")
+        let fetchPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [p1, p2])
+        conversationFetchRequest.predicate = fetchPredicate
+        
         do {
             fetchedConversations = try managedContext.executeFetchRequest(conversationFetchRequest) as! [User]
         } catch {
@@ -98,6 +104,17 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
         super.viewWillAppear(animated)
         tableView.reloadData()
         
+        super.viewDidLoad()
+        
+        self.title = "Conversations"
+        
+        getMessagesFromCore()
+        
+        
+        refreshControl = UIRefreshControl()
+        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl!.addTarget(self, action: #selector(MessageTableVC.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -138,6 +155,20 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
     }
     
     
+    
+    // Update table view for after blocking user user
+    func updateToBlock() {
+        self.getMessagesFromCore()
+        
+        self.tableView.reloadData()
+        
+        print("reloading table view after blocking")
+    }
+    
+    
+    
+    
+    
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! UserCell
@@ -150,6 +181,17 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
             overlayView.message.text = "You blocked \(cell.usernameLabel!.text!)"
             overlayView.displayView(self.view)
             
+            
+            self.fetchedConversations[indexPath.row].status = "blocked"
+            self.updateToBlock()
+            
+            do {
+                try self.managedContext.save()
+                print("successfully saved user")
+            } catch let error {
+                print("error saving new friend in managedObjectContext: \(error)")
+            }
+
             
 //            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         });
@@ -237,10 +279,13 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
             print(destinationViewController.user?.displayName)
             
         }
+        
+        if segue.destinationViewController == "tableVC" {
+            
+            print("going to table")
+        }
     }
-    
-    
-    
+
     
 }
 
