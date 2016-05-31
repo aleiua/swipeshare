@@ -35,6 +35,8 @@
 		5EB8A1141CBB38C4003B575D /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB8A1131CBB38C4003B575D /* OverlayView.xib */; };
 		5EF38CC41C7925CE00827882 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF38CC31C7925CE00827882 /* Photos.framework */; };
 		79098CF71CEA307400923D3A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79098CF61CEA307400923D3A /* TabBarController.swift */; };
+		7916B43A1CFCB04800922C20 /* AddFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7916B4391CFCB04800922C20 /* AddFriendsViewController.swift */; };
+		7916B43C1CFCF32100922C20 /* SearchFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7916B43B1CFCF32100922C20 /* SearchFriendsViewController.swift */; };
 		793635EB1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EA1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework */; };
 		793635EF1CB2DB8F005CA708 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635EC1CB2DB8F005CA708 /* FBSDKCoreKit.framework */; };
 		793635F01CB2DB8F005CA708 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */; };
@@ -113,6 +115,8 @@
 		5EF38CC21C7919F000827882 /* Yaw-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yaw-Bridging-Header.h"; sourceTree = "<group>"; };
 		5EF38CC31C7925CE00827882 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		79098CF61CEA307400923D3A /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		7916B4391CFCB04800922C20 /* AddFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendsViewController.swift; sourceTree = "<group>"; };
+		7916B43B1CFCF32100922C20 /* SearchFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsViewController.swift; sourceTree = "<group>"; };
 		793635EA1CB2DB7F005CA708 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
 		793635EC1CB2DB8F005CA708 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		793635ED1CB2DB8F005CA708 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "FacebookSDKs-iOS-20160316/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
@@ -216,6 +220,8 @@
 			children = (
 				054F0B681C8E04D900496D38 /* SettingsViewController.swift */,
 				937D7A531CDC1DBC008783D1 /* FriendTableView.swift */,
+				7916B4391CFCB04800922C20 /* AddFriendsViewController.swift */,
+				7916B43B1CFCF32100922C20 /* SearchFriendsViewController.swift */,
 			);
 			name = "Settings Controllers";
 			sourceTree = "<group>";
@@ -578,9 +584,11 @@
 				5E8B668E1CF2514D00695720 /* Ionicons.swift in Sources */,
 				937D7A541CDC1DBC008783D1 /* FriendTableView.swift in Sources */,
 				939B82971C87852300770F79 /* MessageCell.swift in Sources */,
+				7916B43A1CFCB04800922C20 /* AddFriendsViewController.swift in Sources */,
 				937E7F371C55672700057D32 /* SwipeShare.xcdatamodeld in Sources */,
 				936AEB601CE903DA00F6094F /* ConversationMessageTVC.swift in Sources */,
 				79098CF71CEA307400923D3A /* TabBarController.swift in Sources */,
+				7916B43C1CFCF32100922C20 /* SearchFriendsViewController.swift in Sources */,
 				937E7F311C55672700057D32 /* ViewController.swift in Sources */,
 				5EB8A1121CBB38B0003B575D /* OverlayView.swift in Sources */,
 				932139321C8CE972008A69D9 /* MessageDetailVC.swift in Sources */,

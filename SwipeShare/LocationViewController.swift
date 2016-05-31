@@ -427,6 +427,7 @@ class LocationViewController: ViewController, LKLocationManagerDelegate, UINavig
     // Sorting function
     // Pass in 1 to sort by distance, otherwise sorts by bearing
     func sortNeighbors(sender : PFObject, neighbors : Array<PFObject>, sortBy : Int) -> Array<PFObject> {
+        
         userToSpacialError.removeAll()
         var spacialErrors = [Double : Array<PFObject>]()
         var distances = [Double]()

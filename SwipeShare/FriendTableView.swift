@@ -23,7 +23,6 @@ class FriendTableView: UITableViewController {
     var fetchedUsers: [User] = [User]()
     
     override func viewDidLoad() {
-        print("yayfriendview")
         super.viewDidLoad()
         
         
