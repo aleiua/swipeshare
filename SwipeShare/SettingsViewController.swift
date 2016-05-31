@@ -29,7 +29,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     var imagePicker: UIImagePickerController? = UIImagePickerController()
     
-    
+    var yawFriends = Set<String>()
     var facebookFriends = [String]()
 
     
@@ -211,11 +211,11 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
     
     func setupFriends() {
-        let yawFriends = getFriendList()
-        findFacebookFriends(yawFriends)
+        getFriendList()
+        findFacebookFriends()
     }
     
-    func findFacebookFriends(yawFriends : Set<String>) {
+    func findFacebookFriends() {
 
         let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"friends"])
         
@@ -232,7 +232,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
                     let itemDict = item as! NSDictionary
                     let friendName = itemDict.objectForKey("name") as! String
                     // Check to make sure aren't already friends.
-                    if (!yawFriends.contains(friendName)) {
+                    if (!self.yawFriends.contains(friendName)) {
                         self.facebookFriends.append(friendName)
                     }
                 }
@@ -247,10 +247,9 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         })
     }
     
-    func getFriendList() ->  Set<String>{
+    func getFriendList() {
         
         
-        var yawFriends = Set<String>()
 
         // Fetch list of blocked users by username from CoreData
         let friendFetchRequest = NSFetchRequest(entityName: "User")
@@ -260,13 +259,12 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         do {
             let friends = try managedObjectContext.executeFetchRequest(friendFetchRequest) as! [User]
             for friend in friends {
-                yawFriends.insert(friend.displayName)
+                self.yawFriends.insert(friend.displayName)
             }
         } catch {
             print("error fetching list of blocked users")
         }
         
-        return yawFriends
         
     }
 
@@ -278,7 +276,6 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
 
         self.performSegueWithIdentifier("unwindToLogin", sender: self)
-
         
     }
     
@@ -298,6 +295,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         else if segue.identifier == "toAddFriends" {
             let destination = segue.destinationViewController as! AddFriendsViewController
             destination.facebookFriends = self.facebookFriends
+            destination.yawFriends = self.yawFriends
             
         }
     }

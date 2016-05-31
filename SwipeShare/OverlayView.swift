@@ -12,6 +12,7 @@ class OverlayView: UIView {
 
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var message: UILabel!
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

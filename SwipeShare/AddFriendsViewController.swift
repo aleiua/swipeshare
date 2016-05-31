@@ -25,6 +25,8 @@ class AddFriendsViewController: UITableViewController {
     var fetchedUsers: [User] = [User]()
     
     var facebookFriends = [String]()
+    var yawFriends = Set<String>()
+
 
     
 
@@ -42,8 +44,7 @@ class AddFriendsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("Row: \(indexPath.row)")
-        print("Section: \(indexPath.section)")
+
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -54,7 +55,14 @@ class AddFriendsViewController: UITableViewController {
         }
         else if (indexPath.section == 1) {
             let cell = self.tableView.cellForRowAtIndexPath(indexPath)
-            print(cell!.textLabel!.text!)
+            
+            // otherwise, show the error overlay
+            let overlayView = OverlayView()
+            overlayView.message.text = "Added \(cell!.textLabel!.text!)!"
+            overlayView.displayView(view)
+
+            
+            self.yawFriends.insert(cell!.textLabel!.text!)
             self.facebookFriends.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
@@ -122,17 +130,26 @@ class AddFriendsViewController: UITableViewController {
             cell!.detailTextLabel!.text = String.ioniconWithCode("ion-ios-plus-empty")
         }
         
-//        if friend.status != nil {
-//            cell!.detailTextLabel!.text = friend.status
-//            print("user status:")
-//            print(friend.status)
-//        } else {
-//            print("no status")
-//        }
         return cell!
         
         
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
+        if segue.identifier == "toSearchFriends" {
+            
+            let destination = segue.destinationViewController as! SearchFriendsViewController
+            destination.yawFriends = self.yawFriends
+            
+        }
+    }
+
     
     
     

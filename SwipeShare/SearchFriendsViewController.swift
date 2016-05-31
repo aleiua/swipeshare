@@ -16,6 +16,8 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var yawFriends = Set<String>()
+    
     
     let cellIdentifier = "cell"
     //let messageManager = MessageManager.sharedMessageManager
@@ -26,7 +28,7 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
     var searchActive : Bool = false
 
     var users:[String] = [String]()
-    var filtered:[String] = [String]()
+    var filteredUsers:[String] = [String]()
 
     
     
@@ -48,9 +50,14 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
         query.includeKey("sender")
         query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
             let data = results as [PFObject]!
+            
             for item in data {
-                self.users.append(item["name"] as! String)
+                let name = item["name"] as! String
+                if (!self.yawFriends.contains(name)) {
+                    self.users.append(name)
+                }
             }
+            
             print(self.users)
             self.tableView.reloadData()
         }
@@ -60,10 +67,6 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-        
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
     }
     
@@ -87,6 +90,7 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
         
         if(searchText.characters.count == 0){
             searchActive = false
+            tableView.reloadData()
             return
         } else {
             searchActive = true
@@ -94,7 +98,7 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
         
         
         // Make sure is start of a word not just a substring within a word
-        filtered = users.filter({ (text) -> Bool in
+        filteredUsers = users.filter({ (text) -> Bool in
             
             let index = text.lowercaseString.rangeOfString(searchText.lowercaseString)
             if (index == nil) {
@@ -121,7 +125,7 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (searchActive == true){
-            return self.filtered.count
+            return self.filteredUsers.count
         }
         return 0
     }
@@ -130,7 +134,7 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
-        let name = self.filtered[indexPath.row]
+        let name = self.filteredUsers[indexPath.row]
         cell.textLabel!.text = name
         
         cell.detailTextLabel!.font = UIFont.ioniconOfSize(20)
@@ -139,6 +143,44 @@ class SearchFriendsViewController: UITableViewController, UISearchBarDelegate {
         
         return cell
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        
+        if (indexPath.section == 0) {
+         
+            let cell = self.tableView.cellForRowAtIndexPath(indexPath)
+            
+            // otherwise, show the error overlay
+            let overlayView = OverlayView()
+            overlayView.message.text = "Added \(cell!.textLabel!.text!)!"
+            overlayView.displayView(view)
+            
+            
+            users = users.filter() {$0 != cell!.textLabel!.text!}
+            self.filteredUsers.removeAtIndex(indexPath.row)
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            
+        }
+        
+    }
+
+    
+    
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
+    }
+
     
     
     
