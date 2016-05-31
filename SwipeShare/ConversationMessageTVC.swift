@@ -26,6 +26,8 @@ class ConversationMessageTVC: UITableViewController, UISearchBarDelegate, UISear
     var fetchedConversations: [User] = [User]()
 
     let locView = LocationViewController()
+    
+    let didBlock = false
 
     
     override func viewDidLoad() {

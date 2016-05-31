@@ -17,7 +17,18 @@ class TabBarController: UITabBarController {
     }
     
     
-    
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        if (item == tabBar.items![0]) {
+            print("HISTORY")
+            var contactsController = self.viewControllers![1] as? ConversationMessageTVC
+            print("DidBlock:\(contactsController!.didBlock)")
+            var historyController = self.viewControllers![0] as! MessageTableVC
+        }
+        else if (item == tabBar.items![1]) {
+            print("CONTACTS")
+//            let contactsController = self.tabBarController?.viewControllers![1] as! ConversationMessageTVC
+        }
+    }
     
     
     
