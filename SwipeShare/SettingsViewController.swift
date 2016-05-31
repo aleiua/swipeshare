@@ -106,13 +106,23 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             self.userIcon.image = UIImage(data: self.currentUserProfileArray[0].profImageData!, scale: 1.0)
         }
 
-        
+    
         
         // Load defaults for settings
         navBar.title = "Settings"
-        let attributes = [NSFontAttributeName: UIFont.ioniconOfSize(30)] as Dictionary!
-        navBar.leftBarButtonItem!.setTitleTextAttributes(attributes, forState: .Normal)
-        navBar.leftBarButtonItem!.title = String.ioniconWithName(.Home)
+        
+        // Uncomment for Home lettering 
+        navBar.leftBarButtonItem!.title = " Home"
+        navBar.leftBarButtonItem!.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!], forState: .Normal)
+        
+        // Uncomment for Home Icon
+//        let attributes = [NSFontAttributeName: UIFont.ioniconOfSize(30)] as Dictionary!
+//        navBar.leftBarButtonItem!.setTitleTextAttributes(attributes, forState: .Normal)
+//        navBar.leftBarButtonItem!.title = String.ioniconWithCode("ion-ios-home-outline")
+        
+
+        
+        
         
         shareWithFriendsSwitch.on = currentUserProfileArray[0].shareWithFriendsSetting
         distanceSlider.value = Float(currentUserProfileArray[0].maxDistanceSetting)
